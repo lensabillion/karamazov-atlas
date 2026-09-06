@@ -1,0 +1,752 @@
+/* ============================================================================
+   KARAMAZOV ATLAS — DESIGN SYSTEM
+   ============================================================================
+
+   This file is the single source of truth for every visual decision in the app.
+   No component may declare a colour, size, space, or font of its own. If a value
+   is needed and not defined here, it gets added here first.
+
+   CONTENTS
+     1. Principles          the rules this system is held to
+     2. Fonts               two families, no more
+     3. Tokens              colour, type, space, line, radius
+     4. Reset
+     5. Typography          the only text styles that exist
+     6. Layout              page, section, grid
+     7. Components          nav, card, list, bar, stat, chip, field, button
+     8. Prose               the reading surface
+     9. Data visualisation  the only place categorical colour is allowed
+
+   ----------------------------------------------------------------------------
+   1. PRINCIPLES
+   ----------------------------------------------------------------------------
+
+   ONE  Two font families. Serif (Spectral) for anything read as language —
+        headings and the novel itself. Sans (Alegreya Sans) for anything read as
+        interface — labels, navigation, numbers, controls. No third family.
+
+   TWO  Six type sizes. Every piece of text in the app is one of --text-xs
+        through --text-xl. There is no seventh size and no arbitrary px value.
+
+   THREE Two weights: 400 and 700. Emphasis comes from size, colour, and space
+        before it comes from weight.
+
+   FOUR The background is plain. #ffffff in light, #000000 in dark. Surfaces
+        above it are a single step of grey. There are no gradients, no shadows,
+        no blur.
+
+   FIVE Chrome is neutral plus exactly one accent. The accent (--accent) marks
+        the active and the interactive, and nothing else. If everything is
+        accented, nothing is.
+
+   SIX  Categorical colour exists only to encode data — which of the six
+        character groups a person belongs to. It appears in charts, graphs, and
+        the dots that stand for a group. It never appears in chrome, text, or
+        borders. This separation is the reason colour means anything here.
+
+   SEVEN One border width (1px), one radius (--radius, 2px). Structure is drawn
+        with space and hairlines, not with boxes inside boxes.
+
+   EIGHT Spacing is a six-step scale. Gaps between things are set by the parent
+        with flex/grid `gap`, never by margins on children.
+
+   ============================================================================ */
+
+
+/* ----------------------------------------------------------------------------
+   2. FONTS
+   Loaded in layout.tsx from Google Fonts. Declared here so the stacks live
+   with everything else. Both families carry a real fallback.
+   ---------------------------------------------------------------------------- */
+
+:root {
+  /* Read as language: headings, the novel, quotations. */
+  --font-serif: "Spectral", Georgia, "Times New Roman", serif;
+  /* Read as interface: labels, nav, numbers, controls. */
+  --font-sans: "Alegreya Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+
+/* ----------------------------------------------------------------------------
+   3. TOKENS
+   ---------------------------------------------------------------------------- */
+
+:root {
+  /* --- Type scale. Six sizes. Nothing else is permitted. ------------------ */
+  --text-xs: 0.75rem;    /* 12px — eyebrows, meta, axis labels                */
+  --text-sm: 0.875rem;   /* 14px — nav, list items, controls, table cells     */
+  --text-base: 1rem;     /* 16px — default UI body                           */
+  --text-md: 1.125rem;   /* 18px — reading prose, lede                       */
+  --text-lg: 1.5rem;     /* 24px — section headings                          */
+  --text-xl: 2.25rem;    /* 36px — page title (one per page)                 */
+
+  /* --- Weights. Two. ----------------------------------------------------- */
+  --weight-normal: 400;
+  --weight-bold: 700;
+
+  /* --- Line heights. Three. ---------------------------------------------- */
+  --leading-tight: 1.15;  /* headings                                        */
+  --leading-normal: 1.45; /* interface text                                  */
+  --leading-loose: 1.7;   /* reading prose                                   */
+
+  /* --- Letter spacing. Only eyebrows get tracking. ------------------------ */
+  --tracking-wide: 0.12em;
+
+  /* --- Space scale. Six steps, roughly doubling. -------------------------- */
+  --space-1: 0.25rem;  /*  4px */
+  --space-2: 0.5rem;   /*  8px */
+  --space-3: 1rem;     /* 16px */
+  --space-4: 1.5rem;   /* 24px */
+  --space-5: 2.5rem;   /* 40px */
+  --space-6: 4rem;     /* 64px */
+
+  /* --- Structure. One border, one radius. --------------------------------- */
+  --border-width: 1px;
+  --radius: 2px;
+
+  /* --- Measure. Reading line length. -------------------------------------- */
+  --measure: 34em;      /* prose             */
+  --measure-narrow: 30em; /* lede / intro    */
+
+  /* --- Layout widths. ----------------------------------------------------- */
+  --page-width: 1080px;
+  --page-width-wide: 1240px;
+  --page-width-narrow: 720px;
+
+  /* ======================================================================
+     COLOUR — UI
+     A neutral ramp plus one accent. Five neutrals, in strict order from the
+     page backwards: bg is furthest back, text is furthest forward.
+     ====================================================================== */
+
+  --bg: #ffffff;            /* the page. plain white.                        */
+  --surface: #f6f6f6;       /* one step up: cards, sidebars, chart grounds   */
+  --border: #e4e4e4;        /* hairlines between things                      */
+  --border-strong: #c6c6c6; /* hairlines that need to be seen                */
+
+  --text: #121212;          /* primary reading colour                        */
+  --text-muted: #595959;    /* secondary — supporting sentences              */
+  --text-faint: #8c8c8c;    /* tertiary — labels, counts, disabled           */
+
+  --accent: #9c2318;        /* the one accent: active nav, links, focus      */
+  --accent-bg: #f7eceb;     /* accent at rest behind text                    */
+  --on-accent: #ffffff;     /* text drawn ON the accent, never anywhere else */
+
+  /* ======================================================================
+     COLOUR — DATA
+     Six categorical hues, one per character group. These encode meaning and
+     are used ONLY in visualisations and group markers. Never in chrome.
+     Ordered by group size in the novel, so the eye meets them consistently.
+     ====================================================================== */
+
+  --data-family: #a8322a;
+  --data-women: #2f5487;
+  --data-monastery: #9a7014;
+  --data-boys: #35664c;
+  --data-court: #61407e;
+  --data-town: #6f5a45;
+
+  /* Neutral fill for "no data" in charts. */
+  --data-empty: #e4e4e4;
+}
+
+/* --- Dark theme -------------------------------------------------------------
+   Only tokens are redefined; no component rule lives inside a theme block.
+   Three states are covered: explicit dark, explicit light, and the default
+   unstamped document where only the OS preference is known.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000;          /* plain black */
+    --surface: #0d0d0d;
+    --border: #262626;
+    --border-strong: #404040;
+
+    --text: #f2f0ed;
+    --text-muted: #a0a0a0;
+    --text-faint: #6e6e6e;
+
+    --accent: #e0705a;
+    --accent-bg: #24100d;
+    --on-accent: #1a0a07;
+
+    --data-family: #d4685a;
+    --data-women: #7b9dd4;
+    --data-monastery: #cfa244;
+    --data-boys: #63a882;
+    --data-court: #a482c4;
+    --data-town: #ab9078;
+
+    --data-empty: #262626;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --surface: #0d0d0d;
+  --border: #262626;
+  --border-strong: #404040;
+
+  --text: #f2f0ed;
+  --text-muted: #a0a0a0;
+  --text-faint: #6e6e6e;
+
+  --accent: #e0705a;
+  --accent-bg: #24100d;
+  --on-accent: #1a0a07;
+
+  --data-family: #d4685a;
+  --data-women: #7b9dd4;
+  --data-monastery: #cfa244;
+  --data-boys: #63a882;
+  --data-court: #a482c4;
+  --data-town: #ab9078;
+
+  --data-empty: #262626;
+}
+
+
+/* ----------------------------------------------------------------------------
+   4. RESET
+   ---------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-normal);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+/* Links inherit their colour; only .link opts into the accent. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* One focus treatment across the whole app. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* ----------------------------------------------------------------------------
+   5. TYPOGRAPHY
+   The complete set of text styles. A component picks one; it does not invent.
+   ---------------------------------------------------------------------------- */
+
+/* Page title. One per page, always serif, always --text-xl. */
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-normal);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* Section heading inside a page. */
+.heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-normal);
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* Small heading — card titles, sidebar headings. */
+.subheading {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-weight: var(--weight-normal);
+  line-height: var(--leading-tight);
+  margin: 0;
+}
+
+/* The uppercase label above a title or beside a group of controls. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 0;
+}
+
+/* The opening paragraph of a page. Serif, because it is read as language. */
+.lede {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: var(--leading-loose);
+  color: var(--text-muted);
+  max-width: var(--measure);
+  margin: 0;
+}
+
+/* Ordinary interface text. */
+.text {
+  font-size: var(--text-sm);
+  color: var(--text);
+  margin: 0;
+}
+
+/* Supporting interface text. */
+.text-muted {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Counts, citations, captions. */
+.meta {
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+/* Any figure the reader might compare against another figure. */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The single link style. */
+.link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: var(--border-width) solid transparent;
+}
+.link:hover {
+  border-bottom-color: var(--accent);
+}
+
+
+/* ----------------------------------------------------------------------------
+   6. LAYOUT
+   Spacing between siblings is always `gap` on the parent.
+   ---------------------------------------------------------------------------- */
+
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.page--wide { max-width: var(--page-width-wide); }
+.page--narrow { max-width: var(--page-width-narrow); }
+
+/* Page header: eyebrow, title, lede. */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* A titled block within a page. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Two columns: content and a sidebar that stays put. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--space-5) + var(--space-3));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Auto-filling card grid. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-3);
+}
+
+/* A horizontal run of items that may wrap. */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+.row--between { justify-content: space-between; }
+.row--wide { gap: var(--space-5); }
+
+/* A vertical stack. */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.stack--tight { gap: var(--space-1); }
+.stack--loose { gap: var(--space-4); }
+
+/* Anything wider than the page scrolls inside itself, never the body. */
+.scroll-x {
+  overflow-x: auto;
+}
+
+
+/* ----------------------------------------------------------------------------
+   7. COMPONENTS
+   ---------------------------------------------------------------------------- */
+
+/* --- Navigation ---------------------------------------------------------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg);
+  border-bottom: var(--border-width) solid var(--border);
+}
+
+.nav-brand {
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  margin-right: var(--space-2);
+}
+
+.nav-link {
+  font-size: var(--text-sm);
+  color: var(--text-faint);
+  padding-bottom: var(--space-1);
+  border-bottom: var(--border-width) solid transparent;
+}
+.nav-link:hover { color: var(--text); }
+.nav-link[aria-current="page"] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.nav-spacer { flex: 1; }
+
+/* --- Card ---------------------------------------------------------------- */
+
+.card {
+  background: var(--surface);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* --- List: rows separated by hairlines, no boxes. ------------------------- */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  width: 100%;
+  text-align: left;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
+}
+.list-item:hover { color: var(--text); }
+.list-item__label { flex: 1; min-width: 0; }
+.list-item__lead {
+  color: var(--text-faint);
+  min-width: 2.5em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Bar: a value drawn to scale beside its label. ------------------------ */
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 8em minmax(0, 1fr) 6em;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-1) 0;
+  border-bottom: var(--border-width) solid var(--border);
+  font-size: var(--text-sm);
+}
+
+/* The trailing figure is right-aligned so values form a column the eye can compare. */
+.bar-row > :last-child { text-align: right; }
+
+.bar-track { height: 8px; }
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius);
+  background: var(--group-color, var(--accent));
+}
+
+/* --- Stat: one figure and its label. ------------------------------------- */
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.stat__value {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Chip: a small labelled marker, optionally group-coloured. ------------ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--group-color, var(--text-faint));
+}
+
+/* --- Controls ------------------------------------------------------------ */
+
+.field {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg);
+  border: var(--border-width) solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+}
+.field::placeholder { color: var(--text-faint); }
+
+.button {
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg);
+  color: var(--text);
+  border: var(--border-width) solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.button:hover { border-color: var(--text-faint); }
+.button:disabled { opacity: 0.4; cursor: default; }
+
+.button--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.button--primary:hover { border-color: var(--accent); opacity: 0.9; }
+
+/* A button that reads as a suggestion, not a command. */
+.button--quiet {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text-muted);
+  text-align: left;
+  font-size: var(--text-sm);
+}
+
+.range { accent-color: var(--accent); }
+
+/* --- Notice: one style, marked with the accent. -------------------------- */
+
+.notice {
+  background: var(--accent-bg);
+  border: var(--border-width) solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.notice code {
+  font-family: var(--font-sans);
+  color: var(--text);
+}
+
+
+/* ----------------------------------------------------------------------------
+   8. PROSE
+   The novel itself. The only place --leading-loose and --measure apply.
+   ---------------------------------------------------------------------------- */
+
+.prose {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: var(--leading-loose);
+  color: var(--text);
+  max-width: var(--measure);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.prose p { margin: 0; }
+.prose em { font-style: italic; }
+
+/* A character's name where it appears in the text. */
+.prose mark {
+  background: var(--accent-bg);
+  color: inherit;
+  border-radius: var(--radius);
+  padding: 0 2px;
+}
+
+/* Chat answers use the same reading surface at interface width. */
+.answer {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: var(--leading-loose);
+  color: var(--text);
+  max-width: var(--measure);
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+
+/* ----------------------------------------------------------------------------
+   9. DATA VISUALISATION
+   The six group classes below are the ONLY route by which a categorical colour
+   enters the page. A component sets `class="group-family"` and then refers to
+   var(--group-color); it never names --data-* directly. This keeps the mapping
+   from group to hue in one place.
+   ---------------------------------------------------------------------------- */
+
+.group-family { --group-color: var(--data-family); }
+.group-women { --group-color: var(--data-women); }
+.group-monastery { --group-color: var(--data-monastery); }
+.group-boys { --group-color: var(--data-boys); }
+.group-court { --group-color: var(--data-court); }
+.group-town { --group-color: var(--data-town); }
+
+/* A chart's ground. Same one step up from the page as a card. */
+.chart {
+  background: var(--surface);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+}
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Text drawn inside an SVG takes its colour from the same tokens as the page. */
+.chart-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  fill: var(--text);
+}
+.chart-label--muted { fill: var(--text-faint); }
+
+/* One bar per chapter, in reading order. */
+.sparkbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 88px;
+  min-width: 640px;
+}
+.sparkbar__bar {
+  flex: 1;
+  min-width: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--group-color, var(--accent));
+}
+.sparkbar__bar[data-empty="true"] {
+  background: var(--data-empty);
+}
+
+
+/* ----------------------------------------------------------------------------
+   RESPONSIVE
+   The system has one breakpoint. Below it, split layouts become single column.
+   ---------------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .sidebar { position: static; }
+  .bar-row { grid-template-columns: 7em minmax(0, 1fr) 4.5em; }
+  :root { --text-xl: 1.75rem; }
+}

@@ -1,0 +1,615 @@
+<title>The Karamazov Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Alegreya+Sans:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+:root{
+  --ground:#E9E6DF; --panel:#F4F2EC; --raise:#FBFAF6;
+  --ink:#231E19; --ink-2:#584E44; --ink-3:#8A7F72;
+  --rule:#D2CBBF; --rule-soft:#DFD9CE;
+  --cinnabar:#AE3C2A; --lapis:#2E4879; --ochre:#966C1C;
+  --malachite:#356148; --purpurin:#63406B; --umber:#6A5340;
+  --tint:0.13; --shadow:0 1px 2px rgba(35,30,25,.07), 0 8px 24px rgba(35,30,25,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#16120F; --panel:#1F1A16; --raise:#272119;
+    --ink:#EEE8DD; --ink-2:#B4A899; --ink-3:#8A7D6E;
+    --rule:#39312A; --rule-soft:#2C251F;
+    --cinnabar:#DE6E56; --lapis:#7FA0D4; --ochre:#D6A544;
+    --malachite:#6FAE88; --purpurin:#AE83B5; --umber:#B49579;
+    --tint:0.16; --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#16120F; --panel:#1F1A16; --raise:#272119;
+  --ink:#EEE8DD; --ink-2:#B4A899; --ink-3:#8A7D6E;
+  --rule:#39312A; --rule-soft:#2C251F;
+  --cinnabar:#DE6E56; --lapis:#7FA0D4; --ochre:#D6A544;
+  --malachite:#6FAE88; --purpurin:#AE83B5; --umber:#B49579;
+  --tint:0.16; --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);
+  font-family:"Alegreya Sans","Helvetica Neue",Arial,sans-serif;
+  overflow:hidden;height:100vh}
+#stage{position:fixed;inset:0}
+#map{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#map.dragging{cursor:grabbing}
+
+/* ---- plate ---- */
+#plate{position:fixed;top:20px;left:24px;z-index:5;max-width:min(46vw,420px);pointer-events:none}
+#plate h1{font-family:Prata,Georgia,serif;font-weight:400;
+  font-size:clamp(21px,2.5vw,31px);line-height:1.12;margin:0;letter-spacing:.005em;
+  text-wrap:balance}
+#plate .byline{font-size:13px;color:var(--ink-2);margin-top:5px;letter-spacing:.02em}
+#plate .stat{font-size:11.5px;color:var(--ink-3);margin-top:9px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:500;font-variant-numeric:tabular-nums}
+
+/* ---- controls ---- */
+#tools{position:fixed;top:20px;right:24px;z-index:6;display:flex;gap:6px;align-items:center}
+.btn{font:inherit;font-size:12.5px;font-weight:500;letter-spacing:.02em;
+  background:var(--panel);color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:3px;padding:6px 11px;cursor:pointer;transition:color .15s,border-color .15s}
+.btn:hover{color:var(--ink);border-color:var(--ink-3)}
+.btn:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+.btn.icon{padding:6px 9px;font-variant-numeric:tabular-nums;min-width:30px}
+
+/* ---- legend ---- */
+#legend{position:fixed;left:24px;bottom:20px;z-index:5;display:flex;flex-wrap:wrap;
+  gap:5px;max-width:min(52vw,560px)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;
+  letter-spacing:.015em;padding:4px 10px 4px 8px;border-radius:2px;cursor:pointer;
+  background:var(--panel);border:1px solid var(--rule-soft);color:var(--ink-2);
+  transition:border-color .15s,color .15s}
+.chip:hover{color:var(--ink);border-color:var(--ink-3)}
+.chip:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+.chip .sw{width:9px;height:9px;border-radius:50%;flex:none}
+.chip[aria-pressed="true"]{background:var(--raise);color:var(--ink);border-color:var(--rule)}
+
+/* ---- drawer ---- */
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(380px,88vw);z-index:7;
+  background:var(--panel);border-left:1px solid var(--rule);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;transform:translateX(0);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+#drawer[hidden]{display:flex}
+#drawer.closed{transform:translateX(101%)}
+#drawer header{padding:22px 26px 14px;border-bottom:1px solid var(--rule-soft);flex:none;
+  display:flex;gap:12px;align-items:flex-start}
+#dTitleWrap{flex:1;min-width:0}
+#dKicker{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;
+  margin-bottom:7px;color:var(--accent,var(--ink-3))}
+#dTitle{font-family:Prata,Georgia,serif;font-weight:400;font-size:22px;line-height:1.2;
+  margin:0;text-wrap:balance}
+#dClose{background:none;border:none;color:var(--ink-3);font-size:20px;line-height:1;
+  cursor:pointer;padding:2px 4px;flex:none;font-family:inherit}
+#dClose:hover{color:var(--ink)}
+#dClose:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+#dBody{padding:20px 26px 34px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:18px}
+#dNote{font-family:Spectral,Georgia,serif;font-size:15.5px;line-height:1.62;color:var(--ink);margin:0}
+#dNote em{color:var(--ink-2)}
+#dCite{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:500;padding-top:2px;border-top:1px solid var(--rule-soft)}
+blockquote{margin:0;padding:0 0 0 15px;border-left:2px solid var(--accent,var(--rule));
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;color:var(--ink-2)}
+blockquote footer{font-style:normal;font-family:"Alegreya Sans",sans-serif;font-size:11.5px;
+  letter-spacing:.05em;color:var(--ink-3);margin-top:8px;text-transform:uppercase}
+#dKids{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+#dKidsLabel{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);margin-bottom:6px}
+#dKids li button{width:100%;text-align:left;font:inherit;font-size:14px;color:var(--ink-2);
+  background:none;border:none;border-bottom:1px solid var(--rule-soft);padding:8px 2px;
+  cursor:pointer;display:flex;gap:9px;align-items:baseline}
+#dKids li button:hover{color:var(--ink)}
+#dKids li button:focus-visible{outline:2px solid var(--ochre);outline-offset:-2px}
+#dKids li button .idx{font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums;flex:none;min-width:15px}
+
+/* ---- svg nodes ---- */
+.node{cursor:pointer}
+.node text{dominant-baseline:middle;paint-order:stroke}
+.node .box{transition:fill .15s,stroke .15s}
+.node:hover .box{stroke:var(--ink-3)}
+.node:focus{outline:none}
+.node:focus-visible .box{stroke:var(--ochre);stroke-width:2}
+.knob{cursor:pointer}
+.knob circle{transition:fill .15s}
+.node.on .lbl{font-weight:700}
+.link{fill:none;stroke-linecap:round}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:760px){
+  #plate{max-width:62vw;top:14px;left:16px}
+  #tools{top:14px;right:16px}
+  #legend{display:none}
+  #drawer{top:auto;width:100%;height:58vh;border-left:none;border-top:1px solid var(--rule)}
+  #drawer.closed{transform:translateY(101%)}
+}
+</style>
+
+<div id="stage">
+  <svg id="map" aria-label="Mind map of The Brothers Karamazov"></svg>
+</div>
+
+<div id="plate">
+  <h1>The Brothers Karamazov</h1>
+  <div class="byline">Dostoyevsky, 1880 &middot; trans. Constance Garnett</div>
+  <div class="stat" id="stat">12 books &middot; 93 chapters &middot; 5 sons</div>
+</div>
+
+<div id="tools">
+  <button class="btn" id="bExpand">Expand all</button>
+  <button class="btn" id="bCollapse">Collapse</button>
+  <button class="btn icon" id="bOut" aria-label="Zoom out">&minus;</button>
+  <button class="btn icon" id="bIn" aria-label="Zoom in">+</button>
+  <button class="btn" id="bFit">Fit</button>
+</div>
+
+<div id="legend"></div>
+
+<aside id="drawer" aria-live="polite">
+  <header>
+    <div id="dTitleWrap">
+      <div id="dKicker"></div>
+      <h2 id="dTitle"></h2>
+    </div>
+    <button id="dClose" aria-label="Close panel">&times;</button>
+  </header>
+  <div id="dBody">
+    <p id="dNote"></p>
+    <div id="dQuote"></div>
+    <div id="dCite"></div>
+    <div id="dKidsWrap"><div id="dKidsLabel"></div><ul id="dKids"></ul></div>
+  </div>
+</aside>
+
+<script>
+const P = {
+  cinnabar:'--cinnabar', lapis:'--lapis', ochre:'--ochre',
+  malachite:'--malachite', purpurin:'--purpurin', umber:'--umber'
+};
+
+const DATA = {
+  label:'The Brothers Karamazov', kicker:'The whole map',
+  note:'A father is murdered in a small Russian town. One son is tried for it, another taught the idea that made it possible, a third watches, and the fourth actually did it. Dostoyevsky’s last novel, finished months before his death, uses that plot as the frame for an argument about whether anything is forbidden if God is dead.',
+  cite:'Six branches. Click any node to open it; click the knob to unfold.',
+  children:[
+    /* ============ THE HOUSEHOLD ============ */
+    {label:'The Household', side:'e', hue:'cinnabar', kicker:'Branch — Characters',
+     note:'Old Fyodor Pavlovitch and his four sons — three acknowledged, one not. Dostoyevsky gives each son a faculty: Dmitri the body, Ivan the intellect, Alyosha the heart, Smerdyakov the logic run without either of the last two.',
+     children:[
+      {label:'Fyodor Pavlovitch', note:'The father. Buffoon, sensualist, small-time landowner who made money out of a tavern and two marriages. He forgets his children entirely — they are raised by servants and relatives — and in old age competes with his eldest son for the same woman. Killed in his own house on the night of the storm.', cite:'Bk I, ch. 1 · Bk II, ch. 2 “The Old Buffoon”',
+       children:[
+        {label:'“Why is such a man alive?”', note:'Dmitri’s question in the elder’s cell, asked out loud in front of witnesses — and quoted back at him in court as evidence of intent.', cite:'Bk II, ch. 6'},
+        {label:'The 3,000 roubles', note:'The sum Fyodor keeps in an envelope under his pillow, tied with pink ribbon, meant to buy Grushenka’s visit. It is also the sum Dmitri believes his father owes him from his mother’s estate. Both men think the money is theirs.', cite:'Bk VIII · Bk XII, ch. 11'}
+       ]},
+      {label:'Dmitri — Mitya', note:'The eldest, by the first marriage. An ex-officer: reckless, generous, loud, honest about his own vileness. Engaged to Katerina, ruined by Grushenka, in debt to both. Innocent of the murder and convicted of it.', cite:'Bk III, ch. 3–5 · Bk VIII · Bk XII',
+       children:[
+        {label:'The confession of a passionate heart', note:'Three chapters in the garden where Mitya lays himself out to Alyosha — in verse, in anecdote, and “heels up.” The Karamazov nature stated as a self-diagnosis, not an excuse.', cite:'Bk III, ch. 3–5'},
+        {label:'The amulet', note:'Half of Katerina’s 3,000 roubles, sewn into a rag and worn round his neck for a month. Proof that he is a thief but not a scoundrel — and the one fact nobody at the trial believes.', cite:'Bk IX, ch. 7 “Mitya’s Great Secret”'},
+        {label:'Mokroe', note:'The all-night spree with gypsies, champagne and Grushenka, where the police arrest him at dawn with blood on his hands and money he cannot explain.', cite:'Bk VIII, ch. 7–8'},
+        {label:'The new man', note:'In prison Mitya accepts suffering he did not earn: “what do I care if I spend twenty years in the mines, breaking ore with a hammer?”', cite:'Bk XI, ch. 4 “A Hymn And A Secret”',
+         quote:'A new man has risen up in me. He was hidden in me, but would never have come to the surface, if it hadn’t been for this blow from heaven.', qcite:'Dmitri, Bk XI, ch. 4'}
+       ]},
+      {label:'Ivan', note:'The second son, by the second marriage. A journalist and intellectual, cold on the surface, who cannot make his mind agree with his longing for life. He formulates the idea — no God, therefore no virtue, therefore all things are lawful — and then meets a man who acted on it.', cite:'Bk V · Bk XI',
+       children:[
+        {label:'Rebellion', note:'Ivan will not accept a harmony bought with the torture of one child. He does not deny God; he refuses the ticket to the finished world.', cite:'Bk V, ch. 4',
+         quote:'It’s not God that I don’t accept, Alyosha, only I most respectfully return Him the ticket.', qcite:'Ivan to Alyosha, Bk V, ch. 4'},
+        {label:'The Grand Inquisitor', note:'Ivan’s poem: Christ returns to Seville and is arrested by the Church, which explains that it corrected His work — people want miracle, mystery and authority, not the freedom He left them with. Christ answers only with a kiss.', cite:'Bk V, ch. 5'},
+        {label:'The sticky little leaves', note:'The counterweight to the argument. Ivan’s thirst for life outruns his logic — he loves the spring leaves without believing in the order that produced them.', cite:'Bk V, ch. 3',
+         quote:'Though I may not believe in the order of the universe, yet I love the sticky little leaves as they open in spring.', qcite:'Ivan, Bk V, ch. 3'},
+        {label:'Three interviews', note:'Ivan goes to Smerdyakov three times. On the third the lackey lays out the money and explains, calmly, that Ivan was the author and he only the instrument.', cite:'Bk XI, ch. 6–8'},
+        {label:'The Devil', note:'A shabby gentleman-sponger sits on Ivan’s sofa and repeats his own worst thoughts back to him in a genial voice. Brain fever, or the visitor — the novel refuses to settle it.', cite:'Bk XI, ch. 9 “Ivan’s Nightmare”'}
+       ]},
+      {label:'Alyosha', note:'The third son, twenty, a novice at the monastery, and the one the narrator calls his hero. Everyone confides in him and nobody is embarrassed by him. Zossima sends him out of the monastery to live in the world.', cite:'Bk I, ch. 4 · Bk VII · Epilogue',
+       children:[
+        {label:'The breath of corruption', note:'Zossima’s body decays fast, and the town treats it as a verdict on his sanctity. Alyosha’s faith cracks — not in God, but in the justice of the world’s judgment.', cite:'Bk VII, ch. 1'},
+        {label:'Cana of Galilee', note:'Dozing at the coffin as the Gospel is read, Alyosha sees the wedding feast, goes out and falls to the earth weeping. He rises — in the narrator’s phrase — a firm fighter for the rest of his life.', cite:'Bk VII, ch. 4'},
+        {label:'The speech at the stone', note:'The novel ends with Alyosha telling twelve boys that one good memory from childhood may be the thing that saves a man. Kolya shouts the last line.', cite:'Epilogue, ch. 3',
+         quote:'Hurrah for Karamazov!', qcite:'Kolya Krassotkin — the last words of the novel'}
+       ]},
+      {label:'Smerdyakov', note:'Fyodor’s servant and cook, and — the town assumes — his son by Stinking Lizaveta. Epileptic, fastidious, contemptuous of Russia and of everyone in the house. He listens to Ivan’s ideas more carefully than Ivan does.', cite:'Bk III, ch. 6–8 · Bk XI, ch. 6–8',
+       children:[
+        {label:'Lizaveta Smerdyastchaya', note:'The mute, homeless idiot girl of the town who climbed into the Karamazov garden to give birth and died doing it. Smerdyakov takes his name from her.', cite:'Bk III, ch. 2'},
+        {label:'The signal knocks', note:'Five taps agreed with Fyodor to announce Grushenka. Smerdyakov teaches them to Dmitri — and tells the court he did.', cite:'Bk V, ch. 2 · Bk IX'},
+        {label:'The feigned fit', note:'A real illness he can time. The cellar seizure clears the house on exactly the night it needs clearing.', cite:'Bk VIII, ch. 4 · Bk XI, ch. 8'},
+        {label:'Confession, then rope', note:'He hands Ivan the 3,000 roubles, explains the reasoning he learned from him, and hangs himself the night before the trial — leaving no witness who can be called.', cite:'Bk XI, ch. 8',
+         quote:'For if there’s no everlasting God, there’s no such thing as virtue, and there’s no need of it at all.', qcite:'Smerdyakov to Ivan, Bk XI, ch. 8'}
+       ]}
+     ]},
+
+    /* ============ THE ORBIT ============ */
+    {label:'The Orbit', side:'e', hue:'lapis', kicker:'Branch — Characters',
+     note:'The town around the house: two women who divide Dmitri between them, the monastery that raised Alyosha, a street of schoolboys, and the court that will decide everything on the wrong evidence.',
+     children:[
+      {label:'The women', note:'Dostoyevsky sets two kinds of love against each other — one that wants to forgive and be seen forgiving, and one that has been humiliated and knows it.',
+       children:[
+        {label:'Grushenka', note:'Agrafena Alexandrovna — kept by the merchant Samsonov since she was seventeen and abandoned by a Polish officer before that. Courted by father and son at once. Cruel until the night she is not.', cite:'Bk III, ch. 10 · Bk VII, ch. 3'},
+        {label:'Katerina Ivanovna', note:'Proud, rich, engaged to Dmitri out of gratitude for a humiliation she never forgave. Her love is an obligation she enforces on herself — and her letter destroys him in court.', cite:'Bk III, ch. 4 · Bk XII, ch. 5'},
+        {label:'Madame Hohlakov', note:'A wealthy widow of enthusiasms, comic and useless, who sends Dmitri after gold-mines when he needs 3,000 roubles.', cite:'Bk II, ch. 4 · Bk VIII, ch. 3'},
+        {label:'Lise', note:'Her daughter, fourteen, an invalid engaged to Alyosha, who confesses she dreams of destruction and of a child crucified. “A Little Demon.”', cite:'Bk V, ch. 1 · Bk XI, ch. 3'}
+       ]},
+      {label:'The monastery', note:'The counter-argument to Ivan is not a proof but an institution and a man inside it.',
+       children:[
+        {label:'Father Zossima', note:'The elder. His teaching is not doctrine but a claim about liability: every one of us is responsible to all men for everything. He bows to the ground before Dmitri and dies soon after.', cite:'Bk II, ch. 6 · Bk VI',
+         quote:'Every one is really responsible to all men for all men and for everything.', qcite:'Zossima, quoting his dying brother Markel, Bk VI, ch. 2'},
+        {label:'Father Ferapont', note:'The rival ascetic — fasting, visions, hostility to the elders. Piety as spite, set beside Zossima’s piety as love.', cite:'Bk IV, ch. 1 · Bk VII, ch. 1'},
+        {label:'Rakitin', note:'The seminarist on the make. Explains everyone by their motives, sells Alyosha’s grief to Grushenka for twenty-five roubles, and turns up in court as a witness with a theory.', cite:'Bk VII, ch. 3 · Bk XII, ch. 2'},
+        {label:'Active love', note:'Zossima’s answer to a woman who cannot believe: not an argument but a practice — love your neighbour actively and indefatigably, and belief will follow.', cite:'Bk II, ch. 4',
+         quote:'In as far as you advance in love you will grow surer of the reality of God and of the immortality of your soul.', qcite:'Zossima, Bk II, ch. 4'}
+       ]},
+      {label:'The boys', note:'The subplot that carries the novel’s hope, and the one Dostoyevsky ends on.',
+       children:[
+        {label:'Ilusha', note:'The captain’s son who bites Alyosha’s finger because his father was dragged by the beard in the street. Dies at nine.', cite:'Bk IV, ch. 3–7 · Bk X, ch. 7'},
+        {label:'Kolya Krassotkin', note:'Thirteen, brilliant, insufferable, quoting borrowed nihilism he half understands — an Ivan who can still be reached.', cite:'Bk X, ch. 1–6'},
+        {label:'Captain Snegiryov', note:'“A laceration in the cottage.” He tramples the two hundred roubles that would save his family, because his son watched him be humiliated.', cite:'Bk IV, ch. 6–7'},
+        {label:'Zhutchka / Perezvon', note:'The dog Ilusha fed a pin to at Smerdyakov’s suggestion, and believed he had killed. Kolya keeps the dog alive as a surprise, and holds it back too long.', cite:'Bk X, ch. 4–5'}
+       ]},
+      {label:'Town and court', note:'The machinery that converts a household into a verdict.',
+       children:[
+        {label:'Grigory and Marfa', note:'The old servants who actually raised the sons. Grigory takes the pestle blow to the head and swears the garden door stood open — the single fact the whole case rests on.', cite:'Bk III, ch. 1 · Bk VIII, ch. 4'},
+        {label:'Ippolit Kirillovitch', note:'The prosecutor, consumptive, giving the speech of his life. His “galloping troika” is Russia rushing nowhere, and his psychology is flawless and wrong.', cite:'Bk XII, ch. 6–9'},
+        {label:'Fetyukovitch', note:'The celebrated defence counsel from Petersburg. He dismantles every piece of evidence — there was no money, there was no robbery, there was no murder — and loses.', cite:'Bk XII, ch. 10–13'},
+        {label:'Perhotin', note:'The young official who notices the blood and the banknotes and, by simply asking where the money came from, starts the investigation.', cite:'Bk IX, ch. 1–2'}
+       ]}
+     ]},
+
+    /* ============ GREAT CHAPTERS ============ */
+    {label:'Great Chapters', side:'e', hue:'ochre', kicker:'Branch — Set pieces',
+     note:'Seven chapters that are read on their own, and where the novel’s argument is actually conducted. Each is short; together they are the spine of the book’s reputation.',
+     children:[
+      {label:'Rebellion', note:'Ivan lays out the tortures of children — all from newspapers, he insists — and refuses any future harmony that requires them as its price.', cite:'Bk V, ch. 4'},
+      {label:'The Grand Inquisitor', note:'The poem Ivan never wrote down. Freedom is unbearable to most people; the Church took it off their hands out of pity. The strongest case against Christ in the language, put by a man who wants to be refuted.', cite:'Bk V, ch. 5'},
+      {label:'Conversations and Exhortations', note:'Zossima’s deathbed teaching, transcribed by Alyosha — Dostoyevsky’s answer to Book V, offered not as a rebuttal but as a life.', cite:'Bk VI, ch. 3'},
+      {label:'An Onion', note:'Grushenka’s fable: a wicked woman is nearly pulled from the lake of fire by the one onion she ever gave away, and loses her grip by pushing the others off.', cite:'Bk VII, ch. 3'},
+      {label:'Cana of Galilee', note:'Four pages. The novel’s turn from grief to joy, with no argument in it at all.', cite:'Bk VII, ch. 4'},
+      {label:'The Devil', note:'Ivan’s nightmare interrogates him in the voice of a threadbare provincial gentleman — the humiliation of finding your own metaphysics is vulgar.', cite:'Bk XI, ch. 9'},
+      {label:'The Speech at the Stone', note:'Twelve boys, a funeral, and Alyosha’s claim that a single good memory kept from childhood may be enough to save a person.', cite:'Epilogue, ch. 3'}
+     ]},
+
+    /* ============ THE MURDER ============ */
+    {label:'The Murder', side:'w', hue:'malachite', kicker:'Branch — Plot spine', ordered:true,
+     note:'The events in order. Every step is witnessed by someone who reports it correctly and interprets it wrongly — which is how an innocent man is convicted on true evidence.',
+     children:[
+      {label:'The quarrel', note:'Father and son want the same 3,000 roubles and the same woman. The family assembles at the monastery to settle it and settles nothing.', cite:'Bk II, ch. 6 · Bk III, ch. 9'},
+      {label:'Ivan leaves', note:'Smerdyakov all but tells Ivan what will happen if he goes; Ivan goes to Tchermashnya anyway, and knows what he has done in the carriage.', cite:'Bk V, ch. 7'},
+      {label:'The night of the storm', note:'Dmitri climbs into the garden with a brass pestle, looks through the window at his father, and runs. On the wall he strikes Grigory down.', cite:'Bk VIII, ch. 4'},
+      {label:'Mokroe', note:'He arrives at the inn with a fistful of hundred-rouble notes, orders champagne for the village, and is arrested at dawn.', cite:'Bk VIII, ch. 7–8'},
+      {label:'The three ordeals', note:'The preliminary investigation. Everything Mitya says is true; everything sounds like a lie, most of all the amulet.', cite:'Bk IX, ch. 3–7'},
+      {label:'The witnesses', note:'Grigory’s open door, Rakitin’s theory, the doctors’ contradictions — then Katerina’s letter, produced in a fit of jealousy, in which Dmitri wrote he would kill his father for the money.', cite:'Bk XII, ch. 2–5'},
+      {label:'The two speeches', note:'Prosecution: a Karamazov, therefore capable of it. Defence: no money, no robbery, no murder — and if there was, a son may kill a father who was never one.', cite:'Bk XII, ch. 6–13'},
+      {label:'The verdict', note:'“The peasants stood firm.” Twenty years in the Siberian mines for a murder he did not commit.', cite:'Bk XII, ch. 14'},
+      {label:'The escape', note:'Ivan, delirious, has already arranged and financed the plan. Whether Mitya takes it — whether accepting the suffering means refusing to flee it — is the question the epilogue leaves open.', cite:'Epilogue, ch. 1–2'}
+     ]},
+
+    /* ============ THE QUESTIONS ============ */
+    {label:'The Questions', side:'w', hue:'purpurin', kicker:'Branch — Themes',
+     note:'The novel is built so that every idea is spoken by someone with a stake in it. Nothing is asserted by the narrator; the positions have to argue with each other.',
+     children:[
+      {label:'If there is no God', note:'The premise the whole plot tests: no immortality, therefore no virtue, therefore everything is permitted. Ivan states it as a proposition. Smerdyakov performs it. Dostoyevsky refuses to refute it with an argument.', cite:'Bk II, ch. 6 · Bk XI, ch. 8',
+       quote:'Without God and immortal life? All things are lawful then, they can do what they like?', qcite:'Bk XI, ch. 8'},
+      {label:'Responsible for all', note:'Zossima’s counter-premise, and the novel’s ethical core: guilt is not divisible. If everyone is answerable for everyone, then Ivan is guilty of the murder, and so, in his way, is Alyosha.', cite:'Bk VI, ch. 2–3'},
+      {label:'The suffering of children', note:'The hardest passage in Dostoyevsky, and the one he never softens. Ilusha and Zhutchka answer Ivan’s tortured children not with theodicy but with a funeral and twelve boys who remember.', cite:'Bk V, ch. 4 · Bk X'},
+      {label:'Freedom or bread', note:'The Inquisitor’s charge: people cannot bear to choose, and Christ overestimated them. Nothing in the novel disproves it — it is answered by a kiss and by Alyosha’s conduct.', cite:'Bk V, ch. 5'},
+      {label:'Love in dreams', note:'Loving humanity in general while finding your neighbour unbearable. Madame Hohlakov names her own case; the whole novel is arranged around the difference.', cite:'Bk II, ch. 4'},
+      {label:'The Karamazov force', note:'The family inheritance: appetite, vitality, the ability to contemplate the ideal and the abyss at once. It ruins the father, nearly ruins Dmitri, and is the same energy that makes Alyosha capable of anything.', cite:'Bk III, ch. 3'},
+      {label:'Fathers and sons', note:'Patricide is the literal crime and the general condition. Fetyukovitch asks the jury who made the son — and turns the trial into an indictment of the murdered man.', cite:'Bk XII, ch. 13'}
+     ]},
+
+    /* ============ ARCHITECTURE ============ */
+    {label:'Architecture', side:'w', hue:'umber', kicker:'Branch — Structure', ordered:true,
+     note:'Four parts, twelve books, ninety-three chapters, and an epilogue in three. Dostoyevsky serialised it over two years and planned a sequel following Alyosha into the world; he died four months after finishing.',
+     children:[
+      {label:'Part I · Books I–III', note:'The family assembled and explained. 24 chapters.', cite:'Ends with the household in open war.',
+       children:[
+        {label:'I. The History of a Family', note:'Five chapters. Fyodor, the two marriages, the three sons, and what an elder is.', cite:'5 chapters'},
+        {label:'II. An Unfortunate Gathering', note:'The monastery scene: the buffoon performing, Zossima bowing to Dmitri, the scandal.', cite:'8 chapters'},
+        {label:'III. The Sensualists', note:'Smerdyakov’s origins, Mitya’s confession in three parts, the two women, brandy with the father.', cite:'11 chapters'}
+       ]},
+      {label:'Part II · Books IV–VI', note:'The argument. 17 chapters — the shortest part and the one the book is famous for.', cite:'Ivan’s case, then Zossima’s.',
+       children:[
+        {label:'IV. Lacerations', note:'Four studies in self-inflicted humiliation — the drawing-room, the cottage, the open air.', cite:'7 chapters'},
+        {label:'V. Pro and Contra', note:'Rebellion and The Grand Inquisitor, framed by Smerdyakov with a guitar.', cite:'7 chapters'},
+        {label:'VI. The Russian Monk', note:'Zossima’s life and teaching, set as a single answering block.', cite:'3 chapters'}
+       ]},
+      {label:'Part III · Books VII–IX', note:'The crisis. 21 chapters covering roughly two days.', cite:'Grief, the murder, the arrest.',
+       children:[
+        {label:'VII. Alyosha', note:'The corruption of the body, the onion, Cana of Galilee.', cite:'4 chapters'},
+        {label:'VIII. Mitya', note:'A single desperate day hunting for 3,000 roubles, ending at Mokroe.', cite:'8 chapters'},
+        {label:'IX. The Preliminary Investigation', note:'The three ordeals — procedural, humiliating, and exact.', cite:'9 chapters'}
+       ]},
+      {label:'Part IV · Books X–XII', note:'The reckoning. 31 chapters — the longest part, and the trial is a third of it.', cite:'The boys, Ivan’s collapse, the verdict.',
+       children:[
+        {label:'X. The Boys', note:'Kolya, Ilusha, the dog. The novel’s future generation introduced just before it is needed.', cite:'7 chapters'},
+        {label:'XI. Ivan', note:'The three interviews with Smerdyakov, then the Devil.', cite:'10 chapters'},
+        {label:'XII. A Judicial Error', note:'The trial in full: witnesses, experts, two speeches, and the peasants standing firm.', cite:'14 chapters'}
+       ]},
+      {label:'Epilogue', note:'Three chapters. The escape plan, Katerina and Mitya’s moment of truth, and Ilusha’s funeral — the novel closes on children, not on the court.', cite:'3 chapters'}
+     ]}
+  ]
+};
+
+/* ---------- prepare tree ---------- */
+let uid = 0;
+function prep(n, depth, side, hue, parent){
+  n.id = 'n'+(uid++); n.depth = depth; n.parent = parent || null;
+  n.side = (depth === 1) ? (n.side || 'e') : (side || n.side || 'e');
+  n.hue = (depth === 1) ? (n.hue || 'ochre') : (hue || n.hue || null);
+  n.open = depth < 1;
+  (n.children||[]).forEach(c => prep(c, depth+1, n.side, n.hue, n));
+  return n;
+}
+prep(DATA, 0, 'e', null, null);
+DATA.open = true;
+DATA.children.forEach(b => { b.open = true; });
+
+const ALL = []; (function walk(n){ ALL.push(n); (n.children||[]).forEach(walk); })(DATA);
+const BRANCHES = DATA.children;
+
+/* ---------- measurement ---------- */
+const mc = document.createElement('canvas').getContext('2d');
+const FONT = d => d===0 ? '400 21px Prata, Georgia, serif'
+              : d===1 ? '700 15px "Alegreya Sans", sans-serif'
+              : d===2 ? '500 13.5px "Alegreya Sans", sans-serif'
+              :         '400 12.5px "Alegreya Sans", sans-serif';
+const PADX = d => d===0 ? 22 : d===1 ? 15 : d===2 ? 11 : 9;
+const HGT  = d => d===0 ? 46 : d===1 ? 32 : d===2 ? 26 : 23;
+function measure(n){
+  mc.font = FONT(n.depth);
+  n.tw = mc.measureText(n.label).width;
+  n.w = n.tw + PADX(n.depth)*2;
+  n.h = HGT(n.depth);
+}
+
+/* ---------- layout ---------- */
+const ROW = 27, GAP = {1:34, 2:13, 3:3};
+function kids(n){ return n.open ? (n.children||[]) : []; }
+
+function layout(){
+  ALL.forEach(measure);
+  const vis = [];
+  (function walk(n){ vis.push(n); kids(n).forEach(walk); })(DATA);
+  const visible = new Set(vis);
+
+  ['e','w'].forEach(side => {
+    const cols = [0];
+    let x = DATA.w/2 + 74;
+    for(let d=1; d<=3; d++){
+      cols[d] = x;
+      const wmax = vis.filter(n => n.depth===d && n.side===side).reduce((m,n)=>Math.max(m,n.w),0);
+      x += wmax + 58;
+    }
+    const sgn = side==='e' ? 1 : -1;
+    vis.filter(n => n.depth>0 && n.side===side).forEach(n => { n.ax = sgn * cols[n.depth]; });
+
+    let cursor = 0;
+    const stack = BRANCHES.filter(b => b.side===side);
+    function place(n){
+      const ks = kids(n);
+      if(!ks.length){ n.y = cursor + n.h/2; cursor += Math.max(ROW, n.h + 3); return; }
+      const ys = [];
+      ks.forEach((k,i) => { place(k); ys.push(k.y); if(i < ks.length-1) cursor += (GAP[k.depth]||0); });
+      n.y = (ys[0] + ys[ys.length-1]) / 2;
+    }
+    stack.forEach((b,i) => { place(b); if(i < stack.length-1) cursor += GAP[1]; });
+    const shift = cursor/2;
+    vis.filter(n => n.depth>0 && n.side===side).forEach(n => { n.y -= shift; });
+  });
+
+  DATA.ax = 0; DATA.y = 0;
+  return vis.filter(n => visible.has(n));
+}
+
+/* ---------- render ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('map');
+const vp   = document.createElementNS(NS,'g');
+const gL   = document.createElementNS(NS,'g');
+const gN   = document.createElementNS(NS,'g');
+vp.append(gL, gN); svg.append(vp);
+
+const el = id => document.getElementById(id);
+const cssv = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const hue = n => n.hue ? cssv(P[n.hue]) : cssv('--ochre');
+
+function edge(n, dir){
+  if(n.depth===0) return dir==='e' ? n.w/2 : -n.w/2;
+  return n.side==='e' ? n.ax + n.w : n.ax - n.w;
+}
+function entry(n){ return n.depth===0 ? 0 : n.ax; }
+
+let current = DATA;
+
+function render(){
+  const vis = layout();
+  gL.textContent = ''; gN.textContent = '';
+
+  vis.forEach(n => {
+    kids(n).forEach(k => {
+      const x1 = edge(n, k.side), y1 = n.y, x2 = entry(k), y2 = k.y;
+      const p = document.createElementNS(NS,'path');
+      const mx = (x1 + x2) / 2;
+      p.setAttribute('d', `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`);
+      p.setAttribute('class','link');
+      p.setAttribute('stroke', hue(k));
+      p.setAttribute('stroke-width', k.depth===1 ? 2.2 : k.depth===2 ? 1.5 : 1);
+      p.setAttribute('opacity', k.depth===1 ? .85 : k.depth===2 ? .6 : .42);
+      gL.append(p);
+    });
+  });
+
+  vis.forEach(n => {
+    const g = document.createElementNS(NS,'g');
+    g.setAttribute('class','node' + (n===current ? ' on' : ''));
+    g.setAttribute('transform', `translate(${n.depth===0?0:n.ax},${n.y})`);
+    g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');
+    g.setAttribute('aria-label', n.label);
+    const c = hue(n), d = n.depth;
+    const left = n.depth===0 ? -n.w/2 : (n.side==='e' ? 0 : -n.w);
+
+    const r = document.createElementNS(NS,'rect');
+    r.setAttribute('class','box');
+    r.setAttribute('x', left); r.setAttribute('y', -n.h/2);
+    r.setAttribute('width', n.w); r.setAttribute('height', n.h);
+    r.setAttribute('rx', d===0 ? 3 : d===1 ? 16 : 3);
+    if(d===0){ r.setAttribute('fill', cssv('--raise')); r.setAttribute('stroke', cssv('--ochre')); r.setAttribute('stroke-width',1.5); }
+    else if(d===1){ r.setAttribute('fill', c); r.setAttribute('fill-opacity', cssv('--tint')); r.setAttribute('stroke', c); r.setAttribute('stroke-width',1.4); }
+    else if(d===2){ r.setAttribute('fill', cssv('--panel')); r.setAttribute('stroke', cssv('--rule')); r.setAttribute('stroke-width',1); }
+    else { r.setAttribute('fill', cssv('--ground')); r.setAttribute('stroke', cssv('--rule-soft')); r.setAttribute('stroke-width',1); }
+    g.append(r);
+
+    const t = document.createElementNS(NS,'text');
+    t.setAttribute('class','lbl');
+    t.textContent = n.label;
+    const anchor = d===0 ? 'middle' : (n.side==='e' ? 'start' : 'end');
+    t.setAttribute('text-anchor', anchor);
+    t.setAttribute('x', d===0 ? 0 : (n.side==='e' ? PADX(d) : -PADX(d)));
+    t.setAttribute('y', 1);
+    t.setAttribute('style', `font:${FONT(d)}`);
+    t.setAttribute('fill', d===0 ? cssv('--ink') : d===1 ? c : d===2 ? cssv('--ink') : cssv('--ink-2'));
+    g.append(t);
+
+    g.addEventListener('click', e => { e.stopPropagation(); select(n); });
+    g.addEventListener('keydown', e => {
+      if(e.key==='Enter'){ e.preventDefault(); select(n); }
+      if(e.key===' '){ e.preventDefault(); toggle(n); }
+    });
+    gN.append(g);
+
+    if((n.children||[]).length){
+      const kx = n.depth===0 ? n.w/2 + 11 : (n.side==='e' ? n.ax + n.w + 11 : n.ax - n.w - 11);
+      const k = document.createElementNS(NS,'g');
+      k.setAttribute('class','knob');
+      k.setAttribute('transform', `translate(${n.depth===0?11+n.w/2:kx - (n.depth===0?0:n.ax)},0)`);
+      const kc = document.createElementNS(NS,'circle');
+      kc.setAttribute('r',7);
+      kc.setAttribute('fill', n.open ? cssv('--ground') : c);
+      kc.setAttribute('fill-opacity', n.open ? 1 : .9);
+      kc.setAttribute('stroke', c); kc.setAttribute('stroke-width',1.3);
+      const km = document.createElementNS(NS,'path');
+      km.setAttribute('d', n.open ? 'M-3.2,0 H3.2' : 'M-3.2,0 H3.2 M0,-3.2 V3.2');
+      km.setAttribute('stroke', n.open ? c : cssv('--ground'));
+      km.setAttribute('stroke-width',1.6); km.setAttribute('stroke-linecap','round');
+      k.append(kc, km);
+      k.addEventListener('click', e => { e.stopPropagation(); toggle(n); });
+      g.append(k);
+    }
+  });
+}
+
+/* ---------- view transform ---------- */
+let tx=0, ty=0, k=1;
+function apply(){ vp.setAttribute('transform', `translate(${tx},${ty}) scale(${k})`); }
+function bbox(){
+  const b = gN.getBBox();
+  return {x:b.x-40, y:b.y-30, w:b.width+80, h:b.height+60};
+}
+function fit(){
+  const b = bbox(), r = svg.getBoundingClientRect();
+  const padTop = r.width < 760 ? 96 : 130, padBot = r.width < 760 ? 20 : 70;
+  const padR = (r.width < 760 || drawer.classList.contains('closed')) ? 30 : 400;
+  const aw = r.width - 40 - padR, ah = r.height - padTop - padBot;
+  k = Math.min(aw / b.w, ah / b.h, 1.3);
+  tx = 20 + aw/2 - (b.x + b.w/2) * k;
+  ty = padTop + ah/2 - (b.y + b.h/2) * k;
+  apply();
+}
+function zoom(f, cx, cy){
+  const r = svg.getBoundingClientRect();
+  cx = cx ?? r.width/2; cy = cy ?? r.height/2;
+  const nk = Math.max(.25, Math.min(2.6, k*f));
+  tx = cx - (cx - tx) * (nk/k); ty = cy - (cy - ty) * (nk/k); k = nk; apply();
+}
+let drag = null;
+svg.addEventListener('pointerdown', e => {
+  drag = {x:e.clientX, y:e.clientY, tx, ty};
+  svg.classList.add('dragging'); svg.setPointerCapture(e.pointerId);
+});
+svg.addEventListener('pointermove', e => {
+  if(!drag) return;
+  tx = drag.tx + (e.clientX - drag.x); ty = drag.ty + (e.clientY - drag.y); apply();
+});
+svg.addEventListener('pointerup', () => { drag = null; svg.classList.remove('dragging'); });
+svg.addEventListener('pointercancel', () => { drag = null; svg.classList.remove('dragging'); });
+svg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const r = svg.getBoundingClientRect();
+  zoom(e.deltaY < 0 ? 1.11 : 0.9, e.clientX - r.left, e.clientY - r.top);
+}, {passive:false});
+
+/* ---------- drawer ---------- */
+const drawer = el('drawer');
+function select(n){
+  current = n;
+  const c = hue(n);
+  drawer.style.setProperty('--accent', c);
+  el('dKicker').textContent = n.kicker || (n.depth===1 ? 'Branch' : n.parent ? n.parent.label : '');
+  el('dTitle').textContent = n.label;
+  el('dNote').textContent = n.note || '';
+  el('dNote').style.display = n.note ? '' : 'none';
+  el('dCite').textContent = n.cite || '';
+  el('dCite').style.display = n.cite ? '' : 'none';
+
+  const q = el('dQuote');
+  q.textContent = '';
+  if(n.quote){
+    const bq = document.createElement('blockquote');
+    bq.append(document.createTextNode('“' + n.quote + '”'));
+    const f = document.createElement('footer'); f.textContent = n.qcite || '';
+    bq.append(f); q.append(bq);
+  }
+
+  const ul = el('dKids'); ul.textContent = '';
+  const ks = n.children || [];
+  el('dKidsLabel').textContent = ks.length ? (n.ordered ? 'In order' : 'Opens onto') : '';
+  el('dKidsWrap').style.display = ks.length ? '' : 'none';
+  ks.forEach((c2,i) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    if(n.ordered){
+      const s = document.createElement('span'); s.className='idx';
+      s.textContent = String(i+1).padStart(2,'0'); b.append(s);
+    }
+    b.append(document.createTextNode(c2.label));
+    b.addEventListener('click', () => { n.open = true; render(); select(c2); });
+    li.append(b); ul.append(li);
+  });
+
+  drawer.classList.remove('closed');
+  el('dBody').scrollTop = 0;
+  render();
+}
+function toggle(n){ n.open = !n.open; render(); }
+el('dClose').addEventListener('click', () => { drawer.classList.add('closed'); fit(); });
+
+/* ---------- legend ---------- */
+const legend = el('legend');
+BRANCHES.forEach(b => {
+  const c = document.createElement('button');
+  c.className = 'chip'; c.setAttribute('aria-pressed', String(b.open));
+  const sw = document.createElement('span'); sw.className = 'sw';
+  sw.style.background = `var(${P[b.hue]})`;
+  c.append(sw, document.createTextNode(b.label));
+  c.addEventListener('click', () => {
+    b.open = !b.open; c.setAttribute('aria-pressed', String(b.open)); render();
+  });
+  legend.append(c);
+});
+function syncChips(){
+  [...legend.children].forEach((c,i) => c.setAttribute('aria-pressed', String(BRANCHES[i].open)));
+}
+
+/* ---------- controls ---------- */
+el('bExpand').addEventListener('click', () => { ALL.forEach(n => n.open = true); render(); syncChips(); fit(); });
+el('bCollapse').addEventListener('click', () => {
+  ALL.forEach(n => n.open = n.depth === 0);
+  BRANCHES.forEach(b => b.open = false);
+  render(); syncChips(); fit();
+});
+el('bIn').addEventListener('click', () => zoom(1.2));
+el('bOut').addEventListener('click', () => zoom(1/1.2));
+el('bFit').addEventListener('click', fit);
+addEventListener('resize', fit);
+
+/* ---------- go ---------- */
+function boot(){ render(); select(DATA); render(); fit(); }
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(boot); else boot();
+</script>

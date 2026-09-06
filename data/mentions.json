@@ -1,0 +1,3071 @@
+{
+  "characters": [
+    {
+      "id": "alyosha",
+      "name": "Alexey Fyodorovitch Karamazov",
+      "short": "Alyosha",
+      "group": "family",
+      "aliases": [
+        "Alexey Fyodorovitch",
+        "Alyosha",
+        "Alyoshka"
+      ],
+      "total": 1338,
+      "chapterCount": 70
+    },
+    {
+      "id": "dmitri",
+      "name": "Dmitri Fyodorovitch Karamazov",
+      "short": "Dmitri",
+      "group": "family",
+      "aliases": [
+        "Dmitri Fyodorovitch",
+        "Dmitri",
+        "Mitya",
+        "Mitka"
+      ],
+      "total": 1291,
+      "chapterCount": 73
+    },
+    {
+      "id": "ivan",
+      "name": "Ivan Fyodorovitch Karamazov",
+      "short": "Ivan",
+      "group": "family",
+      "aliases": [
+        "Ivan Fyodorovitch",
+        "Ivan"
+      ],
+      "total": 714,
+      "chapterCount": 54
+    },
+    {
+      "id": "grushenka",
+      "name": "Agrafena Alexandrovna Svyetlov",
+      "short": "Grushenka",
+      "group": "women",
+      "aliases": [
+        "Agrafena Alexandrovna",
+        "Grushenka",
+        "Grusha"
+      ],
+      "total": 414,
+      "chapterCount": 48
+    },
+    {
+      "id": "smerdyakov",
+      "name": "Pavel Smerdyakov",
+      "short": "Smerdyakov",
+      "group": "family",
+      "aliases": [
+        "Smerdyakov"
+      ],
+      "total": 371,
+      "chapterCount": 38
+    },
+    {
+      "id": "kolya",
+      "name": "Kolya Krassotkin",
+      "short": "Kolya",
+      "group": "boys",
+      "aliases": [
+        "Krassotkin",
+        "Kolya"
+      ],
+      "total": 278,
+      "chapterCount": 10
+    },
+    {
+      "id": "fyodor",
+      "name": "Fyodor Pavlovitch Karamazov",
+      "short": "Fyodor",
+      "group": "family",
+      "aliases": [
+        "Fyodor Pavlovitch"
+      ],
+      "total": 247,
+      "chapterCount": 49
+    },
+    {
+      "id": "katerina",
+      "name": "Katerina Ivanovna Verhovtsev",
+      "short": "Katerina",
+      "group": "women",
+      "aliases": [
+        "Katerina Ivanovna",
+        "Katya"
+      ],
+      "total": 247,
+      "chapterCount": 40
+    },
+    {
+      "id": "rakitin",
+      "name": "Mihail Rakitin",
+      "short": "Rakitin",
+      "group": "monastery",
+      "aliases": [
+        "Rakitin"
+      ],
+      "total": 198,
+      "chapterCount": 24
+    },
+    {
+      "id": "grigory",
+      "name": "Grigory Kutuzov",
+      "short": "Grigory",
+      "group": "town",
+      "aliases": [
+        "Grigory"
+      ],
+      "total": 192,
+      "chapterCount": 31
+    },
+    {
+      "id": "ilusha",
+      "name": "Ilusha Snegiryov",
+      "short": "Ilusha",
+      "group": "boys",
+      "aliases": [
+        "Ilusha",
+        "Ilushechka"
+      ],
+      "total": 166,
+      "chapterCount": 12
+    },
+    {
+      "id": "lise",
+      "name": "Lise Hohlakov",
+      "short": "Lise",
+      "group": "women",
+      "aliases": [
+        "Lise"
+      ],
+      "total": 144,
+      "chapterCount": 12
+    },
+    {
+      "id": "zossima",
+      "name": "Father Zossima",
+      "short": "Zossima",
+      "group": "monastery",
+      "aliases": [
+        "Father Zossima",
+        "Zossima"
+      ],
+      "total": 100,
+      "chapterCount": 27
+    },
+    {
+      "id": "hohlakov",
+      "name": "Madame Hohlakov",
+      "short": "Hohlakov",
+      "group": "women",
+      "aliases": [
+        "Madame Hohlakov",
+        "Hohlakov"
+      ],
+      "total": 94,
+      "chapterCount": 29
+    },
+    {
+      "id": "nikolay",
+      "name": "Nikolay Parfenovitch",
+      "short": "Nikolay P.",
+      "group": "court",
+      "aliases": [
+        "Nikolay Parfenovitch"
+      ],
+      "total": 84,
+      "chapterCount": 8
+    },
+    {
+      "id": "maximov",
+      "name": "Maximov",
+      "short": "Maximov",
+      "group": "town",
+      "aliases": [
+        "Maximov"
+      ],
+      "total": 64,
+      "chapterCount": 11
+    },
+    {
+      "id": "marfa",
+      "name": "Marfa Ignatyevna",
+      "short": "Marfa",
+      "group": "town",
+      "aliases": [
+        "Marfa Ignatyevna",
+        "Marfa"
+      ],
+      "total": 57,
+      "chapterCount": 15
+    },
+    {
+      "id": "smurov",
+      "name": "Smurov",
+      "short": "Smurov",
+      "group": "boys",
+      "aliases": [
+        "Smurov"
+      ],
+      "total": 55,
+      "chapterCount": 6
+    },
+    {
+      "id": "fetyukovitch",
+      "name": "Fetyukovitch",
+      "short": "Fetyukovitch",
+      "group": "court",
+      "aliases": [
+        "Fetyukovitch"
+      ],
+      "total": 55,
+      "chapterCount": 12
+    },
+    {
+      "id": "samsonov",
+      "name": "Kuzma Samsonov",
+      "short": "Samsonov",
+      "group": "town",
+      "aliases": [
+        "Kuzma Samsonov",
+        "Samsonov"
+      ],
+      "total": 46,
+      "chapterCount": 13
+    },
+    {
+      "id": "trifon",
+      "name": "Trifon Borissovitch",
+      "short": "Trifon B.",
+      "group": "court",
+      "aliases": [
+        "Trifon Borissovitch"
+      ],
+      "total": 37,
+      "chapterCount": 10
+    },
+    {
+      "id": "ferapont",
+      "name": "Father Ferapont",
+      "short": "Ferapont",
+      "group": "monastery",
+      "aliases": [
+        "Father Ferapont",
+        "Ferapont"
+      ],
+      "total": 34,
+      "chapterCount": 3
+    },
+    {
+      "id": "prosecutor",
+      "name": "Ippolit Kirillovitch",
+      "short": "Prosecutor",
+      "group": "court",
+      "aliases": [
+        "Ippolit Kirillovitch"
+      ],
+      "total": 33,
+      "chapterCount": 13
+    },
+    {
+      "id": "perhotin",
+      "name": "Pyotr Perhotin",
+      "short": "Perhotin",
+      "group": "town",
+      "aliases": [
+        "Perhotin"
+      ],
+      "total": 28,
+      "chapterCount": 12
+    },
+    {
+      "id": "snegiryov",
+      "name": "Captain Snegiryov",
+      "short": "Snegiryov",
+      "group": "boys",
+      "aliases": [
+        "Snegiryov"
+      ],
+      "total": 22,
+      "chapterCount": 8
+    },
+    {
+      "id": "lizaveta",
+      "name": "Lizaveta Smerdyastchaya",
+      "short": "Lizaveta",
+      "group": "town",
+      "aliases": [
+        "Lizaveta Smerdyastchaya",
+        "Lizaveta"
+      ],
+      "total": 19,
+      "chapterCount": 8
+    },
+    {
+      "id": "paissy",
+      "name": "Father Paissy",
+      "short": "Paissy",
+      "group": "monastery",
+      "aliases": [
+        "Father Paissy",
+        "Paissy"
+      ],
+      "total": 0,
+      "chapterCount": 0
+    }
+  ],
+  "byChapter": {
+    "b01-c01": {
+      "alyosha": 1,
+      "fyodor": 11,
+      "dmitri": 2,
+      "ivan": 1
+    },
+    "b01-c02": {
+      "dmitri": 12,
+      "fyodor": 12,
+      "grigory": 2
+    },
+    "b01-c03": {
+      "fyodor": 10,
+      "ivan": 10,
+      "grigory": 4,
+      "dmitri": 5
+    },
+    "b01-c04": {
+      "fyodor": 4,
+      "alyosha": 22,
+      "zossima": 2,
+      "grigory": 4,
+      "dmitri": 1,
+      "ivan": 2
+    },
+    "b01-c05": {
+      "fyodor": 1,
+      "zossima": 7,
+      "alyosha": 30,
+      "dmitri": 9,
+      "ivan": 12
+    },
+    "b02-c01": {
+      "dmitri": 2,
+      "fyodor": 9,
+      "hohlakov": 1,
+      "zossima": 2,
+      "alyosha": 1,
+      "maximov": 6,
+      "ivan": 1
+    },
+    "b02-c02": {
+      "fyodor": 10,
+      "zossima": 7,
+      "alyosha": 8,
+      "rakitin": 2,
+      "dmitri": 1,
+      "ivan": 2
+    },
+    "b02-c03": {
+      "hohlakov": 2,
+      "zossima": 4,
+      "lizaveta": 2
+    },
+    "b02-c04": {
+      "dmitri": 1,
+      "alyosha": 14,
+      "katerina": 2,
+      "lise": 16
+    },
+    "b02-c05": {
+      "dmitri": 2,
+      "fyodor": 2,
+      "ivan": 11,
+      "zossima": 3,
+      "alyosha": 5,
+      "rakitin": 2
+    },
+    "b02-c06": {
+      "dmitri": 29,
+      "fyodor": 7,
+      "ivan": 16,
+      "zossima": 4,
+      "smerdyakov": 1,
+      "alyosha": 4
+    },
+    "b02-c07": {
+      "dmitri": 16,
+      "alyosha": 26,
+      "katerina": 7,
+      "zossima": 7,
+      "grushenka": 10,
+      "samsonov": 1,
+      "rakitin": 11,
+      "maximov": 1,
+      "ivan": 15
+    },
+    "b02-c08": {
+      "fyodor": 16,
+      "ivan": 15,
+      "zossima": 3,
+      "alyosha": 7,
+      "rakitin": 6,
+      "maximov": 6
+    },
+    "b03-c01": {
+      "fyodor": 14,
+      "marfa": 11,
+      "smerdyakov": 1,
+      "lizaveta": 2,
+      "alyosha": 5,
+      "grigory": 21,
+      "dmitri": 2,
+      "ivan": 2
+    },
+    "b03-c02": {
+      "fyodor": 7,
+      "smerdyakov": 4,
+      "lizaveta": 9,
+      "grigory": 5,
+      "marfa": 3
+    },
+    "b03-c03": {
+      "fyodor": 1,
+      "katerina": 3,
+      "hohlakov": 1,
+      "alyosha": 22,
+      "rakitin": 2,
+      "dmitri": 16,
+      "marfa": 1,
+      "ivan": 2
+    },
+    "b03-c04": {
+      "katerina": 4,
+      "grushenka": 1,
+      "alyosha": 8,
+      "dmitri": 2,
+      "ivan": 5
+    },
+    "b03-c05": {
+      "katerina": 8,
+      "smerdyakov": 3,
+      "grushenka": 15,
+      "alyosha": 12,
+      "rakitin": 1,
+      "dmitri": 15,
+      "ivan": 13
+    },
+    "b03-c06": {
+      "fyodor": 17,
+      "smerdyakov": 16,
+      "alyosha": 8,
+      "grigory": 13,
+      "marfa": 5,
+      "ivan": 2
+    },
+    "b03-c07": {
+      "fyodor": 13,
+      "smerdyakov": 10,
+      "alyosha": 9,
+      "grigory": 24,
+      "ivan": 9
+    },
+    "b03-c08": {
+      "fyodor": 2,
+      "smerdyakov": 3,
+      "alyosha": 23,
+      "grigory": 1,
+      "dmitri": 1,
+      "marfa": 1,
+      "ivan": 29
+    },
+    "b03-c09": {
+      "fyodor": 3,
+      "katerina": 3,
+      "smerdyakov": 7,
+      "grushenka": 6,
+      "alyosha": 30,
+      "grigory": 10,
+      "dmitri": 23,
+      "ivan": 26
+    },
+    "b03-c10": {
+      "grushenka": 14,
+      "dmitri": 10,
+      "alyosha": 55,
+      "katerina": 28,
+      "hohlakov": 1,
+      "ivan": 2
+    },
+    "b03-c11": {
+      "dmitri": 9,
+      "alyosha": 27,
+      "katerina": 11,
+      "hohlakov": 1,
+      "zossima": 6,
+      "grushenka": 9,
+      "lise": 1
+    },
+    "b04-c01": {
+      "hohlakov": 5,
+      "ferapont": 16,
+      "zossima": 10,
+      "alyosha": 21,
+      "rakitin": 3
+    },
+    "b04-c02": {
+      "alyosha": 21,
+      "ivan": 18,
+      "katerina": 1,
+      "marfa": 2,
+      "smerdyakov": 1,
+      "grushenka": 7,
+      "grigory": 1,
+      "dmitri": 8
+    },
+    "b04-c03": {
+      "hohlakov": 1,
+      "kolya": 3,
+      "grushenka": 2,
+      "alyosha": 35,
+      "dmitri": 1,
+      "smurov": 5
+    },
+    "b04-c04": {
+      "dmitri": 2,
+      "alyosha": 30,
+      "ivan": 2,
+      "katerina": 3,
+      "hohlakov": 7,
+      "zossima": 4,
+      "lise": 23
+    },
+    "b04-c05": {
+      "dmitri": 22,
+      "alyosha": 61,
+      "ivan": 35,
+      "katerina": 18,
+      "hohlakov": 13,
+      "grushenka": 2,
+      "snegiryov": 1,
+      "lise": 14
+    },
+    "b04-c06": {
+      "dmitri": 5,
+      "alyosha": 43,
+      "katerina": 2,
+      "zossima": 1,
+      "grushenka": 1,
+      "snegiryov": 2,
+      "ilusha": 3
+    },
+    "b04-c07": {
+      "grushenka": 1,
+      "dmitri": 3,
+      "alyosha": 30,
+      "fyodor": 2,
+      "katerina": 2,
+      "kolya": 2,
+      "ilusha": 22
+    },
+    "b05-c01": {
+      "alyosha": 61,
+      "katerina": 2,
+      "hohlakov": 4,
+      "zossima": 1,
+      "ilusha": 1,
+      "ivan": 1,
+      "lise": 50
+    },
+    "b05-c02": {
+      "grushenka": 2,
+      "dmitri": 15,
+      "fyodor": 2,
+      "ivan": 7,
+      "smerdyakov": 11,
+      "alyosha": 21,
+      "grigory": 2,
+      "marfa": 1,
+      "lise": 1
+    },
+    "b05-c03": {
+      "katerina": 4,
+      "hohlakov": 1,
+      "smerdyakov": 3,
+      "alyosha": 33,
+      "dmitri": 16,
+      "ivan": 25
+    },
+    "b05-c04": {
+      "zossima": 2,
+      "alyosha": 22,
+      "ivan": 12
+    },
+    "b05-c05": {
+      "alyosha": 17,
+      "dmitri": 5,
+      "ivan": 17
+    },
+    "b05-c06": {
+      "grushenka": 11,
+      "dmitri": 19,
+      "alyosha": 6,
+      "fyodor": 8,
+      "ivan": 47,
+      "marfa": 4,
+      "smerdyakov": 32,
+      "samsonov": 1,
+      "grigory": 8
+    },
+    "b05-c07": {
+      "fyodor": 13,
+      "katerina": 4,
+      "marfa": 8,
+      "smerdyakov": 12,
+      "grushenka": 1,
+      "alyosha": 5,
+      "grigory": 3,
+      "dmitri": 3,
+      "ivan": 20
+    },
+    "b06-c01": {
+      "alyosha": 13,
+      "zossima": 13,
+      "lizaveta": 2
+    },
+    "b06-c02": {
+      "zossima": 1
+    },
+    "b06-c03": {
+      "alyosha": 2,
+      "zossima": 1
+    },
+    "b07-c01": {
+      "hohlakov": 1,
+      "ferapont": 17,
+      "zossima": 9,
+      "alyosha": 11,
+      "rakitin": 4
+    },
+    "b07-c02": {
+      "hohlakov": 1,
+      "ferapont": 1,
+      "zossima": 1,
+      "grushenka": 3,
+      "alyosha": 32,
+      "rakitin": 13,
+      "dmitri": 2,
+      "ilusha": 1,
+      "ivan": 5
+    },
+    "b07-c03": {
+      "grushenka": 55,
+      "dmitri": 17,
+      "fyodor": 1,
+      "zossima": 2,
+      "samsonov": 4,
+      "alyosha": 72,
+      "rakitin": 84
+    },
+    "b07-c04": {
+      "zossima": 1,
+      "alyosha": 15,
+      "rakitin": 2,
+      "dmitri": 2
+    },
+    "b08-c01": {
+      "grushenka": 32,
+      "fyodor": 11,
+      "katerina": 6,
+      "samsonov": 14,
+      "alyosha": 5,
+      "dmitri": 46,
+      "ivan": 1
+    },
+    "b08-c02": {
+      "fyodor": 2,
+      "grushenka": 4,
+      "samsonov": 6,
+      "dmitri": 45
+    },
+    "b08-c03": {
+      "grushenka": 8,
+      "dmitri": 77,
+      "fyodor": 3,
+      "ivan": 3,
+      "katerina": 7,
+      "hohlakov": 14,
+      "zossima": 3,
+      "smerdyakov": 4,
+      "samsonov": 8,
+      "alyosha": 4,
+      "rakitin": 1
+    },
+    "b08-c04": {
+      "grushenka": 5,
+      "fyodor": 8,
+      "marfa": 2,
+      "hohlakov": 1,
+      "smerdyakov": 5,
+      "samsonov": 1,
+      "lizaveta": 1,
+      "alyosha": 3,
+      "grigory": 9,
+      "dmitri": 26,
+      "ivan": 1
+    },
+    "b08-c05": {
+      "grushenka": 7,
+      "dmitri": 78,
+      "fyodor": 1,
+      "hohlakov": 3,
+      "perhotin": 3,
+      "alyosha": 2,
+      "rakitin": 1,
+      "grigory": 1
+    },
+    "b08-c06": {
+      "grushenka": 4,
+      "dmitri": 36,
+      "trifon": 10,
+      "alyosha": 1,
+      "maximov": 3
+    },
+    "b08-c07": {
+      "dmitri": 90,
+      "trifon": 2,
+      "grushenka": 46,
+      "maximov": 25
+    },
+    "b08-c08": {
+      "dmitri": 68,
+      "trifon": 4,
+      "fyodor": 1,
+      "grushenka": 22,
+      "alyosha": 3,
+      "maximov": 12,
+      "katerina": 2
+    },
+    "b09-c01": {
+      "dmitri": 12,
+      "fyodor": 5,
+      "hohlakov": 11,
+      "zossima": 1,
+      "grushenka": 1,
+      "perhotin": 5
+    },
+    "b09-c02": {
+      "lizaveta": 1,
+      "prosecutor": 1,
+      "nikolay": 2,
+      "dmitri": 5,
+      "trifon": 2,
+      "fyodor": 9,
+      "marfa": 10,
+      "smerdyakov": 5,
+      "grushenka": 1,
+      "grigory": 11
+    },
+    "b09-c03": {
+      "prosecutor": 1,
+      "nikolay": 6,
+      "dmitri": 31,
+      "fyodor": 1,
+      "zossima": 1,
+      "grushenka": 8,
+      "grigory": 3,
+      "maximov": 3
+    },
+    "b09-c04": {
+      "prosecutor": 1,
+      "nikolay": 9,
+      "dmitri": 23,
+      "fyodor": 2,
+      "hohlakov": 2,
+      "smerdyakov": 1,
+      "grushenka": 3,
+      "samsonov": 4,
+      "perhotin": 1,
+      "grigory": 1
+    },
+    "b09-c05": {
+      "prosecutor": 1,
+      "nikolay": 19,
+      "dmitri": 40,
+      "fyodor": 1,
+      "hohlakov": 2,
+      "smerdyakov": 19,
+      "grushenka": 4,
+      "perhotin": 7,
+      "grigory": 3
+    },
+    "b09-c06": {
+      "prosecutor": 1,
+      "nikolay": 17,
+      "dmitri": 43,
+      "trifon": 1,
+      "smerdyakov": 7,
+      "perhotin": 1,
+      "grigory": 6
+    },
+    "b09-c07": {
+      "grushenka": 2,
+      "nikolay": 11,
+      "dmitri": 25,
+      "katerina": 11,
+      "hohlakov": 1,
+      "samsonov": 1,
+      "perhotin": 2,
+      "alyosha": 1
+    },
+    "b09-c08": {
+      "grushenka": 23,
+      "prosecutor": 3,
+      "nikolay": 15,
+      "dmitri": 53,
+      "trifon": 5,
+      "fyodor": 2,
+      "katerina": 2,
+      "hohlakov": 1,
+      "samsonov": 1,
+      "maximov": 2
+    },
+    "b09-c09": {
+      "nikolay": 5,
+      "dmitri": 27,
+      "trifon": 6,
+      "grushenka": 3
+    },
+    "b10-c01": {
+      "ivan": 1,
+      "kolya": 34,
+      "snegiryov": 1,
+      "ilusha": 1
+    },
+    "b10-c02": {
+      "kolya": 32
+    },
+    "b10-c03": {
+      "kolya": 32,
+      "snegiryov": 1,
+      "alyosha": 1,
+      "rakitin": 1,
+      "ilusha": 12,
+      "smurov": 22
+    },
+    "b10-c04": {
+      "smerdyakov": 1,
+      "kolya": 25,
+      "alyosha": 12,
+      "ilusha": 10,
+      "smurov": 5
+    },
+    "b10-c05": {
+      "alyosha": 23,
+      "katerina": 2,
+      "hohlakov": 1,
+      "kolya": 83,
+      "snegiryov": 3,
+      "ilusha": 75,
+      "smurov": 18
+    },
+    "b10-c06": {
+      "alyosha": 24,
+      "rakitin": 2,
+      "ilusha": 1,
+      "smurov": 1,
+      "kolya": 24
+    },
+    "b10-c07": {
+      "kolya": 21,
+      "alyosha": 11,
+      "ilusha": 10
+    },
+    "b11-c01": {
+      "ivan": 9,
+      "katerina": 7,
+      "fetyukovitch": 2,
+      "grushenka": 39,
+      "alyosha": 35,
+      "rakitin": 5,
+      "grigory": 2,
+      "maximov": 4,
+      "dmitri": 28
+    },
+    "b11-c02": {
+      "grushenka": 1,
+      "dmitri": 6,
+      "alyosha": 28,
+      "ivan": 4,
+      "hohlakov": 11,
+      "zossima": 3,
+      "perhotin": 3,
+      "rakitin": 8,
+      "grigory": 4,
+      "katerina": 6,
+      "lise": 19
+    },
+    "b11-c03": {
+      "dmitri": 2,
+      "ivan": 1,
+      "hohlakov": 1,
+      "alyosha": 37,
+      "lise": 14
+    },
+    "b11-c04": {
+      "fyodor": 1,
+      "ivan": 21,
+      "katerina": 3,
+      "hohlakov": 3,
+      "grushenka": 13,
+      "lizaveta": 1,
+      "perhotin": 1,
+      "alyosha": 53,
+      "rakitin": 27,
+      "grigory": 3,
+      "dmitri": 35
+    },
+    "b11-c05": {
+      "alyosha": 43,
+      "fyodor": 3,
+      "katerina": 8,
+      "smerdyakov": 4,
+      "dmitri": 5,
+      "ivan": 35,
+      "lise": 1
+    },
+    "b11-c06": {
+      "dmitri": 21,
+      "fyodor": 1,
+      "katerina": 3,
+      "marfa": 2,
+      "smerdyakov": 33,
+      "perhotin": 1,
+      "alyosha": 17,
+      "grigory": 5,
+      "ivan": 51
+    },
+    "b11-c07": {
+      "grushenka": 3,
+      "dmitri": 23,
+      "alyosha": 8,
+      "fyodor": 2,
+      "katerina": 11,
+      "smerdyakov": 36,
+      "grigory": 1,
+      "ivan": 41
+    },
+    "b11-c08": {
+      "grushenka": 5,
+      "dmitri": 13,
+      "fyodor": 4,
+      "katerina": 1,
+      "marfa": 4,
+      "smerdyakov": 39,
+      "alyosha": 1,
+      "grigory": 9,
+      "ivan": 69
+    },
+    "b11-c09": {
+      "katerina": 2,
+      "zossima": 1,
+      "smerdyakov": 3,
+      "alyosha": 8,
+      "ivan": 43
+    },
+    "b11-c10": {
+      "fyodor": 1,
+      "smerdyakov": 8,
+      "alyosha": 40,
+      "dmitri": 4,
+      "katerina": 2,
+      "ivan": 23,
+      "lise": 3
+    },
+    "b12-c01": {
+      "prosecutor": 1,
+      "trifon": 1,
+      "fyodor": 2,
+      "katerina": 1,
+      "fetyukovitch": 4,
+      "smerdyakov": 3,
+      "grushenka": 3,
+      "hohlakov": 1,
+      "perhotin": 1,
+      "maximov": 1,
+      "dmitri": 17
+    },
+    "b12-c02": {
+      "grushenka": 4,
+      "dmitri": 22,
+      "trifon": 5,
+      "fyodor": 6,
+      "fetyukovitch": 18,
+      "smerdyakov": 3,
+      "snegiryov": 2,
+      "samsonov": 1,
+      "alyosha": 1,
+      "rakitin": 15,
+      "grigory": 12,
+      "ilusha": 2,
+      "marfa": 1,
+      "ivan": 1
+    },
+    "b12-c03": {
+      "katerina": 3,
+      "fetyukovitch": 2,
+      "alyosha": 1,
+      "dmitri": 6
+    },
+    "b12-c04": {
+      "dmitri": 20,
+      "alyosha": 23,
+      "fyodor": 2,
+      "katerina": 14,
+      "fetyukovitch": 11,
+      "smerdyakov": 8,
+      "grushenka": 11,
+      "samsonov": 1,
+      "rakitin": 4,
+      "ivan": 1
+    },
+    "b12-c05": {
+      "prosecutor": 1,
+      "katerina": 15,
+      "fetyukovitch": 2,
+      "smerdyakov": 8,
+      "grushenka": 1,
+      "alyosha": 4,
+      "dmitri": 18,
+      "ivan": 14
+    },
+    "b12-c06": {
+      "prosecutor": 8,
+      "ivan": 3,
+      "smerdyakov": 1,
+      "rakitin": 1,
+      "dmitri": 3
+    },
+    "b12-c07": {
+      "prosecutor": 4,
+      "fyodor": 1,
+      "hohlakov": 1,
+      "smerdyakov": 2,
+      "grushenka": 2,
+      "snegiryov": 1,
+      "samsonov": 3,
+      "alyosha": 1,
+      "rakitin": 1,
+      "dmitri": 1,
+      "ivan": 2
+    },
+    "b12-c08": {
+      "prosecutor": 2,
+      "dmitri": 7,
+      "fyodor": 4,
+      "ivan": 10,
+      "marfa": 2,
+      "smerdyakov": 39,
+      "grigory": 9
+    },
+    "b12-c09": {
+      "prosecutor": 7,
+      "fetyukovitch": 3,
+      "smerdyakov": 9,
+      "grushenka": 2,
+      "perhotin": 2,
+      "rakitin": 1,
+      "grigory": 6,
+      "dmitri": 8
+    },
+    "b12-c10": {
+      "fetyukovitch": 2,
+      "grigory": 2,
+      "dmitri": 2
+    },
+    "b12-c11": {
+      "fyodor": 4,
+      "ivan": 2,
+      "katerina": 3,
+      "fetyukovitch": 1,
+      "smerdyakov": 8,
+      "grushenka": 1,
+      "perhotin": 1,
+      "maximov": 1
+    },
+    "b12-c12": {
+      "fyodor": 3,
+      "fetyukovitch": 1,
+      "smerdyakov": 19,
+      "lizaveta": 1,
+      "grigory": 7,
+      "ivan": 1
+    },
+    "b12-c13": {
+      "fyodor": 1,
+      "fetyukovitch": 2
+    },
+    "b12-c14": {
+      "prosecutor": 2,
+      "fyodor": 1,
+      "fetyukovitch": 7,
+      "smerdyakov": 1,
+      "grushenka": 1,
+      "dmitri": 5,
+      "katerina": 1
+    },
+    "b13-c01": {
+      "dmitri": 12,
+      "alyosha": 19,
+      "ivan": 7,
+      "katerina": 17,
+      "grushenka": 1
+    },
+    "b13-c02": {
+      "trifon": 1,
+      "hohlakov": 1,
+      "smerdyakov": 1,
+      "grushenka": 13,
+      "alyosha": 35,
+      "rakitin": 1,
+      "dmitri": 29,
+      "katerina": 16,
+      "ivan": 6,
+      "lise": 1
+    },
+    "b13-c03": {
+      "katerina": 2,
+      "kolya": 22,
+      "grushenka": 1,
+      "snegiryov": 11,
+      "hohlakov": 1,
+      "alyosha": 26,
+      "ilusha": 28,
+      "smurov": 4,
+      "dmitri": 1,
+      "lise": 1
+    }
+  },
+  "edges": [
+    {
+      "source": "alyosha",
+      "target": "dmitri",
+      "weight": 33,
+      "chapters": [
+        "b01-c05",
+        "b02-c06",
+        "b02-c07",
+        "b03-c03",
+        "b03-c05",
+        "b03-c09",
+        "b03-c10",
+        "b03-c11",
+        "b04-c02",
+        "b04-c05",
+        "b04-c06",
+        "b04-c07",
+        "b05-c02",
+        "b05-c03",
+        "b05-c05",
+        "b05-c06",
+        "b05-c07",
+        "b07-c03",
+        "b08-c01",
+        "b08-c03",
+        "b08-c04",
+        "b08-c08",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b11-c10",
+        "b12-c04",
+        "b12-c05",
+        "b13-c01",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "ivan",
+      "weight": 31,
+      "chapters": [
+        "b01-c05",
+        "b02-c05",
+        "b02-c06",
+        "b02-c07",
+        "b02-c08",
+        "b03-c04",
+        "b03-c05",
+        "b03-c07",
+        "b03-c08",
+        "b03-c09",
+        "b04-c02",
+        "b04-c05",
+        "b05-c02",
+        "b05-c03",
+        "b05-c04",
+        "b05-c05",
+        "b05-c06",
+        "b05-c07",
+        "b07-c02",
+        "b08-c03",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b11-c09",
+        "b11-c10",
+        "b12-c05",
+        "b13-c01",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "grushenka",
+      "weight": 29,
+      "chapters": [
+        "b02-c07",
+        "b03-c05",
+        "b03-c09",
+        "b03-c10",
+        "b03-c11",
+        "b04-c02",
+        "b05-c06",
+        "b07-c03",
+        "b08-c01",
+        "b08-c02",
+        "b08-c03",
+        "b08-c04",
+        "b08-c05",
+        "b08-c06",
+        "b08-c07",
+        "b08-c08",
+        "b09-c03",
+        "b09-c04",
+        "b09-c05",
+        "b09-c08",
+        "b09-c09",
+        "b11-c01",
+        "b11-c04",
+        "b11-c07",
+        "b11-c08",
+        "b12-c01",
+        "b12-c02",
+        "b12-c04",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "ivan",
+      "weight": 27,
+      "chapters": [
+        "b01-c03",
+        "b01-c05",
+        "b02-c06",
+        "b02-c07",
+        "b03-c05",
+        "b03-c09",
+        "b04-c02",
+        "b04-c05",
+        "b05-c02",
+        "b05-c03",
+        "b05-c05",
+        "b05-c06",
+        "b05-c07",
+        "b08-c03",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b11-c08",
+        "b11-c10",
+        "b12-c05",
+        "b12-c06",
+        "b12-c08",
+        "b13-c01",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "katerina",
+      "weight": 23,
+      "chapters": [
+        "b02-c07",
+        "b03-c03",
+        "b03-c04",
+        "b03-c05",
+        "b03-c09",
+        "b03-c10",
+        "b03-c11",
+        "b04-c04",
+        "b04-c05",
+        "b05-c03",
+        "b05-c07",
+        "b08-c01",
+        "b08-c03",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b12-c04",
+        "b12-c05",
+        "b13-c01",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "katerina",
+      "weight": 23,
+      "chapters": [
+        "b02-c07",
+        "b03-c03",
+        "b03-c05",
+        "b03-c09",
+        "b03-c10",
+        "b03-c11",
+        "b04-c05",
+        "b05-c03",
+        "b05-c07",
+        "b08-c01",
+        "b08-c03",
+        "b09-c07",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b12-c03",
+        "b12-c04",
+        "b12-c05",
+        "b13-c01",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "smerdyakov",
+      "weight": 22,
+      "chapters": [
+        "b03-c05",
+        "b03-c09",
+        "b05-c02",
+        "b05-c03",
+        "b05-c06",
+        "b05-c07",
+        "b08-c03",
+        "b08-c04",
+        "b09-c02",
+        "b09-c05",
+        "b09-c06",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b11-c08",
+        "b11-c10",
+        "b12-c01",
+        "b12-c02",
+        "b12-c04",
+        "b12-c05",
+        "b12-c08",
+        "b12-c09"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "grushenka",
+      "weight": 18,
+      "chapters": [
+        "b02-c07",
+        "b03-c05",
+        "b03-c09",
+        "b03-c10",
+        "b03-c11",
+        "b04-c02",
+        "b05-c06",
+        "b07-c02",
+        "b07-c03",
+        "b08-c01",
+        "b08-c03",
+        "b08-c04",
+        "b08-c08",
+        "b11-c01",
+        "b11-c04",
+        "b11-c07",
+        "b12-c04",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "smerdyakov",
+      "weight": 18,
+      "chapters": [
+        "b03-c05",
+        "b03-c06",
+        "b03-c07",
+        "b03-c08",
+        "b03-c09",
+        "b05-c02",
+        "b05-c03",
+        "b05-c06",
+        "b05-c07",
+        "b08-c03",
+        "b08-c04",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b11-c09",
+        "b11-c10",
+        "b12-c04",
+        "b12-c05"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "katerina",
+      "weight": 17,
+      "chapters": [
+        "b02-c07",
+        "b03-c04",
+        "b03-c05",
+        "b03-c09",
+        "b04-c05",
+        "b05-c03",
+        "b05-c07",
+        "b08-c03",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b12-c05",
+        "b13-c01",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "smerdyakov",
+      "weight": 17,
+      "chapters": [
+        "b03-c05",
+        "b03-c07",
+        "b03-c08",
+        "b03-c09",
+        "b05-c02",
+        "b05-c03",
+        "b05-c06",
+        "b05-c07",
+        "b08-c03",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b11-c08",
+        "b11-c09",
+        "b11-c10",
+        "b12-c05",
+        "b12-c08"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "grigory",
+      "weight": 16,
+      "chapters": [
+        "b01-c03",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c04",
+        "b09-c02",
+        "b09-c03",
+        "b09-c05",
+        "b09-c06",
+        "b11-c02",
+        "b11-c04",
+        "b11-c06",
+        "b11-c08",
+        "b12-c02",
+        "b12-c08",
+        "b12-c09"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "smerdyakov",
+      "weight": 16,
+      "chapters": [
+        "b03-c02",
+        "b03-c06",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c04",
+        "b09-c02",
+        "b09-c05",
+        "b09-c06",
+        "b11-c06",
+        "b11-c08",
+        "b12-c02",
+        "b12-c08",
+        "b12-c09",
+        "b12-c12"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "fyodor",
+      "weight": 15,
+      "chapters": [
+        "b01-c02",
+        "b01-c03",
+        "b02-c06",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c01",
+        "b08-c03",
+        "b08-c04",
+        "b09-c01",
+        "b09-c02",
+        "b11-c05",
+        "b11-c08",
+        "b12-c02",
+        "b12-c08"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "grigory",
+      "weight": 15,
+      "chapters": [
+        "b01-c03",
+        "b01-c04",
+        "b03-c01",
+        "b03-c02",
+        "b03-c06",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c04",
+        "b09-c02",
+        "b11-c08",
+        "b12-c02",
+        "b12-c08",
+        "b12-c12"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "smerdyakov",
+      "weight": 15,
+      "chapters": [
+        "b03-c02",
+        "b03-c06",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c03",
+        "b08-c04",
+        "b09-c02",
+        "b11-c05",
+        "b11-c08",
+        "b12-c02",
+        "b12-c08",
+        "b12-c11",
+        "b12-c12"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "fyodor",
+      "weight": 14,
+      "chapters": [
+        "b01-c04",
+        "b02-c02",
+        "b02-c06",
+        "b02-c08",
+        "b03-c01",
+        "b03-c06",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c01",
+        "b08-c03",
+        "b08-c04",
+        "b11-c05"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "zossima",
+      "weight": 13,
+      "chapters": [
+        "b01-c05",
+        "b02-c02",
+        "b02-c05",
+        "b02-c06",
+        "b02-c07",
+        "b02-c08",
+        "b03-c11",
+        "b04-c01",
+        "b04-c04",
+        "b06-c01",
+        "b07-c01",
+        "b08-c03",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "ivan",
+      "weight": 12,
+      "chapters": [
+        "b02-c07",
+        "b03-c05",
+        "b03-c09",
+        "b04-c02",
+        "b05-c06",
+        "b07-c02",
+        "b08-c03",
+        "b11-c01",
+        "b11-c04",
+        "b11-c07",
+        "b11-c08",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "katerina",
+      "weight": 12,
+      "chapters": [
+        "b02-c07",
+        "b03-c05",
+        "b03-c09",
+        "b03-c10",
+        "b03-c11",
+        "b08-c01",
+        "b08-c03",
+        "b11-c01",
+        "b11-c04",
+        "b11-c07",
+        "b12-c04",
+        "b13-c02"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "ivan",
+      "weight": 11,
+      "chapters": [
+        "b01-c03",
+        "b02-c06",
+        "b02-c08",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c03",
+        "b11-c05",
+        "b11-c08",
+        "b12-c08"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "grigory",
+      "weight": 11,
+      "chapters": [
+        "b01-c04",
+        "b03-c01",
+        "b03-c06",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c04",
+        "b11-c02",
+        "b11-c04",
+        "b11-c06"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "smerdyakov",
+      "weight": 11,
+      "chapters": [
+        "b03-c05",
+        "b03-c09",
+        "b05-c06",
+        "b08-c03",
+        "b08-c04",
+        "b09-c05",
+        "b11-c07",
+        "b11-c08",
+        "b12-c01",
+        "b12-c02",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "smerdyakov",
+      "weight": 11,
+      "chapters": [
+        "b03-c05",
+        "b03-c09",
+        "b05-c03",
+        "b05-c07",
+        "b08-c03",
+        "b11-c05",
+        "b11-c06",
+        "b11-c07",
+        "b12-c04",
+        "b12-c05",
+        "b12-c11"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "ivan",
+      "weight": 10,
+      "chapters": [
+        "b01-c03",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b11-c02",
+        "b11-c04",
+        "b11-c06",
+        "b11-c08",
+        "b12-c08"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "rakitin",
+      "weight": 10,
+      "chapters": [
+        "b02-c07",
+        "b02-c08",
+        "b04-c01",
+        "b07-c01",
+        "b07-c02",
+        "b07-c03",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "grushenka",
+      "weight": 8,
+      "chapters": [
+        "b03-c09",
+        "b05-c06",
+        "b08-c04",
+        "b09-c03",
+        "b09-c05",
+        "b11-c04",
+        "b11-c08",
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "zossima",
+      "weight": 7,
+      "chapters": [
+        "b01-c05",
+        "b02-c05",
+        "b02-c06",
+        "b02-c07",
+        "b02-c08",
+        "b08-c03",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "lise",
+      "weight": 7,
+      "chapters": [
+        "b02-c04",
+        "b04-c04",
+        "b04-c05",
+        "b05-c01",
+        "b11-c02",
+        "b11-c03",
+        "b11-c10"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "rakitin",
+      "weight": 7,
+      "chapters": [
+        "b02-c07",
+        "b07-c03",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b12-c02",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "rakitin",
+      "weight": 7,
+      "chapters": [
+        "b02-c07",
+        "b07-c02",
+        "b07-c03",
+        "b11-c01",
+        "b11-c04",
+        "b12-c02",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "marfa",
+      "weight": 7,
+      "chapters": [
+        "b03-c01",
+        "b03-c02",
+        "b03-c06",
+        "b05-c06",
+        "b05-c07",
+        "b09-c02",
+        "b11-c08"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "marfa",
+      "weight": 7,
+      "chapters": [
+        "b03-c01",
+        "b03-c02",
+        "b03-c06",
+        "b05-c06",
+        "b05-c07",
+        "b09-c02",
+        "b11-c08"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "grushenka",
+      "weight": 7,
+      "chapters": [
+        "b03-c09",
+        "b05-c06",
+        "b08-c01",
+        "b08-c03",
+        "b08-c04",
+        "b11-c08",
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "hohlakov",
+      "weight": 7,
+      "chapters": [
+        "b04-c01",
+        "b04-c04",
+        "b04-c05",
+        "b05-c01",
+        "b08-c03",
+        "b11-c02",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "nikolay",
+      "weight": 7,
+      "chapters": [
+        "b09-c03",
+        "b09-c04",
+        "b09-c05",
+        "b09-c06",
+        "b09-c07",
+        "b09-c08",
+        "b09-c09"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "zossima",
+      "weight": 6,
+      "chapters": [
+        "b01-c05",
+        "b02-c06",
+        "b02-c07",
+        "b03-c11",
+        "b08-c03",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "rakitin",
+      "weight": 6,
+      "chapters": [
+        "b02-c07",
+        "b02-c08",
+        "b07-c02",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "marfa",
+      "target": "smerdyakov",
+      "weight": 6,
+      "chapters": [
+        "b03-c02",
+        "b03-c06",
+        "b05-c06",
+        "b05-c07",
+        "b09-c02",
+        "b11-c08"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "katerina",
+      "weight": 6,
+      "chapters": [
+        "b03-c09",
+        "b05-c07",
+        "b08-c01",
+        "b08-c03",
+        "b11-c05",
+        "b12-c11"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "kolya",
+      "weight": 6,
+      "chapters": [
+        "b04-c03",
+        "b10-c04",
+        "b10-c05",
+        "b10-c06",
+        "b10-c07",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "hohlakov",
+      "weight": 6,
+      "chapters": [
+        "b04-c05",
+        "b08-c03",
+        "b08-c05",
+        "b09-c01",
+        "b11-c02",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "ilusha",
+      "weight": 6,
+      "chapters": [
+        "b04-c06",
+        "b04-c07",
+        "b10-c04",
+        "b10-c05",
+        "b10-c07",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "rakitin",
+      "weight": 5,
+      "chapters": [
+        "b02-c07",
+        "b11-c01",
+        "b11-c02",
+        "b11-c04",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "zossima",
+      "weight": 5,
+      "chapters": [
+        "b02-c07",
+        "b03-c11",
+        "b04-c04",
+        "b08-c03",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "rakitin",
+      "target": "zossima",
+      "weight": 5,
+      "chapters": [
+        "b02-c07",
+        "b02-c08",
+        "b04-c01",
+        "b07-c01",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "katerina",
+      "weight": 5,
+      "chapters": [
+        "b03-c09",
+        "b05-c07",
+        "b11-c02",
+        "b11-c04",
+        "b11-c06"
+      ]
+    },
+    {
+      "source": "kolya",
+      "target": "smurov",
+      "weight": 5,
+      "chapters": [
+        "b04-c03",
+        "b10-c03",
+        "b10-c04",
+        "b10-c05",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "katerina",
+      "weight": 5,
+      "chapters": [
+        "b04-c04",
+        "b04-c05",
+        "b08-c03",
+        "b11-c02",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "samsonov",
+      "weight": 5,
+      "chapters": [
+        "b07-c03",
+        "b08-c01",
+        "b08-c02",
+        "b08-c03",
+        "b09-c04"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "samsonov",
+      "weight": 5,
+      "chapters": [
+        "b07-c03",
+        "b08-c01",
+        "b08-c02",
+        "b08-c03",
+        "b09-c04"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "maximov",
+      "weight": 5,
+      "chapters": [
+        "b08-c06",
+        "b08-c07",
+        "b08-c08",
+        "b09-c03",
+        "b11-c01"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "trifon",
+      "weight": 5,
+      "chapters": [
+        "b08-c06",
+        "b08-c08",
+        "b09-c08",
+        "b09-c09",
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "maximov",
+      "weight": 5,
+      "chapters": [
+        "b08-c06",
+        "b08-c07",
+        "b08-c08",
+        "b09-c03",
+        "b11-c01"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "trifon",
+      "weight": 5,
+      "chapters": [
+        "b08-c06",
+        "b08-c08",
+        "b09-c08",
+        "b09-c09",
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "nikolay",
+      "weight": 5,
+      "chapters": [
+        "b09-c03",
+        "b09-c04",
+        "b09-c05",
+        "b09-c08",
+        "b09-c09"
+      ]
+    },
+    {
+      "source": "ilusha",
+      "target": "kolya",
+      "weight": 5,
+      "chapters": [
+        "b10-c03",
+        "b10-c04",
+        "b10-c05",
+        "b10-c07",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "fetyukovitch",
+      "weight": 5,
+      "chapters": [
+        "b12-c01",
+        "b12-c02",
+        "b12-c04",
+        "b12-c09",
+        "b12-c14"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "zossima",
+      "weight": 4,
+      "chapters": [
+        "b02-c02",
+        "b02-c06",
+        "b02-c08",
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "marfa",
+      "weight": 4,
+      "chapters": [
+        "b03-c01",
+        "b03-c06",
+        "b05-c06",
+        "b05-c07"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "zossima",
+      "weight": 4,
+      "chapters": [
+        "b04-c01",
+        "b04-c04",
+        "b08-c03",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "smurov",
+      "weight": 4,
+      "chapters": [
+        "b04-c03",
+        "b10-c04",
+        "b10-c05",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "lise",
+      "weight": 4,
+      "chapters": [
+        "b04-c04",
+        "b04-c05",
+        "b05-c01",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "ivan",
+      "weight": 4,
+      "chapters": [
+        "b04-c05",
+        "b08-c03",
+        "b11-c02",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "marfa",
+      "weight": 4,
+      "chapters": [
+        "b05-c06",
+        "b05-c07",
+        "b09-c02",
+        "b11-c08"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "perhotin",
+      "weight": 4,
+      "chapters": [
+        "b08-c05",
+        "b09-c01",
+        "b09-c05",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "ilusha",
+      "target": "smurov",
+      "weight": 4,
+      "chapters": [
+        "b10-c03",
+        "b10-c04",
+        "b10-c05",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "smerdyakov",
+      "weight": 4,
+      "chapters": [
+        "b12-c01",
+        "b12-c02",
+        "b12-c04",
+        "b12-c09"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "zossima",
+      "weight": 3,
+      "chapters": [
+        "b02-c07",
+        "b03-c11",
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "maximov",
+      "weight": 3,
+      "chapters": [
+        "b02-c08",
+        "b08-c08",
+        "b11-c01"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "rakitin",
+      "weight": 3,
+      "chapters": [
+        "b04-c01",
+        "b11-c02",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "lise",
+      "weight": 3,
+      "chapters": [
+        "b04-c04",
+        "b04-c05",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "lise",
+      "weight": 3,
+      "chapters": [
+        "b04-c05",
+        "b11-c02",
+        "b11-c10"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "lise",
+      "weight": 3,
+      "chapters": [
+        "b04-c05",
+        "b11-c02",
+        "b11-c10"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "marfa",
+      "weight": 3,
+      "chapters": [
+        "b05-c06",
+        "b05-c07",
+        "b11-c08"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "samsonov",
+      "weight": 3,
+      "chapters": [
+        "b07-c03",
+        "b08-c01",
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "hohlakov",
+      "weight": 3,
+      "chapters": [
+        "b08-c03",
+        "b08-c05",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "perhotin",
+      "weight": 3,
+      "chapters": [
+        "b08-c05",
+        "b09-c01",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "nikolay",
+      "weight": 3,
+      "chapters": [
+        "b09-c03",
+        "b09-c05",
+        "b09-c06"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "prosecutor",
+      "weight": 3,
+      "chapters": [
+        "b09-c08",
+        "b12-c06",
+        "b12-c09"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "rakitin",
+      "weight": 3,
+      "chapters": [
+        "b11-c02",
+        "b11-c04",
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "grushenka",
+      "weight": 3,
+      "chapters": [
+        "b12-c01",
+        "b12-c02",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "maximov",
+      "weight": 2,
+      "chapters": [
+        "b02-c01",
+        "b02-c08"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "rakitin",
+      "weight": 2,
+      "chapters": [
+        "b02-c08",
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "maximov",
+      "weight": 2,
+      "chapters": [
+        "b02-c08",
+        "b11-c01"
+      ]
+    },
+    {
+      "source": "maximov",
+      "target": "rakitin",
+      "weight": 2,
+      "chapters": [
+        "b02-c08",
+        "b11-c01"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "ferapont",
+      "weight": 2,
+      "chapters": [
+        "b04-c01",
+        "b07-c01"
+      ]
+    },
+    {
+      "source": "ferapont",
+      "target": "rakitin",
+      "weight": 2,
+      "chapters": [
+        "b04-c01",
+        "b07-c01"
+      ]
+    },
+    {
+      "source": "ferapont",
+      "target": "zossima",
+      "weight": 2,
+      "chapters": [
+        "b04-c01",
+        "b07-c01"
+      ]
+    },
+    {
+      "source": "lise",
+      "target": "zossima",
+      "weight": 2,
+      "chapters": [
+        "b04-c04",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "dmitri",
+      "target": "ilusha",
+      "weight": 2,
+      "chapters": [
+        "b04-c06",
+        "b04-c07"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "marfa",
+      "weight": 2,
+      "chapters": [
+        "b05-c06",
+        "b11-c08"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "samsonov",
+      "weight": 2,
+      "chapters": [
+        "b08-c01",
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "samsonov",
+      "weight": 2,
+      "chapters": [
+        "b08-c01",
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "hohlakov",
+      "weight": 2,
+      "chapters": [
+        "b08-c03",
+        "b09-c01"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "perhotin",
+      "weight": 2,
+      "chapters": [
+        "b08-c05",
+        "b09-c05"
+      ]
+    },
+    {
+      "source": "maximov",
+      "target": "trifon",
+      "weight": 2,
+      "chapters": [
+        "b08-c06",
+        "b08-c08"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "perhotin",
+      "weight": 2,
+      "chapters": [
+        "b09-c05",
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "nikolay",
+      "target": "smerdyakov",
+      "weight": 2,
+      "chapters": [
+        "b09-c05",
+        "b09-c06"
+      ]
+    },
+    {
+      "source": "nikolay",
+      "target": "trifon",
+      "weight": 2,
+      "chapters": [
+        "b09-c08",
+        "b09-c09"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "snegiryov",
+      "weight": 2,
+      "chapters": [
+        "b10-c05",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "ilusha",
+      "target": "snegiryov",
+      "weight": 2,
+      "chapters": [
+        "b10-c05",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "kolya",
+      "target": "snegiryov",
+      "weight": 2,
+      "chapters": [
+        "b10-c05",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "smurov",
+      "target": "snegiryov",
+      "weight": 2,
+      "chapters": [
+        "b10-c05",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "hohlakov",
+      "weight": 2,
+      "chapters": [
+        "b11-c02",
+        "b11-c04"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "grigory",
+      "weight": 2,
+      "chapters": [
+        "b12-c02",
+        "b12-c09"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "rakitin",
+      "weight": 2,
+      "chapters": [
+        "b12-c02",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "rakitin",
+      "target": "smerdyakov",
+      "weight": 2,
+      "chapters": [
+        "b12-c02",
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "maximov",
+      "target": "zossima",
+      "weight": 1,
+      "chapters": [
+        "b02-c08"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "lizaveta",
+      "weight": 1,
+      "chapters": [
+        "b03-c02"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "lizaveta",
+      "weight": 1,
+      "chapters": [
+        "b03-c02"
+      ]
+    },
+    {
+      "source": "lizaveta",
+      "target": "marfa",
+      "weight": 1,
+      "chapters": [
+        "b03-c02"
+      ]
+    },
+    {
+      "source": "lizaveta",
+      "target": "smerdyakov",
+      "weight": 1,
+      "chapters": [
+        "b03-c02"
+      ]
+    },
+    {
+      "source": "ferapont",
+      "target": "hohlakov",
+      "weight": 1,
+      "chapters": [
+        "b04-c01"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "marfa",
+      "weight": 1,
+      "chapters": [
+        "b05-c07"
+      ]
+    },
+    {
+      "source": "rakitin",
+      "target": "samsonov",
+      "weight": 1,
+      "chapters": [
+        "b07-c03"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "samsonov",
+      "weight": 1,
+      "chapters": [
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "smerdyakov",
+      "weight": 1,
+      "chapters": [
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "samsonov",
+      "weight": 1,
+      "chapters": [
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "samsonov",
+      "target": "smerdyakov",
+      "weight": 1,
+      "chapters": [
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "samsonov",
+      "target": "zossima",
+      "weight": 1,
+      "chapters": [
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "smerdyakov",
+      "target": "zossima",
+      "weight": 1,
+      "chapters": [
+        "b08-c03"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "trifon",
+      "weight": 1,
+      "chapters": [
+        "b08-c08"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "perhotin",
+      "weight": 1,
+      "chapters": [
+        "b09-c01"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "maximov",
+      "weight": 1,
+      "chapters": [
+        "b09-c03"
+      ]
+    },
+    {
+      "source": "maximov",
+      "target": "nikolay",
+      "weight": 1,
+      "chapters": [
+        "b09-c03"
+      ]
+    },
+    {
+      "source": "nikolay",
+      "target": "samsonov",
+      "weight": 1,
+      "chapters": [
+        "b09-c04"
+      ]
+    },
+    {
+      "source": "nikolay",
+      "target": "perhotin",
+      "weight": 1,
+      "chapters": [
+        "b09-c05"
+      ]
+    },
+    {
+      "source": "perhotin",
+      "target": "smerdyakov",
+      "weight": 1,
+      "chapters": [
+        "b09-c05"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "nikolay",
+      "weight": 1,
+      "chapters": [
+        "b09-c07"
+      ]
+    },
+    {
+      "source": "grushenka",
+      "target": "prosecutor",
+      "weight": 1,
+      "chapters": [
+        "b09-c08"
+      ]
+    },
+    {
+      "source": "nikolay",
+      "target": "prosecutor",
+      "weight": 1,
+      "chapters": [
+        "b09-c08"
+      ]
+    },
+    {
+      "source": "prosecutor",
+      "target": "trifon",
+      "weight": 1,
+      "chapters": [
+        "b09-c08"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "maximov",
+      "weight": 1,
+      "chapters": [
+        "b11-c01"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "perhotin",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "lise",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "zossima",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "perhotin",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "katerina",
+      "target": "perhotin",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "lise",
+      "target": "perhotin",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "lise",
+      "target": "rakitin",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "perhotin",
+      "target": "rakitin",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "perhotin",
+      "target": "zossima",
+      "weight": 1,
+      "chapters": [
+        "b11-c02"
+      ]
+    },
+    {
+      "source": "lise",
+      "target": "smerdyakov",
+      "weight": 1,
+      "chapters": [
+        "b11-c10"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "fyodor",
+      "weight": 1,
+      "chapters": [
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "trifon",
+      "weight": 1,
+      "chapters": [
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "trifon",
+      "weight": 1,
+      "chapters": [
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "trifon",
+      "weight": 1,
+      "chapters": [
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "rakitin",
+      "target": "trifon",
+      "weight": 1,
+      "chapters": [
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "smerdyakov",
+      "target": "trifon",
+      "weight": 1,
+      "chapters": [
+        "b12-c02"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "fetyukovitch",
+      "weight": 1,
+      "chapters": [
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "katerina",
+      "weight": 1,
+      "chapters": [
+        "b12-c04"
+      ]
+    },
+    {
+      "source": "ivan",
+      "target": "prosecutor",
+      "weight": 1,
+      "chapters": [
+        "b12-c06"
+      ]
+    },
+    {
+      "source": "prosecutor",
+      "target": "samsonov",
+      "weight": 1,
+      "chapters": [
+        "b12-c07"
+      ]
+    },
+    {
+      "source": "fetyukovitch",
+      "target": "prosecutor",
+      "weight": 1,
+      "chapters": [
+        "b12-c09"
+      ]
+    },
+    {
+      "source": "grigory",
+      "target": "prosecutor",
+      "weight": 1,
+      "chapters": [
+        "b12-c09"
+      ]
+    },
+    {
+      "source": "prosecutor",
+      "target": "smerdyakov",
+      "weight": 1,
+      "chapters": [
+        "b12-c09"
+      ]
+    }
+  ]
+}
