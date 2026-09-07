@@ -7,6 +7,7 @@ const LINKS = [
   { href: '/read', label: 'Read' },
   { href: '/who', label: 'Who’s who' },
   { href: '/names', label: 'Names' },
+  { href: '/timeline', label: 'Timeline' },
   { href: '/network', label: 'Network' },
   { href: '/map', label: 'Map' },
   { href: '/ask', label: 'Ask' },
