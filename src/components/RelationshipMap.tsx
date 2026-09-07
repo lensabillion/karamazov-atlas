@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { BOND_STYLE, H, PEOPLE, TIES, W, type Person } from '@/lib/relationships';
+import { BOND_STYLE, H, PEOPLE, TIES, W, ZONES, type Person } from '@/lib/relationships';
 
 type TieKey = string;
 
@@ -44,12 +44,23 @@ export default function RelationshipMap() {
         <svg viewBox={`0 0 ${W} ${H}`} role="img"
           aria-label="Map of who the characters are to each other">
 
+          {ZONES.map((z) => (
+            <text key={z.label} x={z.x} y={z.y} textAnchor="middle"
+              style={{ font: '700 11px "Alegreya Sans", sans-serif', letterSpacing: '0.12em' }}
+              fill="var(--text-faint)" opacity={0.5}>
+              {z.label.toUpperCase()}
+            </text>
+          ))}
+
           {TIES.map((t) => {
             const a = at(t.from);
             const b = at(t.to);
             const style = BOND_STYLE[t.bond];
-            const active =
-              !selected || selected.id === t.from || selected.id === t.to;
+            const touched = selected?.id === t.from || selected?.id === t.to;
+            const active = !selected || touched;
+            // At rest only the plot-critical ties are labelled; selecting a
+            // person names every tie they have. Otherwise 37 labels compete.
+            const showLabel = touched || (!selected && t.key);
             const bow = bowOf.get(`${t.from}-${t.to}-${t.bond}`) ?? 0;
             // Control point pushed perpendicular to the line by `bow`.
             const dx = b.x - a.x;
@@ -68,14 +79,18 @@ export default function RelationshipMap() {
                   strokeWidth={style.width}
                   strokeDasharray={style.dash}
                   strokeLinecap="round" />
-                <rect x={mx - t.label.length * 3.4 - 5} y={my - 9}
-                  width={t.label.length * 6.8 + 10} height={18}
-                  fill="var(--surface)" rx={2} />
-                <text x={mx} y={my} textAnchor="middle" dominantBaseline="middle"
-                  style={{ font: '400 11px "Alegreya Sans", sans-serif' }}
-                  fill={t.key ? 'var(--accent)' : 'var(--text-faint)'}>
-                  {t.label}
-                </text>
+                {showLabel && (
+                  <>
+                    <rect x={mx - t.label.length * 3.4 - 5} y={my - 9}
+                      width={t.label.length * 6.8 + 10} height={18}
+                      fill="var(--surface)" rx={2} />
+                    <text x={mx} y={my} textAnchor="middle" dominantBaseline="middle"
+                      style={{ font: '400 11px "Alegreya Sans", sans-serif' }}
+                      fill={t.key ? 'var(--accent)' : 'var(--text-faint)'}>
+                      {t.label}
+                    </text>
+                  </>
+                )}
               </g>
             );
           })}
