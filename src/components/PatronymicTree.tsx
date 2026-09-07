@@ -33,11 +33,11 @@ export default function PatronymicTree({
 
         {/* the father */}
         <text x={W / 2} y={rootY} textAnchor="middle"
-          style={{ font: '400 22px Spectral, Georgia, serif' }} fill="var(--text)">
+          style={{ font: '400 22px Fraunces, Georgia, serif' }} fill="var(--ink)">
           {father} Pavlovitch
         </text>
         <text x={W / 2} y={rootY + 19} textAnchor="middle"
-          style={{ font: '400 12px "Alegreya Sans", sans-serif' }} fill="var(--text-faint)">
+          style={{ font: '400 12px "DM Sans", sans-serif' }} fill="var(--ink-3)">
           the father
         </text>
 
@@ -47,7 +47,7 @@ export default function PatronymicTree({
         <rect x={W / 2 - 92} y={bandY - 14} width={184} height={28}
           fill="var(--bg)" stroke="var(--accent)" strokeWidth={1} rx={2} />
         <text x={W / 2} y={bandY + 1} textAnchor="middle" dominantBaseline="middle"
-          style={{ font: '700 13px "Alegreya Sans", sans-serif' }} fill="var(--accent)">
+          style={{ font: '700 13px "DM Sans", sans-serif' }} fill="var(--accent)">
           — {patronymic}
         </text>
 
@@ -62,21 +62,21 @@ export default function PatronymicTree({
           return (
             <g key={c.id}>
               <line x1={x} y1={bandY} x2={x} y2={kidY - 30}
-                stroke={disputed ? 'var(--text-faint)' : 'var(--border-strong)'}
+                stroke={disputed ? 'var(--ink-3)' : 'var(--border-strong)'}
                 strokeWidth={1}
                 strokeDasharray={disputed ? '3 4' : undefined} />
               <text x={x} y={kidY} textAnchor="middle"
-                style={{ font: '400 24px Spectral, Georgia, serif' }} fill="var(--text)">
+                style={{ font: '400 24px Fraunces, Georgia, serif' }} fill="var(--ink)">
                 {c.givenName ?? c.short}
               </text>
               <text x={x} y={kidY + 22} textAnchor="middle"
-                style={{ font: '400 12px "Alegreya Sans", sans-serif' }} fill="var(--text-faint)">
+                style={{ font: '400 12px "DM Sans", sans-serif' }} fill="var(--ink-3)">
                 {c.short === (c.givenName ?? c.short) ? '' : `“${c.short}” · `}
                 {formal ? `${formal.count}×` : 'named so once'}
               </text>
               {disputed && (
                 <text x={x} y={kidY + 44} textAnchor="middle"
-                  style={{ font: '400 12px "Alegreya Sans", sans-serif' }} fill="var(--accent)">
+                  style={{ font: '400 12px "DM Sans", sans-serif' }} fill="var(--accent)">
                   once, in 349,367 words
                 </text>
               )}

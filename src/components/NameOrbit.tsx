@@ -1,3 +1,4 @@
+import { markPath } from './GroupMark';
 import type { Address, NamedCharacter, Register } from '@/lib/names';
 
 /**
@@ -55,7 +56,7 @@ export default function NameOrbit({
 
         {/* the person */}
         <text x={CX} y={CY} textAnchor="middle" dominantBaseline="middle"
-          style={{ font: '400 15px Spectral, Georgia, serif' }} fill="var(--text)">
+          style={{ font: '400 15px Fraunces, Georgia, serif' }} fill="var(--ink)">
           {character.short}
         </text>
 
@@ -72,13 +73,14 @@ export default function NameOrbit({
           const anchor = flip ? 'end' : 'start';
           return (
             <g key={f.form}>
-              <circle cx={x} cy={y} r={dot} fill="var(--group-color)" />
+              <path className="mark" transform={`translate(${x},${y})`}
+                d={markPath(character.group, dot)} />
               <text x={lx} y={y} textAnchor={anchor} dominantBaseline="middle"
-                style={{ font: '400 13px Spectral, Georgia, serif' }} fill="var(--text)">
+                style={{ font: '400 13px Fraunces, Georgia, serif' }} fill="var(--ink)">
                 {f.form}
               </text>
               <text x={lx} y={y + 14} textAnchor={anchor} dominantBaseline="middle"
-                style={{ font: '400 11px "Alegreya Sans", sans-serif' }} fill="var(--text-faint)">
+                style={{ font: '400 11px "DM Sans", sans-serif' }} fill="var(--ink-3)">
                 {f.count}×
                 {who.length > 0 && ` · heard from ${who.slice(0, 3).join(', ')}`}
               </text>

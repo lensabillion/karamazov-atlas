@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { markPath } from './GroupMark';
 import { BOND_STYLE, H, PEOPLE, TIES, W, ZONES, type Person } from '@/lib/relationships';
 
 type TieKey = string;
@@ -46,8 +47,8 @@ export default function RelationshipMap() {
 
           {ZONES.map((z) => (
             <text key={z.label} x={z.x} y={z.y} textAnchor="middle"
-              style={{ font: '700 11px "Alegreya Sans", sans-serif', letterSpacing: '0.12em' }}
-              fill="var(--text-faint)" opacity={0.5}>
+              style={{ font: '700 11px "DM Sans", sans-serif', letterSpacing: '0.12em' }}
+              fill="var(--ink-3)" opacity={0.5}>
               {z.label.toUpperCase()}
             </text>
           ))}
@@ -75,7 +76,7 @@ export default function RelationshipMap() {
               <g key={`${t.from}-${t.to}-${t.bond}`} opacity={active ? 1 : 0.12}>
                 <path d={`M${a.x},${a.y} Q${cx},${cy} ${b.x},${b.y}`}
                   fill="none"
-                  stroke={t.key ? 'var(--accent)' : 'var(--border-strong)'}
+                  stroke={touched ? 'var(--teal)' : t.key ? 'var(--blue)' : 'var(--border-strong)'}
                   strokeWidth={style.width}
                   strokeDasharray={style.dash}
                   strokeLinecap="round" />
@@ -85,8 +86,8 @@ export default function RelationshipMap() {
                       width={t.label.length * 6.8 + 10} height={18}
                       fill="var(--surface)" rx={2} />
                     <text x={mx} y={my} textAnchor="middle" dominantBaseline="middle"
-                      style={{ font: '400 11px "Alegreya Sans", sans-serif' }}
-                      fill={t.key ? 'var(--accent)' : 'var(--text-faint)'}>
+                      style={{ font: '400 11px "DM Sans", sans-serif' }}
+                      fill={touched ? 'var(--teal-deep)' : t.key ? 'var(--blue)' : 'var(--ink-3)'}>
                       {t.label}
                     </text>
                   </>
@@ -100,11 +101,13 @@ export default function RelationshipMap() {
             return (
               <g key={p.id} className={`group-${p.group}`} opacity={lit(p.id) ? 1 : 0.2}
                 onClick={() => setSelected(p)} style={{ cursor: 'pointer' }}>
-                <circle cx={p.x} cy={p.y} r={on ? 13 : 9}
-                  fill="var(--group-color)" stroke="var(--bg)" strokeWidth={2.5} />
+                <path className="mark" data-active={on || undefined}
+                  transform={`translate(${p.x},${p.y})`}
+                  d={markPath(p.group, on ? 11 : 8)}
+                  stroke="var(--bg)" strokeWidth={2} />
                 <text x={p.x} y={p.y - (on ? 22 : 18)} textAnchor="middle"
-                  style={{ font: `${on ? 700 : 400} 13px "Alegreya Sans", sans-serif` }}
-                  fill="var(--text)">
+                  style={{ font: `${on ? 700 : 400} 13px "DM Sans", sans-serif` }}
+                  fill="var(--ink)">
                   {p.name}
                 </text>
               </g>

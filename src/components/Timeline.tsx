@@ -67,18 +67,18 @@ export default function Timeline() {
         <svg viewBox={`0 0 ${W} ${H}`} role="img"
           aria-label="The novel laid out on story time and on book time, with a lane per character">
 
-          <text x={0} y={14} style={{ font: '700 11px "Alegreya Sans", sans-serif', letterSpacing: '0.1em' }}
-            fill="var(--text-faint)">STORY TIME — HOW LONG IT ACTUALLY TAKES</text>
+          <text x={0} y={14} style={{ font: '700 11px "DM Sans", sans-serif', letterSpacing: '0.1em' }}
+            fill="var(--ink-3)">STORY TIME — HOW LONG IT ACTUALLY TAKES</text>
           {SEGMENTS.map((s) => {
             const p = storyX[s.id]!;
             return (
               <g key={`s-${s.id}`}>
                 <rect x={p.x} y={24} width={Math.max(p.w - 2, 1)} height={RIBBON_H}
-                  fill={s.elided ? 'var(--border)' : 'var(--group-color, var(--text-faint))'}
+                  fill={s.elided ? 'var(--border)' : 'var(--blue)'}
                   opacity={s.elided ? 1 : 0.45} rx={2} />
                 {p.w > 62 && (
                   <text x={p.x + p.w / 2} y={24 + RIBBON_H / 2} textAnchor="middle" dominantBaseline="middle"
-                    style={{ font: '400 11px "Alegreya Sans", sans-serif' }} fill="var(--text)">
+                    style={{ font: '400 11px "DM Sans", sans-serif' }} fill="var(--ink)">
                     {s.label}
                   </text>
                 )}
@@ -86,8 +86,8 @@ export default function Timeline() {
             );
           })}
 
-          <text x={0} y={90} style={{ font: '700 11px "Alegreya Sans", sans-serif', letterSpacing: '0.1em' }}
-            fill="var(--text-faint)">BOOK TIME — HOW MUCH OF THE NOVEL IT TAKES UP</text>
+          <text x={0} y={90} style={{ font: '700 11px "DM Sans", sans-serif', letterSpacing: '0.1em' }}
+            fill="var(--ink-3)">BOOK TIME — HOW MUCH OF THE NOVEL IT TAKES UP</text>
           {SEGMENTS.map((s) => {
             const p = bookX[s.id]!;
             return (
@@ -96,7 +96,7 @@ export default function Timeline() {
                   fill="var(--accent)" opacity={0.5} rx={2} />
                 {p.w > 62 && (
                   <text x={p.x + p.w / 2} y={100 + RIBBON_H / 2} textAnchor="middle" dominantBaseline="middle"
-                    style={{ font: '400 11px "Alegreya Sans", sans-serif' }} fill="var(--text)">
+                    style={{ font: '400 11px "DM Sans", sans-serif' }} fill="var(--ink)">
                     {s.label}
                   </text>
                 )}
@@ -116,8 +116,8 @@ export default function Timeline() {
           {LANES.map((lane, i) => (
             <g key={lane.id}>
               <line x1={0} y1={laneY(i)} x2={W} y2={laneY(i)} stroke="var(--border)" strokeWidth={1} />
-              <text x={4} y={laneY(i) - 9} style={{ font: '400 12px "Alegreya Sans", sans-serif' }}
-                fill="var(--text-faint)">{lane.name}</text>
+              <text x={4} y={laneY(i) - 9} style={{ font: '400 12px "DM Sans", sans-serif' }}
+                fill="var(--ink-3)">{lane.name}</text>
             </g>
           ))}
 
@@ -135,7 +135,7 @@ export default function Timeline() {
                   if (i < 0) return null;
                   return (
                     <circle key={id} cx={x} cy={laneY(i)} r={on ? 7 : m.key ? 5.5 : 4}
-                      fill={on || m.key ? 'var(--accent)' : 'var(--text-faint)'}
+                      fill={on || m.key ? 'var(--accent)' : 'var(--ink-3)'}
                       stroke="var(--surface)" strokeWidth={1.5} />
                   );
                 })}
