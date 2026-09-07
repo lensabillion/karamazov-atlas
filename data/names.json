@@ -7,6 +7,155 @@
       "group": "family",
       "patronymic": "Pavlovitch",
       "givenName": "Fyodor",
+      "registerByChapter": {
+        "b01-c01": {
+          "formal": 11
+        },
+        "b01-c02": {
+          "formal": 12
+        },
+        "b01-c03": {
+          "formal": 10
+        },
+        "b01-c04": {
+          "formal": 4
+        },
+        "b01-c05": {
+          "formal": 1
+        },
+        "b02-c01": {
+          "formal": 9
+        },
+        "b02-c02": {
+          "formal": 10
+        },
+        "b02-c05": {
+          "formal": 2
+        },
+        "b02-c06": {
+          "formal": 7
+        },
+        "b02-c08": {
+          "formal": 16
+        },
+        "b03-c01": {
+          "formal": 14
+        },
+        "b03-c02": {
+          "formal": 7
+        },
+        "b03-c03": {
+          "formal": 1
+        },
+        "b03-c06": {
+          "formal": 17
+        },
+        "b03-c07": {
+          "formal": 13
+        },
+        "b03-c08": {
+          "formal": 2
+        },
+        "b03-c09": {
+          "formal": 3
+        },
+        "b04-c07": {
+          "formal": 2
+        },
+        "b05-c02": {
+          "formal": 2
+        },
+        "b05-c06": {
+          "formal": 8
+        },
+        "b05-c07": {
+          "formal": 13
+        },
+        "b07-c03": {
+          "formal": 1
+        },
+        "b08-c01": {
+          "formal": 11
+        },
+        "b08-c02": {
+          "formal": 2
+        },
+        "b08-c03": {
+          "formal": 3
+        },
+        "b08-c04": {
+          "formal": 8
+        },
+        "b08-c05": {
+          "formal": 1
+        },
+        "b08-c08": {
+          "formal": 1
+        },
+        "b09-c01": {
+          "formal": 5
+        },
+        "b09-c02": {
+          "formal": 9
+        },
+        "b09-c03": {
+          "formal": 1
+        },
+        "b09-c04": {
+          "formal": 2
+        },
+        "b09-c05": {
+          "formal": 1
+        },
+        "b09-c08": {
+          "formal": 2
+        },
+        "b11-c04": {
+          "formal": 1
+        },
+        "b11-c05": {
+          "formal": 3
+        },
+        "b11-c06": {
+          "formal": 1
+        },
+        "b11-c07": {
+          "formal": 2
+        },
+        "b11-c08": {
+          "formal": 4
+        },
+        "b11-c10": {
+          "formal": 1
+        },
+        "b12-c01": {
+          "formal": 2
+        },
+        "b12-c02": {
+          "formal": 6
+        },
+        "b12-c04": {
+          "formal": 2
+        },
+        "b12-c07": {
+          "formal": 1
+        },
+        "b12-c08": {
+          "formal": 4
+        },
+        "b12-c11": {
+          "formal": 4
+        },
+        "b12-c12": {
+          "formal": 3
+        },
+        "b12-c13": {
+          "formal": 1
+        },
+        "b12-c14": {
+          "formal": 1
+        }
+      },
       "fatherName": "Pavel",
       "forms": [
         {
@@ -78,6 +227,309 @@
       "group": "family",
       "patronymic": "Fyodorovitch",
       "givenName": "Dmitri",
+      "registerByChapter": {
+        "b01-c02": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 11
+        },
+        "b02-c01": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b02-c04": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b02-c05": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b02-c06": {
+          "formal": 5,
+          "neutral": 26,
+          "familiar": 3
+        },
+        "b02-c07": {
+          "formal": 2,
+          "neutral": 6,
+          "familiar": 10
+        },
+        "b03-c10": {
+          "formal": 1,
+          "neutral": 8,
+          "familiar": 2
+        },
+        "b03-c11": {
+          "formal": 1,
+          "neutral": 7,
+          "familiar": 2
+        },
+        "b04-c04": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b04-c05": {
+          "formal": 3,
+          "neutral": 22
+        },
+        "b04-c06": {
+          "formal": 1,
+          "neutral": 5
+        },
+        "b04-c07": {
+          "formal": 1,
+          "neutral": 3
+        },
+        "b05-c02": {
+          "formal": 6,
+          "neutral": 15
+        },
+        "b05-c06": {
+          "formal": 8,
+          "neutral": 18,
+          "familiar": 1
+        },
+        "b07-c03": {
+          "formal": 2,
+          "neutral": 3,
+          "familiar": 14
+        },
+        "b08-c03": {
+          "formal": 25,
+          "neutral": 31,
+          "familiar": 46
+        },
+        "b08-c05": {
+          "formal": 12,
+          "neutral": 15,
+          "familiar": 63,
+          "tender": 2
+        },
+        "b08-c06": {
+          "formal": 8,
+          "neutral": 10,
+          "familiar": 26
+        },
+        "b08-c07": {
+          "formal": 2,
+          "neutral": 2,
+          "familiar": 88
+        },
+        "b08-c08": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 67,
+          "tender": 1
+        },
+        "b09-c01": {
+          "formal": 9,
+          "neutral": 10,
+          "familiar": 2
+        },
+        "b09-c02": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 4
+        },
+        "b09-c03": {
+          "formal": 3,
+          "neutral": 3,
+          "familiar": 28
+        },
+        "b09-c04": {
+          "formal": 1,
+          "neutral": 2,
+          "familiar": 21
+        },
+        "b09-c05": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 39
+        },
+        "b09-c06": {
+          "formal": 3,
+          "neutral": 5,
+          "familiar": 38
+        },
+        "b09-c07": {
+          "formal": 7,
+          "neutral": 9,
+          "familiar": 16
+        },
+        "b09-c08": {
+          "formal": 12,
+          "neutral": 14,
+          "familiar": 39
+        },
+        "b09-c09": {
+          "formal": 2,
+          "neutral": 3,
+          "familiar": 24
+        },
+        "b11-c02": {
+          "formal": 3,
+          "neutral": 5,
+          "familiar": 1
+        },
+        "b11-c03": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 1
+        },
+        "b11-c06": {
+          "formal": 3,
+          "neutral": 9,
+          "familiar": 12
+        },
+        "b11-c07": {
+          "formal": 1,
+          "neutral": 8,
+          "familiar": 15
+        },
+        "b11-c08": {
+          "formal": 6,
+          "neutral": 13
+        },
+        "b12-c02": {
+          "formal": 1,
+          "neutral": 3,
+          "familiar": 19
+        },
+        "b12-c04": {
+          "formal": 1,
+          "neutral": 2,
+          "familiar": 18
+        },
+        "b12-c08": {
+          "formal": 1,
+          "neutral": 7
+        },
+        "b13-c01": {
+          "formal": 1,
+          "neutral": 8,
+          "familiar": 4
+        },
+        "b01-c01": {
+          "neutral": 1,
+          "familiar": 1
+        },
+        "b01-c03": {
+          "neutral": 3,
+          "familiar": 2
+        },
+        "b01-c04": {
+          "neutral": 1
+        },
+        "b01-c05": {
+          "neutral": 9
+        },
+        "b02-c02": {
+          "neutral": 1
+        },
+        "b03-c01": {
+          "neutral": 2
+        },
+        "b03-c03": {
+          "neutral": 8,
+          "familiar": 8
+        },
+        "b03-c04": {
+          "neutral": 1,
+          "familiar": 1
+        },
+        "b03-c05": {
+          "neutral": 8,
+          "familiar": 7
+        },
+        "b03-c08": {
+          "neutral": 1
+        },
+        "b03-c09": {
+          "neutral": 22,
+          "familiar": 1
+        },
+        "b04-c03": {
+          "neutral": 1
+        },
+        "b05-c03": {
+          "neutral": 16
+        },
+        "b05-c05": {
+          "neutral": 4,
+          "familiar": 1
+        },
+        "b05-c07": {
+          "neutral": 2,
+          "familiar": 1
+        },
+        "b07-c02": {
+          "neutral": 2
+        },
+        "b08-c01": {
+          "neutral": 5,
+          "familiar": 41
+        },
+        "b08-c02": {
+          "neutral": 3,
+          "familiar": 42
+        },
+        "b11-c10": {
+          "neutral": 1,
+          "familiar": 3
+        },
+        "b12-c01": {
+          "neutral": 2,
+          "familiar": 15
+        },
+        "b12-c05": {
+          "neutral": 1,
+          "familiar": 17
+        },
+        "b12-c06": {
+          "neutral": 2,
+          "familiar": 1
+        },
+        "b04-c02": {
+          "familiar": 8
+        },
+        "b07-c04": {
+          "familiar": 2
+        },
+        "b08-c04": {
+          "familiar": 26
+        },
+        "b11-c01": {
+          "familiar": 28
+        },
+        "b11-c04": {
+          "familiar": 35
+        },
+        "b11-c05": {
+          "familiar": 5
+        },
+        "b12-c03": {
+          "familiar": 6
+        },
+        "b12-c07": {
+          "familiar": 1
+        },
+        "b12-c09": {
+          "familiar": 8
+        },
+        "b12-c10": {
+          "familiar": 2
+        },
+        "b12-c14": {
+          "familiar": 5
+        },
+        "b13-c02": {
+          "familiar": 29
+        },
+        "b13-c03": {
+          "familiar": 1
+        }
+      },
       "fatherName": "Fyodor",
       "forms": [
         {
@@ -285,6 +737,189 @@
       "group": "family",
       "patronymic": "Fyodorovitch",
       "givenName": "Ivan",
+      "registerByChapter": {
+        "b01-c03": {
+          "formal": 4,
+          "neutral": 10
+        },
+        "b02-c05": {
+          "formal": 1,
+          "neutral": 11
+        },
+        "b02-c06": {
+          "formal": 3,
+          "neutral": 16
+        },
+        "b02-c08": {
+          "formal": 1,
+          "neutral": 15
+        },
+        "b04-c02": {
+          "formal": 1,
+          "neutral": 18
+        },
+        "b04-c04": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b04-c05": {
+          "formal": 8,
+          "neutral": 35
+        },
+        "b05-c02": {
+          "formal": 3,
+          "neutral": 7
+        },
+        "b05-c06": {
+          "formal": 5,
+          "neutral": 47
+        },
+        "b08-c03": {
+          "formal": 1,
+          "neutral": 3
+        },
+        "b10-c01": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b11-c01": {
+          "formal": 2,
+          "neutral": 9
+        },
+        "b11-c02": {
+          "formal": 4,
+          "neutral": 4
+        },
+        "b11-c03": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b11-c04": {
+          "formal": 1,
+          "neutral": 21
+        },
+        "b12-c06": {
+          "formal": 1,
+          "neutral": 3
+        },
+        "b12-c08": {
+          "formal": 5,
+          "neutral": 10
+        },
+        "b12-c11": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b13-c01": {
+          "formal": 7,
+          "neutral": 7
+        },
+        "b01-c01": {
+          "neutral": 1
+        },
+        "b01-c04": {
+          "neutral": 2
+        },
+        "b01-c05": {
+          "neutral": 12
+        },
+        "b02-c01": {
+          "neutral": 1
+        },
+        "b02-c02": {
+          "neutral": 2
+        },
+        "b02-c07": {
+          "neutral": 15
+        },
+        "b03-c01": {
+          "neutral": 2
+        },
+        "b03-c03": {
+          "neutral": 2
+        },
+        "b03-c04": {
+          "neutral": 5
+        },
+        "b03-c05": {
+          "neutral": 13
+        },
+        "b03-c06": {
+          "neutral": 2
+        },
+        "b03-c07": {
+          "neutral": 9
+        },
+        "b03-c08": {
+          "neutral": 29
+        },
+        "b03-c09": {
+          "neutral": 26
+        },
+        "b03-c10": {
+          "neutral": 2
+        },
+        "b05-c01": {
+          "neutral": 1
+        },
+        "b05-c03": {
+          "neutral": 25
+        },
+        "b05-c04": {
+          "neutral": 12
+        },
+        "b05-c05": {
+          "neutral": 17
+        },
+        "b05-c07": {
+          "neutral": 20
+        },
+        "b07-c02": {
+          "neutral": 5
+        },
+        "b08-c01": {
+          "neutral": 1
+        },
+        "b08-c04": {
+          "neutral": 1
+        },
+        "b11-c05": {
+          "neutral": 35
+        },
+        "b11-c06": {
+          "neutral": 51
+        },
+        "b11-c07": {
+          "neutral": 41
+        },
+        "b11-c08": {
+          "neutral": 69
+        },
+        "b11-c09": {
+          "neutral": 43
+        },
+        "b11-c10": {
+          "neutral": 23
+        },
+        "b12-c02": {
+          "neutral": 1
+        },
+        "b12-c04": {
+          "neutral": 1
+        },
+        "b12-c05": {
+          "neutral": 14
+        },
+        "b12-c07": {
+          "neutral": 2
+        },
+        "b12-c12": {
+          "neutral": 1
+        },
+        "b13-c02": {
+          "neutral": 6
+        }
+      },
       "fatherName": "Fyodor",
       "forms": [
         {
@@ -390,6 +1025,236 @@
       "group": "family",
       "patronymic": "Fyodorovitch",
       "givenName": "Alexey",
+      "registerByChapter": {
+        "b01-c01": {
+          "formal": 1
+        },
+        "b02-c04": {
+          "formal": 2,
+          "familiar": 12
+        },
+        "b02-c07": {
+          "formal": 2,
+          "familiar": 24
+        },
+        "b03-c10": {
+          "formal": 10,
+          "familiar": 45
+        },
+        "b03-c11": {
+          "formal": 2,
+          "familiar": 25
+        },
+        "b04-c02": {
+          "formal": 3,
+          "familiar": 18
+        },
+        "b04-c04": {
+          "formal": 14,
+          "familiar": 16
+        },
+        "b04-c05": {
+          "formal": 17,
+          "familiar": 44
+        },
+        "b04-c06": {
+          "formal": 4,
+          "familiar": 39
+        },
+        "b04-c07": {
+          "formal": 7,
+          "familiar": 23
+        },
+        "b05-c01": {
+          "formal": 13,
+          "familiar": 48
+        },
+        "b05-c06": {
+          "formal": 1,
+          "familiar": 5
+        },
+        "b06-c01": {
+          "formal": 3,
+          "familiar": 10
+        },
+        "b06-c03": {
+          "formal": 2
+        },
+        "b10-c05": {
+          "formal": 1,
+          "familiar": 22
+        },
+        "b11-c02": {
+          "formal": 6,
+          "familiar": 22
+        },
+        "b11-c05": {
+          "formal": 6,
+          "familiar": 37
+        },
+        "b11-c07": {
+          "formal": 1,
+          "familiar": 7
+        },
+        "b12-c04": {
+          "formal": 1,
+          "familiar": 22
+        },
+        "b13-c01": {
+          "formal": 1,
+          "familiar": 18
+        },
+        "b01-c04": {
+          "familiar": 22
+        },
+        "b01-c05": {
+          "familiar": 30
+        },
+        "b02-c01": {
+          "familiar": 1
+        },
+        "b02-c02": {
+          "familiar": 8
+        },
+        "b02-c05": {
+          "familiar": 5
+        },
+        "b02-c06": {
+          "familiar": 4
+        },
+        "b02-c08": {
+          "familiar": 7
+        },
+        "b03-c01": {
+          "familiar": 5
+        },
+        "b03-c03": {
+          "familiar": 22
+        },
+        "b03-c04": {
+          "familiar": 8
+        },
+        "b03-c05": {
+          "familiar": 12
+        },
+        "b03-c06": {
+          "familiar": 8
+        },
+        "b03-c07": {
+          "familiar": 9
+        },
+        "b03-c08": {
+          "familiar": 23
+        },
+        "b03-c09": {
+          "familiar": 30
+        },
+        "b04-c01": {
+          "familiar": 21
+        },
+        "b04-c03": {
+          "familiar": 35
+        },
+        "b05-c02": {
+          "familiar": 21
+        },
+        "b05-c03": {
+          "familiar": 33
+        },
+        "b05-c04": {
+          "familiar": 22
+        },
+        "b05-c05": {
+          "familiar": 17
+        },
+        "b05-c07": {
+          "familiar": 5
+        },
+        "b07-c01": {
+          "familiar": 11
+        },
+        "b07-c02": {
+          "familiar": 32
+        },
+        "b07-c03": {
+          "familiar": 72
+        },
+        "b07-c04": {
+          "familiar": 15
+        },
+        "b08-c01": {
+          "familiar": 5
+        },
+        "b08-c03": {
+          "familiar": 4
+        },
+        "b08-c04": {
+          "familiar": 3
+        },
+        "b08-c05": {
+          "familiar": 2
+        },
+        "b08-c06": {
+          "familiar": 1
+        },
+        "b08-c08": {
+          "familiar": 3
+        },
+        "b09-c07": {
+          "familiar": 1
+        },
+        "b10-c03": {
+          "familiar": 1
+        },
+        "b10-c04": {
+          "familiar": 12
+        },
+        "b10-c06": {
+          "familiar": 24
+        },
+        "b10-c07": {
+          "familiar": 11
+        },
+        "b11-c01": {
+          "familiar": 35
+        },
+        "b11-c03": {
+          "familiar": 37
+        },
+        "b11-c04": {
+          "familiar": 53
+        },
+        "b11-c06": {
+          "familiar": 17
+        },
+        "b11-c08": {
+          "familiar": 1
+        },
+        "b11-c09": {
+          "familiar": 8
+        },
+        "b11-c10": {
+          "familiar": 40
+        },
+        "b12-c02": {
+          "familiar": 1
+        },
+        "b12-c03": {
+          "familiar": 1
+        },
+        "b12-c05": {
+          "familiar": 4
+        },
+        "b12-c07": {
+          "familiar": 1
+        },
+        "b13-c02": {
+          "familiar": 35
+        },
+        "b13-c03": {
+          "familiar": 26
+        }
+      },
       "fatherName": "Fyodor",
       "forms": [
         {
@@ -510,6 +1375,123 @@
       "group": "family",
       "patronymic": "Fyodorovitch",
       "givenName": "Pavel",
+      "registerByChapter": {
+        "b05-c02": {
+          "formal": 1,
+          "distanced": 11
+        },
+        "b02-c06": {
+          "distanced": 1
+        },
+        "b03-c01": {
+          "distanced": 1
+        },
+        "b03-c02": {
+          "distanced": 4
+        },
+        "b03-c05": {
+          "distanced": 3
+        },
+        "b03-c06": {
+          "distanced": 16
+        },
+        "b03-c07": {
+          "distanced": 10
+        },
+        "b03-c08": {
+          "distanced": 3
+        },
+        "b03-c09": {
+          "distanced": 7
+        },
+        "b04-c02": {
+          "distanced": 1
+        },
+        "b05-c03": {
+          "distanced": 3
+        },
+        "b05-c06": {
+          "distanced": 32
+        },
+        "b05-c07": {
+          "distanced": 12
+        },
+        "b08-c03": {
+          "distanced": 4
+        },
+        "b08-c04": {
+          "distanced": 5
+        },
+        "b09-c02": {
+          "distanced": 5
+        },
+        "b09-c04": {
+          "distanced": 1
+        },
+        "b09-c05": {
+          "distanced": 19
+        },
+        "b09-c06": {
+          "distanced": 7
+        },
+        "b10-c04": {
+          "distanced": 1
+        },
+        "b11-c05": {
+          "distanced": 4
+        },
+        "b11-c06": {
+          "distanced": 33
+        },
+        "b11-c07": {
+          "distanced": 36
+        },
+        "b11-c08": {
+          "distanced": 39
+        },
+        "b11-c09": {
+          "distanced": 3
+        },
+        "b11-c10": {
+          "distanced": 8
+        },
+        "b12-c01": {
+          "distanced": 3
+        },
+        "b12-c02": {
+          "distanced": 3
+        },
+        "b12-c04": {
+          "distanced": 8
+        },
+        "b12-c05": {
+          "distanced": 8
+        },
+        "b12-c06": {
+          "distanced": 1
+        },
+        "b12-c07": {
+          "distanced": 2
+        },
+        "b12-c08": {
+          "distanced": 39
+        },
+        "b12-c09": {
+          "distanced": 9
+        },
+        "b12-c11": {
+          "distanced": 8
+        },
+        "b12-c12": {
+          "distanced": 19
+        },
+        "b12-c14": {
+          "distanced": 1
+        },
+        "b13-c02": {
+          "distanced": 1
+        }
+      },
       "fatherName": "Fyodor",
       "forms": [
         {
@@ -581,6 +1563,171 @@
       "group": "women",
       "patronymic": "Alexandrovna",
       "givenName": "Agrafena",
+      "registerByChapter": {
+        "b03-c10": {
+          "formal": 1,
+          "tender": 13
+        },
+        "b04-c07": {
+          "formal": 1
+        },
+        "b05-c02": {
+          "formal": 1,
+          "tender": 1
+        },
+        "b05-c06": {
+          "formal": 8,
+          "tender": 3
+        },
+        "b07-c03": {
+          "formal": 5,
+          "tender": 50
+        },
+        "b08-c01": {
+          "formal": 2,
+          "tender": 30
+        },
+        "b08-c03": {
+          "formal": 1,
+          "tender": 7
+        },
+        "b08-c04": {
+          "formal": 1,
+          "tender": 4
+        },
+        "b08-c05": {
+          "formal": 1,
+          "tender": 6
+        },
+        "b08-c06": {
+          "formal": 1,
+          "tender": 3
+        },
+        "b09-c07": {
+          "formal": 1,
+          "tender": 1
+        },
+        "b09-c08": {
+          "formal": 5,
+          "tender": 18
+        },
+        "b11-c02": {
+          "formal": 1
+        },
+        "b11-c07": {
+          "formal": 1,
+          "tender": 2
+        },
+        "b11-c08": {
+          "formal": 2,
+          "tender": 3
+        },
+        "b12-c02": {
+          "formal": 1,
+          "tender": 3
+        },
+        "b02-c07": {
+          "tender": 10
+        },
+        "b03-c04": {
+          "tender": 1
+        },
+        "b03-c05": {
+          "tender": 15
+        },
+        "b03-c09": {
+          "tender": 6
+        },
+        "b03-c11": {
+          "tender": 9
+        },
+        "b04-c02": {
+          "tender": 7
+        },
+        "b04-c03": {
+          "tender": 2
+        },
+        "b04-c05": {
+          "tender": 2
+        },
+        "b04-c06": {
+          "tender": 1
+        },
+        "b05-c07": {
+          "tender": 1
+        },
+        "b07-c02": {
+          "tender": 3
+        },
+        "b08-c02": {
+          "tender": 4
+        },
+        "b08-c07": {
+          "tender": 46
+        },
+        "b08-c08": {
+          "tender": 21,
+          "familiar": 1
+        },
+        "b09-c01": {
+          "tender": 1
+        },
+        "b09-c02": {
+          "tender": 1
+        },
+        "b09-c03": {
+          "tender": 7,
+          "familiar": 1
+        },
+        "b09-c04": {
+          "tender": 3
+        },
+        "b09-c05": {
+          "tender": 4
+        },
+        "b09-c09": {
+          "tender": 2,
+          "familiar": 1
+        },
+        "b11-c01": {
+          "tender": 39
+        },
+        "b11-c04": {
+          "tender": 5,
+          "familiar": 8
+        },
+        "b12-c01": {
+          "tender": 3
+        },
+        "b12-c04": {
+          "tender": 11
+        },
+        "b12-c05": {
+          "tender": 1
+        },
+        "b12-c07": {
+          "tender": 2
+        },
+        "b12-c09": {
+          "tender": 2
+        },
+        "b12-c11": {
+          "tender": 1
+        },
+        "b12-c14": {
+          "tender": 1
+        },
+        "b13-c01": {
+          "tender": 1
+        },
+        "b13-c02": {
+          "tender": 6,
+          "familiar": 7
+        },
+        "b13-c03": {
+          "tender": 1
+        }
+      },
       "fatherName": "Alexander",
       "forms": [
         {
@@ -690,6 +1837,182 @@
       "group": "women",
       "patronymic": "Ivanovna",
       "givenName": "Katerina",
+      "registerByChapter": {
+        "b02-c04": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b02-c07": {
+          "formal": 6,
+          "neutral": 8,
+          "familiar": 1
+        },
+        "b03-c03": {
+          "formal": 3,
+          "neutral": 4
+        },
+        "b03-c04": {
+          "formal": 3,
+          "neutral": 3,
+          "familiar": 1
+        },
+        "b03-c05": {
+          "formal": 4,
+          "neutral": 5,
+          "familiar": 4
+        },
+        "b03-c09": {
+          "formal": 3,
+          "neutral": 3
+        },
+        "b03-c10": {
+          "formal": 28,
+          "neutral": 33
+        },
+        "b03-c11": {
+          "formal": 7,
+          "neutral": 8,
+          "familiar": 4
+        },
+        "b04-c02": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b04-c04": {
+          "formal": 3,
+          "neutral": 3
+        },
+        "b04-c05": {
+          "formal": 18,
+          "neutral": 21
+        },
+        "b04-c06": {
+          "formal": 2,
+          "neutral": 3
+        },
+        "b04-c07": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b05-c01": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b05-c03": {
+          "formal": 4,
+          "neutral": 4
+        },
+        "b05-c07": {
+          "formal": 4,
+          "neutral": 4
+        },
+        "b08-c01": {
+          "formal": 4,
+          "neutral": 5,
+          "familiar": 2
+        },
+        "b08-c03": {
+          "formal": 5,
+          "neutral": 6,
+          "familiar": 2
+        },
+        "b09-c07": {
+          "formal": 5,
+          "neutral": 5,
+          "familiar": 6
+        },
+        "b09-c08": {
+          "formal": 2,
+          "neutral": 3
+        },
+        "b10-c05": {
+          "formal": 2,
+          "neutral": 4
+        },
+        "b11-c01": {
+          "formal": 7,
+          "neutral": 14
+        },
+        "b11-c04": {
+          "formal": 1,
+          "neutral": 2,
+          "familiar": 2
+        },
+        "b11-c05": {
+          "formal": 7,
+          "neutral": 7,
+          "familiar": 1
+        },
+        "b11-c06": {
+          "formal": 3,
+          "neutral": 5
+        },
+        "b11-c07": {
+          "formal": 8,
+          "neutral": 9,
+          "familiar": 3
+        },
+        "b11-c08": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b11-c09": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b12-c01": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b12-c03": {
+          "formal": 3,
+          "neutral": 3
+        },
+        "b12-c04": {
+          "formal": 12,
+          "neutral": 12,
+          "familiar": 2
+        },
+        "b12-c05": {
+          "formal": 6,
+          "neutral": 7,
+          "familiar": 9
+        },
+        "b12-c11": {
+          "formal": 3,
+          "neutral": 4
+        },
+        "b13-c01": {
+          "formal": 6,
+          "neutral": 6,
+          "familiar": 11
+        },
+        "b13-c03": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b07-c03": {
+          "neutral": 1
+        },
+        "b10-c02": {
+          "neutral": 6
+        },
+        "b08-c08": {
+          "familiar": 2
+        },
+        "b11-c02": {
+          "familiar": 6
+        },
+        "b11-c10": {
+          "familiar": 2
+        },
+        "b12-c14": {
+          "familiar": 1
+        },
+        "b13-c02": {
+          "familiar": 16
+        }
+      },
       "fatherName": "Ivan",
       "forms": [
         {
@@ -822,6 +2145,122 @@
       "group": "women",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b02-c01": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b02-c03": {
+          "neutral": 2,
+          "distanced": 2
+        },
+        "b03-c03": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b03-c10": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b03-c11": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b04-c01": {
+          "neutral": 4,
+          "distanced": 5
+        },
+        "b04-c03": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b04-c04": {
+          "neutral": 6,
+          "distanced": 7
+        },
+        "b04-c05": {
+          "neutral": 10,
+          "distanced": 13
+        },
+        "b05-c01": {
+          "neutral": 4,
+          "distanced": 4
+        },
+        "b05-c03": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b07-c01": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b07-c02": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b08-c03": {
+          "neutral": 13,
+          "distanced": 14
+        },
+        "b08-c04": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b08-c05": {
+          "neutral": 2,
+          "distanced": 3
+        },
+        "b09-c01": {
+          "neutral": 11,
+          "distanced": 11
+        },
+        "b09-c04": {
+          "neutral": 1,
+          "distanced": 2
+        },
+        "b09-c05": {
+          "neutral": 2,
+          "distanced": 2
+        },
+        "b09-c07": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b09-c08": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b10-c05": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b11-c02": {
+          "neutral": 10,
+          "distanced": 11
+        },
+        "b11-c03": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b11-c04": {
+          "neutral": 3,
+          "distanced": 3
+        },
+        "b12-c07": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b13-c02": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b12-c01": {
+          "distanced": 1
+        },
+        "b13-c03": {
+          "distanced": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -910,6 +2349,44 @@
       "group": "women",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b02-c04": {
+          "neutral": 16
+        },
+        "b03-c11": {
+          "neutral": 1
+        },
+        "b04-c04": {
+          "neutral": 23
+        },
+        "b04-c05": {
+          "neutral": 14
+        },
+        "b05-c01": {
+          "neutral": 50
+        },
+        "b05-c02": {
+          "neutral": 1
+        },
+        "b11-c02": {
+          "neutral": 19
+        },
+        "b11-c03": {
+          "neutral": 14
+        },
+        "b11-c05": {
+          "neutral": 1
+        },
+        "b11-c10": {
+          "neutral": 3
+        },
+        "b13-c02": {
+          "neutral": 1
+        },
+        "b13-c03": {
+          "neutral": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -944,6 +2421,115 @@
       "group": "monastery",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b01-c05": {
+          "neutral": 3,
+          "distanced": 7
+        },
+        "b02-c01": {
+          "neutral": 1,
+          "distanced": 2
+        },
+        "b02-c02": {
+          "neutral": 6,
+          "distanced": 7
+        },
+        "b02-c03": {
+          "neutral": 4,
+          "distanced": 4
+        },
+        "b02-c05": {
+          "neutral": 3,
+          "distanced": 3
+        },
+        "b02-c06": {
+          "neutral": 2,
+          "distanced": 4
+        },
+        "b02-c07": {
+          "neutral": 7,
+          "distanced": 7
+        },
+        "b02-c08": {
+          "neutral": 3,
+          "distanced": 3
+        },
+        "b03-c11": {
+          "neutral": 5,
+          "distanced": 6
+        },
+        "b04-c01": {
+          "neutral": 9,
+          "distanced": 10
+        },
+        "b04-c04": {
+          "neutral": 3,
+          "distanced": 4
+        },
+        "b04-c06": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b05-c01": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b05-c04": {
+          "neutral": 1,
+          "distanced": 2
+        },
+        "b06-c01": {
+          "neutral": 11,
+          "distanced": 13
+        },
+        "b06-c02": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b06-c03": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b07-c01": {
+          "neutral": 5,
+          "distanced": 9
+        },
+        "b07-c02": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b07-c03": {
+          "neutral": 2,
+          "distanced": 2
+        },
+        "b07-c04": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b08-c03": {
+          "neutral": 2,
+          "distanced": 3
+        },
+        "b09-c01": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b09-c03": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b11-c02": {
+          "neutral": 3,
+          "distanced": 3
+        },
+        "b11-c09": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b01-c04": {
+          "distanced": 2
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1029,6 +2615,20 @@
       "group": "monastery",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b04-c01": {
+          "neutral": 15,
+          "distanced": 16
+        },
+        "b07-c01": {
+          "neutral": 14,
+          "distanced": 17
+        },
+        "b07-c02": {
+          "neutral": 1,
+          "distanced": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1067,6 +2667,47 @@
       "group": "monastery",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b02-c02": {
+          "neutral": 2
+        },
+        "b02-c05": {
+          "neutral": 12
+        },
+        "b02-c06": {
+          "neutral": 6
+        },
+        "b02-c08": {
+          "neutral": 4
+        },
+        "b03-c11": {
+          "neutral": 6
+        },
+        "b04-c01": {
+          "neutral": 22
+        },
+        "b05-c01": {
+          "neutral": 2
+        },
+        "b05-c05": {
+          "neutral": 4
+        },
+        "b06-c01": {
+          "neutral": 10
+        },
+        "b07-c01": {
+          "neutral": 58
+        },
+        "b07-c02": {
+          "neutral": 6
+        },
+        "b07-c04": {
+          "neutral": 12
+        },
+        "b01-c05": {
+          "neutral": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1124,6 +2765,80 @@
       "group": "monastery",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b02-c02": {
+          "distanced": 2
+        },
+        "b02-c05": {
+          "distanced": 2
+        },
+        "b02-c07": {
+          "distanced": 11
+        },
+        "b02-c08": {
+          "distanced": 6
+        },
+        "b03-c03": {
+          "distanced": 2
+        },
+        "b03-c05": {
+          "distanced": 1
+        },
+        "b04-c01": {
+          "distanced": 3
+        },
+        "b07-c01": {
+          "distanced": 4
+        },
+        "b07-c02": {
+          "distanced": 13
+        },
+        "b07-c03": {
+          "distanced": 84
+        },
+        "b07-c04": {
+          "distanced": 2
+        },
+        "b08-c03": {
+          "distanced": 1
+        },
+        "b08-c05": {
+          "distanced": 1
+        },
+        "b10-c03": {
+          "distanced": 1
+        },
+        "b10-c06": {
+          "distanced": 2
+        },
+        "b11-c01": {
+          "distanced": 5
+        },
+        "b11-c02": {
+          "distanced": 8
+        },
+        "b11-c04": {
+          "distanced": 27
+        },
+        "b12-c02": {
+          "distanced": 15
+        },
+        "b12-c04": {
+          "distanced": 4
+        },
+        "b12-c06": {
+          "distanced": 1
+        },
+        "b12-c07": {
+          "distanced": 1
+        },
+        "b12-c09": {
+          "distanced": 1
+        },
+        "b13-c02": {
+          "distanced": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1170,6 +2885,44 @@
       "group": "boys",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b04-c06": {
+          "familiar": 3
+        },
+        "b04-c07": {
+          "familiar": 22
+        },
+        "b05-c01": {
+          "familiar": 1
+        },
+        "b07-c02": {
+          "familiar": 1
+        },
+        "b10-c01": {
+          "familiar": 1
+        },
+        "b10-c03": {
+          "familiar": 12
+        },
+        "b10-c04": {
+          "familiar": 10
+        },
+        "b10-c05": {
+          "familiar": 75
+        },
+        "b10-c06": {
+          "familiar": 1
+        },
+        "b10-c07": {
+          "familiar": 10
+        },
+        "b12-c02": {
+          "familiar": 2
+        },
+        "b13-c03": {
+          "familiar": 28
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1204,6 +2957,45 @@
       "group": "boys",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b04-c03": {
+          "distanced": 3
+        },
+        "b04-c07": {
+          "distanced": 2
+        },
+        "b10-c01": {
+          "distanced": 6,
+          "familiar": 28
+        },
+        "b10-c02": {
+          "distanced": 17,
+          "familiar": 15
+        },
+        "b10-c03": {
+          "distanced": 5,
+          "familiar": 27
+        },
+        "b10-c04": {
+          "distanced": 4,
+          "familiar": 21
+        },
+        "b10-c05": {
+          "distanced": 24,
+          "familiar": 59
+        },
+        "b10-c07": {
+          "distanced": 5,
+          "familiar": 16
+        },
+        "b13-c03": {
+          "distanced": 2,
+          "familiar": 20
+        },
+        "b10-c06": {
+          "familiar": 24
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1253,6 +3045,32 @@
       "group": "boys",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b04-c05": {
+          "distanced": 1
+        },
+        "b04-c06": {
+          "distanced": 2
+        },
+        "b10-c01": {
+          "distanced": 1
+        },
+        "b10-c03": {
+          "distanced": 1
+        },
+        "b10-c05": {
+          "distanced": 3
+        },
+        "b12-c02": {
+          "distanced": 2
+        },
+        "b12-c07": {
+          "distanced": 1
+        },
+        "b13-c03": {
+          "distanced": 11
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1283,6 +3101,26 @@
       "group": "boys",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b04-c03": {
+          "distanced": 5
+        },
+        "b10-c03": {
+          "distanced": 22
+        },
+        "b10-c04": {
+          "distanced": 5
+        },
+        "b10-c05": {
+          "distanced": 18
+        },
+        "b10-c06": {
+          "distanced": 1
+        },
+        "b13-c03": {
+          "distanced": 4
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1311,6 +3149,101 @@
       "group": "town",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b01-c02": {
+          "neutral": 2
+        },
+        "b01-c03": {
+          "neutral": 4
+        },
+        "b01-c04": {
+          "neutral": 4
+        },
+        "b03-c01": {
+          "neutral": 21
+        },
+        "b03-c02": {
+          "neutral": 5
+        },
+        "b03-c06": {
+          "neutral": 13
+        },
+        "b03-c07": {
+          "neutral": 24
+        },
+        "b03-c08": {
+          "neutral": 1
+        },
+        "b03-c09": {
+          "neutral": 10
+        },
+        "b04-c02": {
+          "neutral": 1
+        },
+        "b05-c02": {
+          "neutral": 2
+        },
+        "b05-c06": {
+          "neutral": 8
+        },
+        "b05-c07": {
+          "neutral": 3
+        },
+        "b08-c04": {
+          "neutral": 9
+        },
+        "b08-c05": {
+          "neutral": 1
+        },
+        "b09-c02": {
+          "neutral": 11
+        },
+        "b09-c03": {
+          "neutral": 3
+        },
+        "b09-c04": {
+          "neutral": 1
+        },
+        "b09-c05": {
+          "neutral": 3
+        },
+        "b09-c06": {
+          "neutral": 6
+        },
+        "b11-c01": {
+          "neutral": 2
+        },
+        "b11-c02": {
+          "neutral": 4
+        },
+        "b11-c04": {
+          "neutral": 3
+        },
+        "b11-c06": {
+          "neutral": 5
+        },
+        "b11-c07": {
+          "neutral": 1
+        },
+        "b11-c08": {
+          "neutral": 9
+        },
+        "b12-c02": {
+          "neutral": 12
+        },
+        "b12-c08": {
+          "neutral": 9
+        },
+        "b12-c09": {
+          "neutral": 6
+        },
+        "b12-c10": {
+          "neutral": 2
+        },
+        "b12-c12": {
+          "neutral": 7
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1364,6 +3297,62 @@
       "group": "town",
       "patronymic": "Ignatyevna",
       "givenName": "Marfa",
+      "registerByChapter": {
+        "b03-c01": {
+          "formal": 5,
+          "neutral": 11
+        },
+        "b04-c02": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b05-c06": {
+          "formal": 4,
+          "neutral": 4
+        },
+        "b05-c07": {
+          "formal": 7,
+          "neutral": 8
+        },
+        "b08-c04": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b09-c02": {
+          "formal": 2,
+          "neutral": 10
+        },
+        "b11-c06": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b11-c08": {
+          "formal": 4,
+          "neutral": 4
+        },
+        "b12-c08": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b03-c02": {
+          "neutral": 3
+        },
+        "b03-c03": {
+          "neutral": 1
+        },
+        "b03-c06": {
+          "neutral": 5
+        },
+        "b03-c08": {
+          "neutral": 1
+        },
+        "b05-c02": {
+          "neutral": 1
+        },
+        "b12-c02": {
+          "neutral": 1
+        }
+      },
       "fatherName": "Ignat",
       "forms": [
         {
@@ -1420,6 +3409,48 @@
       "group": "town",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b08-c01": {
+          "neutral": 1,
+          "distanced": 14
+        },
+        "b02-c07": {
+          "distanced": 1
+        },
+        "b05-c06": {
+          "distanced": 1
+        },
+        "b07-c03": {
+          "distanced": 4
+        },
+        "b08-c02": {
+          "distanced": 6
+        },
+        "b08-c03": {
+          "distanced": 8
+        },
+        "b08-c04": {
+          "distanced": 1
+        },
+        "b09-c04": {
+          "distanced": 4
+        },
+        "b09-c07": {
+          "distanced": 1
+        },
+        "b09-c08": {
+          "distanced": 1
+        },
+        "b12-c02": {
+          "distanced": 1
+        },
+        "b12-c04": {
+          "distanced": 1
+        },
+        "b12-c07": {
+          "distanced": 3
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1466,6 +3497,33 @@
       "group": "town",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b09-c02": {
+          "familiar": 1,
+          "neutral": 1
+        },
+        "b02-c03": {
+          "neutral": 2
+        },
+        "b03-c01": {
+          "neutral": 2
+        },
+        "b03-c02": {
+          "neutral": 9
+        },
+        "b06-c01": {
+          "neutral": 2
+        },
+        "b08-c04": {
+          "neutral": 1
+        },
+        "b11-c04": {
+          "neutral": 1
+        },
+        "b12-c12": {
+          "neutral": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1507,6 +3565,41 @@
       "group": "town",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b02-c01": {
+          "distanced": 6
+        },
+        "b02-c07": {
+          "distanced": 1
+        },
+        "b02-c08": {
+          "distanced": 6
+        },
+        "b08-c06": {
+          "distanced": 3
+        },
+        "b08-c07": {
+          "distanced": 25
+        },
+        "b08-c08": {
+          "distanced": 12
+        },
+        "b09-c03": {
+          "distanced": 3
+        },
+        "b09-c08": {
+          "distanced": 2
+        },
+        "b11-c01": {
+          "distanced": 4
+        },
+        "b12-c01": {
+          "distanced": 1
+        },
+        "b12-c11": {
+          "distanced": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1540,6 +3633,44 @@
       "group": "town",
       "patronymic": null,
       "givenName": null,
+      "registerByChapter": {
+        "b08-c05": {
+          "distanced": 3
+        },
+        "b09-c01": {
+          "distanced": 5
+        },
+        "b09-c04": {
+          "distanced": 1
+        },
+        "b09-c05": {
+          "distanced": 7
+        },
+        "b09-c06": {
+          "distanced": 1
+        },
+        "b09-c07": {
+          "distanced": 2
+        },
+        "b11-c02": {
+          "distanced": 3
+        },
+        "b11-c04": {
+          "distanced": 1
+        },
+        "b11-c06": {
+          "distanced": 1
+        },
+        "b12-c01": {
+          "distanced": 1
+        },
+        "b12-c09": {
+          "distanced": 2
+        },
+        "b12-c11": {
+          "distanced": 1
+        }
+      },
       "fatherName": null,
       "forms": [
         {
@@ -1574,6 +3705,47 @@
       "group": "court",
       "patronymic": "Kirillovitch",
       "givenName": "Ippolit",
+      "registerByChapter": {
+        "b09-c02": {
+          "formal": 1
+        },
+        "b09-c03": {
+          "formal": 1
+        },
+        "b09-c04": {
+          "formal": 1
+        },
+        "b09-c05": {
+          "formal": 1
+        },
+        "b09-c06": {
+          "formal": 1
+        },
+        "b09-c08": {
+          "formal": 3
+        },
+        "b12-c01": {
+          "formal": 1
+        },
+        "b12-c05": {
+          "formal": 1
+        },
+        "b12-c06": {
+          "formal": 8
+        },
+        "b12-c07": {
+          "formal": 4
+        },
+        "b12-c08": {
+          "formal": 2
+        },
+        "b12-c09": {
+          "formal": 7
+        },
+        "b12-c14": {
+          "formal": 2
+        }
+      },
       "fatherName": "Kirill",
       "forms": [
         {
@@ -1609,6 +3781,44 @@
       "group": "court",
       "patronymic": "Fetyukovitch",
       "givenName": null,
+      "registerByChapter": {
+        "b11-c01": {
+          "distanced": 2
+        },
+        "b12-c01": {
+          "distanced": 4
+        },
+        "b12-c02": {
+          "distanced": 18
+        },
+        "b12-c03": {
+          "distanced": 2
+        },
+        "b12-c04": {
+          "distanced": 11
+        },
+        "b12-c05": {
+          "distanced": 2
+        },
+        "b12-c09": {
+          "distanced": 3
+        },
+        "b12-c10": {
+          "distanced": 2
+        },
+        "b12-c11": {
+          "distanced": 1
+        },
+        "b12-c12": {
+          "distanced": 1
+        },
+        "b12-c13": {
+          "distanced": 2
+        },
+        "b12-c14": {
+          "distanced": 7
+        }
+      },
       "fatherName": "Fetyuk",
       "forms": [
         {
@@ -1643,6 +3853,32 @@
       "group": "court",
       "patronymic": "Parfenovitch",
       "givenName": "Nikolay",
+      "registerByChapter": {
+        "b09-c02": {
+          "formal": 2
+        },
+        "b09-c03": {
+          "formal": 6
+        },
+        "b09-c04": {
+          "formal": 9
+        },
+        "b09-c05": {
+          "formal": 19
+        },
+        "b09-c06": {
+          "formal": 17
+        },
+        "b09-c07": {
+          "formal": 11
+        },
+        "b09-c08": {
+          "formal": 15
+        },
+        "b09-c09": {
+          "formal": 5
+        }
+      },
       "fatherName": "Parfen",
       "forms": [
         {
@@ -1673,6 +3909,38 @@
       "group": "court",
       "patronymic": "Borissovitch",
       "givenName": "Trifon",
+      "registerByChapter": {
+        "b08-c06": {
+          "formal": 10
+        },
+        "b08-c07": {
+          "formal": 2
+        },
+        "b08-c08": {
+          "formal": 4
+        },
+        "b09-c02": {
+          "formal": 2
+        },
+        "b09-c06": {
+          "formal": 1
+        },
+        "b09-c08": {
+          "formal": 5
+        },
+        "b09-c09": {
+          "formal": 6
+        },
+        "b12-c01": {
+          "formal": 1
+        },
+        "b12-c02": {
+          "formal": 5
+        },
+        "b13-c02": {
+          "formal": 1
+        }
+      },
       "fatherName": "Boris",
       "forms": [
         {

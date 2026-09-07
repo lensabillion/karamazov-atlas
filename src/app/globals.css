@@ -422,6 +422,11 @@ select {
   gap: var(--space-3);
 }
 
+/* For figures whose labels need horizontal room — the name orbits. */
+.grid--pairs {
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+}
+
 /* A horizontal run of items that may wrap. */
 .row {
   display: flex;

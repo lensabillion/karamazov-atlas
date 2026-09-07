@@ -50,6 +50,8 @@ export interface NamedCharacter {
   fatherName: string | null;
   forms: NameForm[];
   total: number;
+  /** Per chapter, how many namings fell in each register. Drives the ribbon. */
+  registerByChapter: Record<string, Partial<Record<Register, number>>>;
 }
 
 export interface NamesData {
@@ -181,6 +183,18 @@ function main() {
     });
     const givenName = formalForm ? formalForm.split(' ').slice(0, -1).join(' ') : null;
 
+    // Register mix per chapter: which way of naming this person dominated where.
+    const registerByChapter: Record<string, Partial<Record<Register, number>>> = {};
+    for (const f of forms) {
+      for (const chId of f.chapters) {
+        const re = new RegExp(`\\b${escape(f.form)}\\b`, 'g');
+        const n = (chapterText.get(chId)!.match(re) ?? []).length;
+        if (!n) continue;
+        registerByChapter[chId] ??= {};
+        registerByChapter[chId]![f.register] = (registerByChapter[chId]![f.register] ?? 0) + n;
+      }
+    }
+
     return {
       id: c.id,
       name: c.name,
@@ -188,6 +202,7 @@ function main() {
       group: c.group,
       patronymic,
       givenName,
+      registerByChapter,
       fatherName: patronymic ? fatherFromPatronymic(patronymic) : null,
       forms: forms.sort((a, b) => b.count - a.count),
       total: forms.reduce((n, f) => n + f.count, 0),

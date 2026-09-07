@@ -1,104 +1,93 @@
-import NameKey from '@/components/NameKey';
+import NameOrbit from '@/components/NameOrbit';
+import PatronymicTree from '@/components/PatronymicTree';
+import RegisterRibbon from '@/components/RegisterRibbon';
 import { getCorpus } from '@/lib/corpus';
 import { getNames } from '@/lib/names';
 
 export default function NamesPage() {
-  const { characters, lineages, registers } = getNames();
+  const { characters, lineages } = getNames();
   const corpus = getCorpus();
-  const cites = Object.fromEntries(corpus.chapters.map((c) => [c.id, c.cite]));
-  const citeOf = (id: string) => cites[id] ?? id;
-
   const byId = new Map(characters.map((c) => [c.id, c]));
-  const totalForms = characters.reduce((n, c) => n + c.forms.length, 0);
+  const cite = (id: string | null) => corpus.chapters.find((c) => c.id === id)?.cite ?? '';
 
-  // The one form that carries the novel's central ambiguity.
-  const smerdyakov = byId.get('smerdyakov');
-  const pavel = smerdyakov?.forms.find((f) => f.form === 'Pavel Fyodorovitch');
+  const pick = (ids: string[]) =>
+    ids.map((id) => byId.get(id)).filter((c): c is NonNullable<typeof c> => Boolean(c));
 
-  const principals = ['dmitri', 'ivan', 'alyosha', 'smerdyakov', 'grushenka', 'katerina']
-    .map((id) => byId.get(id))
-    .filter((c): c is NonNullable<typeof c> => Boolean(c));
+  const lineage = lineages[0];
+  const pavel = byId.get('smerdyakov')?.forms.find((f) => f.form === 'Pavel Fyodorovitch');
 
   return (
-    <main className="page">
+    <main className="page page--wide">
       <header className="page-header">
         <p className="eyebrow">The names</p>
-        <h1 className="title">Everyone here has five names, and each one means something</h1>
+        <h1 className="title">How close does a name stand?</h1>
         <p className="lede">
-          The most cited reason readers put this novel down is that they cannot tell who is
-          being spoken about. It is not a memory problem. Russian names carry information
-          English names do not: the form someone uses tells you their relationship to the
-          person and the temperature of the moment. {totalForms} distinct forms appear across
-          these {characters.length} characters, and every one below was counted in the text.
+          Russian names carry what English names do not: the form someone chooses tells you
+          their relationship to the person and the temperature of the moment. Here is that
+          system drawn rather than described.
         </p>
       </header>
 
-      <section className="section">
-        <div className="section-header">
-          <h2 className="heading">The register ladder</h2>
-          <p className="text-muted">
-            The same person, addressed from most distant to most intimate. Nothing about the
-            person changes; everything about the speaker does.
-          </p>
-        </div>
-        <ul className="list">
-          {registers.map((r) => (
-            <li className="list-item" key={r.key}>
-              <span className="list-item__label">
-                <strong>{r.label}</strong> — {r.description}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {lineages.map((l) => (
-        <section className="section" key={l.patronymic}>
+      {lineage && (
+        <section className="section">
           <div className="section-header">
-            <h2 className="heading">What the patronymic gives away</h2>
+            <h2 className="heading">The family, reassembled from grammar</h2>
             <p className="text-muted">
-              A patronymic is not a middle name. “{l.patronymic}” means <em>child of {l.father}</em>.
-              Group the characters by the patronymic the text gives them and the family
-              reassembles itself — including the son nobody will say is a son.
+              A patronymic is not a middle name — it names the father. Everyone below carries{' '}
+              <strong>{lineage.patronymic}</strong>, so everyone below is a child of{' '}
+              {lineage.father}. Nobody had to say so.
             </p>
           </div>
-          <div className="lineage">
-            {l.children.map((id) => {
-              const c = byId.get(id);
-              if (!c) return null;
-              const disputed = id === 'smerdyakov';
-              return (
-                <span
-                  className={`lineage__child${disputed ? ' lineage__child--disputed' : ''}`}
-                  key={id}
-                >
-                  {c.givenName ?? c.short}
-                </span>
-              );
-            })}
-          </div>
+          <PatronymicTree
+            father={lineage.father}
+            patronymic={lineage.patronymic}
+            children={pick(lineage.children)}
+            disputedId="smerdyakov"
+          />
           {pavel && (
             <p className="text-muted">
-              The dashed one is the point. Smerdyakov is the household’s servant and cook, and
-              the town assumes he is old Fyodor’s son by Lizaveta — but the novel never states
-              it. It does something quieter: exactly <strong>once</strong> in{' '}
-              {corpus.wordCount.toLocaleString()} words, at{' '}
-              <a className="link" href={`/read/${pavel.firstChapter}`}>
-                {citeOf(pavel.firstChapter ?? '')}
-              </a>
-              , a servant girl addresses him as <em>Pavel Fyodorovitch</em> — Pavel, son of
-              Fyodor. The claim the whole plot turns on is made once, in a suffix, and English
-              readers pass straight over it.
+              The dashed thread is the whole novel in one suffix. The town assumes Smerdyakov is
+              old Fyodor’s son; the book never says it. It says something quieter — once, at{' '}
+              <a className="link" href={`/read/${pavel.firstChapter}`}>{cite(pavel.firstChapter)}</a>,
+              a servant girl calls him Pavel <em>Fyodorovitch</em>.
             </p>
           )}
         </section>
-      ))}
+      )}
 
       <section className="section">
-        <h2 className="heading">The principals</h2>
+        <div className="section-header">
+          <h2 className="heading">One person, five distances</h2>
+          <p className="text-muted">
+            Each ring is a degree of intimacy. The outer ring is name-plus-patronymic, held at
+            arm’s length; the centre is the diminutive nobody uses casually. Dot size is how
+            often that form is spoken.
+          </p>
+        </div>
+        <div className="grid grid--pairs">
+          {pick(['dmitri', 'alyosha', 'grushenka', 'katerina', 'ivan', 'smerdyakov']).map((c) => (
+            <NameOrbit character={c} key={c.id} />
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="section-header">
+          <h2 className="heading">The temperature, chapter by chapter</h2>
+          <p className="text-muted">
+            Every column is a chapter, in reading order, numbered by book beneath. Height is how
+            often the person is named there; the stack is which registers were used, most formal
+            and darkest at the top. Formality rises at the monastery and in the confrontations —
+            and falls away almost entirely at the trial, where the narrator keeps calling Dmitri
+            “Mitya” while the court calls him the accused.
+          </p>
+        </div>
         <div className="stack stack--loose">
-          {principals.map((c) => (
-            <NameKey character={c} cites={cites} key={c.id} />
+          {pick(['dmitri', 'alyosha', 'grushenka']).map((c) => (
+            <div className="stack stack--tight" key={c.id}>
+              <p className="eyebrow">{c.name}</p>
+              <RegisterRibbon character={c} chapters={corpus.chapters} />
+            </div>
           ))}
         </div>
       </section>

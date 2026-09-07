@@ -24,6 +24,7 @@ export interface NamedCharacter {
   fatherName: string | null;
   forms: NameForm[];
   total: number;
+  registerByChapter: Record<string, Partial<Record<Register, number>>>;
 }
 
 export interface NamesData {
