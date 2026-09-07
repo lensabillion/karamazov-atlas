@@ -1,144 +1,159 @@
 'use client';
 
-import { useState } from 'react';
-import { LANES, MOMENTS, SEGMENTS, type Moment } from '@/lib/timeline';
+import { useMemo, useState } from 'react';
+import { markPath } from './GroupMark';
+import { LANES, SEGMENTS, SPANS, type Span } from '@/lib/timeline';
 
 /**
- * The novel on two clocks at once.
+ * The novel as a columnar timeline.
  *
- * The top ribbon is STORY time — how long each stretch actually lasts. The
- * second is BOOK time — how much of the novel it consumes. They are near
- * inversions of each other: two months of story pass in a paragraph, while
- * four days take two thirds of the book. That mismatch is why the novel feels
- * dense, and it is the reason this chart exists.
+ * Time runs down. Each column is one person, read top to bottom as a continuous
+ * thread. Block height is proportional to how much of the BOOK that state
+ * occupies — book time rather than story time, because that is the reader's
+ * experience of duration: the four days that take two thirds of the novel
+ * should look like two thirds.
  *
- * Beneath, one lane per character. A dot means that person is present in that
- * moment, so you can read across a life or down a single night.
+ * Reading across a row shows what everyone was doing at once. And two columns
+ * simply stop: Fyodor's on the night of the murder, Smerdyakov's the night
+ * before the verdict. A death is not an event marker here — it is the end of a
+ * thread, which is what it is in the book.
  */
 
-/** How long each segment lasts, in days. The gap is the whole point. */
-const DURATION: Record<string, number> = {
-  before: 6, day1: 1, day2: 1, day3: 1, day4: 1, gap: 60, trial: 3, after: 5,
+const GROUP_OF: Record<string, string> = {
+  fyodor: 'family', dmitri: 'family', ivan: 'family',
+  alyosha: 'family', smerdyakov: 'family',
+  grushenka: 'women', katerina: 'women',
 };
 
-const W = 1200;
-const RIBBON_H = 26;
-const LANE_H = 40;
-const LANES_TOP = 210;
-const H = LANES_TOP + LANES.length * LANE_H + 30;
+const W = 1080;
+const GUTTER = 170;   // wide enough for the longest era label, wrapped
+const HEADER = 54;
+const BODY_H = 1360;
+const COL_W = (W - GUTTER - 12) / LANES.length;
+/** The elided two months get a fixed band; they have no words of their own. */
+const GAP_BAND = 46;
+
+/** Naive word wrap, so a label sits inside the space allotted to it. */
+function wrap(text: string, perLine: number): string[] {
+  const out: string[] = [];
+  let line = '';
+  for (const word of text.split(' ')) {
+    if ((line + ' ' + word).trim().length > perLine) { out.push(line.trim()); line = word; }
+    else line += ' ' + word;
+  }
+  if (line.trim()) out.push(line.trim());
+  return out;
+}
 
 export default function Timeline() {
-  const [selected, setSelected] = useState<Moment | null>(
-    MOMENTS.find((m) => m.id === 'm15') ?? null,
+  const [selected, setSelected] = useState<Span | null>(
+    SPANS.find((s) => s.character === 'fyodor' && s.ends) ?? null,
   );
 
-  const totalWords = SEGMENTS.reduce((n, s) => n + s.words, 0);
-  const totalDays = SEGMENTS.reduce((n, s) => n + (DURATION[s.id] ?? 1), 0);
+  /** y offset and height for every segment, by share of the novel's words. */
+  const bands = useMemo(() => {
+    const words = SEGMENTS.reduce((n, s) => n + s.words, 0);
+    const scale = (BODY_H - GAP_BAND) / words;
+    const out: Record<string, { y: number; h: number; elided: boolean }> = {};
+    let y = HEADER;
+    for (const s of SEGMENTS) {
+      const h = s.elided ? GAP_BAND : s.words * scale;
+      out[s.id] = { y, h, elided: Boolean(s.elided) };
+      y += h;
+    }
+    return out;
+  }, []);
 
-  // Book-time layout drives the lanes; story-time is shown for contrast.
-  const bookX: Record<string, { x: number; w: number }> = {};
-  let bx = 0;
-  for (const s of SEGMENTS) {
-    const w = (s.words / totalWords) * W;
-    bookX[s.id] = { x: bx, w };
-    bx += w;
-  }
-
-  const storyX: Record<string, { x: number; w: number }> = {};
-  let sx = 0;
-  for (const s of SEGMENTS) {
-    const w = ((DURATION[s.id] ?? 1) / totalDays) * W;
-    storyX[s.id] = { x: sx, w };
-    sx += w;
-  }
-
-  const momentX = (m: Moment) => {
-    const seg = bookX[m.segment]!;
-    const inSeg = MOMENTS.filter((x) => x.segment === m.segment);
-    const i = inSeg.findIndex((x) => x.id === m.id);
-    return seg.x + (seg.w * (i + 1)) / (inSeg.length + 1);
+  const box = (span: Span) => {
+    const first = bands[span.segments[0]!]!;
+    const last = bands[span.segments[span.segments.length - 1]!]!;
+    return { y: first.y, h: last.y + last.h - first.y };
   };
 
-  const laneY = (i: number) => LANES_TOP + i * LANE_H + LANE_H / 2;
+  const colX = (id: string) => GUTTER + LANES.findIndex((l) => l.id === id) * COL_W;
+
+  // Room below the last band for a terminator label to sit under its block.
+  const H = HEADER + BODY_H + 48;
 
   return (
     <div className="stack stack--loose">
       <div className="chart scroll-x">
         <svg viewBox={`0 0 ${W} ${H}`} role="img"
-          aria-label="The novel laid out on story time and on book time, with a lane per character">
+          aria-label="The novel as a columnar timeline, one column per character">
 
-          <text x={0} y={14} style={{ font: '700 11px "DM Sans", sans-serif', letterSpacing: '0.1em' }}
-            fill="var(--ink-3)">STORY TIME — HOW LONG IT ACTUALLY TAKES</text>
+          {/* era bands down the left, as on a wall chart */}
           {SEGMENTS.map((s) => {
-            const p = storyX[s.id]!;
+            const b = bands[s.id]!;
             return (
-              <g key={`s-${s.id}`}>
-                <rect x={p.x} y={24} width={Math.max(p.w - 2, 1)} height={RIBBON_H}
-                  fill={s.elided ? 'var(--border)' : 'var(--blue)'}
-                  opacity={s.elided ? 1 : 0.45} rx={2} />
-                {p.w > 62 && (
-                  <text x={p.x + p.w / 2} y={24 + RIBBON_H / 2} textAnchor="middle" dominantBaseline="middle"
-                    style={{ font: '400 11px "DM Sans", sans-serif' }} fill="var(--ink)">
-                    {s.label}
-                  </text>
+              <g key={`band-${s.id}`}>
+                <line x1={0} y1={b.y} x2={W} y2={b.y} stroke="var(--border)" strokeWidth={1} />
+                {b.elided && (
+                  <rect x={GUTTER} y={b.y} width={W - GUTTER - 12} height={b.h}
+                    fill="var(--surface)" />
                 )}
+                {wrap(s.label.toUpperCase(), 18).map((ln, j) => (
+                  <text key={j} x={GUTTER - 16} y={b.y + 14 + j * 13} textAnchor="end"
+                    style={{ font: '600 11px "DM Sans", sans-serif', letterSpacing: '0.06em' }}
+                    fill="var(--ink-3)">
+                    {ln}
+                  </text>
+                ))}
+                <text x={GUTTER - 16}
+                  y={b.y + 14 + wrap(s.label.toUpperCase(), 18).length * 13} textAnchor="end"
+                  style={{ font: '400 10px "DM Sans", sans-serif' }} fill="var(--ink-3)">
+                  {s.elided ? 'skipped' : `${Math.round((s.words / 349367) * 100)}% of the book`}
+                </text>
               </g>
             );
           })}
 
-          <text x={0} y={90} style={{ font: '700 11px "DM Sans", sans-serif', letterSpacing: '0.1em' }}
-            fill="var(--ink-3)">BOOK TIME — HOW MUCH OF THE NOVEL IT TAKES UP</text>
-          {SEGMENTS.map((s) => {
-            const p = bookX[s.id]!;
+          {/* column headers */}
+          {LANES.map((lane) => {
+            const x = colX(lane.id);
             return (
-              <g key={`b-${s.id}`}>
-                <rect x={p.x} y={100} width={Math.max(p.w - 2, 1)} height={RIBBON_H}
-                  fill="var(--accent)" opacity={0.5} rx={2} />
-                {p.w > 62 && (
-                  <text x={p.x + p.w / 2} y={100 + RIBBON_H / 2} textAnchor="middle" dominantBaseline="middle"
-                    style={{ font: '400 11px "DM Sans", sans-serif' }} fill="var(--ink)">
-                    {s.label}
-                  </text>
-                )}
+              <g key={`h-${lane.id}`}>
+                <path className="mark" transform={`translate(${x + 12},${HEADER - 30})`}
+                  d={markPath(GROUP_OF[lane.id] ?? 'family', 5)} />
+                <text x={x + 24} y={HEADER - 26}
+                  style={{ font: '600 13px "DM Sans", sans-serif' }} fill="var(--ink)">
+                  {lane.name}
+                </text>
               </g>
             );
           })}
 
-          {/* segment guides down through the lanes */}
-          {SEGMENTS.map((s) => {
-            const p = bookX[s.id]!;
+          {/* the blocks */}
+          {SPANS.map((span, i) => {
+            const { y, h } = box(span);
+            const x = colX(span.character);
+            const on = selected === span;
+            const lines = wrap(span.label, Math.floor(COL_W / 5.6));
             return (
-              <line key={`g-${s.id}`} x1={p.x} y1={140} x2={p.x} y2={H - 24}
-                stroke="var(--border)" strokeWidth={1} />
-            );
-          })}
-
-          {LANES.map((lane, i) => (
-            <g key={lane.id}>
-              <line x1={0} y1={laneY(i)} x2={W} y2={laneY(i)} stroke="var(--border)" strokeWidth={1} />
-              <text x={4} y={laneY(i) - 9} style={{ font: '400 12px "DM Sans", sans-serif' }}
-                fill="var(--ink-3)">{lane.name}</text>
-            </g>
-          ))}
-
-          {MOMENTS.map((m) => {
-            const x = momentX(m);
-            const on = selected?.id === m.id;
-            return (
-              <g key={m.id} onClick={() => setSelected(m)} style={{ cursor: 'pointer' }}>
-                <title>{`${m.cite} — ${m.label}`}</title>
-                <line x1={x} y1={LANES_TOP} x2={x} y2={H - 24}
-                  stroke={on ? 'var(--accent)' : 'var(--border-strong)'}
-                  strokeWidth={on ? 1.5 : 0.6} opacity={on ? 1 : 0.5} />
-                {m.who.map((id) => {
-                  const i = LANES.findIndex((l) => l.id === id);
-                  if (i < 0) return null;
-                  return (
-                    <circle key={id} cx={x} cy={laneY(i)} r={on ? 7 : m.key ? 5.5 : 4}
-                      fill={on || m.key ? 'var(--accent)' : 'var(--ink-3)'}
-                      stroke="var(--surface)" strokeWidth={1.5} />
-                  );
-                })}
+              <g key={i} onClick={() => setSelected(span)} style={{ cursor: 'pointer' }}>
+                <title>{span.label}</title>
+                <rect x={x + 2} y={y + 2} width={COL_W - 6} height={h - 4} rx={2}
+                  fill={on ? 'var(--teal-soft)' : span.key ? 'var(--blue-soft)' : 'var(--bg)'}
+                  stroke={on ? 'var(--teal)' : span.key ? 'var(--blue)' : 'var(--border-strong)'}
+                  strokeWidth={on || span.key ? 1.5 : 1} />
+                {lines.map((ln, j) => (
+                  <text key={j} x={x + 10} y={y + 18 + j * 13}
+                    style={{ font: `${span.key ? 600 : 400} 11px "DM Sans", sans-serif` }}
+                    fill={on ? 'var(--teal-deep)' : 'var(--ink)'}>
+                    {ln}
+                  </text>
+                ))}
+                {/* a thread that ends, ends visibly */}
+                {span.ends && (
+                  <>
+                    <line x1={x + 2} y1={y + h - 2} x2={x + COL_W - 4} y2={y + h - 2}
+                      stroke="var(--teal)" strokeWidth={3} />
+                    <text x={x + 10} y={y + h + 14}
+                      style={{ font: '600 10px "DM Sans", sans-serif', letterSpacing: '0.06em' }}
+                      fill="var(--teal-deep)">
+                      ENDS HERE
+                    </text>
+                  </>
+                )}
               </g>
             );
           })}
@@ -149,31 +164,15 @@ export default function Timeline() {
         <div className="name-panel">
           <div className="stack stack--tight">
             <p className="eyebrow">
-              {SEGMENTS.find((s) => s.id === selected.segment)?.label} · {selected.cite}
+              {LANES.find((l) => l.id === selected.character)?.name}
+              {' · '}
+              {selected.segments.map((id) => SEGMENTS.find((s) => s.id === id)?.label).join(' → ')}
             </p>
             <h3 className="subheading">{selected.label}</h3>
             <p className="text-muted">{selected.detail}</p>
-            <p className="meta">
-              Present: {selected.who.map((id) => LANES.find((l) => l.id === id)?.name ?? id).join(', ')}
-            </p>
-            <a className="link text" href={`/read/${selected.chapter}`}>Read this chapter →</a>
           </div>
         </div>
       )}
-
-      <ol className="list">
-        {MOMENTS.map((m) => (
-          <li key={m.id}>
-            <button className="list-item" onClick={() => setSelected(m)}>
-              <span className="list-item__lead">{m.cite.replace('Bk ', '')}</span>
-              <span className="list-item__label">{m.label}</span>
-              <span className="meta">
-                {SEGMENTS.find((s) => s.id === m.segment)?.label}
-              </span>
-            </button>
-          </li>
-        ))}
-      </ol>
     </div>
   );
 }

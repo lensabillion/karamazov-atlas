@@ -7,11 +7,10 @@ export default function TimelinePage() {
         <p className="eyebrow">Timeline</p>
         <h1 className="title">Two thirds of this novel happens in four days</h1>
         <p className="lede">
-          229,504 of its 349,367 words cover roughly four days — the monastery quarrel, the
-          night of the murder, and the arrest. Then two months vanish in a paragraph. The two
-          ribbons below are the same story measured on those two clocks, and they are almost
-          exact inversions of each other. Click any moment to see what happened and who was
-          there.
+          Time runs down. Each column is one person, read top to bottom as a continuous
+          thread, and every block is as tall as the share of the novel that state occupies —
+          so the four days that take two thirds of the book look like two thirds. Read across
+          a row to see what everyone was doing at once. Two columns simply stop.
         </p>
       </header>
       <Timeline />

@@ -90,3 +90,77 @@ export const MOMENTS: Moment[] = [
 
   { id: 'm23', segment: 'after', at: 0, label: 'The speech at the stone', detail: 'Twelve boys, a funeral, and Alyosha telling them that one good memory kept from childhood may be the thing that saves a person.', who: ['alyosha'], chapter: 'b13-c03', cite: 'Epilogue, ch. 3', key: true },
 ];
+
+/**
+ * A state a character is in for a stretch of the novel.
+ *
+ * The timeline is columnar: one column per person, time running down, block
+ * height proportional to how much of the BOOK that state occupies. Book time
+ * rather than story time, because it is the reader's experience of duration —
+ * the four days that take two thirds of the novel should look like two thirds.
+ *
+ * `ends: true` means the column stops there. Two of them do.
+ */
+export interface Span {
+  character: string;
+  /** Segment ids this state covers, in order. */
+  segments: string[];
+  label: string;
+  detail: string;
+  /** The character's thread terminates at the end of this span. */
+  ends?: boolean;
+  /** Load-bearing for the plot. */
+  key?: boolean;
+}
+
+export const SPANS: Span[] = [
+  // Fyodor — the column that stops on the night of the murder.
+  { character: 'fyodor', segments: ['before'], label: 'Forgets his sons', detail: 'Two marriages, two dead wives, and three children left to servants and relatives. He does not think of them for years.' },
+  { character: 'fyodor', segments: ['day1'], label: 'Performs at the monastery', detail: 'Summoned to settle Dmitri\u2019s inheritance, he plays the buffoon instead, and the meeting settles nothing.' },
+  { character: 'fyodor', segments: ['day2'], label: 'Waiting for Grushenka', detail: 'Three thousand roubles in an envelope under his pillow, tied with pink ribbon, and a signal knock agreed with his servant.' },
+  { character: 'fyodor', segments: ['day3'], label: 'Killed', detail: 'Sometime in the night of the storm. The column ends here — everything after this point in the novel is about a man who is no longer in it.', ends: true, key: true },
+
+  // Dmitri — the longest thread, and the one on trial.
+  { character: 'dmitri', segments: ['before'], label: 'Raised by servants', detail: 'Left behind by a mother who ran, forgotten by a father who did not notice.' },
+  { character: 'dmitri', segments: ['day1'], label: 'Demands his inheritance', detail: 'Believes his father is withholding money from his mother\u2019s estate. Asks aloud in front of witnesses why such a man is alive.' },
+  { character: 'dmitri', segments: ['day2'], label: 'Torn between two women', detail: 'Engaged to Katerina, whose money he has half spent; ruined by Grushenka, whom his father also wants.' },
+  { character: 'dmitri', segments: ['day3'], label: 'Hunting three thousand roubles', detail: 'A whole day of it \u2014 Samsonov, a drunk peasant, gold-mines \u2014 then the garden, the pestle, and Mokroe.', key: true },
+  { character: 'dmitri', segments: ['day4'], label: 'The three ordeals', detail: 'Tells the truth about everything and is believed about nothing, least of all the money sewn into a rag round his neck.' },
+  { character: 'dmitri', segments: ['gap', 'trial'], label: 'In prison, then on trial', detail: 'Two months awaiting a verdict, then two days in court where his own letter convicts him.' },
+  { character: 'dmitri', segments: ['after'], label: 'Twenty years \u2014 or escape', detail: 'Sentenced to the Siberian mines. Whether he accepts the suffering or takes the plan Ivan financed is the question the novel leaves open.' },
+
+  // Ivan — note the gap at day3. That absence is the question of his guilt.
+  { character: 'ivan', segments: ['before'], label: 'Educated away', detail: 'Raised elsewhere, on charity, and made himself into an intellectual who owes his family nothing.' },
+  { character: 'ivan', segments: ['day1'], label: 'Watching, saying little', detail: 'Present at the monastery and at the scandal, contributing almost nothing except an argument about ecclesiastical courts.' },
+  { character: 'ivan', segments: ['day2'], label: 'Rebellion, then he leaves', detail: 'Returns the ticket, tells the Grand Inquisitor, and takes the train to Tchermashnya after Smerdyakov all but says what will happen if he goes.', key: true },
+  { character: 'ivan', segments: ['day4'], label: 'Returns', detail: 'Comes back to a house with his father dead in it and his brother arrested.' },
+  { character: 'ivan', segments: ['gap'], label: 'Three visits to Smerdyakov', detail: 'On the third he is handed the money and told, calmly, that he was the author and Smerdyakov only the instrument.', key: true },
+  { character: 'ivan', segments: ['trial', 'after'], label: 'Brain fever', detail: 'A shabby gentleman on his sofa repeats his own worst thoughts back to him. He testifies incoherently and collapses.' },
+
+  // Alyosha — continuous, which is the point of him.
+  { character: 'alyosha', segments: ['before'], label: 'A novice', detail: 'Came home to find his mother\u2019s grave and stayed for the monastery instead.' },
+  { character: 'alyosha', segments: ['day1'], label: 'Sent between them all', detail: 'Everyone confides in him and nobody is embarrassed by him, which is how he ends up carrying every message in the book.' },
+  { character: 'alyosha', segments: ['day2'], label: 'Hears the case against God', detail: 'Takes Ivan\u2019s argument in the tavern, then returns to find Zossima dying.' },
+  { character: 'alyosha', segments: ['day3'], label: 'Cana of Galilee', detail: 'The body decays, his faith cracks, and he goes out and falls to the earth weeping. He gets up settled.', key: true },
+  { character: 'alyosha', segments: ['day4', 'gap'], label: 'With the boys', detail: 'Ilusha is dying. Alyosha spends the missing two months at a bedside rather than at the case.' },
+  { character: 'alyosha', segments: ['trial', 'after'], label: 'The speech at the stone', detail: 'At his brother\u2019s trial, then at a child\u2019s funeral, where the novel chooses to end.', key: true },
+
+  // Smerdyakov — the second column that stops, and it stops before the verdict.
+  { character: 'smerdyakov', segments: ['before'], label: 'Born in the garden', detail: 'To Lizaveta, who died doing it. Raised by Grigory as a servant and named after his mother\u2019s nickname.' },
+  { character: 'smerdyakov', segments: ['day1'], label: 'In the kitchen', detail: 'Cooking for a household that treats him as furniture, and reading more than any of them notice.' },
+  { character: 'smerdyakov', segments: ['day2'], label: 'Teaches the signal', detail: 'Explains the knocks to Dmitri, and to Ivan explains \u2014 without quite saying it \u2014 what an absence would permit.', key: true },
+  { character: 'smerdyakov', segments: ['day3', 'day4'], label: 'The fit, and the night', detail: 'A real illness he can time. The seizure empties the house on precisely the night it needs emptying.', key: true },
+  { character: 'smerdyakov', segments: ['gap'], label: 'Three interviews', detail: 'Ill, contemptuous, and finally explicit: he did it, and the reasoning was Ivan\u2019s.' },
+  { character: 'smerdyakov', segments: ['trial'], label: 'Hangs himself', detail: 'The night before the trial. The only witness who could clear Dmitri removes himself, and the column ends before the verdict does.', ends: true, key: true },
+
+  // Grushenka
+  { character: 'grushenka', segments: ['day1'], label: 'Courted by father and son', detail: 'Kept by Samsonov, wanted by Fyodor, and amusing herself with Dmitri \u2014 the arrangement the whole plot turns on.', key: true },
+  { character: 'grushenka', segments: ['day3'], label: 'Mokroe', detail: 'Goes to meet the Polish officer who abandoned her five years ago, finds him worthless, and tells Dmitri she loves him as the police arrive.' },
+  { character: 'grushenka', segments: ['gap', 'trial', 'after'], label: 'At the prison', detail: 'Visits him, testifies for him, and falls ill after the verdict.' },
+
+  // Katerina
+  { character: 'katerina', segments: ['day1'], label: 'Engaged to Dmitri', detail: 'Out of gratitude for a humiliation she has never forgiven, and while in love with his brother.' },
+  { character: 'katerina', segments: ['gap'], label: 'Financing the defence', detail: 'Paying for the famous lawyer, and visiting Ivan.' },
+  { character: 'katerina', segments: ['trial'], label: 'The letter', detail: 'Produces, in a fit of jealousy, the letter in which Dmitri wrote that he would kill his father for the money. It is what convicts him.', key: true, ends: false },
+  { character: 'katerina', segments: ['after'], label: 'Asks forgiveness', detail: 'Comes to him after the sentence, and for a moment the lie between them becomes true.' },
+];
