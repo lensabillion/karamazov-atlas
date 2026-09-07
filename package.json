@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "corpus": "tsx scripts/parse-corpus.ts && tsx scripts/build-mentions.ts",
+    "corpus": "tsx scripts/parse-corpus.ts && tsx scripts/build-mentions.ts && tsx scripts/build-names.ts",
     "extract": "tsx scripts/extract.ts",
     "test": "tsx scripts/test-corpus.ts",
     "typecheck": "tsc --noEmit"

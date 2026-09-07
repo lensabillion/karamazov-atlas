@@ -19,7 +19,8 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { CHARACTERS } from './build-mentions.ts';
+import { CHARACTERS } from './lib/characters.ts';
+import { countByForm, escapeRe, findOccurrences, type AliasSpec } from './lib/match.ts';
 import type { Corpus } from './parse-corpus.ts';
 
 const DATA = join(process.cwd(), 'data');
@@ -218,13 +219,23 @@ const REGISTERS: NamesData['registers'] = [
   { key: 'tender', label: 'Tender', description: 'The affectionate diminutive. Never used casually.' },
 ];
 
-const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const escape = escapeRe;
 
 function main() {
   const corpus: Corpus = JSON.parse(readFileSync(join(DATA, 'corpus.json'), 'utf8'));
   const chapterText = new Map(
     corpus.chapters.map((c) => [c.id, readFileSync(join(DATA, 'chapters', `${c.id}.txt`), 'utf8')]),
   );
+
+  // One pass over the text with the shared matcher; every dataset below reads
+  // from these claimed spans so no occurrence is counted twice.
+  const allAliases: AliasSpec[] = CHARACTERS.flatMap((c) =>
+    c.aliases.map((form) => ({ owner: c.id, form })),
+  );
+  const formCounts = new Map<string, Record<string, number>>();
+  for (const ch of corpus.chapters) {
+    formCounts.set(ch.id, countByForm(findOccurrences(chapterText.get(ch.id)!, allAliases)));
+  }
 
   // Surnames are the last word of each character's full name.
   const surnames = new Set(CHARACTERS.map((c) => c.name.split(' ').pop()!));
@@ -242,11 +253,12 @@ function main() {
 
     const forms: NameForm[] = c.aliases.map((alias) => {
       const base = classify(alias, surnames);
-      const re = new RegExp(`\\b${escape(alias)}\\b`, 'g');
+      // Counts come from the shared span matcher, so a full name is never
+      // counted again as its short form (review finding R3).
       let count = 0;
       const chapters: string[] = [];
       for (const ch of corpus.chapters) {
-        const n = (chapterText.get(ch.id)!.match(re) ?? []).length;
+        const n = formCounts.get(ch.id)?.[alias] ?? 0;
         if (n > 0) { count += n; chapters.push(ch.id); }
       }
       return { ...base, count, chapters, firstChapter: chapters[0] ?? null };
@@ -259,12 +271,11 @@ function main() {
     });
     const givenName = formalForm ? formalForm.split(' ').slice(0, -1).join(' ') : null;
 
-    // Register mix per chapter: which way of naming this person dominated where.
+    // Register mix per chapter, from the same claimed spans as the totals.
     const registerByChapter: Record<string, Partial<Record<Register, number>>> = {};
     for (const f of forms) {
       for (const chId of f.chapters) {
-        const re = new RegExp(`\\b${escape(f.form)}\\b`, 'g');
-        const n = (chapterText.get(chId)!.match(re) ?? []).length;
+        const n = formCounts.get(chId)?.[f.form] ?? 0;
         if (!n) continue;
         registerByChapter[chId] ??= {};
         registerByChapter[chId]![f.register] = (registerByChapter[chId]![f.register] ?? 0) + n;
@@ -307,6 +318,31 @@ function main() {
     .flatMap((c) => c.forms.map((f) => ({ form: f.form, id: c.id, register: f.register })))
     .sort((a, b) => b.form.length - a.form.length);
   const { addresses, coverage } = buildAddresses(chapterText, aliasIndex);
+
+  // R3: the two datasets must agree by construction. Assert it, so they cannot
+  // silently drift apart again.
+  const mentions = JSON.parse(readFileSync(join(DATA, 'mentions.json'), 'utf8')) as {
+    characters: { id: string; short: string; total: number }[];
+  };
+  const drift = mentions.characters
+    .map((m) => ({ short: m.short, mentions: m.total, names: characters.find((c) => c.id === m.id)?.total ?? 0 }))
+    .filter((d) => d.mentions !== d.names);
+  if (drift.length) {
+    throw new Error(
+      'name totals disagree with mention totals: ' +
+        drift.map((d) => `${d.short} ${d.names} vs ${d.mentions}`).join(', '),
+    );
+  }
+
+  // Register sums must also reconcile with each form's total.
+  for (const c of characters) {
+    const viaRegisters = Object.values(c.registerByChapter).reduce(
+      (n, per) => n + Object.values(per).reduce((a, b) => a + (b ?? 0), 0), 0,
+    );
+    if (viaRegisters !== c.total) {
+      throw new Error(`${c.short}: register sum ${viaRegisters} != total ${c.total}`);
+    }
+  }
 
   const out: NamesData = { characters, addresses, coverage, lineages, registers: REGISTERS };
   writeFileSync(join(DATA, 'names.json'), JSON.stringify(out, null, 2));

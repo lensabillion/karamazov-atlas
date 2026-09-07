@@ -242,7 +242,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--space-3);
 }
-.grid--pairs { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+.grid--pairs { grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); }
 
 .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
 .row--between { justify-content: space-between; }
@@ -458,6 +458,37 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .lineage__child--disputed { border-style: dashed; border-color: var(--teal); color: var(--teal-deep); }
 
 
+/* --- Docked panel ---------------------------------------------------------
+   An answer the reader asked for has to be where they are looking. This docks
+   to the bottom of the viewport instead of being inserted above the prose.
+   -------------------------------------------------------------------------- */
+
+.dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  background: var(--bg);
+  border-top: 2px solid var(--teal);
+  max-height: 55vh;
+  overflow-y: auto;
+}
+.dock__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.dock:focus-visible { outline: none; }
+
+/* Interactive marks inside a diagram. */
+.hit { cursor: pointer; }
+.hit:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+
 /* ----------------------------------------------------------------------------
    7. PROSE — the novel itself
    ---------------------------------------------------------------------------- */
@@ -509,7 +540,27 @@ button, input, textarea, select { font: inherit; color: inherit; }
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
 }
-.chart svg { display: block; width: 100%; height: auto; }
+/* A diagram must not be scaled below legibility. `min-width` keeps the drawing
+   at a readable size and lets .scroll-x do its job; width:100% alone silently
+   shrank a 1240px map to 340px on a phone, taking 13px labels down to 3.6px
+   (review finding R7). */
+.chart svg {
+  display: block;
+  width: 100%;
+  min-width: var(--chart-min, 900px);
+  height: auto;
+}
+.chart { position: relative; }
+
+/* Told to the reader once, rather than leaving them to discover it. */
+.chart::after {
+  content: "Scroll sideways to see the whole diagram";
+  display: none;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  border-top: var(--border-width) solid var(--border);
+}
 
 .chart-label { font-family: var(--font-sans); font-size: var(--text-xs); fill: var(--ink); }
 .chart-label--muted { fill: var(--ink-3); }
@@ -535,4 +586,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   .sidebar { position: static; }
   .bar-row { grid-template-columns: 7em minmax(0, 1fr) 4.5em; }
   :root { --text-xl: 2rem; --text-lg: 1.375rem; }
+  /* Diagrams scroll at full size rather than shrinking out of legibility. */
+  .chart::after { display: block; }
+  .dock { max-height: 70vh; }
 }

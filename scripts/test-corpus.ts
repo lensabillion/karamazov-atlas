@@ -23,6 +23,9 @@ function assert(name: string, cond: boolean, detail = '') {
 
 const corpus: Corpus = JSON.parse(readFileSync(join(DATA, 'corpus.json'), 'utf8'));
 const mentions: MentionData = JSON.parse(readFileSync(join(DATA, 'mentions.json'), 'utf8'));
+const names = JSON.parse(readFileSync(join(DATA, 'names.json'), 'utf8')) as {
+  characters: { id: string; total: number }[];
+};
 
 console.log('corpus structure');
 check('96 chapters (93 + 3 epilogue)', corpus.chapters.length, 96);
@@ -56,8 +59,21 @@ assert('alias resolution beats a naive grep for Dmitri',
 assert('Smerdyakov appears in Book XI', (mentions.byChapter['b11-c08']?.smerdyakov ?? 0) > 0);
 assert('Kolya is concentrated in Book X', (by('kolya')?.chapterCount ?? 99) < 20,
   `appeared in ${by('kolya')?.chapterCount} chapters`);
-assert('Zossima does not appear after his death in Bk VII+',
+// R9: this previously announced that Zossima does not appear after his death
+// while only checking that he appears in Bk VI ch. 3. Posthumous mentions are
+// correct and expected — he is discussed constantly after dying — so the honest
+// assertions are that he is present in his own book, and that he goes on being
+// named afterwards.
+assert('Zossima is named in his own book (Bk VI, ch. 3)',
   (mentions.byChapter['b06-c03']?.zossima ?? 0) > 0);
+assert('Zossima is still named after his death, as the novel intends',
+  corpus.chapters.filter((c) => c.bookNum >= 7)
+    .some((c) => (mentions.byChapter[c.id]?.zossima ?? 0) > 0));
+assert('name totals agree with mention totals (R3)',
+  mentions.characters.every((m) => {
+    const n = names.characters.find((c) => c.id === m.id);
+    return !n || n.total === m.total;
+  }), 'a derived dataset drifted from the mention index');
 assert('the strongest tie is between brothers',
   ['alyosha', 'dmitri', 'ivan'].includes(mentions.edges[0]!.source) &&
   ['alyosha', 'dmitri', 'ivan'].includes(mentions.edges[0]!.target));

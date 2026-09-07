@@ -231,184 +231,176 @@
       "registerByChapter": {
         "b01-c02": {
           "formal": 1,
-          "neutral": 1,
           "familiar": 11
         },
         "b02-c01": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b02-c04": {
-          "formal": 1,
-          "neutral": 1
+          "formal": 1
         },
         "b02-c05": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b02-c06": {
           "formal": 5,
-          "neutral": 26,
+          "neutral": 21,
           "familiar": 3
         },
         "b02-c07": {
           "formal": 2,
-          "neutral": 6,
+          "neutral": 4,
           "familiar": 10
         },
         "b03-c10": {
           "formal": 1,
-          "neutral": 8,
+          "neutral": 7,
           "familiar": 2
         },
         "b03-c11": {
           "formal": 1,
-          "neutral": 7,
+          "neutral": 6,
           "familiar": 2
         },
         "b04-c04": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b04-c05": {
           "formal": 3,
-          "neutral": 22
+          "neutral": 19
         },
         "b04-c06": {
           "formal": 1,
-          "neutral": 5
+          "neutral": 4
         },
         "b04-c07": {
           "formal": 1,
-          "neutral": 3
+          "neutral": 2
         },
         "b05-c02": {
           "formal": 6,
-          "neutral": 15
+          "neutral": 9
         },
         "b05-c06": {
           "formal": 8,
-          "neutral": 18,
+          "neutral": 10,
           "familiar": 1
         },
         "b07-c03": {
           "formal": 2,
-          "neutral": 3,
+          "neutral": 1,
           "familiar": 14
         },
         "b08-c03": {
           "formal": 25,
-          "neutral": 31,
+          "neutral": 6,
           "familiar": 46
         },
         "b08-c05": {
           "formal": 12,
-          "neutral": 15,
+          "neutral": 3,
           "familiar": 63,
           "tender": 2
         },
         "b08-c06": {
           "formal": 8,
-          "neutral": 10,
+          "neutral": 2,
           "familiar": 26
         },
         "b08-c07": {
           "formal": 2,
-          "neutral": 2,
           "familiar": 88
         },
         "b08-c08": {
           "formal": 1,
-          "neutral": 1,
           "familiar": 67,
           "tender": 1
         },
         "b09-c01": {
           "formal": 9,
-          "neutral": 10,
+          "neutral": 1,
           "familiar": 2
         },
         "b09-c02": {
           "formal": 1,
-          "neutral": 1,
           "familiar": 4
         },
         "b09-c03": {
           "formal": 3,
-          "neutral": 3,
           "familiar": 28
         },
         "b09-c04": {
           "formal": 1,
-          "neutral": 2,
+          "neutral": 1,
           "familiar": 21
         },
         "b09-c05": {
           "formal": 1,
-          "neutral": 1,
           "familiar": 39
         },
         "b09-c06": {
           "formal": 3,
-          "neutral": 5,
+          "neutral": 2,
           "familiar": 38
         },
         "b09-c07": {
           "formal": 7,
-          "neutral": 9,
+          "neutral": 2,
           "familiar": 16
         },
         "b09-c08": {
           "formal": 12,
-          "neutral": 14,
+          "neutral": 2,
           "familiar": 39
         },
         "b09-c09": {
           "formal": 2,
-          "neutral": 3,
+          "neutral": 1,
           "familiar": 24
         },
         "b11-c02": {
           "formal": 3,
-          "neutral": 5,
+          "neutral": 2,
           "familiar": 1
         },
         "b11-c03": {
           "formal": 1,
-          "neutral": 1,
           "familiar": 1
         },
         "b11-c06": {
           "formal": 3,
-          "neutral": 9,
+          "neutral": 6,
           "familiar": 12
         },
         "b11-c07": {
           "formal": 1,
-          "neutral": 8,
+          "neutral": 7,
           "familiar": 15
         },
         "b11-c08": {
           "formal": 6,
-          "neutral": 13
+          "neutral": 7
         },
         "b12-c02": {
           "formal": 1,
-          "neutral": 3,
+          "neutral": 2,
           "familiar": 19
         },
         "b12-c04": {
           "formal": 1,
-          "neutral": 2,
+          "neutral": 1,
           "familiar": 18
         },
         "b12-c08": {
           "formal": 1,
-          "neutral": 7
+          "neutral": 6
         },
         "b13-c01": {
           "formal": 1,
-          "neutral": 8,
+          "neutral": 7,
           "familiar": 4
         },
         "b01-c01": {
@@ -604,16 +596,14 @@
           "kind": "given",
           "register": "neutral",
           "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
-          "count": 380,
+          "count": 240,
           "chapters": [
             "b01-c01",
-            "b01-c02",
             "b01-c03",
             "b01-c04",
             "b01-c05",
             "b02-c01",
             "b02-c02",
-            "b02-c04",
             "b02-c05",
             "b02-c06",
             "b02-c07",
@@ -642,19 +632,13 @@
             "b08-c03",
             "b08-c05",
             "b08-c06",
-            "b08-c07",
-            "b08-c08",
             "b09-c01",
-            "b09-c02",
-            "b09-c03",
             "b09-c04",
-            "b09-c05",
             "b09-c06",
             "b09-c07",
             "b09-c08",
             "b09-c09",
             "b11-c02",
-            "b11-c03",
             "b11-c06",
             "b11-c07",
             "b11-c08",
@@ -730,7 +714,7 @@
           "firstChapter": "b08-c05"
         }
       ],
-      "total": 1434
+      "total": 1294
     },
     {
       "id": "ivan",
@@ -742,79 +726,75 @@
       "registerByChapter": {
         "b01-c03": {
           "formal": 4,
-          "neutral": 10
+          "neutral": 6
         },
         "b02-c05": {
           "formal": 1,
-          "neutral": 11
+          "neutral": 10
         },
         "b02-c06": {
           "formal": 3,
-          "neutral": 16
+          "neutral": 13
         },
         "b02-c08": {
           "formal": 1,
-          "neutral": 15
+          "neutral": 14
         },
         "b04-c02": {
           "formal": 1,
-          "neutral": 18
+          "neutral": 17
         },
         "b04-c04": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b04-c05": {
           "formal": 8,
-          "neutral": 35
+          "neutral": 27
         },
         "b05-c02": {
           "formal": 3,
-          "neutral": 7
+          "neutral": 4
         },
         "b05-c06": {
           "formal": 5,
-          "neutral": 47
+          "neutral": 42
         },
         "b08-c03": {
           "formal": 1,
-          "neutral": 3
+          "neutral": 2
         },
         "b10-c01": {
-          "formal": 1,
-          "neutral": 1
+          "formal": 1
         },
         "b11-c01": {
           "formal": 2,
-          "neutral": 9
+          "neutral": 7
         },
         "b11-c02": {
-          "formal": 4,
-          "neutral": 4
+          "formal": 4
         },
         "b11-c03": {
-          "formal": 1,
-          "neutral": 1
+          "formal": 1
         },
         "b11-c04": {
           "formal": 1,
-          "neutral": 21
+          "neutral": 20
         },
         "b12-c06": {
           "formal": 1,
-          "neutral": 3
+          "neutral": 2
         },
         "b12-c08": {
           "formal": 5,
-          "neutral": 10
+          "neutral": 5
         },
         "b12-c11": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b13-c01": {
-          "formal": 7,
-          "neutral": 7
+          "formal": 7
         },
         "b01-c01": {
           "neutral": 1
@@ -930,7 +910,7 @@
           "kind": "given",
           "register": "neutral",
           "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
-          "count": 714,
+          "count": 663,
           "chapters": [
             "b01-c01",
             "b01-c03",
@@ -965,10 +945,7 @@
             "b08-c01",
             "b08-c03",
             "b08-c04",
-            "b10-c01",
             "b11-c01",
-            "b11-c02",
-            "b11-c03",
             "b11-c04",
             "b11-c05",
             "b11-c06",
@@ -984,7 +961,6 @@
             "b12-c08",
             "b12-c11",
             "b12-c12",
-            "b13-c01",
             "b13-c02"
           ],
           "firstChapter": "b01-c01"
@@ -1019,7 +995,7 @@
           "firstChapter": "b01-c03"
         }
       ],
-      "total": 765
+      "total": 714
     },
     {
       "id": "alyosha",
@@ -1030,39 +1006,48 @@
       "givenName": "Alexey",
       "registerByChapter": {
         "b01-c01": {
-          "formal": 1
+          "formal": 1,
+          "neutral": 1
         },
         "b02-c04": {
           "formal": 2,
-          "familiar": 12
+          "familiar": 12,
+          "neutral": 1
         },
         "b02-c07": {
           "formal": 2,
-          "familiar": 24
+          "familiar": 24,
+          "neutral": 1
         },
         "b03-c10": {
           "formal": 10,
-          "familiar": 45
+          "familiar": 45,
+          "neutral": 3
         },
         "b03-c11": {
           "formal": 2,
-          "familiar": 25
+          "familiar": 25,
+          "neutral": 4
         },
         "b04-c02": {
           "formal": 3,
-          "familiar": 18
+          "familiar": 18,
+          "neutral": 1
         },
         "b04-c04": {
           "formal": 14,
-          "familiar": 16
+          "familiar": 16,
+          "neutral": 3
         },
         "b04-c05": {
           "formal": 17,
-          "familiar": 44
+          "familiar": 44,
+          "neutral": 1
         },
         "b04-c06": {
           "formal": 4,
-          "familiar": 39
+          "familiar": 39,
+          "neutral": 1
         },
         "b04-c07": {
           "formal": 7,
@@ -1070,7 +1055,8 @@
         },
         "b05-c01": {
           "formal": 13,
-          "familiar": 48
+          "familiar": 48,
+          "neutral": 5
         },
         "b05-c06": {
           "formal": 1,
@@ -1078,7 +1064,8 @@
         },
         "b06-c01": {
           "formal": 3,
-          "familiar": 10
+          "familiar": 10,
+          "neutral": 5
         },
         "b06-c03": {
           "formal": 2
@@ -1089,11 +1076,13 @@
         },
         "b11-c02": {
           "formal": 6,
-          "familiar": 22
+          "familiar": 22,
+          "neutral": 2
         },
         "b11-c05": {
           "formal": 6,
-          "familiar": 37
+          "familiar": 37,
+          "neutral": 1
         },
         "b11-c07": {
           "formal": 1,
@@ -1126,7 +1115,8 @@
           "familiar": 4
         },
         "b02-c08": {
-          "familiar": 7
+          "familiar": 7,
+          "neutral": 4
         },
         "b03-c01": {
           "familiar": 5
@@ -1138,7 +1128,8 @@
           "familiar": 8
         },
         "b03-c05": {
-          "familiar": 12
+          "familiar": 12,
+          "neutral": 2
         },
         "b03-c06": {
           "familiar": 8
@@ -1147,10 +1138,12 @@
           "familiar": 9
         },
         "b03-c08": {
-          "familiar": 23
+          "familiar": 23,
+          "neutral": 2
         },
         "b03-c09": {
-          "familiar": 30
+          "familiar": 30,
+          "neutral": 2
         },
         "b04-c01": {
           "familiar": 21
@@ -1162,7 +1155,8 @@
           "familiar": 21
         },
         "b05-c03": {
-          "familiar": 33
+          "familiar": 33,
+          "neutral": 1
         },
         "b05-c04": {
           "familiar": 22
@@ -1177,10 +1171,12 @@
           "familiar": 11
         },
         "b07-c02": {
-          "familiar": 32
+          "familiar": 32,
+          "neutral": 1
         },
         "b07-c03": {
-          "familiar": 72
+          "familiar": 72,
+          "neutral": 2
         },
         "b07-c04": {
           "familiar": 15
@@ -1207,7 +1203,8 @@
           "familiar": 1
         },
         "b10-c03": {
-          "familiar": 1
+          "familiar": 1,
+          "neutral": 5
         },
         "b10-c04": {
           "familiar": 12
@@ -1225,7 +1222,8 @@
           "familiar": 37
         },
         "b11-c04": {
-          "familiar": 53
+          "familiar": 53,
+          "neutral": 7
         },
         "b11-c06": {
           "familiar": 17
@@ -1240,7 +1238,8 @@
           "familiar": 40
         },
         "b12-c02": {
-          "familiar": 1
+          "familiar": 1,
+          "neutral": 2
         },
         "b12-c03": {
           "familiar": 1
@@ -1256,6 +1255,15 @@
         },
         "b13-c03": {
           "familiar": 26
+        },
+        "b01-c03": {
+          "neutral": 6
+        },
+        "b02-c03": {
+          "neutral": 2
+        },
+        "b12-c11": {
+          "neutral": 1
         }
       },
       "fatherName": "Fyodor",
@@ -1368,9 +1376,45 @@
             "b13-c01"
           ],
           "firstChapter": "b01-c01"
+        },
+        {
+          "form": "Alexey",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 66,
+          "chapters": [
+            "b01-c01",
+            "b01-c03",
+            "b02-c03",
+            "b02-c04",
+            "b02-c07",
+            "b02-c08",
+            "b03-c05",
+            "b03-c08",
+            "b03-c09",
+            "b03-c10",
+            "b03-c11",
+            "b04-c02",
+            "b04-c04",
+            "b04-c05",
+            "b04-c06",
+            "b05-c01",
+            "b05-c03",
+            "b06-c01",
+            "b07-c02",
+            "b07-c03",
+            "b10-c03",
+            "b11-c02",
+            "b11-c04",
+            "b11-c05",
+            "b12-c02",
+            "b12-c11"
+          ],
+          "firstChapter": "b01-c01"
         }
       ],
-      "total": 1338
+      "total": 1404
     },
     {
       "id": "smerdyakov",
@@ -1845,157 +1889,140 @@
       "givenName": "Katerina",
       "registerByChapter": {
         "b02-c04": {
-          "formal": 2,
-          "neutral": 2
+          "formal": 2
         },
         "b02-c07": {
           "formal": 6,
-          "neutral": 8,
+          "neutral": 2,
           "familiar": 1
         },
         "b03-c03": {
           "formal": 3,
-          "neutral": 4
+          "neutral": 1
         },
         "b03-c04": {
           "formal": 3,
-          "neutral": 3,
           "familiar": 1
         },
         "b03-c05": {
           "formal": 4,
-          "neutral": 5,
+          "neutral": 1,
           "familiar": 4
         },
         "b03-c09": {
-          "formal": 3,
-          "neutral": 3
+          "formal": 3
         },
         "b03-c10": {
           "formal": 28,
-          "neutral": 33
+          "neutral": 5
         },
         "b03-c11": {
           "formal": 7,
-          "neutral": 8,
+          "neutral": 1,
           "familiar": 4
         },
         "b04-c02": {
-          "formal": 1,
-          "neutral": 1
+          "formal": 1
         },
         "b04-c04": {
-          "formal": 3,
-          "neutral": 3
+          "formal": 3
         },
         "b04-c05": {
           "formal": 18,
-          "neutral": 21
+          "neutral": 3
         },
         "b04-c06": {
           "formal": 2,
-          "neutral": 3
+          "neutral": 1
         },
         "b04-c07": {
-          "formal": 2,
-          "neutral": 2
+          "formal": 2
         },
         "b05-c01": {
-          "formal": 2,
-          "neutral": 2
+          "formal": 2
         },
         "b05-c03": {
-          "formal": 4,
-          "neutral": 4
+          "formal": 4
         },
         "b05-c07": {
-          "formal": 4,
-          "neutral": 4
+          "formal": 4
         },
         "b08-c01": {
           "formal": 4,
-          "neutral": 5,
+          "neutral": 1,
           "familiar": 2
         },
         "b08-c03": {
           "formal": 5,
-          "neutral": 6,
+          "neutral": 1,
           "familiar": 2
         },
         "b09-c07": {
           "formal": 5,
-          "neutral": 5,
           "familiar": 6
         },
         "b09-c08": {
           "formal": 2,
-          "neutral": 3
+          "neutral": 1
         },
         "b10-c05": {
           "formal": 2,
-          "neutral": 4
+          "neutral": 2
         },
         "b11-c01": {
           "formal": 7,
-          "neutral": 14
+          "neutral": 7
         },
         "b11-c04": {
           "formal": 1,
-          "neutral": 2,
+          "neutral": 1,
           "familiar": 2
         },
         "b11-c05": {
           "formal": 7,
-          "neutral": 7,
           "familiar": 1
         },
         "b11-c06": {
           "formal": 3,
-          "neutral": 5
+          "neutral": 2
         },
         "b11-c07": {
           "formal": 8,
-          "neutral": 9,
+          "neutral": 1,
           "familiar": 3
         },
         "b11-c08": {
-          "formal": 1,
-          "neutral": 1
+          "formal": 1
         },
         "b11-c09": {
-          "formal": 2,
-          "neutral": 2
+          "formal": 2
         },
         "b12-c01": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b12-c03": {
-          "formal": 3,
-          "neutral": 3
+          "formal": 3
         },
         "b12-c04": {
           "formal": 12,
-          "neutral": 12,
           "familiar": 2
         },
         "b12-c05": {
           "formal": 6,
-          "neutral": 7,
+          "neutral": 1,
           "familiar": 9
         },
         "b12-c11": {
           "formal": 3,
-          "neutral": 4
+          "neutral": 1
         },
         "b13-c01": {
           "formal": 6,
-          "neutral": 6,
           "familiar": 11
         },
         "b13-c03": {
-          "formal": 2,
-          "neutral": 2
+          "formal": 2
         },
         "b07-c03": {
           "neutral": 1
@@ -2022,53 +2049,6 @@
       "fatherName": "Ivan",
       "warmestRegister": "familiar",
       "forms": [
-        {
-          "form": "Katerina",
-          "kind": "given",
-          "register": "neutral",
-          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
-          "count": 212,
-          "chapters": [
-            "b02-c04",
-            "b02-c07",
-            "b03-c03",
-            "b03-c04",
-            "b03-c05",
-            "b03-c09",
-            "b03-c10",
-            "b03-c11",
-            "b04-c02",
-            "b04-c04",
-            "b04-c05",
-            "b04-c06",
-            "b04-c07",
-            "b05-c01",
-            "b05-c03",
-            "b05-c07",
-            "b07-c03",
-            "b08-c01",
-            "b08-c03",
-            "b09-c07",
-            "b09-c08",
-            "b10-c02",
-            "b10-c05",
-            "b11-c01",
-            "b11-c04",
-            "b11-c05",
-            "b11-c06",
-            "b11-c07",
-            "b11-c08",
-            "b11-c09",
-            "b12-c01",
-            "b12-c03",
-            "b12-c04",
-            "b12-c05",
-            "b12-c11",
-            "b13-c01",
-            "b13-c03"
-          ],
-          "firstChapter": "b02-c04"
-        },
         {
           "form": "Katerina Ivanovna",
           "kind": "patronymic-pair",
@@ -2141,9 +2121,39 @@
             "b13-c02"
           ],
           "firstChapter": "b02-c07"
+        },
+        {
+          "form": "Katerina",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 40,
+          "chapters": [
+            "b02-c07",
+            "b03-c03",
+            "b03-c05",
+            "b03-c10",
+            "b03-c11",
+            "b04-c05",
+            "b04-c06",
+            "b07-c03",
+            "b08-c01",
+            "b08-c03",
+            "b09-c08",
+            "b10-c02",
+            "b10-c05",
+            "b11-c01",
+            "b11-c04",
+            "b11-c06",
+            "b11-c07",
+            "b12-c01",
+            "b12-c05",
+            "b12-c11"
+          ],
+          "firstChapter": "b02-c07"
         }
       ],
-      "total": 459
+      "total": 287
     },
     {
       "id": "hohlakov",
@@ -2154,112 +2164,92 @@
       "givenName": null,
       "registerByChapter": {
         "b02-c01": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b02-c03": {
-          "neutral": 2,
-          "distanced": 2
+          "neutral": 2
         },
         "b03-c03": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b03-c10": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b03-c11": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b04-c01": {
           "neutral": 4,
-          "distanced": 5
+          "distanced": 1
         },
         "b04-c03": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b04-c04": {
           "neutral": 6,
-          "distanced": 7
+          "distanced": 1
         },
         "b04-c05": {
           "neutral": 10,
-          "distanced": 13
+          "distanced": 3
         },
         "b05-c01": {
-          "neutral": 4,
-          "distanced": 4
+          "neutral": 4
         },
         "b05-c03": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b07-c01": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b07-c02": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b08-c03": {
           "neutral": 13,
-          "distanced": 14
+          "distanced": 1
         },
         "b08-c04": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b08-c05": {
           "neutral": 2,
-          "distanced": 3
+          "distanced": 1
         },
         "b09-c01": {
-          "neutral": 11,
-          "distanced": 11
+          "neutral": 11
         },
         "b09-c04": {
           "neutral": 1,
-          "distanced": 2
+          "distanced": 1
         },
         "b09-c05": {
-          "neutral": 2,
-          "distanced": 2
+          "neutral": 2
         },
         "b09-c07": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b09-c08": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b10-c05": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b11-c02": {
           "neutral": 10,
-          "distanced": 11
+          "distanced": 1
         },
         "b11-c03": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b11-c04": {
-          "neutral": 3,
-          "distanced": 3
+          "neutral": 3
         },
         "b12-c07": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b13-c02": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b12-c01": {
           "distanced": 1
@@ -2271,45 +2261,6 @@
       "fatherName": null,
       "warmestRegister": "neutral",
       "forms": [
-        {
-          "form": "Hohlakov",
-          "kind": "surname",
-          "register": "distanced",
-          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
-          "count": 94,
-          "chapters": [
-            "b02-c01",
-            "b02-c03",
-            "b03-c03",
-            "b03-c10",
-            "b03-c11",
-            "b04-c01",
-            "b04-c03",
-            "b04-c04",
-            "b04-c05",
-            "b05-c01",
-            "b05-c03",
-            "b07-c01",
-            "b07-c02",
-            "b08-c03",
-            "b08-c04",
-            "b08-c05",
-            "b09-c01",
-            "b09-c04",
-            "b09-c05",
-            "b09-c07",
-            "b09-c08",
-            "b10-c05",
-            "b11-c02",
-            "b11-c03",
-            "b11-c04",
-            "b12-c01",
-            "b12-c07",
-            "b13-c02",
-            "b13-c03"
-          ],
-          "firstChapter": "b02-c01"
-        },
         {
           "form": "Madame Hohlakov",
           "kind": "given",
@@ -2346,9 +2297,28 @@
             "b13-c02"
           ],
           "firstChapter": "b02-c01"
+        },
+        {
+          "form": "Hohlakov",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 11,
+          "chapters": [
+            "b04-c01",
+            "b04-c04",
+            "b04-c05",
+            "b08-c03",
+            "b08-c05",
+            "b09-c04",
+            "b11-c02",
+            "b12-c01",
+            "b13-c03"
+          ],
+          "firstChapter": "b04-c01"
         }
       ],
-      "total": 177
+      "total": 94
     },
     {
       "id": "lise",
@@ -2433,107 +2403,92 @@
       "registerByChapter": {
         "b01-c05": {
           "neutral": 3,
-          "distanced": 7
+          "distanced": 4
         },
         "b02-c01": {
           "neutral": 1,
-          "distanced": 2
+          "distanced": 1
         },
         "b02-c02": {
           "neutral": 6,
-          "distanced": 7
+          "distanced": 1
         },
         "b02-c03": {
-          "neutral": 4,
-          "distanced": 4
+          "neutral": 4
         },
         "b02-c05": {
-          "neutral": 3,
-          "distanced": 3
+          "neutral": 3
         },
         "b02-c06": {
           "neutral": 2,
-          "distanced": 4
+          "distanced": 2
         },
         "b02-c07": {
-          "neutral": 7,
-          "distanced": 7
+          "neutral": 7
         },
         "b02-c08": {
-          "neutral": 3,
-          "distanced": 3
+          "neutral": 3
         },
         "b03-c11": {
           "neutral": 5,
-          "distanced": 6
+          "distanced": 1
         },
         "b04-c01": {
           "neutral": 9,
-          "distanced": 10
+          "distanced": 1
         },
         "b04-c04": {
           "neutral": 3,
-          "distanced": 4
+          "distanced": 1
         },
         "b04-c06": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b05-c01": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b05-c04": {
           "neutral": 1,
-          "distanced": 2
+          "distanced": 1
         },
         "b06-c01": {
           "neutral": 11,
-          "distanced": 13
+          "distanced": 2
         },
         "b06-c02": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b06-c03": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b07-c01": {
           "neutral": 5,
-          "distanced": 9
+          "distanced": 4
         },
         "b07-c02": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b07-c03": {
-          "neutral": 2,
-          "distanced": 2
+          "neutral": 2
         },
         "b07-c04": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b08-c03": {
           "neutral": 2,
-          "distanced": 3
+          "distanced": 1
         },
         "b09-c01": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b09-c03": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b11-c02": {
-          "neutral": 3,
-          "distanced": 3
+          "neutral": 3
         },
         "b11-c09": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         },
         "b01-c04": {
           "distanced": 2
@@ -2542,43 +2497,6 @@
       "fatherName": null,
       "warmestRegister": "neutral",
       "forms": [
-        {
-          "form": "Zossima",
-          "kind": "surname",
-          "register": "distanced",
-          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
-          "count": 100,
-          "chapters": [
-            "b01-c04",
-            "b01-c05",
-            "b02-c01",
-            "b02-c02",
-            "b02-c03",
-            "b02-c05",
-            "b02-c06",
-            "b02-c07",
-            "b02-c08",
-            "b03-c11",
-            "b04-c01",
-            "b04-c04",
-            "b04-c06",
-            "b05-c01",
-            "b05-c04",
-            "b06-c01",
-            "b06-c02",
-            "b06-c03",
-            "b07-c01",
-            "b07-c02",
-            "b07-c03",
-            "b07-c04",
-            "b08-c03",
-            "b09-c01",
-            "b09-c03",
-            "b11-c02",
-            "b11-c09"
-          ],
-          "firstChapter": "b01-c04"
-        },
         {
           "form": "Father Zossima",
           "kind": "given",
@@ -2614,9 +2532,31 @@
             "b11-c09"
           ],
           "firstChapter": "b01-c05"
+        },
+        {
+          "form": "Zossima",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 21,
+          "chapters": [
+            "b01-c04",
+            "b01-c05",
+            "b02-c01",
+            "b02-c02",
+            "b02-c06",
+            "b03-c11",
+            "b04-c01",
+            "b04-c04",
+            "b05-c04",
+            "b06-c01",
+            "b07-c01",
+            "b08-c03"
+          ],
+          "firstChapter": "b01-c04"
         }
       ],
-      "total": 179
+      "total": 100
     },
     {
       "id": "ferapont",
@@ -2628,33 +2568,19 @@
       "registerByChapter": {
         "b04-c01": {
           "neutral": 15,
-          "distanced": 16
+          "distanced": 1
         },
         "b07-c01": {
           "neutral": 14,
-          "distanced": 17
+          "distanced": 3
         },
         "b07-c02": {
-          "neutral": 1,
-          "distanced": 1
+          "neutral": 1
         }
       },
       "fatherName": null,
       "warmestRegister": "neutral",
       "forms": [
-        {
-          "form": "Ferapont",
-          "kind": "surname",
-          "register": "distanced",
-          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
-          "count": 34,
-          "chapters": [
-            "b04-c01",
-            "b07-c01",
-            "b07-c02"
-          ],
-          "firstChapter": "b04-c01"
-        },
         {
           "form": "Father Ferapont",
           "kind": "given",
@@ -2667,9 +2593,21 @@
             "b07-c02"
           ],
           "firstChapter": "b04-c01"
+        },
+        {
+          "form": "Ferapont",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 4,
+          "chapters": [
+            "b04-c01",
+            "b07-c01"
+          ],
+          "firstChapter": "b04-c01"
         }
       ],
-      "total": 64
+      "total": 34
     },
     {
       "id": "paissy",
@@ -2680,40 +2618,40 @@
       "givenName": null,
       "registerByChapter": {
         "b02-c02": {
-          "neutral": 2
+          "neutral": 1
         },
         "b02-c05": {
-          "neutral": 12
+          "neutral": 6
         },
         "b02-c06": {
-          "neutral": 6
+          "neutral": 3
         },
         "b02-c08": {
-          "neutral": 4
-        },
-        "b03-c11": {
-          "neutral": 6
-        },
-        "b04-c01": {
-          "neutral": 22
-        },
-        "b05-c01": {
           "neutral": 2
         },
+        "b03-c11": {
+          "neutral": 3
+        },
+        "b04-c01": {
+          "neutral": 11
+        },
+        "b05-c01": {
+          "neutral": 1
+        },
         "b05-c05": {
-          "neutral": 4
+          "neutral": 2
         },
         "b06-c01": {
-          "neutral": 10
+          "neutral": 5
         },
         "b07-c01": {
-          "neutral": 58
+          "neutral": 29
         },
         "b07-c02": {
-          "neutral": 6
+          "neutral": 3
         },
         "b07-c04": {
-          "neutral": 12
+          "neutral": 6
         },
         "b01-c05": {
           "neutral": 1
@@ -2722,29 +2660,6 @@
       "fatherName": null,
       "warmestRegister": "neutral",
       "forms": [
-        {
-          "form": "Païssy",
-          "kind": "given",
-          "register": "neutral",
-          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
-          "count": 73,
-          "chapters": [
-            "b01-c05",
-            "b02-c02",
-            "b02-c05",
-            "b02-c06",
-            "b02-c08",
-            "b03-c11",
-            "b04-c01",
-            "b05-c01",
-            "b05-c05",
-            "b06-c01",
-            "b07-c01",
-            "b07-c02",
-            "b07-c04"
-          ],
-          "firstChapter": "b01-c05"
-        },
         {
           "form": "Father Païssy",
           "kind": "given",
@@ -2766,9 +2681,20 @@
             "b07-c04"
           ],
           "firstChapter": "b02-c02"
+        },
+        {
+          "form": "Païssy",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 1,
+          "chapters": [
+            "b01-c05"
+          ],
+          "firstChapter": "b01-c05"
         }
       ],
-      "total": 145
+      "total": 73
     },
     {
       "id": "rakitin",
@@ -3318,39 +3244,35 @@
       "registerByChapter": {
         "b03-c01": {
           "formal": 5,
-          "neutral": 11
+          "neutral": 6
         },
         "b04-c02": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b05-c06": {
-          "formal": 4,
-          "neutral": 4
+          "formal": 4
         },
         "b05-c07": {
           "formal": 7,
-          "neutral": 8
+          "neutral": 1
         },
         "b08-c04": {
-          "formal": 2,
-          "neutral": 2
+          "formal": 2
         },
         "b09-c02": {
           "formal": 2,
-          "neutral": 10
+          "neutral": 8
         },
         "b11-c06": {
           "formal": 1,
-          "neutral": 2
+          "neutral": 1
         },
         "b11-c08": {
-          "formal": 4,
-          "neutral": 4
+          "formal": 4
         },
         "b12-c08": {
-          "formal": 2,
-          "neutral": 2
+          "formal": 2
         },
         "b03-c02": {
           "neutral": 3
@@ -3379,7 +3301,7 @@
           "kind": "given",
           "register": "neutral",
           "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
-          "count": 57,
+          "count": 29,
           "chapters": [
             "b03-c01",
             "b03-c02",
@@ -3388,14 +3310,10 @@
             "b03-c08",
             "b04-c02",
             "b05-c02",
-            "b05-c06",
             "b05-c07",
-            "b08-c04",
             "b09-c02",
             "b11-c06",
-            "b11-c08",
-            "b12-c02",
-            "b12-c08"
+            "b12-c02"
           ],
           "firstChapter": "b03-c01"
         },
@@ -3419,7 +3337,7 @@
           "firstChapter": "b03-c01"
         }
       ],
-      "total": 85
+      "total": 57
     },
     {
       "id": "samsonov",
@@ -3431,7 +3349,7 @@
       "registerByChapter": {
         "b08-c01": {
           "neutral": 1,
-          "distanced": 14
+          "distanced": 13
         },
         "b02-c07": {
           "distanced": 1
@@ -3478,7 +3396,7 @@
           "kind": "surname",
           "register": "distanced",
           "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
-          "count": 46,
+          "count": 45,
           "chapters": [
             "b02-c07",
             "b05-c06",
@@ -3508,7 +3426,7 @@
           "firstChapter": "b08-c01"
         }
       ],
-      "total": 47
+      "total": 46
     },
     {
       "id": "lizaveta",
@@ -3519,8 +3437,7 @@
       "givenName": null,
       "registerByChapter": {
         "b09-c02": {
-          "familiar": 1,
-          "neutral": 1
+          "familiar": 1
         },
         "b02-c03": {
           "neutral": 2
@@ -3552,14 +3469,13 @@
           "kind": "given",
           "register": "neutral",
           "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
-          "count": 19,
+          "count": 18,
           "chapters": [
             "b02-c03",
             "b03-c01",
             "b03-c02",
             "b06-c01",
             "b08-c04",
-            "b09-c02",
             "b11-c04",
             "b12-c12"
           ],
@@ -3577,7 +3493,7 @@
           "firstChapter": "b09-c02"
         }
       ],
-      "total": 20
+      "total": 19
     },
     {
       "id": "maximov",
@@ -4248,6 +4164,13 @@
       "count": 1
     },
     {
+      "speaker": "dmitri",
+      "target": "alyosha",
+      "form": "Alexey",
+      "register": "neutral",
+      "count": 1
+    },
+    {
       "speaker": "hohlakov",
       "target": "dmitri",
       "form": "Dmitri",
@@ -4307,6 +4230,13 @@
       "speaker": "grushenka",
       "target": "zossima",
       "form": "Father Zossima",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "rakitin",
+      "target": "alyosha",
+      "form": "Alexey",
       "register": "neutral",
       "count": 1
     },

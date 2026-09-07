@@ -7,10 +7,11 @@
       "group": "family",
       "aliases": [
         "Alexey Fyodorovitch",
-        "Alyosha"
+        "Alyosha",
+        "Alexey"
       ],
-      "total": 1338,
-      "chapterCount": 70
+      "total": 1404,
+      "chapterCount": 73
     },
     {
       "id": "dmitri",
@@ -179,6 +180,18 @@
       "chapterCount": 8
     },
     {
+      "id": "paissy",
+      "name": "Father Paissy",
+      "short": "Paissy",
+      "group": "monastery",
+      "aliases": [
+        "Father Païssy",
+        "Païssy"
+      ],
+      "total": 73,
+      "chapterCount": 13
+    },
+    {
       "id": "maximov",
       "name": "Maximov",
       "short": "Maximov",
@@ -302,334 +315,334 @@
       ],
       "total": 19,
       "chapterCount": 8
-    },
-    {
-      "id": "paissy",
-      "name": "Father Paissy",
-      "short": "Paissy",
-      "group": "monastery",
-      "aliases": [
-        "Father Paissy",
-        "Paissy"
-      ],
-      "total": 0,
-      "chapterCount": 0
     }
   ],
   "byChapter": {
     "b01-c01": {
-      "alyosha": 1,
+      "alyosha": 2,
       "fyodor": 11,
       "dmitri": 2,
       "ivan": 1
     },
     "b01-c02": {
+      "grigory": 2,
       "dmitri": 12,
-      "fyodor": 12,
-      "grigory": 2
+      "fyodor": 12
     },
     "b01-c03": {
+      "dmitri": 5,
       "fyodor": 10,
-      "ivan": 10,
       "grigory": 4,
-      "dmitri": 5
+      "ivan": 10,
+      "alyosha": 6
     },
     "b01-c04": {
-      "fyodor": 4,
+      "ivan": 2,
+      "dmitri": 1,
       "alyosha": 22,
       "zossima": 2,
-      "grigory": 4,
-      "dmitri": 1,
-      "ivan": 2
+      "fyodor": 4,
+      "grigory": 4
     },
     "b01-c05": {
-      "fyodor": 1,
-      "zossima": 7,
       "alyosha": 30,
+      "paissy": 1,
+      "zossima": 7,
       "dmitri": 9,
-      "ivan": 12
+      "ivan": 12,
+      "fyodor": 1
     },
     "b02-c01": {
+      "alyosha": 1,
+      "ivan": 1,
       "dmitri": 2,
       "fyodor": 9,
-      "hohlakov": 1,
-      "zossima": 2,
-      "alyosha": 1,
       "maximov": 6,
-      "ivan": 1
+      "zossima": 2,
+      "hohlakov": 1
     },
     "b02-c02": {
-      "fyodor": 10,
+      "paissy": 1,
       "zossima": 7,
       "alyosha": 8,
-      "rakitin": 2,
+      "fyodor": 10,
+      "ivan": 2,
       "dmitri": 1,
-      "ivan": 2
+      "rakitin": 2
     },
     "b02-c03": {
       "hohlakov": 2,
       "zossima": 4,
+      "alyosha": 2,
       "lizaveta": 2
     },
     "b02-c04": {
-      "dmitri": 1,
-      "alyosha": 14,
+      "lise": 16,
+      "alyosha": 15,
       "katerina": 2,
-      "lise": 16
+      "dmitri": 1
     },
     "b02-c05": {
       "dmitri": 2,
-      "fyodor": 2,
       "ivan": 11,
+      "fyodor": 2,
       "zossima": 3,
       "alyosha": 5,
+      "paissy": 6,
       "rakitin": 2
     },
     "b02-c06": {
       "dmitri": 29,
-      "fyodor": 7,
-      "ivan": 16,
       "zossima": 4,
       "smerdyakov": 1,
+      "fyodor": 7,
+      "paissy": 3,
+      "ivan": 16,
       "alyosha": 4
     },
     "b02-c07": {
-      "dmitri": 16,
-      "alyosha": 26,
-      "katerina": 9,
+      "alyosha": 27,
       "zossima": 7,
-      "grushenka": 10,
-      "samsonov": 1,
+      "dmitri": 16,
       "rakitin": 11,
-      "maximov": 1,
-      "ivan": 15
+      "grushenka": 10,
+      "ivan": 15,
+      "katerina": 9,
+      "samsonov": 1,
+      "maximov": 1
     },
     "b02-c08": {
-      "fyodor": 16,
       "ivan": 15,
+      "fyodor": 16,
       "zossima": 3,
-      "alyosha": 7,
       "rakitin": 6,
+      "alyosha": 11,
+      "paissy": 2,
       "maximov": 6
     },
     "b03-c01": {
       "fyodor": 14,
+      "ivan": 2,
+      "grigory": 21,
       "marfa": 11,
       "smerdyakov": 1,
-      "lizaveta": 2,
       "alyosha": 5,
-      "grigory": 21,
       "dmitri": 2,
-      "ivan": 2
+      "lizaveta": 2
     },
     "b03-c02": {
-      "fyodor": 7,
-      "smerdyakov": 4,
-      "lizaveta": 9,
       "grigory": 5,
-      "marfa": 3
+      "lizaveta": 9,
+      "fyodor": 7,
+      "marfa": 3,
+      "smerdyakov": 4
     },
     "b03-c03": {
-      "fyodor": 1,
+      "alyosha": 22,
       "katerina": 4,
       "hohlakov": 1,
-      "alyosha": 22,
-      "rakitin": 2,
       "dmitri": 16,
+      "ivan": 2,
+      "fyodor": 1,
       "marfa": 1,
-      "ivan": 2
+      "rakitin": 2
     },
     "b03-c04": {
-      "katerina": 4,
-      "grushenka": 1,
       "alyosha": 8,
-      "dmitri": 2,
-      "ivan": 5
+      "grushenka": 1,
+      "ivan": 5,
+      "katerina": 4,
+      "dmitri": 2
     },
     "b03-c05": {
-      "katerina": 9,
-      "smerdyakov": 3,
-      "grushenka": 15,
-      "alyosha": 12,
-      "rakitin": 1,
+      "alyosha": 14,
       "dmitri": 15,
-      "ivan": 13
+      "katerina": 9,
+      "ivan": 13,
+      "grushenka": 15,
+      "rakitin": 1,
+      "smerdyakov": 3
     },
     "b03-c06": {
       "fyodor": 17,
       "smerdyakov": 16,
       "alyosha": 8,
+      "ivan": 2,
       "grigory": 13,
-      "marfa": 5,
-      "ivan": 2
+      "marfa": 5
     },
     "b03-c07": {
+      "grigory": 24,
       "fyodor": 13,
       "smerdyakov": 10,
-      "alyosha": 9,
-      "grigory": 24,
-      "ivan": 9
+      "ivan": 9,
+      "alyosha": 9
     },
     "b03-c08": {
       "fyodor": 2,
       "smerdyakov": 3,
-      "alyosha": 23,
       "grigory": 1,
-      "dmitri": 1,
       "marfa": 1,
-      "ivan": 29
+      "ivan": 29,
+      "alyosha": 25,
+      "dmitri": 1
     },
     "b03-c09": {
-      "fyodor": 3,
-      "katerina": 3,
-      "smerdyakov": 7,
-      "grushenka": 6,
-      "alyosha": 30,
       "grigory": 10,
+      "smerdyakov": 7,
       "dmitri": 23,
-      "ivan": 26
+      "fyodor": 3,
+      "ivan": 26,
+      "alyosha": 32,
+      "grushenka": 6,
+      "katerina": 3
     },
     "b03-c10": {
-      "grushenka": 14,
+      "alyosha": 58,
       "dmitri": 10,
-      "alyosha": 55,
+      "ivan": 2,
       "katerina": 33,
-      "hohlakov": 1,
-      "ivan": 2
+      "grushenka": 14,
+      "hohlakov": 1
     },
     "b03-c11": {
+      "alyosha": 31,
       "dmitri": 9,
-      "alyosha": 27,
-      "katerina": 12,
-      "hohlakov": 1,
-      "zossima": 6,
       "grushenka": 9,
-      "lise": 1
+      "katerina": 12,
+      "zossima": 6,
+      "paissy": 3,
+      "lise": 1,
+      "hohlakov": 1
     },
     "b04-c01": {
-      "hohlakov": 5,
-      "ferapont": 16,
-      "zossima": 10,
       "alyosha": 21,
-      "rakitin": 3
+      "zossima": 10,
+      "paissy": 11,
+      "rakitin": 3,
+      "hohlakov": 5,
+      "ferapont": 16
     },
     "b04-c02": {
-      "alyosha": 21,
+      "alyosha": 22,
       "ivan": 18,
-      "katerina": 1,
       "marfa": 2,
-      "smerdyakov": 1,
-      "grushenka": 7,
       "grigory": 1,
-      "dmitri": 8
+      "smerdyakov": 1,
+      "dmitri": 8,
+      "grushenka": 7,
+      "katerina": 1
     },
     "b04-c03": {
-      "hohlakov": 1,
-      "kolya": 3,
       "grushenka": 2,
       "alyosha": 35,
+      "hohlakov": 1,
       "dmitri": 1,
-      "smurov": 5
+      "smurov": 5,
+      "kolya": 3
     },
     "b04-c04": {
-      "dmitri": 2,
-      "alyosha": 30,
-      "ivan": 2,
-      "katerina": 3,
+      "alyosha": 33,
       "hohlakov": 7,
-      "zossima": 4,
-      "lise": 23
+      "katerina": 3,
+      "dmitri": 2,
+      "ivan": 2,
+      "lise": 23,
+      "zossima": 4
     },
     "b04-c05": {
-      "dmitri": 22,
-      "alyosha": 61,
-      "ivan": 35,
       "katerina": 21,
+      "alyosha": 62,
       "hohlakov": 13,
+      "ivan": 35,
+      "dmitri": 22,
       "grushenka": 2,
       "snegiryov": 1,
       "lise": 14
     },
     "b04-c06": {
-      "dmitri": 5,
-      "alyosha": 43,
-      "katerina": 3,
       "zossima": 1,
+      "katerina": 3,
+      "dmitri": 5,
+      "alyosha": 44,
       "grushenka": 1,
       "snegiryov": 2,
       "ilusha": 3
     },
     "b04-c07": {
-      "grushenka": 1,
-      "dmitri": 3,
       "alyosha": 30,
+      "dmitri": 3,
+      "ilusha": 22,
+      "grushenka": 1,
       "fyodor": 2,
-      "katerina": 2,
       "kolya": 2,
-      "ilusha": 22
+      "katerina": 2
     },
     "b05-c01": {
-      "alyosha": 61,
-      "katerina": 2,
       "hohlakov": 4,
-      "zossima": 1,
+      "alyosha": 66,
+      "katerina": 2,
+      "lise": 50,
       "ilusha": 1,
+      "zossima": 1,
       "ivan": 1,
-      "lise": 50
+      "paissy": 1
     },
     "b05-c02": {
-      "grushenka": 2,
+      "lise": 1,
       "dmitri": 15,
-      "smerdyakov": 12,
-      "fyodor": 2,
-      "ivan": 7,
       "alyosha": 21,
-      "grigory": 2,
+      "grushenka": 2,
+      "smerdyakov": 12,
       "marfa": 1,
-      "lise": 1
+      "grigory": 2,
+      "fyodor": 2,
+      "ivan": 7
     },
     "b05-c03": {
-      "katerina": 4,
-      "hohlakov": 1,
-      "smerdyakov": 3,
-      "alyosha": 33,
+      "ivan": 25,
+      "alyosha": 34,
       "dmitri": 16,
-      "ivan": 25
+      "smerdyakov": 3,
+      "katerina": 4,
+      "hohlakov": 1
     },
     "b05-c04": {
+      "ivan": 12,
       "zossima": 2,
-      "alyosha": 22,
-      "ivan": 12
+      "alyosha": 22
     },
     "b05-c05": {
+      "ivan": 17,
       "alyosha": 17,
-      "dmitri": 5,
-      "ivan": 17
+      "paissy": 2,
+      "dmitri": 5
     },
     "b05-c06": {
-      "grushenka": 11,
-      "dmitri": 19,
+      "ivan": 47,
       "alyosha": 6,
       "fyodor": 8,
-      "ivan": 47,
-      "marfa": 4,
       "smerdyakov": 32,
-      "samsonov": 1,
-      "grigory": 8
+      "grushenka": 11,
+      "dmitri": 19,
+      "grigory": 8,
+      "marfa": 4,
+      "samsonov": 1
     },
     "b05-c07": {
-      "fyodor": 13,
-      "katerina": 4,
-      "marfa": 8,
       "smerdyakov": 12,
-      "grushenka": 1,
+      "ivan": 20,
       "alyosha": 5,
-      "grigory": 3,
+      "katerina": 4,
+      "fyodor": 13,
+      "marfa": 8,
       "dmitri": 3,
-      "ivan": 20
+      "grigory": 3,
+      "grushenka": 1
     },
     "b06-c01": {
-      "alyosha": 13,
+      "alyosha": 18,
+      "paissy": 5,
       "zossima": 13,
       "lizaveta": 2
     },
@@ -641,205 +654,208 @@
       "zossima": 1
     },
     "b07-c01": {
-      "hohlakov": 1,
-      "ferapont": 17,
       "zossima": 9,
+      "paissy": 29,
+      "rakitin": 4,
+      "hohlakov": 1,
       "alyosha": 11,
-      "rakitin": 4
+      "ferapont": 17
     },
     "b07-c02": {
-      "hohlakov": 1,
-      "ferapont": 1,
-      "zossima": 1,
-      "grushenka": 3,
-      "alyosha": 32,
-      "rakitin": 13,
+      "paissy": 3,
+      "alyosha": 33,
       "dmitri": 2,
       "ilusha": 1,
-      "ivan": 5
+      "ferapont": 1,
+      "ivan": 5,
+      "rakitin": 13,
+      "hohlakov": 1,
+      "zossima": 1,
+      "grushenka": 3
     },
     "b07-c03": {
       "grushenka": 55,
-      "dmitri": 17,
-      "fyodor": 1,
-      "zossima": 2,
-      "katerina": 1,
       "samsonov": 4,
-      "alyosha": 72,
-      "rakitin": 84
+      "fyodor": 1,
+      "dmitri": 17,
+      "rakitin": 84,
+      "alyosha": 74,
+      "katerina": 1,
+      "zossima": 2
     },
     "b07-c04": {
-      "zossima": 1,
       "alyosha": 15,
+      "paissy": 6,
       "rakitin": 2,
-      "dmitri": 2
+      "dmitri": 2,
+      "zossima": 1
     },
     "b08-c01": {
+      "dmitri": 46,
       "grushenka": 32,
+      "alyosha": 5,
+      "ivan": 1,
       "fyodor": 11,
       "katerina": 7,
-      "samsonov": 14,
-      "alyosha": 5,
-      "dmitri": 46,
-      "ivan": 1
+      "samsonov": 14
     },
     "b08-c02": {
-      "fyodor": 2,
-      "grushenka": 4,
+      "dmitri": 45,
       "samsonov": 6,
-      "dmitri": 45
+      "grushenka": 4,
+      "fyodor": 2
     },
     "b08-c03": {
-      "grushenka": 8,
       "dmitri": 77,
-      "fyodor": 3,
-      "ivan": 3,
-      "katerina": 8,
-      "hohlakov": 14,
-      "zossima": 3,
-      "smerdyakov": 4,
+      "grushenka": 8,
+      "rakitin": 1,
       "samsonov": 8,
+      "smerdyakov": 4,
+      "fyodor": 3,
       "alyosha": 4,
-      "rakitin": 1
+      "ivan": 3,
+      "hohlakov": 14,
+      "katerina": 8,
+      "zossima": 3
     },
     "b08-c04": {
-      "grushenka": 5,
-      "fyodor": 8,
-      "marfa": 2,
-      "hohlakov": 1,
-      "smerdyakov": 5,
       "samsonov": 1,
+      "smerdyakov": 5,
+      "fyodor": 8,
       "lizaveta": 1,
-      "alyosha": 3,
       "grigory": 9,
       "dmitri": 26,
-      "ivan": 1
+      "grushenka": 5,
+      "alyosha": 3,
+      "ivan": 1,
+      "marfa": 2,
+      "hohlakov": 1
     },
     "b08-c05": {
-      "grushenka": 7,
       "dmitri": 80,
-      "fyodor": 1,
-      "hohlakov": 3,
-      "perhotin": 3,
-      "alyosha": 2,
+      "grushenka": 7,
       "rakitin": 1,
-      "grigory": 1
+      "alyosha": 2,
+      "perhotin": 3,
+      "grigory": 1,
+      "hohlakov": 3,
+      "fyodor": 1
     },
     "b08-c06": {
-      "grushenka": 4,
       "dmitri": 36,
-      "trifon": 10,
       "alyosha": 1,
+      "trifon": 10,
+      "grushenka": 4,
       "maximov": 3
     },
     "b08-c07": {
       "dmitri": 90,
-      "trifon": 2,
       "grushenka": 46,
-      "maximov": 25
+      "maximov": 25,
+      "trifon": 2
     },
     "b08-c08": {
+      "grushenka": 22,
       "dmitri": 69,
       "trifon": 4,
-      "fyodor": 1,
-      "grushenka": 22,
-      "alyosha": 3,
       "maximov": 12,
-      "katerina": 2
+      "alyosha": 3,
+      "katerina": 2,
+      "fyodor": 1
     },
     "b09-c01": {
+      "perhotin": 5,
       "dmitri": 12,
+      "grushenka": 1,
       "fyodor": 5,
       "hohlakov": 11,
-      "zossima": 1,
-      "grushenka": 1,
-      "perhotin": 5
+      "zossima": 1
     },
     "b09-c02": {
-      "lizaveta": 1,
-      "prosecutor": 1,
       "nikolay": 2,
-      "dmitri": 5,
-      "trifon": 2,
+      "prosecutor": 1,
       "fyodor": 9,
       "marfa": 10,
+      "grigory": 11,
       "smerdyakov": 5,
+      "lizaveta": 1,
+      "dmitri": 5,
       "grushenka": 1,
-      "grigory": 11
+      "trifon": 2
     },
     "b09-c03": {
-      "prosecutor": 1,
-      "nikolay": 6,
       "dmitri": 31,
-      "fyodor": 1,
-      "zossima": 1,
       "grushenka": 8,
+      "nikolay": 6,
+      "maximov": 3,
+      "fyodor": 1,
+      "prosecutor": 1,
       "grigory": 3,
-      "maximov": 3
+      "zossima": 1
     },
     "b09-c04": {
-      "prosecutor": 1,
-      "nikolay": 9,
       "dmitri": 23,
-      "fyodor": 2,
-      "hohlakov": 2,
-      "smerdyakov": 1,
-      "grushenka": 3,
-      "samsonov": 4,
+      "nikolay": 9,
+      "prosecutor": 1,
       "perhotin": 1,
-      "grigory": 1
+      "samsonov": 4,
+      "grigory": 1,
+      "grushenka": 3,
+      "fyodor": 2,
+      "smerdyakov": 1,
+      "hohlakov": 2
     },
     "b09-c05": {
-      "prosecutor": 1,
-      "nikolay": 19,
       "dmitri": 40,
-      "fyodor": 1,
-      "hohlakov": 2,
-      "smerdyakov": 19,
       "grushenka": 4,
+      "nikolay": 19,
+      "grigory": 3,
+      "smerdyakov": 19,
+      "fyodor": 1,
       "perhotin": 7,
-      "grigory": 3
+      "hohlakov": 2,
+      "prosecutor": 1
     },
     "b09-c06": {
-      "prosecutor": 1,
-      "nikolay": 17,
       "dmitri": 43,
-      "trifon": 1,
-      "smerdyakov": 7,
+      "nikolay": 17,
+      "grigory": 6,
       "perhotin": 1,
-      "grigory": 6
+      "prosecutor": 1,
+      "trifon": 1,
+      "smerdyakov": 7
     },
     "b09-c07": {
-      "grushenka": 2,
       "nikolay": 11,
-      "dmitri": 25,
       "katerina": 11,
-      "hohlakov": 1,
-      "samsonov": 1,
+      "grushenka": 2,
+      "dmitri": 25,
+      "alyosha": 1,
       "perhotin": 2,
-      "alyosha": 1
+      "samsonov": 1,
+      "hohlakov": 1
     },
     "b09-c08": {
-      "grushenka": 23,
-      "prosecutor": 3,
-      "nikolay": 15,
       "dmitri": 53,
       "trifon": 5,
-      "fyodor": 2,
-      "katerina": 3,
-      "hohlakov": 1,
+      "prosecutor": 3,
+      "grushenka": 23,
+      "nikolay": 15,
       "samsonov": 1,
-      "maximov": 2
+      "hohlakov": 1,
+      "maximov": 2,
+      "fyodor": 2,
+      "katerina": 3
     },
     "b09-c09": {
       "nikolay": 5,
       "dmitri": 27,
-      "trifon": 6,
-      "grushenka": 3
+      "grushenka": 3,
+      "trifon": 6
     },
     "b10-c01": {
-      "ivan": 1,
       "kolya": 34,
+      "ivan": 1,
       "snegiryov": 1,
       "ilusha": 1
     },
@@ -849,311 +865,313 @@
     },
     "b10-c03": {
       "kolya": 32,
-      "snegiryov": 1,
-      "alyosha": 1,
-      "rakitin": 1,
+      "smurov": 22,
       "ilusha": 12,
-      "smurov": 22
+      "alyosha": 6,
+      "rakitin": 1,
+      "snegiryov": 1
     },
     "b10-c04": {
-      "smerdyakov": 1,
       "kolya": 25,
       "alyosha": 12,
       "ilusha": 10,
+      "smerdyakov": 1,
       "smurov": 5
     },
     "b10-c05": {
-      "alyosha": 23,
-      "katerina": 4,
-      "hohlakov": 1,
-      "kolya": 83,
       "snegiryov": 3,
       "ilusha": 75,
-      "smurov": 18
+      "smurov": 18,
+      "alyosha": 23,
+      "kolya": 83,
+      "katerina": 4,
+      "hohlakov": 1
     },
     "b10-c06": {
+      "kolya": 24,
+      "ilusha": 1,
       "alyosha": 24,
       "rakitin": 2,
-      "ilusha": 1,
-      "smurov": 1,
-      "kolya": 24
+      "smurov": 1
     },
     "b10-c07": {
-      "kolya": 21,
       "alyosha": 11,
+      "kolya": 21,
       "ilusha": 10
     },
     "b11-c01": {
-      "ivan": 9,
-      "katerina": 14,
-      "fetyukovitch": 2,
-      "grushenka": 39,
       "alyosha": 35,
-      "rakitin": 5,
-      "grigory": 2,
+      "grushenka": 39,
+      "dmitri": 28,
+      "katerina": 14,
       "maximov": 4,
-      "dmitri": 28
+      "rakitin": 5,
+      "ivan": 9,
+      "fetyukovitch": 2,
+      "grigory": 2
     },
     "b11-c02": {
-      "grushenka": 1,
-      "dmitri": 6,
-      "alyosha": 28,
-      "ivan": 4,
       "hohlakov": 11,
-      "zossima": 3,
+      "dmitri": 6,
+      "alyosha": 30,
       "perhotin": 3,
+      "lise": 19,
+      "zossima": 3,
+      "katerina": 6,
+      "grushenka": 1,
       "rakitin": 8,
       "grigory": 4,
-      "katerina": 6,
-      "lise": 19
+      "ivan": 4
     },
     "b11-c03": {
+      "lise": 14,
+      "alyosha": 37,
       "dmitri": 2,
       "ivan": 1,
-      "hohlakov": 1,
-      "alyosha": 37,
-      "lise": 14
+      "hohlakov": 1
     },
     "b11-c04": {
-      "fyodor": 1,
-      "ivan": 21,
-      "katerina": 4,
-      "hohlakov": 3,
+      "alyosha": 60,
+      "dmitri": 35,
       "grushenka": 13,
-      "lizaveta": 1,
-      "perhotin": 1,
-      "alyosha": 53,
       "rakitin": 27,
-      "grigory": 3,
-      "dmitri": 35
+      "ivan": 21,
+      "hohlakov": 3,
+      "perhotin": 1,
+      "katerina": 4,
+      "lizaveta": 1,
+      "fyodor": 1,
+      "grigory": 3
     },
     "b11-c05": {
-      "alyosha": 43,
-      "fyodor": 3,
-      "katerina": 8,
-      "smerdyakov": 4,
-      "dmitri": 5,
       "ivan": 35,
-      "lise": 1
+      "katerina": 8,
+      "alyosha": 44,
+      "smerdyakov": 4,
+      "lise": 1,
+      "dmitri": 5,
+      "fyodor": 3
     },
     "b11-c06": {
-      "dmitri": 21,
-      "fyodor": 1,
-      "katerina": 5,
-      "marfa": 2,
+      "ivan": 51,
       "smerdyakov": 33,
-      "perhotin": 1,
       "alyosha": 17,
+      "katerina": 5,
+      "dmitri": 21,
       "grigory": 5,
-      "ivan": 51
+      "marfa": 2,
+      "perhotin": 1,
+      "fyodor": 1
     },
     "b11-c07": {
-      "grushenka": 3,
-      "dmitri": 23,
-      "alyosha": 8,
-      "fyodor": 2,
-      "katerina": 12,
       "smerdyakov": 36,
+      "ivan": 41,
+      "dmitri": 23,
+      "fyodor": 2,
+      "grushenka": 3,
+      "alyosha": 8,
       "grigory": 1,
-      "ivan": 41
+      "katerina": 12
     },
     "b11-c08": {
-      "grushenka": 5,
-      "dmitri": 13,
-      "fyodor": 4,
-      "katerina": 1,
-      "marfa": 4,
       "smerdyakov": 39,
+      "ivan": 69,
+      "katerina": 1,
       "alyosha": 1,
-      "grigory": 9,
-      "ivan": 69
+      "dmitri": 13,
+      "marfa": 4,
+      "fyodor": 4,
+      "grushenka": 5,
+      "grigory": 9
     },
     "b11-c09": {
+      "ivan": 43,
       "katerina": 2,
-      "zossima": 1,
       "smerdyakov": 3,
       "alyosha": 8,
-      "ivan": 43
+      "zossima": 1
     },
     "b11-c10": {
-      "fyodor": 1,
-      "smerdyakov": 8,
       "alyosha": 40,
-      "dmitri": 4,
-      "katerina": 2,
       "ivan": 23,
-      "lise": 3
+      "smerdyakov": 8,
+      "dmitri": 4,
+      "lise": 3,
+      "katerina": 2,
+      "fyodor": 1
     },
     "b12-c01": {
-      "prosecutor": 1,
-      "trifon": 1,
-      "fyodor": 2,
+      "dmitri": 17,
       "katerina": 2,
-      "fetyukovitch": 4,
-      "smerdyakov": 3,
       "grushenka": 3,
-      "hohlakov": 1,
+      "fyodor": 2,
+      "fetyukovitch": 4,
+      "prosecutor": 1,
       "perhotin": 1,
+      "trifon": 1,
+      "hohlakov": 1,
       "maximov": 1,
-      "dmitri": 17
+      "smerdyakov": 3
     },
     "b12-c02": {
-      "grushenka": 4,
-      "dmitri": 22,
-      "trifon": 5,
-      "fyodor": 6,
       "fetyukovitch": 18,
-      "smerdyakov": 3,
-      "snegiryov": 2,
-      "samsonov": 1,
-      "alyosha": 1,
-      "rakitin": 15,
       "grigory": 12,
-      "ilusha": 2,
+      "fyodor": 6,
       "marfa": 1,
-      "ivan": 1
+      "dmitri": 22,
+      "alyosha": 3,
+      "ivan": 1,
+      "smerdyakov": 3,
+      "rakitin": 15,
+      "snegiryov": 2,
+      "grushenka": 4,
+      "samsonov": 1,
+      "ilusha": 2,
+      "trifon": 5
     },
     "b12-c03": {
-      "katerina": 3,
       "fetyukovitch": 2,
-      "alyosha": 1,
-      "dmitri": 6
+      "katerina": 3,
+      "dmitri": 6,
+      "alyosha": 1
     },
     "b12-c04": {
-      "dmitri": 20,
       "alyosha": 23,
-      "fyodor": 2,
-      "katerina": 14,
-      "fetyukovitch": 11,
-      "smerdyakov": 8,
       "grushenka": 11,
+      "dmitri": 20,
+      "katerina": 14,
+      "smerdyakov": 8,
+      "fetyukovitch": 11,
+      "fyodor": 2,
       "samsonov": 1,
       "rakitin": 4,
       "ivan": 1
     },
     "b12-c05": {
-      "prosecutor": 1,
+      "alyosha": 4,
+      "ivan": 14,
+      "dmitri": 18,
+      "smerdyakov": 8,
       "katerina": 16,
       "fetyukovitch": 2,
-      "smerdyakov": 8,
       "grushenka": 1,
-      "alyosha": 4,
-      "dmitri": 18,
-      "ivan": 14
+      "prosecutor": 1
     },
     "b12-c06": {
       "prosecutor": 8,
-      "ivan": 3,
       "smerdyakov": 1,
+      "ivan": 3,
       "rakitin": 1,
       "dmitri": 3
     },
     "b12-c07": {
       "prosecutor": 4,
-      "fyodor": 1,
-      "hohlakov": 1,
-      "smerdyakov": 2,
       "grushenka": 2,
-      "snegiryov": 1,
-      "samsonov": 3,
-      "alyosha": 1,
       "rakitin": 1,
+      "snegiryov": 1,
+      "alyosha": 1,
+      "ivan": 2,
       "dmitri": 1,
-      "ivan": 2
+      "samsonov": 3,
+      "fyodor": 1,
+      "smerdyakov": 2,
+      "hohlakov": 1
     },
     "b12-c08": {
+      "smerdyakov": 39,
       "prosecutor": 2,
-      "dmitri": 7,
       "fyodor": 4,
       "ivan": 10,
-      "marfa": 2,
-      "smerdyakov": 39,
-      "grigory": 9
+      "grigory": 9,
+      "dmitri": 7,
+      "marfa": 2
     },
     "b12-c09": {
       "prosecutor": 7,
-      "fetyukovitch": 3,
-      "smerdyakov": 9,
       "grushenka": 2,
       "perhotin": 2,
-      "rakitin": 1,
+      "dmitri": 8,
       "grigory": 6,
-      "dmitri": 8
+      "smerdyakov": 9,
+      "fetyukovitch": 3,
+      "rakitin": 1
     },
     "b12-c10": {
       "fetyukovitch": 2,
-      "grigory": 2,
-      "dmitri": 2
+      "dmitri": 2,
+      "grigory": 2
     },
     "b12-c11": {
-      "fyodor": 4,
-      "ivan": 2,
-      "katerina": 4,
       "fetyukovitch": 1,
       "smerdyakov": 8,
-      "grushenka": 1,
+      "ivan": 2,
+      "fyodor": 4,
       "perhotin": 1,
-      "maximov": 1
+      "maximov": 1,
+      "katerina": 4,
+      "grushenka": 1,
+      "alyosha": 1
     },
     "b12-c12": {
       "fyodor": 3,
-      "fetyukovitch": 1,
-      "smerdyakov": 19,
-      "lizaveta": 1,
       "grigory": 7,
-      "ivan": 1
+      "smerdyakov": 19,
+      "ivan": 1,
+      "lizaveta": 1,
+      "fetyukovitch": 1
     },
     "b12-c13": {
       "fyodor": 1,
       "fetyukovitch": 2
     },
     "b12-c14": {
+      "fetyukovitch": 7,
       "prosecutor": 2,
       "fyodor": 1,
-      "fetyukovitch": 7,
       "smerdyakov": 1,
-      "grushenka": 1,
       "dmitri": 5,
-      "katerina": 1
-    },
-    "b13-c01": {
-      "dmitri": 12,
-      "alyosha": 19,
-      "ivan": 7,
-      "katerina": 17,
+      "katerina": 1,
       "grushenka": 1
     },
+    "b13-c01": {
+      "alyosha": 19,
+      "katerina": 17,
+      "grushenka": 1,
+      "ivan": 7,
+      "dmitri": 12
+    },
     "b13-c02": {
-      "trifon": 1,
+      "dmitri": 29,
+      "alyosha": 35,
       "hohlakov": 1,
+      "lise": 1,
       "smerdyakov": 1,
       "grushenka": 13,
-      "alyosha": 35,
       "rakitin": 1,
-      "dmitri": 29,
       "katerina": 16,
-      "ivan": 6,
-      "lise": 1
+      "trifon": 1,
+      "ivan": 6
     },
     "b13-c03": {
-      "katerina": 2,
-      "kolya": 22,
-      "grushenka": 1,
-      "snegiryov": 11,
-      "hohlakov": 1,
-      "alyosha": 26,
       "ilusha": 28,
-      "smurov": 4,
       "dmitri": 1,
-      "lise": 1
+      "alyosha": 26,
+      "kolya": 22,
+      "snegiryov": 11,
+      "smurov": 4,
+      "lise": 1,
+      "hohlakov": 1,
+      "katerina": 2,
+      "grushenka": 1
     }
   },
   "edges": [
     {
       "source": "alyosha",
       "target": "dmitri",
-      "weight": 33,
+      "weight": 35,
       "chapters": [
+        "b01-c03",
         "b01-c05",
         "b02-c06",
         "b02-c07",
@@ -1183,6 +1201,7 @@
         "b11-c06",
         "b11-c07",
         "b11-c10",
+        "b12-c02",
         "b12-c04",
         "b12-c05",
         "b13-c01",
@@ -1192,8 +1211,9 @@
     {
       "source": "alyosha",
       "target": "ivan",
-      "weight": 31,
+      "weight": 32,
       "chapters": [
+        "b01-c03",
         "b01-c05",
         "b02-c05",
         "b02-c06",
@@ -1393,7 +1413,7 @@
     {
       "source": "alyosha",
       "target": "grushenka",
-      "weight": 18,
+      "weight": 19,
       "chapters": [
         "b02-c07",
         "b03-c05",
@@ -1411,6 +1431,7 @@
         "b11-c01",
         "b11-c04",
         "b11-c07",
+        "b12-c02",
         "b12-c04",
         "b13-c02"
       ]
@@ -1418,7 +1439,7 @@
     {
       "source": "alyosha",
       "target": "smerdyakov",
-      "weight": 18,
+      "weight": 19,
       "chapters": [
         "b03-c05",
         "b03-c06",
@@ -1436,6 +1457,7 @@
         "b11-c07",
         "b11-c09",
         "b11-c10",
+        "b12-c02",
         "b12-c04",
         "b12-c05"
       ]
@@ -1486,6 +1508,29 @@
         "b11-c10",
         "b12-c05",
         "b12-c08"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "fyodor",
+      "weight": 16,
+      "chapters": [
+        "b01-c03",
+        "b01-c04",
+        "b02-c02",
+        "b02-c06",
+        "b02-c08",
+        "b03-c01",
+        "b03-c06",
+        "b03-c07",
+        "b03-c09",
+        "b05-c06",
+        "b05-c07",
+        "b08-c01",
+        "b08-c03",
+        "b08-c04",
+        "b11-c05",
+        "b12-c02"
       ]
     },
     {
@@ -1602,23 +1647,22 @@
     },
     {
       "source": "alyosha",
-      "target": "fyodor",
-      "weight": 14,
+      "target": "grigory",
+      "weight": 13,
       "chapters": [
+        "b01-c03",
         "b01-c04",
-        "b02-c02",
-        "b02-c06",
-        "b02-c08",
         "b03-c01",
         "b03-c06",
         "b03-c07",
         "b03-c09",
         "b05-c06",
         "b05-c07",
-        "b08-c01",
-        "b08-c03",
         "b08-c04",
-        "b11-c05"
+        "b11-c02",
+        "b11-c04",
+        "b11-c06",
+        "b12-c02"
       ]
     },
     {
@@ -1700,20 +1744,20 @@
     },
     {
       "source": "alyosha",
-      "target": "grigory",
+      "target": "rakitin",
       "weight": 11,
       "chapters": [
-        "b01-c04",
-        "b03-c01",
-        "b03-c06",
-        "b03-c07",
-        "b03-c09",
-        "b05-c06",
-        "b05-c07",
-        "b08-c04",
+        "b02-c07",
+        "b02-c08",
+        "b04-c01",
+        "b07-c01",
+        "b07-c02",
+        "b07-c03",
+        "b11-c01",
         "b11-c02",
         "b11-c04",
-        "b11-c06"
+        "b12-c02",
+        "b12-c04"
       ]
     },
     {
@@ -1771,19 +1815,17 @@
     },
     {
       "source": "alyosha",
-      "target": "rakitin",
-      "weight": 10,
+      "target": "paissy",
+      "weight": 8,
       "chapters": [
-        "b02-c07",
-        "b02-c08",
+        "b02-c05",
+        "b02-c06",
+        "b03-c11",
         "b04-c01",
+        "b06-c01",
         "b07-c01",
         "b07-c02",
-        "b07-c03",
-        "b11-c01",
-        "b11-c02",
-        "b11-c04",
-        "b12-c04"
+        "b07-c04"
       ]
     },
     {
@@ -1914,6 +1956,34 @@
       ]
     },
     {
+      "source": "alyosha",
+      "target": "kolya",
+      "weight": 7,
+      "chapters": [
+        "b04-c03",
+        "b10-c03",
+        "b10-c04",
+        "b10-c05",
+        "b10-c06",
+        "b10-c07",
+        "b13-c03"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "ilusha",
+      "weight": 7,
+      "chapters": [
+        "b04-c06",
+        "b04-c07",
+        "b10-c03",
+        "b10-c04",
+        "b10-c05",
+        "b10-c07",
+        "b13-c03"
+      ]
+    },
+    {
       "source": "dmitri",
       "target": "nikolay",
       "weight": 7,
@@ -1938,6 +2008,19 @@
         "b03-c11",
         "b08-c03",
         "b11-c02"
+      ]
+    },
+    {
+      "source": "paissy",
+      "target": "zossima",
+      "weight": 6,
+      "chapters": [
+        "b02-c05",
+        "b02-c06",
+        "b03-c11",
+        "b04-c01",
+        "b06-c01",
+        "b07-c01"
       ]
     },
     {
@@ -1980,19 +2063,6 @@
       ]
     },
     {
-      "source": "alyosha",
-      "target": "kolya",
-      "weight": 6,
-      "chapters": [
-        "b04-c03",
-        "b10-c04",
-        "b10-c05",
-        "b10-c06",
-        "b10-c07",
-        "b13-c03"
-      ]
-    },
-    {
       "source": "dmitri",
       "target": "hohlakov",
       "weight": 6,
@@ -2003,19 +2073,6 @@
         "b09-c01",
         "b11-c02",
         "b11-c04"
-      ]
-    },
-    {
-      "source": "alyosha",
-      "target": "ilusha",
-      "weight": 6,
-      "chapters": [
-        "b04-c06",
-        "b04-c07",
-        "b10-c04",
-        "b10-c05",
-        "b10-c07",
-        "b13-c03"
       ]
     },
     {
@@ -2064,6 +2121,18 @@
         "b11-c02",
         "b11-c04",
         "b11-c06"
+      ]
+    },
+    {
+      "source": "alyosha",
+      "target": "smurov",
+      "weight": 5,
+      "chapters": [
+        "b04-c03",
+        "b10-c03",
+        "b10-c04",
+        "b10-c05",
+        "b13-c03"
       ]
     },
     {
@@ -2232,17 +2301,6 @@
       ]
     },
     {
-      "source": "alyosha",
-      "target": "smurov",
-      "weight": 4,
-      "chapters": [
-        "b04-c03",
-        "b10-c04",
-        "b10-c05",
-        "b13-c03"
-      ]
-    },
-    {
       "source": "hohlakov",
       "target": "lise",
       "weight": 4,
@@ -2309,6 +2367,16 @@
       ]
     },
     {
+      "source": "ivan",
+      "target": "paissy",
+      "weight": 3,
+      "chapters": [
+        "b02-c05",
+        "b02-c06",
+        "b07-c02"
+      ]
+    },
+    {
       "source": "grushenka",
       "target": "zossima",
       "weight": 3,
@@ -2336,6 +2404,16 @@
         "b04-c01",
         "b11-c02",
         "b11-c04"
+      ]
+    },
+    {
+      "source": "paissy",
+      "target": "rakitin",
+      "weight": 3,
+      "chapters": [
+        "b04-c01",
+        "b07-c01",
+        "b07-c02"
       ]
     },
     {
@@ -2458,6 +2536,15 @@
       ]
     },
     {
+      "source": "dmitri",
+      "target": "paissy",
+      "weight": 2,
+      "chapters": [
+        "b02-c06",
+        "b03-c11"
+      ]
+    },
+    {
       "source": "fyodor",
       "target": "rakitin",
       "weight": 2,
@@ -2485,8 +2572,26 @@
       ]
     },
     {
+      "source": "grushenka",
+      "target": "paissy",
+      "weight": 2,
+      "chapters": [
+        "b03-c11",
+        "b07-c02"
+      ]
+    },
+    {
       "source": "alyosha",
       "target": "ferapont",
+      "weight": 2,
+      "chapters": [
+        "b04-c01",
+        "b07-c01"
+      ]
+    },
+    {
+      "source": "ferapont",
+      "target": "paissy",
       "weight": 2,
       "chapters": [
         "b04-c01",
@@ -2593,6 +2698,15 @@
       ]
     },
     {
+      "source": "alyosha",
+      "target": "trifon",
+      "weight": 2,
+      "chapters": [
+        "b08-c08",
+        "b12-c02"
+      ]
+    },
+    {
       "source": "grigory",
       "target": "perhotin",
       "weight": 2,
@@ -2683,6 +2797,15 @@
       ]
     },
     {
+      "source": "alyosha",
+      "target": "fetyukovitch",
+      "weight": 2,
+      "chapters": [
+        "b12-c02",
+        "b12-c04"
+      ]
+    },
+    {
       "source": "fetyukovitch",
       "target": "grigory",
       "weight": 2,
@@ -2707,6 +2830,14 @@
       "chapters": [
         "b12-c02",
         "b12-c04"
+      ]
+    },
+    {
+      "source": "fyodor",
+      "target": "paissy",
+      "weight": 1,
+      "chapters": [
+        "b02-c06"
       ]
     },
     {
@@ -2750,8 +2881,24 @@
       ]
     },
     {
+      "source": "katerina",
+      "target": "paissy",
+      "weight": 1,
+      "chapters": [
+        "b03-c11"
+      ]
+    },
+    {
       "source": "ferapont",
       "target": "hohlakov",
+      "weight": 1,
+      "chapters": [
+        "b04-c01"
+      ]
+    },
+    {
+      "source": "hohlakov",
+      "target": "paissy",
       "weight": 1,
       "chapters": [
         "b04-c01"
@@ -2819,14 +2966,6 @@
       "weight": 1,
       "chapters": [
         "b08-c03"
-      ]
-    },
-    {
-      "source": "alyosha",
-      "target": "trifon",
-      "weight": 1,
-      "chapters": [
-        "b08-c08"
       ]
     },
     {
@@ -3067,14 +3206,6 @@
       "weight": 1,
       "chapters": [
         "b12-c02"
-      ]
-    },
-    {
-      "source": "alyosha",
-      "target": "fetyukovitch",
-      "weight": 1,
-      "chapters": [
-        "b12-c04"
       ]
     },
     {

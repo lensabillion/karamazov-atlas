@@ -75,7 +75,7 @@ export const MOMENTS: Moment[] = [
   { id: 'm11', segment: 'day2', at: 4, label: 'Zossima dies', detail: 'The elder gives his last teaching — that each of us is responsible to all men for everything — and dies that night.', who: ['alyosha'], chapter: 'b06-c03', cite: 'Bk VI, ch. 3', key: true },
 
   { id: 'm12', segment: 'day3', at: 0, label: 'The breath of corruption', detail: 'The body decays quickly and the town treats it as a verdict on the elder’s sanctity. Alyosha’s faith cracks — not in God, but in the justice of the world’s judgment.', who: ['alyosha'], chapter: 'b07-c01', cite: 'Bk VII, ch. 1' },
-  { id: 'm13', segment: 'day3', at: 1, label: 'Cana of Galilee', detail: 'Dozing at the coffin as the Gospel is read, Alyosha goes out and falls to the earth weeping. He rises settled.', who: ['alyosha', 'grushenka'], chapter: 'b07-c04', cite: 'Bk VII, ch. 4', key: true },
+  { id: 'm13', segment: 'day3', at: 1, chapter: 'b07-c04', cite: 'Bk VII, ch. 4', label: 'Cana of Galilee', detail: 'Dozing at the coffin as the Gospel is read, Alyosha goes out and falls to the earth weeping. He rises settled.', who: ['alyosha', 'grushenka'], key: true },
   { id: 'm14', segment: 'day3', at: 2, label: 'Dmitri hunts the money', detail: 'A whole day spent chasing three thousand roubles — Samsonov, a drunk peasant in a hut, Madame Hohlakov and her gold-mines. He ends with nothing.', who: ['dmitri', 'katerina'], chapter: 'b08-c01', cite: 'Bk VIII, ch. 1' },
   { id: 'm15', segment: 'day3', at: 3, label: 'The night. The pestle. The garden.', detail: 'Dmitri climbs the fence with a brass pestle, looks through the window at his father, and runs. On the wall he strikes down Grigory. Sometime that night Fyodor is killed.', who: ['dmitri', 'fyodor', 'smerdyakov'], chapter: 'b08-c04', cite: 'Bk VIII, ch. 4', key: true },
   { id: 'm16', segment: 'day3', at: 4, label: 'Mokroe', detail: 'Champagne for the village, gypsies, and Grushenka finally saying she loves him — until the police arrive at dawn.', who: ['dmitri', 'grushenka'], chapter: 'b08-c07', cite: 'Bk VIII, ch. 7' },
@@ -88,7 +88,7 @@ export const MOMENTS: Moment[] = [
   { id: 'm21', segment: 'trial', at: 2, label: 'Katerina’s letter', detail: 'In a fit of jealousy she produces a letter in which Dmitri wrote he would kill his father for the money. It is the single piece of evidence that convicts him.', who: ['katerina', 'dmitri', 'ivan'], chapter: 'b12-c05', cite: 'Bk XII, ch. 5', key: true },
   { id: 'm22', segment: 'trial', at: 3, label: 'The peasants stand firm', detail: 'Twenty years in the Siberian mines, for a murder he did not commit.', who: ['dmitri'], chapter: 'b12-c14', cite: 'Bk XII, ch. 14', key: true },
 
-  { id: 'm23', segment: 'after', at: 0, label: 'The speech at the stone', detail: 'Twelve boys, a funeral, and Alyosha telling them that one good memory kept from childhood may be the thing that saves a person.', who: ['alyosha'], chapter: 'b13-c03', cite: 'Epilogue, ch. 3', key: true },
+  { id: 'm23', segment: 'after', at: 0, chapter: 'b13-c03', cite: 'Epilogue, ch. 3', label: 'The speech at the stone', detail: 'Twelve boys, a funeral, and Alyosha telling them that one good memory kept from childhood may be the thing that saves a person.', who: ['alyosha'], key: true },
 ];
 
 /**
@@ -103,6 +103,15 @@ export const MOMENTS: Moment[] = [
  */
 export interface Span {
   character: string;
+  /** Chapter that establishes this state. Every claim must be checkable. */
+  chapter?: string;
+  cite?: string;
+  /**
+   * Where in the final segment the thread stops, 0-1. A death should terminate
+   * where the prose puts it, not at the end of whatever band it falls in
+   * (review finding R5).
+   */
+  endFraction?: number;
   /** Segment ids this state covers, in order. */
   segments: string[];
   label: string;
@@ -118,13 +127,13 @@ export const SPANS: Span[] = [
   { character: 'fyodor', segments: ['before'], label: 'Forgets his sons', detail: 'Two marriages, two dead wives, and three children left to servants and relatives. He does not think of them for years.' },
   { character: 'fyodor', segments: ['day1'], label: 'Performs at the monastery', detail: 'Summoned to settle Dmitri\u2019s inheritance, he plays the buffoon instead, and the meeting settles nothing.' },
   { character: 'fyodor', segments: ['day2'], label: 'Waiting for Grushenka', detail: 'Three thousand roubles in an envelope under his pillow, tied with pink ribbon, and a signal knock agreed with his servant.' },
-  { character: 'fyodor', segments: ['day3'], label: 'Killed', detail: 'Sometime in the night of the storm. The column ends here — everything after this point in the novel is about a man who is no longer in it.', ends: true, key: true },
+  { character: 'fyodor', segments: ['day3'], chapter: 'b08-c04', cite: 'Bk VIII, ch. 4', label: 'Killed', detail: 'Sometime in the night of the storm. The column ends here — everything after this point in the novel is about a man who is no longer in it.', ends: true, key: true },
 
   // Dmitri — the longest thread, and the one on trial.
   { character: 'dmitri', segments: ['before'], label: 'Raised by servants', detail: 'Left behind by a mother who ran, forgotten by a father who did not notice.' },
   { character: 'dmitri', segments: ['day1'], label: 'Demands his inheritance', detail: 'Believes his father is withholding money from his mother\u2019s estate. Asks aloud in front of witnesses why such a man is alive.' },
   { character: 'dmitri', segments: ['day2'], label: 'Torn between two women', detail: 'Engaged to Katerina, whose money he has half spent; ruined by Grushenka, whom his father also wants.' },
-  { character: 'dmitri', segments: ['day3'], label: 'Hunting three thousand roubles', detail: 'A whole day of it \u2014 Samsonov, a drunk peasant, gold-mines \u2014 then the garden, the pestle, and Mokroe.', key: true },
+  { character: 'dmitri', segments: ['day3'], chapter: 'b08-c01', cite: 'Bk VIII, ch. 1', label: 'Hunting three thousand roubles', detail: 'A whole day of it \u2014 Samsonov, a drunk peasant, gold-mines \u2014 then the garden, the pestle, and Mokroe.', key: true },
   { character: 'dmitri', segments: ['day4'], label: 'The three ordeals', detail: 'Tells the truth about everything and is believed about nothing, least of all the money sewn into a rag round his neck.' },
   { character: 'dmitri', segments: ['gap', 'trial'], label: 'In prison, then on trial', detail: 'Two months awaiting a verdict, then two days in court where his own letter convicts him.' },
   { character: 'dmitri', segments: ['after'], label: 'Twenty years \u2014 or escape', detail: 'Sentenced to the Siberian mines. Whether he accepts the suffering or takes the plan Ivan financed is the question the novel leaves open.' },
@@ -132,7 +141,7 @@ export const SPANS: Span[] = [
   // Ivan — note the gap at day3. That absence is the question of his guilt.
   { character: 'ivan', segments: ['before'], label: 'Educated away', detail: 'Raised elsewhere, on charity, and made himself into an intellectual who owes his family nothing.' },
   { character: 'ivan', segments: ['day1'], label: 'Watching, saying little', detail: 'Present at the monastery and at the scandal, contributing almost nothing except an argument about ecclesiastical courts.' },
-  { character: 'ivan', segments: ['day2'], label: 'Rebellion, then he leaves', detail: 'Returns the ticket, tells the Grand Inquisitor, and takes the train to Tchermashnya after Smerdyakov all but says what will happen if he goes.', key: true },
+  { character: 'ivan', segments: ['day2'], label: 'Rebellion, then he leaves', detail: 'Returns the ticket and tells the Grand Inquisitor. His father and Smerdyakov both press him to go to Tchermashnya, a short trip nearby; Smerdyakov all but spells out what an absence would permit. Ivan refuses it and takes the seven o\u2019clock train to Moscow instead \u2014 further away, and by his own choice. The distinction matters: he did not do what he was asked, and he went anyway.', key: true, chapter: 'b05-c07', cite: 'Bk V, ch. 7' },
   { character: 'ivan', segments: ['day4'], label: 'Returns', detail: 'Comes back to a house with his father dead in it and his brother arrested.' },
   { character: 'ivan', segments: ['gap'], label: 'Three visits to Smerdyakov', detail: 'On the third he is handed the money and told, calmly, that he was the author and Smerdyakov only the instrument.', key: true },
   { character: 'ivan', segments: ['trial', 'after'], label: 'Brain fever', detail: 'A shabby gentleman on his sofa repeats his own worst thoughts back to him. He testifies incoherently and collapses.' },
@@ -148,10 +157,10 @@ export const SPANS: Span[] = [
   // Smerdyakov — the second column that stops, and it stops before the verdict.
   { character: 'smerdyakov', segments: ['before'], label: 'Born in the garden', detail: 'To Lizaveta, who died doing it. Raised by Grigory as a servant and named after his mother\u2019s nickname.' },
   { character: 'smerdyakov', segments: ['day1'], label: 'In the kitchen', detail: 'Cooking for a household that treats him as furniture, and reading more than any of them notice.' },
-  { character: 'smerdyakov', segments: ['day2'], label: 'Teaches the signal', detail: 'Explains the knocks to Dmitri, and to Ivan explains \u2014 without quite saying it \u2014 what an absence would permit.', key: true },
+  { character: 'smerdyakov', segments: ['day2'], chapter: 'b05-c02', cite: 'Bk V, ch. 2', label: 'Teaches the signal', detail: 'Explains the knocks to Dmitri, and to Ivan explains \u2014 without quite saying it \u2014 what an absence would permit.', key: true },
   { character: 'smerdyakov', segments: ['day3', 'day4'], label: 'The fit, and the night', detail: 'A real illness he can time. The seizure empties the house on precisely the night it needs emptying.', key: true },
-  { character: 'smerdyakov', segments: ['gap'], label: 'Three interviews', detail: 'Ill, contemptuous, and finally explicit: he did it, and the reasoning was Ivan\u2019s.' },
-  { character: 'smerdyakov', segments: ['trial'], label: 'Hangs himself', detail: 'The night before the trial. The only witness who could clear Dmitri removes himself, and the column ends before the verdict does.', ends: true, key: true },
+  { character: 'smerdyakov', segments: ['gap'], chapter: 'b11-c08', cite: 'Bk XI, ch. 8', label: 'Three interviews', detail: 'Ill, contemptuous, and finally explicit: he did it, and the reasoning was Ivan\u2019s.' },
+  { character: 'smerdyakov', segments: ['trial'], label: 'Hangs himself', detail: 'The night before the trial opens. The only witness who could clear Dmitri removes himself before a word of evidence is heard \u2014 so this thread ends at the very start of the trial, not across it.', ends: true, key: true, endFraction: 0.06, chapter: 'b11-c10', cite: 'Bk XI, ch. 10' },
 
   // Grushenka
   { character: 'grushenka', segments: ['day1'], label: 'Courted by father and son', detail: 'Kept by Samsonov, wanted by Fyodor, and amusing herself with Dmitri \u2014 the arrangement the whole plot turns on.', key: true },
@@ -161,6 +170,6 @@ export const SPANS: Span[] = [
   // Katerina
   { character: 'katerina', segments: ['day1'], label: 'Engaged to Dmitri', detail: 'Out of gratitude for a humiliation she has never forgiven, and while in love with his brother.' },
   { character: 'katerina', segments: ['gap'], label: 'Financing the defence', detail: 'Paying for the famous lawyer, and visiting Ivan.' },
-  { character: 'katerina', segments: ['trial'], label: 'The letter', detail: 'Produces, in a fit of jealousy, the letter in which Dmitri wrote that he would kill his father for the money. It is what convicts him.', key: true, ends: false },
+  { character: 'katerina', segments: ['trial'], chapter: 'b12-c05', cite: 'Bk XII, ch. 5', label: 'The letter', detail: 'Produces, in a fit of jealousy, the letter in which Dmitri wrote that he would kill his father for the money. It is what convicts him.', key: true, ends: false },
   { character: 'katerina', segments: ['after'], label: 'Asks forgiveness', detail: 'Comes to him after the sentence, and for a moment the lie between them becomes true.' },
 ];

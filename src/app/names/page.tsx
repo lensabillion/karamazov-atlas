@@ -23,9 +23,10 @@ export default function NamesPage() {
         <p className="eyebrow">The names</p>
         <h1 className="title">How close does a name stand?</h1>
         <p className="lede">
-          Russian names carry what English names do not: the form someone chooses tells you
-          their relationship to the person. Which means the names are a map of who is loved —
-          and of who is not.
+          Russian names carry what English names do not: the form chosen encodes formality
+          and distance. What follows is a description of how each person is <em>named</em>
+          across the text — narration included — not a measure of how they are felt about.
+          Where a reading is offered, it is marked as a reading.
         </p>
       </header>
 
@@ -75,12 +76,17 @@ export default function NamesPage() {
         <div className="section-header">
           <h2 className="heading">The coldest men in the book</h2>
           <p className="text-muted">
-            Not how often someone is named, but how <em>warmly</em> — the furthest anyone ever
-            goes for them in 349,367 words. Dmitri reaches the last rung: someone, once, calls
-            him Mityenka. Three men never leave the cold end, and the murder runs through all
-            three of them. Nobody in the entire novel addresses the father as anything but
-            Fyodor Pavlovitch. Nobody gives Ivan a diminutive. Smerdyakov is called by a
-            surname 371 times and by a name once.
+            Not how often someone is named, but the least formal register the text ever uses
+            for them — across narration and dialogue alike, under the alias vocabulary listed
+            on this page. Dmitri reaches the diminutive <em>Mityenka</em>; Fyodor appears only
+            as Fyodor Pavlovitch, Ivan takes no recorded diminutive, and Smerdyakov is a
+            surname 371 times against a single given name.
+            <br />
+            <br />
+            <strong>A reading, offered as one:</strong> those three sit at the formal end, and
+            the murder runs through all three. That is a pattern in how the prose names people.
+            It is not evidence of what any character feels, and an alias list this size cannot
+            support a claim about what nobody ever says.
           </p>
         </div>
         <WarmthLadder characters={characters} markIds={['fyodor', 'ivan', 'smerdyakov']} />

@@ -99,8 +99,15 @@ export default function RelationshipMap() {
           {PEOPLE.map((p) => {
             const on = selected?.id === p.id;
             return (
-              <g key={p.id} className={`group-${p.group}`} opacity={lit(p.id) ? 1 : 0.2}
-                onClick={() => setSelected(p)} style={{ cursor: 'pointer' }}>
+              <g key={p.id} opacity={lit(p.id) ? 1 : 0.2}
+                className="hit"
+                role="button"
+                tabIndex={0}
+                aria-label={p.name}
+                onClick={() => setSelected(p)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(p); }
+                }}>
                 <path className="mark" data-active={on || undefined}
                   transform={`translate(${p.x},${p.y})`}
                   d={markPath(p.group, on ? 11 : 8)}

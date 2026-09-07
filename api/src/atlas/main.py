@@ -10,6 +10,7 @@ Python owns the data. Next owns the streaming.
 
 from __future__ import annotations
 
+import re
 import sqlite3
 from contextlib import asynccontextmanager
 from typing import Annotated
@@ -139,9 +140,21 @@ def lineages(db: DB) -> list[models.Lineage]:
 
 @app.get("/names/coverage", response_model=models.Coverage)
 def coverage(db: DB) -> models.Coverage:
-    """Attribution is partial by construction; this is how a caller finds out."""
-    quotes, attributed = 5866, 813
-    return models.Coverage(quotes=quotes, attributed=attributed, ratio=attributed / quotes)
+    """Attribution is partial by construction; this is how a caller finds out.
+
+    Derived from the stored text rather than hardcoded (review finding R9): a
+    fixed numerator and denominator meant the test could never notice extraction
+    coverage changing, which is precisely what such a test is for.
+    """
+    quotes = 0
+    for (body,) in db.execute("SELECT body FROM chapters"):
+        quotes += len(re.findall(r"[\u201c\"][^\u201d\"]{8,900}[\u201d\"]", body))
+    attributed = db.execute("SELECT COALESCE(SUM(count), 0) FROM addresses").fetchone()[0]
+    return models.Coverage(
+        quotes=quotes,
+        attributed=attributed,
+        ratio=(attributed / quotes) if quotes else 0.0,
+    )
 
 
 @app.get("/addresses", response_model=list[models.Address])

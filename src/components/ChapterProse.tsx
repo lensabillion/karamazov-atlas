@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NameKey from './NameKey';
 import type { NamedCharacter } from '@/lib/names';
 
@@ -63,19 +63,25 @@ export default function ChapterProse({
   cites: Record<string, string>;
 }) {
   const [open, setOpen] = useState<string | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const byId = new Map(characters.map((c) => [c.id, c]));
+
+  // The panel used to be inserted above every paragraph, so opening it from a
+  // late chapter scrolled the answer thousands of pixels off-screen (review
+  // finding R6). It is now docked to the viewport, focused on open, and
+  // dismissible with Escape.
+  useEffect(() => {
+    if (!open) return;
+    panelRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
     <div className="stack stack--loose">
-      {open && byId.has(open) && (
-        <div className="stack stack--tight">
-          <NameKey character={byId.get(open)!} cites={cites} />
-          <button className="button" onClick={() => setOpen(null)}>
-            Close
-          </button>
-        </div>
-      )}
-
       <div className="prose">
         {paragraphs.map((p, i) => (
           <p key={i}>
@@ -99,6 +105,23 @@ export default function ChapterProse({
           </p>
         ))}
       </div>
+
+      {open && byId.has(open) && (
+        <div
+          className="dock"
+          role="dialog"
+          aria-label={`Who is ${byId.get(open)!.short}`}
+          tabIndex={-1}
+          ref={panelRef}
+        >
+          <div className="dock__inner">
+            <NameKey character={byId.get(open)!} cites={cites} />
+            <button className="button" onClick={() => setOpen(null)}>
+              Close (Esc)
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

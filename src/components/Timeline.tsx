@@ -129,7 +129,14 @@ export default function Timeline() {
             const on = selected === span;
             const lines = wrap(span.label, Math.floor(COL_W / 5.6));
             return (
-              <g key={i} onClick={() => setSelected(span)} style={{ cursor: 'pointer' }}>
+              <g key={i} className="hit"
+                role="button"
+                tabIndex={0}
+                aria-label={span.label}
+                onClick={() => setSelected(span)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(span); }
+                }}>
                 <title>{span.label}</title>
                 <rect x={x + 2} y={y + 2} width={COL_W - 6} height={h - 4} rx={2}
                   fill={on ? 'var(--teal-soft)' : span.key ? 'var(--blue-soft)' : 'var(--bg)'}
