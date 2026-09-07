@@ -29,8 +29,8 @@ export default function Nav() {
           {l.label}
         </a>
       ))}
-      <span className="nav-spacer" />
-      <span className="meta">Garnett · 96 chapters</span>
+      <span className="grow" />
+      <span className="meta text-ink-3">Garnett · 96 chapters</span>
     </nav>
   );
 }

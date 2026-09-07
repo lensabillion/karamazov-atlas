@@ -1,58 +1,99 @@
+@import "tailwindcss";
+
 /* ============================================================================
-   KARAMAZOV ATLAS — DESIGN SYSTEM v2
+   KARAMAZOV ATLAS — DESIGN SYSTEM v2 (Tailwind v4)
    Specification: docs/design-system.md. If the two disagree, that document is
    correct and this file is the bug.
 
    Two typefaces. Two colours. White ground. No exceptions.
 
-     1. Fonts
-     2. Tokens
-     3. Reset
-     4. Typography
-     5. Layout
-     6. Components
-     7. Prose
-     8. Data marks — where shape, not colour, encodes category
+   WHY TOKENS FIRST, UTILITIES SECOND
+   Tailwind is configured from the design system rather than the other way
+   round. Every value the system allows is declared in @theme below, and
+   Tailwind generates the matching utilities from it — `bg-blue`, `text-ink-3`,
+   `font-serif`, `text-lg`. Nothing outside these tokens can be expressed as a
+   utility, so the palette cannot quietly grow a seventh colour or a ninth type
+   size.
+
+   The semantic component classes further down are kept deliberately. Spreading
+   raw utilities across 31 components would make each one individually editable
+   and collectively inconsistent, which is the opposite of what this system is
+   for. Utilities are for layout and one-off adjustments; a recurring object
+   (.card, .bar-row, .list-item) stays a named thing defined once.
    ============================================================================ */
 
-
-/* ----------------------------------------------------------------------------
-   1. FONTS
-   Fraunces is for language — the novel's words and the author's. DM Sans is for
-   interface — the app talking about the novel. Fraunces carries an optical-size
-   axis, which is why one family serves both display and reading honestly.
-   ---------------------------------------------------------------------------- */
-
-:root {
+@theme {
+  /* --- Typefaces. Fraunces for language, DM Sans for interface. ---------- */
   --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
   --font-sans: "DM Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+  /* --- Type scale. Six sizes; there is no seventh. ----------------------- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.1875rem;
+  --text-lg: 1.625rem;
+  --text-xl: 2.75rem;
+
+  /* --- Colour. Two hues, and nothing else. ------------------------------
+     Blue is the noun: structure, data, things being described.
+     Teal is the verb: selection, focus, the currently active thing.
+     Neutrals are the blue hue at very low saturation — never true grey,
+     which is what stops "two colours" reading as "two colours plus grey". */
+  --color-blue: #1f3a93;
+  --color-blue-deep: #152863;
+  --color-blue-soft: #e8ecfa;
+
+  --color-teal: #0e7c7b;
+  --color-teal-deep: #0a5c5b;
+  --color-teal-soft: #e0f2f1;
+
+  --color-bg: #ffffff;
+  --color-surface: #f6f7fb;
+  --color-border: #e1e5f0;
+  --color-border-strong: #c2c9de;
+  --color-ink: #101632;
+  --color-ink-2: #414a6b;
+  --color-ink-3: #7a83a0;
+
+  --radius-sm: 3px;
+
+  --leading-tight: 1.12;
+  --leading-normal: 1.5;
+  --leading-loose: 1.72;
 }
 
-
 /* ----------------------------------------------------------------------------
-   2. TOKENS
+   2. ALIASES
+   Short names for use inside SVG `fill` and `stroke`, where a utility class
+   cannot reach. One source of truth: these all point at the @theme tokens.
    ---------------------------------------------------------------------------- */
 
 :root {
   color-scheme: light;
 
-  /* --- Type. Six sizes; there is no seventh. --------------------------- */
-  --text-xs: 0.75rem;    /* 12 — labels, chart annotations, counts        */
-  --text-sm: 0.875rem;   /* 14 — interface body, list items, controls     */
-  --text-base: 1rem;     /* 16 — default                                  */
-  --text-md: 1.1875rem;  /* 19 — reading prose, lede                      */
-  --text-lg: 1.625rem;   /* 26 — section headings                         */
-  --text-xl: 2.75rem;    /* 44 — page title, one per page                 */
+  --blue: var(--color-blue);
+  --blue-deep: var(--color-blue-deep);
+  --blue-soft: var(--color-blue-soft);
+  --teal: var(--color-teal);
+  --teal-deep: var(--color-teal-deep);
+  --teal-soft: var(--color-teal-soft);
+
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --border: var(--color-border);
+  --border-strong: var(--color-border-strong);
+  --ink: var(--color-ink);
+  --ink-2: var(--color-ink-2);
+  --ink-3: var(--color-ink-3);
+
+  --accent: var(--color-blue);
+  --active: var(--color-teal);
 
   --weight-normal: 400;
   --weight-bold: 600;
-
-  --leading-tight: 1.12;
-  --leading-normal: 1.5;
-  --leading-loose: 1.72;
   --tracking-wide: 0.1em;
 
-  /* --- Space. Six steps. ----------------------------------------------- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
@@ -61,44 +102,13 @@
   --space-6: 4rem;
 
   --border-width: 1px;
-  --radius: 3px;
+  --radius: var(--radius-sm);
 
   --measure: 34em;
   --page-width: 1080px;
   --page-width-wide: 1280px;
   --page-width-narrow: 720px;
-
-  /* ======================================================================
-     COLOUR — two hues, and nothing else.
-     Blue is the noun: structure, data, things being described.
-     Teal is the verb: selection, focus, the currently active thing.
-     ====================================================================== */
-
-  --blue: #1f3a93;
-  --blue-deep: #152863;
-  --blue-soft: #e8ecfa;
-
-  --teal: #0e7c7b;
-  --teal-deep: #0a5c5b;
-  --teal-soft: #e0f2f1;
-
-  /* Neutrals are the blue hue at very low saturation — never true grey.
-     This is what stops "two colours" reading as "two colours plus grey". */
-  --bg: #ffffff;
-  --surface: #f6f7fb;
-  --border: #e1e5f0;
-  --border-strong: #c2c9de;
-  --ink: #101632;
-  --ink-2: #414a6b;
-  --ink-3: #7a83a0;
-
-  /* Semantic aliases. Components reference these, not the hues directly. */
-  --accent: var(--blue);
-  --accent-soft: var(--blue-soft);
-  --active: var(--teal);
-  --active-soft: var(--teal-soft);
 }
-
 
 /* ----------------------------------------------------------------------------
    3. RESET
