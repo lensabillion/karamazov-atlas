@@ -52,10 +52,24 @@ export interface NamedCharacter {
   total: number;
   /** Per chapter, how many namings fell in each register. Drives the ribbon. */
   registerByChapter: Record<string, Partial<Record<Register, number>>>;
+  /** The warmest register anyone in the novel ever uses for this person. */
+  warmestRegister: Register;
+}
+
+/** One observed act of address: who called whom what, and how often. */
+export interface Address {
+  speaker: string;
+  target: string;
+  form: string;
+  register: Register;
+  count: number;
 }
 
 export interface NamesData {
   characters: NamedCharacter[];
+  /** Observed in attributed dialogue only — see `coverage`. */
+  addresses: Address[];
+  coverage: { quotes: number; attributed: number };
   /** patronymic → everyone who carries it. Reconstructs paternity from names. */
   lineages: { patronymic: string; father: string; children: string[] }[];
   registers: { key: Register; label: string; description: string }[];
@@ -134,6 +148,68 @@ function classify(form: string, surnames: Set<string>): Omit<NameForm, 'count' |
   };
 }
 
+/** Ordered coldest to warmest. Position on this ladder is the whole point. */
+export const REGISTER_LADDER: Register[] = ['formal', 'distanced', 'neutral', 'familiar', 'tender'];
+
+/**
+ * Who calls whom what.
+ *
+ * Garnett attributes speech as `"…," said Alyosha.` or `"…" Ivan answered.`
+ * Matching those gives a speaker for a minority of quoted passages; within each,
+ * any other character's name is an observed act of address. Coverage is partial
+ * by construction and is reported alongside the result, never hidden.
+ */
+function buildAddresses(
+  chapterText: Map<string, string>,
+  aliasIndex: { form: string; id: string; register: Register }[],
+): { addresses: Address[]; coverage: { quotes: number; attributed: number } } {
+  const VERBS =
+    'said|cried|answered|asked|shouted|murmured|added|replied|exclaimed|observed|whispered|repeated|began|interrupted';
+  const speakerPat = aliasIndex.map((a) => escape(a.form)).join('|');
+  const patterns = [
+    new RegExp(`[“"]([^”"]{8,900})[”"][^.!?\\n]{0,40}?\\b(?:${VERBS})\\s+(${speakerPat})\\b`, 'g'),
+    new RegExp(`[“"]([^”"]{8,900})[”"][^.!?\\n]{0,40}?\\b(${speakerPat})\\s+(?:${VERBS})\\b`, 'g'),
+  ];
+
+  const tally = new Map<string, number>();
+  let quotes = 0;
+  let attributed = 0;
+
+  for (const raw of chapterText.values()) {
+    const text = raw.replace(/\n/g, ' ');
+    quotes += (text.match(/[“"][^”"]{8,900}[”"]/g) ?? []).length;
+    for (const re of patterns) {
+      re.lastIndex = 0;
+      let m: RegExpExecArray | null;
+      while ((m = re.exec(text)) !== null) {
+        const speech = m[1]!;
+        const speaker = aliasIndex.find((a) => a.form === m![2])?.id;
+        if (!speaker) continue;
+        attributed++;
+        const claimed: string[] = [];
+        for (const a of aliasIndex) {
+          if (a.id === speaker) continue;
+          if (!new RegExp(`\\b${escape(a.form)}\\b`).test(speech)) continue;
+          // A longer form already claimed this text; don't double-count the stem.
+          if (claimed.some((f) => f.includes(a.form))) continue;
+          claimed.push(a.form);
+          const key = `${speaker}|${a.id}|${a.form}|${a.register}`;
+          tally.set(key, (tally.get(key) ?? 0) + 1);
+        }
+      }
+    }
+  }
+
+  const addresses: Address[] = [...tally.entries()]
+    .map(([key, count]) => {
+      const [speaker, target, form, register] = key.split('|') as [string, string, string, Register];
+      return { speaker, target, form, register, count };
+    })
+    .sort((a, b) => b.count - a.count);
+
+  return { addresses, coverage: { quotes, attributed } };
+}
+
 const REGISTERS: NamesData['registers'] = [
   { key: 'formal', label: 'Formal', description: 'Name plus patronymic. Respect, distance, or an official occasion.' },
   { key: 'distanced', label: 'Distanced', description: 'Surname alone. The public, third-person register.' },
@@ -204,6 +280,9 @@ function main() {
       givenName,
       registerByChapter,
       fatherName: patronymic ? fatherFromPatronymic(patronymic) : null,
+      warmestRegister: REGISTER_LADDER[
+        Math.max(...forms.map((f) => REGISTER_LADDER.indexOf(f.register)))
+      ]!,
       forms: forms.sort((a, b) => b.count - a.count),
       total: forms.reduce((n, f) => n + f.count, 0),
     };
@@ -224,10 +303,18 @@ function main() {
       children,
     }));
 
-  const out: NamesData = { characters, lineages, registers: REGISTERS };
+  const aliasIndex = characters
+    .flatMap((c) => c.forms.map((f) => ({ form: f.form, id: c.id, register: f.register })))
+    .sort((a, b) => b.form.length - a.form.length);
+  const { addresses, coverage } = buildAddresses(chapterText, aliasIndex);
+
+  const out: NamesData = { characters, addresses, coverage, lineages, registers: REGISTERS };
   writeFileSync(join(DATA, 'names.json'), JSON.stringify(out, null, 2));
 
   console.log(`${characters.length} characters, ${characters.reduce((n, c) => n + c.forms.length, 0)} name forms`);
+  console.log(
+    `${addresses.length} observed acts of address, from ${coverage.attributed} of ${coverage.quotes} quoted passages`,
+  );
   const zero = characters.flatMap((c) => c.forms.filter((f) => f.count === 0).map((f) => f.form));
   console.log(zero.length ? `forms with no occurrences: ${zero.join(', ')}` : 'every form occurs in the text');
   console.log('\nlineages recovered from patronymics alone:');

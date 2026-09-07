@@ -25,10 +25,21 @@ export interface NamedCharacter {
   forms: NameForm[];
   total: number;
   registerByChapter: Record<string, Partial<Record<Register, number>>>;
+  warmestRegister: Register;
+}
+
+export interface Address {
+  speaker: string;
+  target: string;
+  form: string;
+  register: Register;
+  count: number;
 }
 
 export interface NamesData {
   characters: NamedCharacter[];
+  addresses: Address[];
+  coverage: { quotes: number; attributed: number };
   lineages: { patronymic: string; father: string; children: string[] }[];
   registers: { key: Register; label: string; description: string }[];
 }

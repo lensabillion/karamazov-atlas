@@ -1,4 +1,4 @@
-import type { NamedCharacter, Register } from '@/lib/names';
+import type { Address, NamedCharacter, Register } from '@/lib/names';
 
 /**
  * One person, and how close each of their names stands to them.
@@ -23,8 +23,25 @@ const H = 330;
 const CX = W / 2;
 const CY = H / 2;
 
-export default function NameOrbit({ character }: { character: NamedCharacter }) {
+export default function NameOrbit({
+  character,
+  addresses = [],
+  nameOf,
+}: {
+  character: NamedCharacter;
+  /** Observed acts of address aimed at this character. */
+  addresses?: Address[];
+  /** Character id → short name, for labelling speakers. */
+  nameOf?: Record<string, string>;
+}) {
   const max = Math.max(...character.forms.map((f) => f.count), 1);
+
+  // Who is on record using each form for this person.
+  const speakersOf = (form: string) =>
+    addresses
+      .filter((a) => a.target === character.id && a.form === form)
+      .sort((a, b) => b.count - a.count)
+      .map((a) => nameOf?.[a.speaker] ?? a.speaker);
 
   return (
     <figure className={`chart group-${character.group}`} style={{ margin: 0 }}>
@@ -50,18 +67,20 @@ export default function NameOrbit({ character }: { character: NamedCharacter }) 
           const y = CY + Math.sin(angle) * ring.r;
           const dot = 3 + Math.sqrt(f.count / max) * 11;
           const flip = x < CX;
+          const who = speakersOf(f.form);
+          const lx = x + (flip ? -(dot + 6) : dot + 6);
+          const anchor = flip ? 'end' : 'start';
           return (
             <g key={f.form}>
               <circle cx={x} cy={y} r={dot} fill="var(--group-color)" />
-              <text x={x + (flip ? -(dot + 6) : dot + 6)} y={y}
-                textAnchor={flip ? 'end' : 'start'} dominantBaseline="middle"
+              <text x={lx} y={y} textAnchor={anchor} dominantBaseline="middle"
                 style={{ font: '400 13px Spectral, Georgia, serif' }} fill="var(--text)">
                 {f.form}
               </text>
-              <text x={x + (flip ? -(dot + 6) : dot + 6)} y={y + 14}
-                textAnchor={flip ? 'end' : 'start'} dominantBaseline="middle"
+              <text x={lx} y={y + 14} textAnchor={anchor} dominantBaseline="middle"
                 style={{ font: '400 11px "Alegreya Sans", sans-serif' }} fill="var(--text-faint)">
                 {f.count}×
+                {who.length > 0 && ` · heard from ${who.slice(0, 3).join(', ')}`}
               </text>
             </g>
           );
