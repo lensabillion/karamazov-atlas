@@ -629,6 +629,74 @@ select {
 
 .range { accent-color: var(--accent); }
 
+/* --- Name Key -------------------------------------------------------------
+   Register is ordinal — formal through tender — so it is encoded by position
+   on a scale and by weight, never by hue. Categorical colour stays reserved
+   for character groups (§9). The scale reads top to bottom, most distant to
+   most intimate, which is the order a relationship travels.
+   -------------------------------------------------------------------------- */
+
+.name-panel {
+  background: var(--surface);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(7rem, auto) minmax(0, 1fr) 3rem;
+  gap: var(--space-2) var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--border);
+}
+.form-row:last-child { border-bottom: none; }
+.form-row > :last-child { text-align: right; }
+
+/* Rung on the register ladder: fills from the left as intimacy increases. */
+.rung {
+  display: block;
+  height: 3px;
+  border-radius: var(--radius);
+  background: var(--text-faint);
+}
+
+.form-name { font-family: var(--font-serif); font-size: var(--text-base); }
+.form-name--tender { font-style: italic; }
+.form-name--formal { font-weight: var(--weight-bold); }
+
+/* A name rendered in running prose that can be opened. */
+.name-hit {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-bottom: var(--border-width) dotted var(--text-faint);
+}
+.name-hit:hover { background: var(--accent-bg); }
+.name-hit[aria-expanded="true"] { background: var(--accent-bg); }
+
+/* The lineage reveal: names that share a patronymic share a father. */
+.lineage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.lineage__child {
+  border: var(--border-width) solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+}
+.lineage__child--disputed { border-style: dashed; }
+
 /* --- Notice: one style, marked with the accent. -------------------------- */
 
 .notice {

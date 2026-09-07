@@ -16,7 +16,7 @@ import type { Corpus } from './parse-corpus.ts';
 const ROOT = process.cwd();
 const DATA = join(ROOT, 'data');
 
-interface CharacterDef {
+export interface CharacterDef {
   id: string;
   name: string;
   /** Short label for graph nodes. */
@@ -30,22 +30,22 @@ interface CharacterDef {
  * novel. "the elder" (Zossima) and "the captain" (Snegiryov) are omitted because
  * they also refer to other people.
  */
-const CHARACTERS: CharacterDef[] = [
+export const CHARACTERS: CharacterDef[] = [
   { id: 'fyodor', name: 'Fyodor Pavlovitch Karamazov', short: 'Fyodor', group: 'family',
     aliases: ['Fyodor Pavlovitch'] },
   { id: 'dmitri', name: 'Dmitri Fyodorovitch Karamazov', short: 'Dmitri', group: 'family',
-    aliases: ['Dmitri Fyodorovitch', 'Dmitri', 'Mitya', 'Mitka'] },
+    aliases: ['Dmitri Fyodorovitch', 'Dmitri', 'Mitya', 'Mityenka'] },
   { id: 'ivan', name: 'Ivan Fyodorovitch Karamazov', short: 'Ivan', group: 'family',
     aliases: ['Ivan Fyodorovitch', 'Ivan'] },
   { id: 'alyosha', name: 'Alexey Fyodorovitch Karamazov', short: 'Alyosha', group: 'family',
-    aliases: ['Alexey Fyodorovitch', 'Alyosha', 'Alyoshka'] },
+    aliases: ['Alexey Fyodorovitch', 'Alyosha'] },
   { id: 'smerdyakov', name: 'Pavel Smerdyakov', short: 'Smerdyakov', group: 'family',
-    aliases: ['Smerdyakov'] },
+    aliases: ['Pavel Fyodorovitch', 'Smerdyakov'] },
 
   { id: 'grushenka', name: 'Agrafena Alexandrovna Svyetlov', short: 'Grushenka', group: 'women',
     aliases: ['Agrafena Alexandrovna', 'Grushenka', 'Grusha'] },
   { id: 'katerina', name: 'Katerina Ivanovna Verhovtsev', short: 'Katerina', group: 'women',
-    aliases: ['Katerina Ivanovna', 'Katya'] },
+    aliases: ['Katerina Ivanovna', 'Katerina', 'Katya'] },
   { id: 'hohlakov', name: 'Madame Hohlakov', short: 'Hohlakov', group: 'women',
     aliases: ['Madame Hohlakov', 'Hohlakov'] },
   { id: 'lise', name: 'Lise Hohlakov', short: 'Lise', group: 'women', aliases: ['Lise'] },
@@ -55,12 +55,12 @@ const CHARACTERS: CharacterDef[] = [
   { id: 'ferapont', name: 'Father Ferapont', short: 'Ferapont', group: 'monastery',
     aliases: ['Father Ferapont', 'Ferapont'] },
   { id: 'paissy', name: 'Father Paissy', short: 'Paissy', group: 'monastery',
-    aliases: ['Father Paissy', 'Paissy'] },
+    aliases: ['Father Païssy', 'Païssy'] },
   { id: 'rakitin', name: 'Mihail Rakitin', short: 'Rakitin', group: 'monastery',
     aliases: ['Rakitin'] },
 
   { id: 'ilusha', name: 'Ilusha Snegiryov', short: 'Ilusha', group: 'boys',
-    aliases: ['Ilusha', 'Ilushechka'] },
+    aliases: ['Ilusha'] },
   { id: 'kolya', name: 'Kolya Krassotkin', short: 'Kolya', group: 'boys',
     aliases: ['Krassotkin', 'Kolya'] },
   { id: 'snegiryov', name: 'Captain Snegiryov', short: 'Snegiryov', group: 'boys',
@@ -185,4 +185,5 @@ function main() {
   }
 }
 
-main();
+// Only run when invoked directly; build-names.ts imports CHARACTERS from this module.
+if (import.meta.url === `file://${process.argv[1]}`) main();
