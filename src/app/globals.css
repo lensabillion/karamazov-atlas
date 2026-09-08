@@ -1,371 +1,244 @@
+@import "tailwindcss";
+
 /* ============================================================================
-   KARAMAZOV ATLAS — DESIGN SYSTEM
-   ============================================================================
+   KARAMAZOV ATLAS — DESIGN SYSTEM v2 (Tailwind v4)
+   Specification: docs/design-system.md. If the two disagree, that document is
+   correct and this file is the bug.
 
-   This file is the single source of truth for every visual decision in the app.
-   No component may declare a colour, size, space, or font of its own. If a value
-   is needed and not defined here, it gets added here first.
+   Two typefaces. Two colours. White ground. No exceptions.
 
-   CONTENTS
-     1. Principles          the rules this system is held to
-     2. Fonts               two families, no more
-     3. Tokens              colour, type, space, line, radius
-     4. Reset
-     5. Typography          the only text styles that exist
-     6. Layout              page, section, grid
-     7. Components          nav, card, list, bar, stat, chip, field, button
-     8. Prose               the reading surface
-     9. Data visualisation  the only place categorical colour is allowed
+   WHY TOKENS FIRST, UTILITIES SECOND
+   Tailwind is configured from the design system rather than the other way
+   round. Every value the system allows is declared in @theme below, and
+   Tailwind generates the matching utilities from it — `bg-blue`, `text-ink-3`,
+   `font-serif`, `text-lg`. Nothing outside these tokens can be expressed as a
+   utility, so the palette cannot quietly grow a seventh colour or a ninth type
+   size.
 
-   ----------------------------------------------------------------------------
-   1. PRINCIPLES
-   ----------------------------------------------------------------------------
-
-   ONE  Two font families. Serif (Spectral) for anything read as language —
-        headings and the novel itself. Sans (Alegreya Sans) for anything read as
-        interface — labels, navigation, numbers, controls. No third family.
-
-   TWO  Six type sizes. Every piece of text in the app is one of --text-xs
-        through --text-xl. There is no seventh size and no arbitrary px value.
-
-   THREE Two weights: 400 and 700. Emphasis comes from size, colour, and space
-        before it comes from weight.
-
-   FOUR The background is plain. #ffffff in light, #000000 in dark. Surfaces
-        above it are a single step of grey. There are no gradients, no shadows,
-        no blur.
-
-   FIVE Chrome is neutral plus exactly one accent. The accent (--accent) marks
-        the active and the interactive, and nothing else. If everything is
-        accented, nothing is.
-
-   SIX  Categorical colour exists only to encode data — which of the six
-        character groups a person belongs to. It appears in charts, graphs, and
-        the dots that stand for a group. It never appears in chrome, text, or
-        borders. This separation is the reason colour means anything here.
-
-   SEVEN One border width (1px), one radius (--radius, 2px). Structure is drawn
-        with space and hairlines, not with boxes inside boxes.
-
-   EIGHT Spacing is a six-step scale. Gaps between things are set by the parent
-        with flex/grid `gap`, never by margins on children.
-
+   The semantic component classes further down are kept deliberately. Spreading
+   raw utilities across 31 components would make each one individually editable
+   and collectively inconsistent, which is the opposite of what this system is
+   for. Utilities are for layout and one-off adjustments; a recurring object
+   (.card, .bar-row, .list-item) stays a named thing defined once.
    ============================================================================ */
 
+@theme {
+  /* --- Typefaces. Fraunces for language, DM Sans for interface. ---------- */
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "DM Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
 
-/* ----------------------------------------------------------------------------
-   2. FONTS
-   Loaded in layout.tsx from Google Fonts. Declared here so the stacks live
-   with everything else. Both families carry a real fallback.
-   ---------------------------------------------------------------------------- */
+  /* --- Type scale. Six sizes; there is no seventh. ----------------------- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.1875rem;
+  --text-lg: 1.625rem;
+  --text-xl: 2.75rem;
 
-:root {
-  /* Read as language: headings, the novel, quotations. */
-  --font-serif: "Spectral", Georgia, "Times New Roman", serif;
-  /* Read as interface: labels, nav, numbers, controls. */
-  --font-sans: "Alegreya Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  /* --- Colour. Two hues, and nothing else. ------------------------------
+     Blue is the noun: structure, data, things being described.
+     Teal is the verb: selection, focus, the currently active thing.
+     Neutrals are the blue hue at very low saturation — never true grey,
+     which is what stops "two colours" reading as "two colours plus grey". */
+  --color-blue: #1f3a93;
+  --color-blue-deep: #152863;
+  --color-blue-soft: #e8ecfa;
+
+  --color-teal: #0e7c7b;
+  --color-teal-deep: #0a5c5b;
+  --color-teal-soft: #e0f2f1;
+
+  /* Purple — the uncertain. Disputed facts, interpretation, "a reading". */
+  --color-purple: #5b3e96;
+  --color-purple-deep: #422a73;
+  --color-purple-soft: #ede8f8;
+
+  /* Pink — consequence. The path the murder travels. Never decorative. */
+  --color-pink: #b32b65;
+  --color-pink-deep: #8c1e4d;
+  --color-pink-soft: #fbe8f0;
+
+  --color-bg: #ffffff;
+  --color-surface: #f6f7fb;
+  --color-border: #e1e5f0;
+  --color-border-strong: #c2c9de;
+  --color-ink: #101632;
+  --color-ink-2: #414a6b;
+  --color-ink-3: #7a83a0;
+
+  --radius-sm: 3px;
+
+  --leading-tight: 1.12;
+  --leading-normal: 1.5;
+  --leading-loose: 1.72;
 }
 
-
 /* ----------------------------------------------------------------------------
-   3. TOKENS
+   2. ALIASES
+   Short names for use inside SVG `fill` and `stroke`, where a utility class
+   cannot reach. One source of truth: these all point at the @theme tokens.
    ---------------------------------------------------------------------------- */
 
 :root {
-  /* --- Type scale. Six sizes. Nothing else is permitted. ------------------ */
-  --text-xs: 0.75rem;    /* 12px — eyebrows, meta, axis labels                */
-  --text-sm: 0.875rem;   /* 14px — nav, list items, controls, table cells     */
-  --text-base: 1rem;     /* 16px — default UI body                           */
-  --text-md: 1.125rem;   /* 18px — reading prose, lede                       */
-  --text-lg: 1.5rem;     /* 24px — section headings                          */
-  --text-xl: 2.25rem;    /* 36px — page title (one per page)                 */
+  color-scheme: light;
 
-  /* --- Weights. Two. ----------------------------------------------------- */
+  --blue: var(--color-blue);
+  --blue-deep: var(--color-blue-deep);
+  --blue-soft: var(--color-blue-soft);
+  --teal: var(--color-teal);
+  --teal-deep: var(--color-teal-deep);
+  --teal-soft: var(--color-teal-soft);
+  --purple: var(--color-purple);
+  --purple-deep: var(--color-purple-deep);
+  --purple-soft: var(--color-purple-soft);
+  --pink: var(--color-pink);
+  --pink-deep: var(--color-pink-deep);
+  --pink-soft: var(--color-pink-soft);
+
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --border: var(--color-border);
+  --border-strong: var(--color-border-strong);
+  --ink: var(--color-ink);
+  --ink-2: var(--color-ink-2);
+  --ink-3: var(--color-ink-3);
+
+  --accent: var(--color-blue);
+  --active: var(--color-teal);
+
   --weight-normal: 400;
-  --weight-bold: 700;
+  --weight-bold: 600;
+  --tracking-wide: 0.1em;
 
-  /* --- Line heights. Three. ---------------------------------------------- */
-  --leading-tight: 1.15;  /* headings                                        */
-  --leading-normal: 1.45; /* interface text                                  */
-  --leading-loose: 1.7;   /* reading prose                                   */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
 
-  /* --- Letter spacing. Only eyebrows get tracking. ------------------------ */
-  --tracking-wide: 0.12em;
-
-  /* --- Space scale. Six steps, roughly doubling. -------------------------- */
-  --space-1: 0.25rem;  /*  4px */
-  --space-2: 0.5rem;   /*  8px */
-  --space-3: 1rem;     /* 16px */
-  --space-4: 1.5rem;   /* 24px */
-  --space-5: 2.5rem;   /* 40px */
-  --space-6: 4rem;     /* 64px */
-
-  /* --- Structure. One border, one radius. --------------------------------- */
   --border-width: 1px;
-  --radius: 2px;
+  --radius: var(--radius-sm);
 
-  /* --- Measure. Reading line length. -------------------------------------- */
-  --measure: 34em;      /* prose             */
-  --measure-narrow: 30em; /* lede / intro    */
-
-  /* --- Layout widths. ----------------------------------------------------- */
+  --measure: 34em;
   --page-width: 1080px;
-  --page-width-wide: 1240px;
+  --page-width-wide: 1280px;
   --page-width-narrow: 720px;
-
-  /* ======================================================================
-     COLOUR — UI
-     A neutral ramp plus one accent. Five neutrals, in strict order from the
-     page backwards: bg is furthest back, text is furthest forward.
-     ====================================================================== */
-
-  --bg: #ffffff;            /* the page. plain white.                        */
-  --surface: #f6f6f6;       /* one step up: cards, sidebars, chart grounds   */
-  --border: #e4e4e4;        /* hairlines between things                      */
-  --border-strong: #c6c6c6; /* hairlines that need to be seen                */
-
-  --text: #121212;          /* primary reading colour                        */
-  --text-muted: #595959;    /* secondary — supporting sentences              */
-  --text-faint: #8c8c8c;    /* tertiary — labels, counts, disabled           */
-
-  --accent: #9c2318;        /* the one accent: active nav, links, focus      */
-  --accent-bg: #f7eceb;     /* accent at rest behind text                    */
-  --on-accent: #ffffff;     /* text drawn ON the accent, never anywhere else */
-
-  /* ======================================================================
-     COLOUR — DATA
-     Six categorical hues, one per character group. These encode meaning and
-     are used ONLY in visualisations and group markers. Never in chrome.
-     Ordered by group size in the novel, so the eye meets them consistently.
-     ====================================================================== */
-
-  --data-family: #a8322a;
-  --data-women: #2f5487;
-  --data-monastery: #9a7014;
-  --data-boys: #35664c;
-  --data-court: #61407e;
-  --data-town: #6f5a45;
-
-  /* Neutral fill for "no data" in charts. */
-  --data-empty: #e4e4e4;
 }
-
-/* --- Dark theme -------------------------------------------------------------
-   Only tokens are redefined; no component rule lives inside a theme block.
-   Three states are covered: explicit dark, explicit light, and the default
-   unstamped document where only the OS preference is known.
-   -------------------------------------------------------------------------- */
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #000000;          /* plain black */
-    --surface: #0d0d0d;
-    --border: #262626;
-    --border-strong: #404040;
-
-    --text: #f2f0ed;
-    --text-muted: #a0a0a0;
-    --text-faint: #6e6e6e;
-
-    --accent: #e0705a;
-    --accent-bg: #24100d;
-    --on-accent: #1a0a07;
-
-    --data-family: #d4685a;
-    --data-women: #7b9dd4;
-    --data-monastery: #cfa244;
-    --data-boys: #63a882;
-    --data-court: #a482c4;
-    --data-town: #ab9078;
-
-    --data-empty: #262626;
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #000000;
-  --surface: #0d0d0d;
-  --border: #262626;
-  --border-strong: #404040;
-
-  --text: #f2f0ed;
-  --text-muted: #a0a0a0;
-  --text-faint: #6e6e6e;
-
-  --accent: #e0705a;
-  --accent-bg: #24100d;
-  --on-accent: #1a0a07;
-
-  --data-family: #d4685a;
-  --data-women: #7b9dd4;
-  --data-monastery: #cfa244;
-  --data-boys: #63a882;
-  --data-court: #a482c4;
-  --data-town: #ab9078;
-
-  --data-empty: #262626;
-}
-
 
 /* ----------------------------------------------------------------------------
-   4. RESET
+   3. RESET
    ---------------------------------------------------------------------------- */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  /* Not flat white: two very faint washes in opposite corners so the page has a
+     temperature. A few percent each — never strong enough to sit behind text.
+     See docs/design-system.md §3.4. */
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(60rem 40rem at 0% 0%, color-mix(in srgb, var(--blue) 6%, transparent), transparent 70%),
+    radial-gradient(52rem 38rem at 100% 100%, color-mix(in srgb, var(--purple) 7%, transparent), transparent 68%);
+  background-attachment: fixed;
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--text-base);
   font-weight: var(--weight-normal);
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
-img,
-svg {
-  max-width: 100%;
-}
+img, svg { max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; color: inherit; }
 
-/* Links inherit their colour; only .link opts into the accent. */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
-
-/* One focus treatment across the whole app. */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--active);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition: none !important;
-    animation: none !important;
-  }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
 
 /* ----------------------------------------------------------------------------
-   5. TYPOGRAPHY
-   The complete set of text styles. A component picks one; it does not invent.
+   4. TYPOGRAPHY
+   The complete set. A component picks one; it does not invent.
    ---------------------------------------------------------------------------- */
 
-/* Page title. One per page, always serif, always --text-xl. */
 .title {
   font-family: var(--font-serif);
   font-size: var(--text-xl);
-  font-weight: var(--weight-normal);
+  font-weight: var(--weight-bold);
+  font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 100;
   line-height: var(--leading-tight);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   text-wrap: balance;
   margin: 0;
 }
 
-/* Section heading inside a page. */
 .heading {
   font-family: var(--font-serif);
   font-size: var(--text-lg);
   font-weight: var(--weight-normal);
+  font-variation-settings: "SOFT" 30, "opsz" 40;
   line-height: var(--leading-tight);
   text-wrap: balance;
   margin: 0;
 }
 
-/* Small heading — card titles, sidebar headings. */
 .subheading {
   font-family: var(--font-serif);
   font-size: var(--text-md);
-  font-weight: var(--weight-normal);
+  font-weight: var(--weight-bold);
+  font-variation-settings: "opsz" 20;
   line-height: var(--leading-tight);
   margin: 0;
 }
 
-/* The uppercase label above a title or beside a group of controls. */
 .eyebrow {
   font-family: var(--font-sans);
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--ink-3);
   margin: 0;
 }
 
-/* The opening paragraph of a page. Serif, because it is read as language. */
+/* The opening paragraph. Serif, because it is the author's subject. */
 .lede {
   font-family: var(--font-serif);
   font-size: var(--text-md);
+  font-variation-settings: "opsz" 14;
   line-height: var(--leading-loose);
-  color: var(--text-muted);
+  color: var(--ink-2);
   max-width: var(--measure);
   margin: 0;
 }
 
-/* Ordinary interface text. */
-.text {
-  font-size: var(--text-sm);
-  color: var(--text);
-  margin: 0;
-}
-
-/* Supporting interface text. */
-.text-muted {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  margin: 0;
-}
-
-/* Counts, citations, captions. */
+.text { font-size: var(--text-sm); color: var(--ink); margin: 0; }
+.text-muted { font-size: var(--text-sm); color: var(--ink-2); margin: 0; }
 .meta {
   font-size: var(--text-xs);
-  color: var(--text-faint);
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
   margin: 0;
 }
+.num { font-variant-numeric: tabular-nums; }
 
-/* Any figure the reader might compare against another figure. */
-.num {
-  font-variant-numeric: tabular-nums;
-}
-
-/* The single link style. */
 .link {
-  color: var(--accent);
-  text-decoration: none;
+  color: var(--blue);
   border-bottom: var(--border-width) solid transparent;
 }
-.link:hover {
-  border-bottom-color: var(--accent);
-}
+.link:hover { border-bottom-color: var(--blue); }
 
 
 /* ----------------------------------------------------------------------------
-   6. LAYOUT
-   Spacing between siblings is always `gap` on the parent.
+   5. LAYOUT
    ---------------------------------------------------------------------------- */
 
 .page {
@@ -379,79 +252,45 @@ select {
 .page--wide { max-width: var(--page-width-wide); }
 .page--narrow { max-width: var(--page-width-narrow); }
 
-/* Page header: eyebrow, title, lede. */
-.page-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
+.page-header { display: flex; flex-direction: column; gap: var(--space-2); }
+.section { display: flex; flex-direction: column; gap: var(--space-3); }
+.section-header { display: flex; flex-direction: column; gap: var(--space-1); }
 
-/* A titled block within a page. */
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.section-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-/* Two columns: content and a sidebar that stays put. */
 .split {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
+  grid-template-columns: minmax(0, 1fr) 230px;
   gap: var(--space-5);
   align-items: start;
 }
-
 .sidebar {
   position: sticky;
-  top: calc(var(--space-5) + var(--space-3));
+  top: var(--space-5);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
 
-/* Auto-filling card grid. */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--space-3);
 }
+.grid--pairs { grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); }
 
-/* A horizontal run of items that may wrap. */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  align-items: center;
-}
+.row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
 .row--between { justify-content: space-between; }
 .row--wide { gap: var(--space-5); }
 
-/* A vertical stack. */
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
+.stack { display: flex; flex-direction: column; gap: var(--space-2); }
 .stack--tight { gap: var(--space-1); }
 .stack--loose { gap: var(--space-4); }
 
-/* Anything wider than the page scrolls inside itself, never the body. */
-.scroll-x {
-  overflow-x: auto;
-}
+.scroll-x { overflow-x: auto; }
 
 
 /* ----------------------------------------------------------------------------
-   7. COMPONENTS
+   6. COMPONENTS
    ---------------------------------------------------------------------------- */
-
-/* --- Navigation ---------------------------------------------------------- */
 
 .nav {
   position: sticky;
@@ -464,31 +303,34 @@ select {
   background: var(--bg);
   border-bottom: var(--border-width) solid var(--border);
 }
-
 .nav-brand {
   font-family: var(--font-serif);
   font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  font-variation-settings: "opsz" 20;
+  color: var(--blue);
   margin-right: var(--space-2);
 }
-
 .nav-link {
   font-size: var(--text-sm);
-  color: var(--text-faint);
+  color: var(--ink-3);
   padding-bottom: var(--space-1);
-  border-bottom: var(--border-width) solid transparent;
+  border-bottom: 2px solid transparent;
 }
-.nav-link:hover { color: var(--text); }
+.nav-link:hover { color: var(--ink); }
 .nav-link[aria-current="page"] {
-  color: var(--text);
-  border-bottom-color: var(--accent);
+  color: var(--teal-deep);
+  border-bottom-color: var(--teal);
 }
-
 .nav-spacer { flex: 1; }
 
-/* --- Card ---------------------------------------------------------------- */
-
 .card {
-  background: var(--surface);
+  background-color: var(--surface);
+  background-image: linear-gradient(
+    170deg,
+    color-mix(in srgb, var(--blue) 3%, transparent),
+    transparent 60%
+  );
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-3);
@@ -497,41 +339,24 @@ select {
   gap: var(--space-2);
 }
 
-/* --- List: rows separated by hairlines, no boxes. ------------------------- */
-
-.list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .list-item {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) 0;
+  border: none;
   border-bottom: var(--border-width) solid var(--border);
   font-size: var(--text-sm);
-  color: var(--text-muted);
+  color: var(--ink-2);
   width: 100%;
   text-align: left;
   background: none;
-  border-left: none;
-  border-right: none;
-  border-top: none;
   cursor: pointer;
 }
-.list-item:hover { color: var(--text); }
+.list-item:hover { color: var(--teal-deep); }
 .list-item__label { flex: 1; min-width: 0; }
-.list-item__lead {
-  color: var(--text-faint);
-  min-width: 2.5em;
-  font-variant-numeric: tabular-nums;
-}
-
-/* --- Bar: a value drawn to scale beside its label. ------------------------ */
+.list-item__lead { color: var(--ink-3); min-width: 2.5em; font-variant-numeric: tabular-nums; }
 
 .bar-row {
   display: grid;
@@ -542,52 +367,34 @@ select {
   border-bottom: var(--border-width) solid var(--border);
   font-size: var(--text-sm);
 }
-
-/* The trailing figure is right-aligned so values form a column the eye can compare. */
 .bar-row > :last-child { text-align: right; }
-
 .bar-track { height: 8px; }
-
 .bar-fill {
   display: block;
   height: 100%;
   border-radius: var(--radius);
-  background: var(--group-color, var(--accent));
+  background: var(--blue);
 }
+.bar-row:hover .bar-fill { background: var(--teal); }
 
-/* --- Stat: one figure and its label. ------------------------------------- */
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
+.stat { display: flex; flex-direction: column; gap: var(--space-1); }
 .stat__value {
   font-family: var(--font-serif);
   font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  font-variation-settings: "opsz" 40;
   line-height: var(--leading-tight);
   font-variant-numeric: tabular-nums;
+  color: var(--blue);
 }
-
-/* --- Chip: a small labelled marker, optionally group-coloured. ------------ */
 
 .chip {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--text-xs);
-  color: var(--text-faint);
+  color: var(--ink-3);
 }
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex: none;
-  background: var(--group-color, var(--text-faint));
-}
-
-/* --- Controls ------------------------------------------------------------ */
 
 .field {
   flex: 1;
@@ -597,65 +404,228 @@ select {
   border-radius: var(--radius);
   font-size: var(--text-sm);
 }
-.field::placeholder { color: var(--text-faint); }
+.field::placeholder { color: var(--ink-3); }
+.field:focus { border-color: var(--teal); }
 
 .button {
   padding: var(--space-2) var(--space-4);
   background: var(--bg);
-  color: var(--text);
+  color: var(--blue);
   border: var(--border-width) solid var(--border-strong);
   border-radius: var(--radius);
   font-size: var(--text-sm);
   cursor: pointer;
 }
-.button:hover { border-color: var(--text-faint); }
+.button:hover { border-color: var(--teal); color: var(--teal-deep); }
 .button:disabled { opacity: 0.4; cursor: default; }
 
 .button--primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #ffffff;
 }
-.button--primary:hover { border-color: var(--accent); opacity: 0.9; }
+.button--primary:hover { background: var(--blue-deep); border-color: var(--blue-deep); color: #ffffff; }
 
-/* A button that reads as a suggestion, not a command. */
 .button--quiet {
   background: var(--surface);
   border-color: var(--border);
-  color: var(--text-muted);
+  color: var(--ink-2);
   text-align: left;
-  font-size: var(--text-sm);
 }
 
-.range { accent-color: var(--accent); }
-
-/* --- Notice: one style, marked with the accent. -------------------------- */
+.range { accent-color: var(--teal); }
 
 .notice {
-  background: var(--accent-bg);
+  background: var(--blue-soft);
   border: var(--border-width) solid var(--border);
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--blue);
   border-radius: var(--radius);
   padding: var(--space-3);
   font-size: var(--text-sm);
-  color: var(--text-muted);
+  color: var(--ink-2);
 }
-.notice code {
-  font-family: var(--font-sans);
-  color: var(--text);
+.notice code { font-family: var(--font-sans); color: var(--blue-deep); }
+
+.name-panel {
+  background: var(--surface);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(7rem, auto) minmax(0, 1fr) 3rem;
+  gap: var(--space-2) var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--border);
+}
+.form-row:last-child { border-bottom: none; }
+.form-row > :last-child { text-align: right; }
+
+.rung { display: block; height: 3px; border-radius: var(--radius); background: var(--blue); }
+.form-name { font-family: var(--font-serif); font-size: var(--text-base); font-variation-settings: "opsz" 14; }
+.form-name--tender { font-style: italic; }
+.form-name--formal { font-weight: var(--weight-bold); }
+
+.name-hit {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-bottom: var(--border-width) dotted var(--border-strong);
+}
+.name-hit:hover, .name-hit[aria-expanded="true"] {
+  background: var(--teal-soft);
+  border-bottom-color: var(--teal);
+}
+
+.lineage { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.lineage__child {
+  border: var(--border-width) solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+}
+.lineage__child--disputed {
+  border-style: dashed;
+  border-color: var(--purple);
+  color: var(--purple-deep);
+  background: var(--purple-soft);
+}
+
+
+/* --- Docked panel ---------------------------------------------------------
+   An answer the reader asked for has to be where they are looking. This docks
+   to the bottom of the viewport instead of being inserted above the prose.
+   -------------------------------------------------------------------------- */
+
+.dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  background: var(--bg);
+  border-top: 2px solid var(--teal);
+  max-height: 55vh;
+  overflow-y: auto;
+}
+.dock__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.dock:focus-visible { outline: none; }
+
+/* --- Anchored card ---------------------------------------------------------
+   A card that floats beside the person it describes, inside the diagram, so the
+   answer appears where the reader is already looking. Hovering shows a compact
+   identity; clicking pins a fuller one with relationships.
+   -------------------------------------------------------------------------- */
+
+.anchored {
+  position: absolute;
+  z-index: 5;
+  width: 17rem;
+  /* Height is CAPPED, not merely expected. RelationshipMap clamps the card into
+     the viewport using a constant, and a card taller than that constant escapes
+     the clamp — which is exactly what happened for characters with many ties.
+     CARD_H in RelationshipMap.tsx must equal this value. */
+  max-height: 20rem;
+  overflow: hidden;
+  max-width: calc(100% - var(--space-4));
+  background: var(--bg);
+  border: var(--border-width) solid var(--border-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--ink) 14%, transparent);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+.anchored--pinned {
+  pointer-events: auto;
+  border-left-color: var(--active);
+}
+.anchored--uncertain { border-left-color: var(--purple); }
+
+.anchored__name {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-variation-settings: "opsz" 18;
+  line-height: var(--leading-tight);
+}
+.anchored__who {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  line-height: var(--leading-normal);
+}
+.anchored__ties {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-height: 9rem;
+  overflow-y: auto;
+}
+.anchored__tie {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-top: var(--border-width) solid var(--border);
+  padding: var(--space-1) 0;
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.anchored__tie:hover { color: var(--teal-deep); }
+.anchored__bond { font-weight: var(--weight-bold); color: var(--ink); }
+.anchored__bond--key { color: var(--pink-deep); }
+.anchored__bond--uncertain { color: var(--purple-deep); }
+.anchored__close {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  cursor: pointer;
+}
+.anchored__close:hover { color: var(--ink); }
+
+/* Interactive marks inside a diagram. */
+.hit { cursor: pointer; }
+.hit:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 
 
 /* ----------------------------------------------------------------------------
-   8. PROSE
-   The novel itself. The only place --leading-loose and --measure apply.
+   7. PROSE — the novel itself
    ---------------------------------------------------------------------------- */
 
 .prose {
   font-family: var(--font-serif);
   font-size: var(--text-md);
+  font-variation-settings: "opsz" 14, "SOFT" 20;
   line-height: var(--leading-loose);
-  color: var(--text);
+  color: var(--ink);
   max-width: var(--measure);
   display: flex;
   flex-direction: column;
@@ -663,21 +633,19 @@ select {
 }
 .prose p { margin: 0; }
 .prose em { font-style: italic; }
-
-/* A character's name where it appears in the text. */
 .prose mark {
-  background: var(--accent-bg);
+  background: var(--teal-soft);
   color: inherit;
   border-radius: var(--radius);
   padding: 0 2px;
 }
 
-/* Chat answers use the same reading surface at interface width. */
 .answer {
   font-family: var(--font-serif);
   font-size: var(--text-md);
+  font-variation-settings: "opsz" 14;
   line-height: var(--leading-loose);
-  color: var(--text);
+  color: var(--ink);
   max-width: var(--measure);
   white-space: pre-wrap;
   margin: 0;
@@ -685,68 +653,74 @@ select {
 
 
 /* ----------------------------------------------------------------------------
-   9. DATA VISUALISATION
-   The six group classes below are the ONLY route by which a categorical colour
-   enters the page. A component sets `class="group-family"` and then refers to
-   var(--group-color); it never names --data-* directly. This keeps the mapping
-   from group to hue in one place.
+   8. DATA MARKS
+   Category is encoded by SHAPE, never by colour — six groups cannot be told
+   apart by two hues, and a blue-to-teal ramp would imply an order these
+   categories do not have. Shape is categorical, survives greyscale, and does
+   not fail for colour-blind readers.
+
+   Colour then carries state instead: blue at rest, teal when active.
    ---------------------------------------------------------------------------- */
 
-.group-family { --group-color: var(--data-family); }
-.group-women { --group-color: var(--data-women); }
-.group-monastery { --group-color: var(--data-monastery); }
-.group-boys { --group-color: var(--data-boys); }
-.group-court { --group-color: var(--data-court); }
-.group-town { --group-color: var(--data-town); }
-
-/* A chart's ground. Same one step up from the page as a card. */
 .chart {
-  background: var(--surface);
+  background-color: var(--bg);
+  background-image: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--blue) 4%, transparent),
+    color-mix(in srgb, var(--purple) 5%, transparent)
+  );
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
 }
-
+/* A diagram must not be scaled below legibility. `min-width` keeps the drawing
+   at a readable size and lets .scroll-x do its job; width:100% alone silently
+   shrank a 1240px map to 340px on a phone, taking 13px labels down to 3.6px
+   (review finding R7). */
 .chart svg {
   display: block;
   width: 100%;
+  min-width: var(--chart-min, 900px);
   height: auto;
 }
+.chart { position: relative; }
 
-/* Text drawn inside an SVG takes its colour from the same tokens as the page. */
-.chart-label {
-  font-family: var(--font-sans);
+/* Told to the reader once, rather than leaving them to discover it. */
+.chart::after {
+  content: "Scroll sideways to see the whole diagram";
+  display: none;
+  padding: var(--space-2) var(--space-3);
   font-size: var(--text-xs);
-  fill: var(--text);
+  color: var(--ink-3);
+  border-top: var(--border-width) solid var(--border);
 }
-.chart-label--muted { fill: var(--text-faint); }
 
-/* One bar per chapter, in reading order. */
-.sparkbar {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 88px;
-  min-width: 640px;
-}
-.sparkbar__bar {
-  flex: 1;
-  min-width: 3px;
-  border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--group-color, var(--accent));
-}
-.sparkbar__bar[data-empty="true"] {
-  background: var(--data-empty);
-}
+.chart-label { font-family: var(--font-sans); font-size: var(--text-xs); fill: var(--ink); }
+.chart-label--muted { fill: var(--ink-3); }
+
+/* Marks default to blue; `data-active` promotes them to teal. */
+.mark { fill: var(--blue); }
+.mark[data-active="true"] { fill: var(--teal); }
+.mark[data-uncertain="true"] { fill: var(--purple); }
+.mark[data-consequence="true"] { fill: var(--pink); }
+.mark-stroke { stroke: var(--blue); fill: none; }
+.mark-stroke[data-active="true"] { stroke: var(--teal); }
+
+.sparkbar { display: flex; align-items: flex-end; gap: 2px; height: 88px; min-width: 640px; }
+.sparkbar__bar { flex: 1; min-width: 3px; border-radius: var(--radius) var(--radius) 0 0; background: var(--blue); }
+.sparkbar__bar[data-empty="true"] { background: var(--border); }
+.sparkbar__bar:hover { background: var(--teal); }
 
 
 /* ----------------------------------------------------------------------------
-   RESPONSIVE
-   The system has one breakpoint. Below it, split layouts become single column.
+   RESPONSIVE — one breakpoint
    ---------------------------------------------------------------------------- */
 
 @media (max-width: 760px) {
   .split { grid-template-columns: minmax(0, 1fr); }
   .sidebar { position: static; }
   .bar-row { grid-template-columns: 7em minmax(0, 1fr) 4.5em; }
-  :root { --text-xl: 1.75rem; }
+  :root { --text-xl: 2rem; --text-lg: 1.375rem; }
+  /* Diagrams scroll at full size rather than shrinking out of legibility. */
+  .chart::after { display: block; }
+  .dock { max-height: 70vh; }
 }

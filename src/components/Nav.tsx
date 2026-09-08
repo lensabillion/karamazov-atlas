@@ -5,8 +5,9 @@ import { usePathname } from 'next/navigation';
 const LINKS = [
   { href: '/', label: 'Overview' },
   { href: '/read', label: 'Read' },
-  { href: '/network', label: 'Network' },
-  { href: '/map', label: 'Map' },
+  { href: '/who', label: 'Who’s who' },
+  { href: '/names', label: 'Names' },
+  { href: '/timeline', label: 'Timeline' },
   { href: '/ask', label: 'Ask' },
 ];
 
@@ -28,8 +29,8 @@ export default function Nav() {
           {l.label}
         </a>
       ))}
-      <span className="nav-spacer" />
-      <span className="meta">Garnett · 96 chapters</span>
+      <span className="grow" />
+      <span className="meta text-ink-3">Garnett · 96 chapters</span>
     </nav>
   );
 }

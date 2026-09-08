@@ -29,11 +29,21 @@ ANTHROPIC_API_KEY=sk-ant-...
 | `/` | Corpus overview — mention counts, book structure |
 | `/read` · `/read/[id]` | All 96 chapters, with character mentions highlighted |
 | `/character/[id]` | Per-character presence across the novel, ties, densest chapters |
-| `/network` | Force-directed co-occurrence graph, derived from mention data |
-| `/map` | Structural mind map: parts → books → chapters |
+| `/who` | Who the characters are to each other — the relationship map |
+| `/timeline` | The novel as a columnar wall chart, one column per character |
+| `/names` | Patronymic lineage, name orbits, register ladder |
 | `/ask` | Citation-backed Q&A over the full text (AI SDK + Claude) |
 
 ## Architecture
+
+> **Implemented vs proposed.** Everything below under "three layers" is built and
+> running. The Python service in `api/` is a **prototype**: it ingests the JSON the
+> TypeScript pipeline produces and serves it over FastAPI with SQLite/FTS5, and its
+> 11 tests pass — but the Next.js app does not read from it, and the chat route does
+> not call it. Treat it as a proven contract, not as the live data path. Any decision
+> to migrate should be benchmarked against the current TypeScript path first, which
+> already filters and ranks results.
+
 
 Three layers, deliberately separated:
 
@@ -64,3 +74,7 @@ hue is assigned to a character group so colour carries information.
 
 `docs/plan-spec.md` follows the plan-spec template from
 [jlevy/tbd](https://github.com/jlevy/tbd).
+
+The [September 8 visual-memory review](docs/reviews/2026-09-08-visual-memory-review.md)
+assesses the project against the returning-reader illustration goal and links
+verified findings to TBD follow-up work.

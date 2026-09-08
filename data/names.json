@@ -1,0 +1,4448 @@
+{
+  "characters": [
+    {
+      "id": "fyodor",
+      "name": "Fyodor Pavlovitch Karamazov",
+      "short": "Fyodor",
+      "group": "family",
+      "patronymic": "Pavlovitch",
+      "givenName": "Fyodor",
+      "registerByChapter": {
+        "b01-c01": {
+          "formal": 11
+        },
+        "b01-c02": {
+          "formal": 12
+        },
+        "b01-c03": {
+          "formal": 10
+        },
+        "b01-c04": {
+          "formal": 4
+        },
+        "b01-c05": {
+          "formal": 1
+        },
+        "b02-c01": {
+          "formal": 9
+        },
+        "b02-c02": {
+          "formal": 10
+        },
+        "b02-c05": {
+          "formal": 2
+        },
+        "b02-c06": {
+          "formal": 7
+        },
+        "b02-c08": {
+          "formal": 16
+        },
+        "b03-c01": {
+          "formal": 14
+        },
+        "b03-c02": {
+          "formal": 7
+        },
+        "b03-c03": {
+          "formal": 1
+        },
+        "b03-c06": {
+          "formal": 17
+        },
+        "b03-c07": {
+          "formal": 13
+        },
+        "b03-c08": {
+          "formal": 2
+        },
+        "b03-c09": {
+          "formal": 3
+        },
+        "b04-c07": {
+          "formal": 2
+        },
+        "b05-c02": {
+          "formal": 2
+        },
+        "b05-c06": {
+          "formal": 8
+        },
+        "b05-c07": {
+          "formal": 13
+        },
+        "b07-c03": {
+          "formal": 1
+        },
+        "b08-c01": {
+          "formal": 11
+        },
+        "b08-c02": {
+          "formal": 2
+        },
+        "b08-c03": {
+          "formal": 3
+        },
+        "b08-c04": {
+          "formal": 8
+        },
+        "b08-c05": {
+          "formal": 1
+        },
+        "b08-c08": {
+          "formal": 1
+        },
+        "b09-c01": {
+          "formal": 5
+        },
+        "b09-c02": {
+          "formal": 9
+        },
+        "b09-c03": {
+          "formal": 1
+        },
+        "b09-c04": {
+          "formal": 2
+        },
+        "b09-c05": {
+          "formal": 1
+        },
+        "b09-c08": {
+          "formal": 2
+        },
+        "b11-c04": {
+          "formal": 1
+        },
+        "b11-c05": {
+          "formal": 3
+        },
+        "b11-c06": {
+          "formal": 1
+        },
+        "b11-c07": {
+          "formal": 2
+        },
+        "b11-c08": {
+          "formal": 4
+        },
+        "b11-c10": {
+          "formal": 1
+        },
+        "b12-c01": {
+          "formal": 2
+        },
+        "b12-c02": {
+          "formal": 6
+        },
+        "b12-c04": {
+          "formal": 2
+        },
+        "b12-c07": {
+          "formal": 1
+        },
+        "b12-c08": {
+          "formal": 4
+        },
+        "b12-c11": {
+          "formal": 4
+        },
+        "b12-c12": {
+          "formal": 3
+        },
+        "b12-c13": {
+          "formal": 1
+        },
+        "b12-c14": {
+          "formal": 1
+        }
+      },
+      "fatherName": "Pavel",
+      "warmestRegister": "formal",
+      "forms": [
+        {
+          "form": "Fyodor Pavlovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Pavlovitch” means son or daughter of Pavel, so the name states the parentage every time it is spoken.",
+          "count": 247,
+          "chapters": [
+            "b01-c01",
+            "b01-c02",
+            "b01-c03",
+            "b01-c04",
+            "b01-c05",
+            "b02-c01",
+            "b02-c02",
+            "b02-c05",
+            "b02-c06",
+            "b02-c08",
+            "b03-c01",
+            "b03-c02",
+            "b03-c03",
+            "b03-c06",
+            "b03-c07",
+            "b03-c08",
+            "b03-c09",
+            "b04-c07",
+            "b05-c02",
+            "b05-c06",
+            "b05-c07",
+            "b07-c03",
+            "b08-c01",
+            "b08-c02",
+            "b08-c03",
+            "b08-c04",
+            "b08-c05",
+            "b08-c08",
+            "b09-c01",
+            "b09-c02",
+            "b09-c03",
+            "b09-c04",
+            "b09-c05",
+            "b09-c08",
+            "b11-c04",
+            "b11-c05",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b11-c10",
+            "b12-c01",
+            "b12-c02",
+            "b12-c04",
+            "b12-c07",
+            "b12-c08",
+            "b12-c11",
+            "b12-c12",
+            "b12-c13",
+            "b12-c14"
+          ],
+          "firstChapter": "b01-c01"
+        }
+      ],
+      "total": 247
+    },
+    {
+      "id": "dmitri",
+      "name": "Dmitri Fyodorovitch Karamazov",
+      "short": "Dmitri",
+      "group": "family",
+      "patronymic": "Fyodorovitch",
+      "givenName": "Dmitri",
+      "registerByChapter": {
+        "b01-c02": {
+          "formal": 1,
+          "familiar": 11
+        },
+        "b02-c01": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b02-c04": {
+          "formal": 1
+        },
+        "b02-c05": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b02-c06": {
+          "formal": 5,
+          "neutral": 21,
+          "familiar": 3
+        },
+        "b02-c07": {
+          "formal": 2,
+          "neutral": 4,
+          "familiar": 10
+        },
+        "b03-c10": {
+          "formal": 1,
+          "neutral": 7,
+          "familiar": 2
+        },
+        "b03-c11": {
+          "formal": 1,
+          "neutral": 6,
+          "familiar": 2
+        },
+        "b04-c04": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b04-c05": {
+          "formal": 3,
+          "neutral": 19
+        },
+        "b04-c06": {
+          "formal": 1,
+          "neutral": 4
+        },
+        "b04-c07": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b05-c02": {
+          "formal": 6,
+          "neutral": 9
+        },
+        "b05-c06": {
+          "formal": 8,
+          "neutral": 10,
+          "familiar": 1
+        },
+        "b07-c03": {
+          "formal": 2,
+          "neutral": 1,
+          "familiar": 14
+        },
+        "b08-c03": {
+          "formal": 25,
+          "neutral": 6,
+          "familiar": 46
+        },
+        "b08-c05": {
+          "formal": 12,
+          "neutral": 3,
+          "familiar": 63,
+          "tender": 2
+        },
+        "b08-c06": {
+          "formal": 8,
+          "neutral": 2,
+          "familiar": 26
+        },
+        "b08-c07": {
+          "formal": 2,
+          "familiar": 88
+        },
+        "b08-c08": {
+          "formal": 1,
+          "familiar": 67,
+          "tender": 1
+        },
+        "b09-c01": {
+          "formal": 9,
+          "neutral": 1,
+          "familiar": 2
+        },
+        "b09-c02": {
+          "formal": 1,
+          "familiar": 4
+        },
+        "b09-c03": {
+          "formal": 3,
+          "familiar": 28
+        },
+        "b09-c04": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 21
+        },
+        "b09-c05": {
+          "formal": 1,
+          "familiar": 39
+        },
+        "b09-c06": {
+          "formal": 3,
+          "neutral": 2,
+          "familiar": 38
+        },
+        "b09-c07": {
+          "formal": 7,
+          "neutral": 2,
+          "familiar": 16
+        },
+        "b09-c08": {
+          "formal": 12,
+          "neutral": 2,
+          "familiar": 39
+        },
+        "b09-c09": {
+          "formal": 2,
+          "neutral": 1,
+          "familiar": 24
+        },
+        "b11-c02": {
+          "formal": 3,
+          "neutral": 2,
+          "familiar": 1
+        },
+        "b11-c03": {
+          "formal": 1,
+          "familiar": 1
+        },
+        "b11-c06": {
+          "formal": 3,
+          "neutral": 6,
+          "familiar": 12
+        },
+        "b11-c07": {
+          "formal": 1,
+          "neutral": 7,
+          "familiar": 15
+        },
+        "b11-c08": {
+          "formal": 6,
+          "neutral": 7
+        },
+        "b12-c02": {
+          "formal": 1,
+          "neutral": 2,
+          "familiar": 19
+        },
+        "b12-c04": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 18
+        },
+        "b12-c08": {
+          "formal": 1,
+          "neutral": 6
+        },
+        "b13-c01": {
+          "formal": 1,
+          "neutral": 7,
+          "familiar": 4
+        },
+        "b01-c01": {
+          "neutral": 1,
+          "familiar": 1
+        },
+        "b01-c03": {
+          "neutral": 3,
+          "familiar": 2
+        },
+        "b01-c04": {
+          "neutral": 1
+        },
+        "b01-c05": {
+          "neutral": 9
+        },
+        "b02-c02": {
+          "neutral": 1
+        },
+        "b03-c01": {
+          "neutral": 2
+        },
+        "b03-c03": {
+          "neutral": 8,
+          "familiar": 8
+        },
+        "b03-c04": {
+          "neutral": 1,
+          "familiar": 1
+        },
+        "b03-c05": {
+          "neutral": 8,
+          "familiar": 7
+        },
+        "b03-c08": {
+          "neutral": 1
+        },
+        "b03-c09": {
+          "neutral": 22,
+          "familiar": 1
+        },
+        "b04-c03": {
+          "neutral": 1
+        },
+        "b05-c03": {
+          "neutral": 16
+        },
+        "b05-c05": {
+          "neutral": 4,
+          "familiar": 1
+        },
+        "b05-c07": {
+          "neutral": 2,
+          "familiar": 1
+        },
+        "b07-c02": {
+          "neutral": 2
+        },
+        "b08-c01": {
+          "neutral": 5,
+          "familiar": 41
+        },
+        "b08-c02": {
+          "neutral": 3,
+          "familiar": 42
+        },
+        "b11-c10": {
+          "neutral": 1,
+          "familiar": 3
+        },
+        "b12-c01": {
+          "neutral": 2,
+          "familiar": 15
+        },
+        "b12-c05": {
+          "neutral": 1,
+          "familiar": 17
+        },
+        "b12-c06": {
+          "neutral": 2,
+          "familiar": 1
+        },
+        "b04-c02": {
+          "familiar": 8
+        },
+        "b07-c04": {
+          "familiar": 2
+        },
+        "b08-c04": {
+          "familiar": 26
+        },
+        "b11-c01": {
+          "familiar": 28
+        },
+        "b11-c04": {
+          "familiar": 35
+        },
+        "b11-c05": {
+          "familiar": 5
+        },
+        "b12-c03": {
+          "familiar": 6
+        },
+        "b12-c07": {
+          "familiar": 1
+        },
+        "b12-c09": {
+          "familiar": 8
+        },
+        "b12-c10": {
+          "familiar": 2
+        },
+        "b12-c14": {
+          "familiar": 5
+        },
+        "b13-c02": {
+          "familiar": 29
+        },
+        "b13-c03": {
+          "familiar": 1
+        }
+      },
+      "fatherName": "Fyodor",
+      "warmestRegister": "tender",
+      "forms": [
+        {
+          "form": "Mitya",
+          "kind": "diminutive",
+          "register": "familiar",
+          "gloss": "The everyday short form, used by family and close friends. Warm, but ordinary.",
+          "count": 911,
+          "chapters": [
+            "b01-c01",
+            "b01-c02",
+            "b01-c03",
+            "b02-c06",
+            "b02-c07",
+            "b03-c03",
+            "b03-c04",
+            "b03-c05",
+            "b03-c09",
+            "b03-c10",
+            "b03-c11",
+            "b04-c02",
+            "b05-c05",
+            "b05-c06",
+            "b05-c07",
+            "b07-c03",
+            "b07-c04",
+            "b08-c01",
+            "b08-c02",
+            "b08-c03",
+            "b08-c04",
+            "b08-c05",
+            "b08-c06",
+            "b08-c07",
+            "b08-c08",
+            "b09-c01",
+            "b09-c02",
+            "b09-c03",
+            "b09-c04",
+            "b09-c05",
+            "b09-c06",
+            "b09-c07",
+            "b09-c08",
+            "b09-c09",
+            "b11-c01",
+            "b11-c02",
+            "b11-c03",
+            "b11-c04",
+            "b11-c05",
+            "b11-c06",
+            "b11-c07",
+            "b11-c10",
+            "b12-c01",
+            "b12-c02",
+            "b12-c03",
+            "b12-c04",
+            "b12-c05",
+            "b12-c06",
+            "b12-c07",
+            "b12-c09",
+            "b12-c10",
+            "b12-c14",
+            "b13-c01",
+            "b13-c02",
+            "b13-c03"
+          ],
+          "firstChapter": "b01-c01"
+        },
+        {
+          "form": "Dmitri",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 240,
+          "chapters": [
+            "b01-c01",
+            "b01-c03",
+            "b01-c04",
+            "b01-c05",
+            "b02-c01",
+            "b02-c02",
+            "b02-c05",
+            "b02-c06",
+            "b02-c07",
+            "b03-c01",
+            "b03-c03",
+            "b03-c04",
+            "b03-c05",
+            "b03-c08",
+            "b03-c09",
+            "b03-c10",
+            "b03-c11",
+            "b04-c03",
+            "b04-c04",
+            "b04-c05",
+            "b04-c06",
+            "b04-c07",
+            "b05-c02",
+            "b05-c03",
+            "b05-c05",
+            "b05-c06",
+            "b05-c07",
+            "b07-c02",
+            "b07-c03",
+            "b08-c01",
+            "b08-c02",
+            "b08-c03",
+            "b08-c05",
+            "b08-c06",
+            "b09-c01",
+            "b09-c04",
+            "b09-c06",
+            "b09-c07",
+            "b09-c08",
+            "b09-c09",
+            "b11-c02",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b11-c10",
+            "b12-c01",
+            "b12-c02",
+            "b12-c04",
+            "b12-c05",
+            "b12-c06",
+            "b12-c08",
+            "b13-c01"
+          ],
+          "firstChapter": "b01-c01"
+        },
+        {
+          "form": "Dmitri Fyodorovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Fyodorovitch” means son or daughter of Fyodor, so the name states the parentage every time it is spoken.",
+          "count": 140,
+          "chapters": [
+            "b01-c02",
+            "b02-c01",
+            "b02-c04",
+            "b02-c05",
+            "b02-c06",
+            "b02-c07",
+            "b03-c10",
+            "b03-c11",
+            "b04-c04",
+            "b04-c05",
+            "b04-c06",
+            "b04-c07",
+            "b05-c02",
+            "b05-c06",
+            "b07-c03",
+            "b08-c03",
+            "b08-c05",
+            "b08-c06",
+            "b08-c07",
+            "b08-c08",
+            "b09-c01",
+            "b09-c02",
+            "b09-c03",
+            "b09-c04",
+            "b09-c05",
+            "b09-c06",
+            "b09-c07",
+            "b09-c08",
+            "b09-c09",
+            "b11-c02",
+            "b11-c03",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b12-c02",
+            "b12-c04",
+            "b12-c08",
+            "b13-c01"
+          ],
+          "firstChapter": "b01-c02"
+        },
+        {
+          "form": "Mityenka",
+          "kind": "diminutive",
+          "register": "tender",
+          "gloss": "The affectionate diminutive. Reserved for tenderness, pity, or coaxing — never neutral.",
+          "count": 3,
+          "chapters": [
+            "b08-c05",
+            "b08-c08"
+          ],
+          "firstChapter": "b08-c05"
+        }
+      ],
+      "total": 1294
+    },
+    {
+      "id": "ivan",
+      "name": "Ivan Fyodorovitch Karamazov",
+      "short": "Ivan",
+      "group": "family",
+      "patronymic": "Fyodorovitch",
+      "givenName": "Ivan",
+      "registerByChapter": {
+        "b01-c03": {
+          "formal": 4,
+          "neutral": 6
+        },
+        "b02-c05": {
+          "formal": 1,
+          "neutral": 10
+        },
+        "b02-c06": {
+          "formal": 3,
+          "neutral": 13
+        },
+        "b02-c08": {
+          "formal": 1,
+          "neutral": 14
+        },
+        "b04-c02": {
+          "formal": 1,
+          "neutral": 17
+        },
+        "b04-c04": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b04-c05": {
+          "formal": 8,
+          "neutral": 27
+        },
+        "b05-c02": {
+          "formal": 3,
+          "neutral": 4
+        },
+        "b05-c06": {
+          "formal": 5,
+          "neutral": 42
+        },
+        "b08-c03": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b10-c01": {
+          "formal": 1
+        },
+        "b11-c01": {
+          "formal": 2,
+          "neutral": 7
+        },
+        "b11-c02": {
+          "formal": 4
+        },
+        "b11-c03": {
+          "formal": 1
+        },
+        "b11-c04": {
+          "formal": 1,
+          "neutral": 20
+        },
+        "b12-c06": {
+          "formal": 1,
+          "neutral": 2
+        },
+        "b12-c08": {
+          "formal": 5,
+          "neutral": 5
+        },
+        "b12-c11": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b13-c01": {
+          "formal": 7
+        },
+        "b01-c01": {
+          "neutral": 1
+        },
+        "b01-c04": {
+          "neutral": 2
+        },
+        "b01-c05": {
+          "neutral": 12
+        },
+        "b02-c01": {
+          "neutral": 1
+        },
+        "b02-c02": {
+          "neutral": 2
+        },
+        "b02-c07": {
+          "neutral": 15
+        },
+        "b03-c01": {
+          "neutral": 2
+        },
+        "b03-c03": {
+          "neutral": 2
+        },
+        "b03-c04": {
+          "neutral": 5
+        },
+        "b03-c05": {
+          "neutral": 13
+        },
+        "b03-c06": {
+          "neutral": 2
+        },
+        "b03-c07": {
+          "neutral": 9
+        },
+        "b03-c08": {
+          "neutral": 29
+        },
+        "b03-c09": {
+          "neutral": 26
+        },
+        "b03-c10": {
+          "neutral": 2
+        },
+        "b05-c01": {
+          "neutral": 1
+        },
+        "b05-c03": {
+          "neutral": 25
+        },
+        "b05-c04": {
+          "neutral": 12
+        },
+        "b05-c05": {
+          "neutral": 17
+        },
+        "b05-c07": {
+          "neutral": 20
+        },
+        "b07-c02": {
+          "neutral": 5
+        },
+        "b08-c01": {
+          "neutral": 1
+        },
+        "b08-c04": {
+          "neutral": 1
+        },
+        "b11-c05": {
+          "neutral": 35
+        },
+        "b11-c06": {
+          "neutral": 51
+        },
+        "b11-c07": {
+          "neutral": 41
+        },
+        "b11-c08": {
+          "neutral": 69
+        },
+        "b11-c09": {
+          "neutral": 43
+        },
+        "b11-c10": {
+          "neutral": 23
+        },
+        "b12-c02": {
+          "neutral": 1
+        },
+        "b12-c04": {
+          "neutral": 1
+        },
+        "b12-c05": {
+          "neutral": 14
+        },
+        "b12-c07": {
+          "neutral": 2
+        },
+        "b12-c12": {
+          "neutral": 1
+        },
+        "b13-c02": {
+          "neutral": 6
+        }
+      },
+      "fatherName": "Fyodor",
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Ivan",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 663,
+          "chapters": [
+            "b01-c01",
+            "b01-c03",
+            "b01-c04",
+            "b01-c05",
+            "b02-c01",
+            "b02-c02",
+            "b02-c05",
+            "b02-c06",
+            "b02-c07",
+            "b02-c08",
+            "b03-c01",
+            "b03-c03",
+            "b03-c04",
+            "b03-c05",
+            "b03-c06",
+            "b03-c07",
+            "b03-c08",
+            "b03-c09",
+            "b03-c10",
+            "b04-c02",
+            "b04-c04",
+            "b04-c05",
+            "b05-c01",
+            "b05-c02",
+            "b05-c03",
+            "b05-c04",
+            "b05-c05",
+            "b05-c06",
+            "b05-c07",
+            "b07-c02",
+            "b08-c01",
+            "b08-c03",
+            "b08-c04",
+            "b11-c01",
+            "b11-c04",
+            "b11-c05",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b11-c09",
+            "b11-c10",
+            "b12-c02",
+            "b12-c04",
+            "b12-c05",
+            "b12-c06",
+            "b12-c07",
+            "b12-c08",
+            "b12-c11",
+            "b12-c12",
+            "b13-c02"
+          ],
+          "firstChapter": "b01-c01"
+        },
+        {
+          "form": "Ivan Fyodorovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Fyodorovitch” means son or daughter of Fyodor, so the name states the parentage every time it is spoken.",
+          "count": 51,
+          "chapters": [
+            "b01-c03",
+            "b02-c05",
+            "b02-c06",
+            "b02-c08",
+            "b04-c02",
+            "b04-c04",
+            "b04-c05",
+            "b05-c02",
+            "b05-c06",
+            "b08-c03",
+            "b10-c01",
+            "b11-c01",
+            "b11-c02",
+            "b11-c03",
+            "b11-c04",
+            "b12-c06",
+            "b12-c08",
+            "b12-c11",
+            "b13-c01"
+          ],
+          "firstChapter": "b01-c03"
+        }
+      ],
+      "total": 714
+    },
+    {
+      "id": "alyosha",
+      "name": "Alexey Fyodorovitch Karamazov",
+      "short": "Alyosha",
+      "group": "family",
+      "patronymic": "Fyodorovitch",
+      "givenName": "Alexey",
+      "registerByChapter": {
+        "b01-c01": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b02-c04": {
+          "formal": 2,
+          "familiar": 12,
+          "neutral": 1
+        },
+        "b02-c07": {
+          "formal": 2,
+          "familiar": 24,
+          "neutral": 1
+        },
+        "b03-c10": {
+          "formal": 10,
+          "familiar": 45,
+          "neutral": 3
+        },
+        "b03-c11": {
+          "formal": 2,
+          "familiar": 25,
+          "neutral": 4
+        },
+        "b04-c02": {
+          "formal": 3,
+          "familiar": 18,
+          "neutral": 1
+        },
+        "b04-c04": {
+          "formal": 14,
+          "familiar": 16,
+          "neutral": 3
+        },
+        "b04-c05": {
+          "formal": 17,
+          "familiar": 44,
+          "neutral": 1
+        },
+        "b04-c06": {
+          "formal": 4,
+          "familiar": 39,
+          "neutral": 1
+        },
+        "b04-c07": {
+          "formal": 7,
+          "familiar": 23
+        },
+        "b05-c01": {
+          "formal": 13,
+          "familiar": 48,
+          "neutral": 5
+        },
+        "b05-c06": {
+          "formal": 1,
+          "familiar": 5
+        },
+        "b06-c01": {
+          "formal": 3,
+          "familiar": 10,
+          "neutral": 5
+        },
+        "b06-c03": {
+          "formal": 2
+        },
+        "b10-c05": {
+          "formal": 1,
+          "familiar": 22
+        },
+        "b11-c02": {
+          "formal": 6,
+          "familiar": 22,
+          "neutral": 2
+        },
+        "b11-c05": {
+          "formal": 6,
+          "familiar": 37,
+          "neutral": 1
+        },
+        "b11-c07": {
+          "formal": 1,
+          "familiar": 7
+        },
+        "b12-c04": {
+          "formal": 1,
+          "familiar": 22
+        },
+        "b13-c01": {
+          "formal": 1,
+          "familiar": 18
+        },
+        "b01-c04": {
+          "familiar": 22
+        },
+        "b01-c05": {
+          "familiar": 30
+        },
+        "b02-c01": {
+          "familiar": 1
+        },
+        "b02-c02": {
+          "familiar": 8
+        },
+        "b02-c05": {
+          "familiar": 5
+        },
+        "b02-c06": {
+          "familiar": 4
+        },
+        "b02-c08": {
+          "familiar": 7,
+          "neutral": 4
+        },
+        "b03-c01": {
+          "familiar": 5
+        },
+        "b03-c03": {
+          "familiar": 22
+        },
+        "b03-c04": {
+          "familiar": 8
+        },
+        "b03-c05": {
+          "familiar": 12,
+          "neutral": 2
+        },
+        "b03-c06": {
+          "familiar": 8
+        },
+        "b03-c07": {
+          "familiar": 9
+        },
+        "b03-c08": {
+          "familiar": 23,
+          "neutral": 2
+        },
+        "b03-c09": {
+          "familiar": 30,
+          "neutral": 2
+        },
+        "b04-c01": {
+          "familiar": 21
+        },
+        "b04-c03": {
+          "familiar": 35
+        },
+        "b05-c02": {
+          "familiar": 21
+        },
+        "b05-c03": {
+          "familiar": 33,
+          "neutral": 1
+        },
+        "b05-c04": {
+          "familiar": 22
+        },
+        "b05-c05": {
+          "familiar": 17
+        },
+        "b05-c07": {
+          "familiar": 5
+        },
+        "b07-c01": {
+          "familiar": 11
+        },
+        "b07-c02": {
+          "familiar": 32,
+          "neutral": 1
+        },
+        "b07-c03": {
+          "familiar": 72,
+          "neutral": 2
+        },
+        "b07-c04": {
+          "familiar": 15
+        },
+        "b08-c01": {
+          "familiar": 5
+        },
+        "b08-c03": {
+          "familiar": 4
+        },
+        "b08-c04": {
+          "familiar": 3
+        },
+        "b08-c05": {
+          "familiar": 2
+        },
+        "b08-c06": {
+          "familiar": 1
+        },
+        "b08-c08": {
+          "familiar": 3
+        },
+        "b09-c07": {
+          "familiar": 1
+        },
+        "b10-c03": {
+          "familiar": 1,
+          "neutral": 5
+        },
+        "b10-c04": {
+          "familiar": 12
+        },
+        "b10-c06": {
+          "familiar": 24
+        },
+        "b10-c07": {
+          "familiar": 11
+        },
+        "b11-c01": {
+          "familiar": 35
+        },
+        "b11-c03": {
+          "familiar": 37
+        },
+        "b11-c04": {
+          "familiar": 53,
+          "neutral": 7
+        },
+        "b11-c06": {
+          "familiar": 17
+        },
+        "b11-c08": {
+          "familiar": 1
+        },
+        "b11-c09": {
+          "familiar": 8
+        },
+        "b11-c10": {
+          "familiar": 40
+        },
+        "b12-c02": {
+          "familiar": 1,
+          "neutral": 2
+        },
+        "b12-c03": {
+          "familiar": 1
+        },
+        "b12-c05": {
+          "familiar": 4
+        },
+        "b12-c07": {
+          "familiar": 1
+        },
+        "b13-c02": {
+          "familiar": 35
+        },
+        "b13-c03": {
+          "familiar": 26
+        },
+        "b01-c03": {
+          "neutral": 6
+        },
+        "b02-c03": {
+          "neutral": 2
+        },
+        "b12-c11": {
+          "neutral": 1
+        }
+      },
+      "fatherName": "Fyodor",
+      "warmestRegister": "familiar",
+      "forms": [
+        {
+          "form": "Alyosha",
+          "kind": "diminutive",
+          "register": "familiar",
+          "gloss": "The everyday short form, used by family and close friends. Warm, but ordinary.",
+          "count": 1241,
+          "chapters": [
+            "b01-c04",
+            "b01-c05",
+            "b02-c01",
+            "b02-c02",
+            "b02-c04",
+            "b02-c05",
+            "b02-c06",
+            "b02-c07",
+            "b02-c08",
+            "b03-c01",
+            "b03-c03",
+            "b03-c04",
+            "b03-c05",
+            "b03-c06",
+            "b03-c07",
+            "b03-c08",
+            "b03-c09",
+            "b03-c10",
+            "b03-c11",
+            "b04-c01",
+            "b04-c02",
+            "b04-c03",
+            "b04-c04",
+            "b04-c05",
+            "b04-c06",
+            "b04-c07",
+            "b05-c01",
+            "b05-c02",
+            "b05-c03",
+            "b05-c04",
+            "b05-c05",
+            "b05-c06",
+            "b05-c07",
+            "b06-c01",
+            "b07-c01",
+            "b07-c02",
+            "b07-c03",
+            "b07-c04",
+            "b08-c01",
+            "b08-c03",
+            "b08-c04",
+            "b08-c05",
+            "b08-c06",
+            "b08-c08",
+            "b09-c07",
+            "b10-c03",
+            "b10-c04",
+            "b10-c05",
+            "b10-c06",
+            "b10-c07",
+            "b11-c01",
+            "b11-c02",
+            "b11-c03",
+            "b11-c04",
+            "b11-c05",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b11-c09",
+            "b11-c10",
+            "b12-c02",
+            "b12-c03",
+            "b12-c04",
+            "b12-c05",
+            "b12-c07",
+            "b13-c01",
+            "b13-c02",
+            "b13-c03"
+          ],
+          "firstChapter": "b01-c04"
+        },
+        {
+          "form": "Alexey Fyodorovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Fyodorovitch” means son or daughter of Fyodor, so the name states the parentage every time it is spoken.",
+          "count": 97,
+          "chapters": [
+            "b01-c01",
+            "b02-c04",
+            "b02-c07",
+            "b03-c10",
+            "b03-c11",
+            "b04-c02",
+            "b04-c04",
+            "b04-c05",
+            "b04-c06",
+            "b04-c07",
+            "b05-c01",
+            "b05-c06",
+            "b06-c01",
+            "b06-c03",
+            "b10-c05",
+            "b11-c02",
+            "b11-c05",
+            "b11-c07",
+            "b12-c04",
+            "b13-c01"
+          ],
+          "firstChapter": "b01-c01"
+        },
+        {
+          "form": "Alexey",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 66,
+          "chapters": [
+            "b01-c01",
+            "b01-c03",
+            "b02-c03",
+            "b02-c04",
+            "b02-c07",
+            "b02-c08",
+            "b03-c05",
+            "b03-c08",
+            "b03-c09",
+            "b03-c10",
+            "b03-c11",
+            "b04-c02",
+            "b04-c04",
+            "b04-c05",
+            "b04-c06",
+            "b05-c01",
+            "b05-c03",
+            "b06-c01",
+            "b07-c02",
+            "b07-c03",
+            "b10-c03",
+            "b11-c02",
+            "b11-c04",
+            "b11-c05",
+            "b12-c02",
+            "b12-c11"
+          ],
+          "firstChapter": "b01-c01"
+        }
+      ],
+      "total": 1404
+    },
+    {
+      "id": "smerdyakov",
+      "name": "Pavel Smerdyakov",
+      "short": "Smerdyakov",
+      "group": "family",
+      "patronymic": "Fyodorovitch",
+      "givenName": "Pavel",
+      "registerByChapter": {
+        "b05-c02": {
+          "formal": 1,
+          "distanced": 11
+        },
+        "b02-c06": {
+          "distanced": 1
+        },
+        "b03-c01": {
+          "distanced": 1
+        },
+        "b03-c02": {
+          "distanced": 4
+        },
+        "b03-c05": {
+          "distanced": 3
+        },
+        "b03-c06": {
+          "distanced": 16
+        },
+        "b03-c07": {
+          "distanced": 10
+        },
+        "b03-c08": {
+          "distanced": 3
+        },
+        "b03-c09": {
+          "distanced": 7
+        },
+        "b04-c02": {
+          "distanced": 1
+        },
+        "b05-c03": {
+          "distanced": 3
+        },
+        "b05-c06": {
+          "distanced": 32
+        },
+        "b05-c07": {
+          "distanced": 12
+        },
+        "b08-c03": {
+          "distanced": 4
+        },
+        "b08-c04": {
+          "distanced": 5
+        },
+        "b09-c02": {
+          "distanced": 5
+        },
+        "b09-c04": {
+          "distanced": 1
+        },
+        "b09-c05": {
+          "distanced": 19
+        },
+        "b09-c06": {
+          "distanced": 7
+        },
+        "b10-c04": {
+          "distanced": 1
+        },
+        "b11-c05": {
+          "distanced": 4
+        },
+        "b11-c06": {
+          "distanced": 33
+        },
+        "b11-c07": {
+          "distanced": 36
+        },
+        "b11-c08": {
+          "distanced": 39
+        },
+        "b11-c09": {
+          "distanced": 3
+        },
+        "b11-c10": {
+          "distanced": 8
+        },
+        "b12-c01": {
+          "distanced": 3
+        },
+        "b12-c02": {
+          "distanced": 3
+        },
+        "b12-c04": {
+          "distanced": 8
+        },
+        "b12-c05": {
+          "distanced": 8
+        },
+        "b12-c06": {
+          "distanced": 1
+        },
+        "b12-c07": {
+          "distanced": 2
+        },
+        "b12-c08": {
+          "distanced": 39
+        },
+        "b12-c09": {
+          "distanced": 9
+        },
+        "b12-c11": {
+          "distanced": 8
+        },
+        "b12-c12": {
+          "distanced": 19
+        },
+        "b12-c14": {
+          "distanced": 1
+        },
+        "b13-c02": {
+          "distanced": 1
+        }
+      },
+      "fatherName": "Fyodor",
+      "warmestRegister": "distanced",
+      "forms": [
+        {
+          "form": "Smerdyakov",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 371,
+          "chapters": [
+            "b02-c06",
+            "b03-c01",
+            "b03-c02",
+            "b03-c05",
+            "b03-c06",
+            "b03-c07",
+            "b03-c08",
+            "b03-c09",
+            "b04-c02",
+            "b05-c02",
+            "b05-c03",
+            "b05-c06",
+            "b05-c07",
+            "b08-c03",
+            "b08-c04",
+            "b09-c02",
+            "b09-c04",
+            "b09-c05",
+            "b09-c06",
+            "b10-c04",
+            "b11-c05",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b11-c09",
+            "b11-c10",
+            "b12-c01",
+            "b12-c02",
+            "b12-c04",
+            "b12-c05",
+            "b12-c06",
+            "b12-c07",
+            "b12-c08",
+            "b12-c09",
+            "b12-c11",
+            "b12-c12",
+            "b12-c14",
+            "b13-c02"
+          ],
+          "firstChapter": "b02-c06"
+        },
+        {
+          "form": "Pavel Fyodorovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Fyodorovitch” means son or daughter of Fyodor, so the name states the parentage every time it is spoken.",
+          "count": 1,
+          "chapters": [
+            "b05-c02"
+          ],
+          "firstChapter": "b05-c02"
+        }
+      ],
+      "total": 372
+    },
+    {
+      "id": "grushenka",
+      "name": "Agrafena Alexandrovna Svyetlov",
+      "short": "Grushenka",
+      "group": "women",
+      "patronymic": "Alexandrovna",
+      "givenName": "Agrafena",
+      "registerByChapter": {
+        "b03-c10": {
+          "formal": 1,
+          "tender": 13
+        },
+        "b04-c07": {
+          "formal": 1
+        },
+        "b05-c02": {
+          "formal": 1,
+          "tender": 1
+        },
+        "b05-c06": {
+          "formal": 8,
+          "tender": 3
+        },
+        "b07-c03": {
+          "formal": 5,
+          "tender": 50
+        },
+        "b08-c01": {
+          "formal": 2,
+          "tender": 30
+        },
+        "b08-c03": {
+          "formal": 1,
+          "tender": 7
+        },
+        "b08-c04": {
+          "formal": 1,
+          "tender": 4
+        },
+        "b08-c05": {
+          "formal": 1,
+          "tender": 6
+        },
+        "b08-c06": {
+          "formal": 1,
+          "tender": 3
+        },
+        "b09-c07": {
+          "formal": 1,
+          "tender": 1
+        },
+        "b09-c08": {
+          "formal": 5,
+          "tender": 18
+        },
+        "b11-c02": {
+          "formal": 1
+        },
+        "b11-c07": {
+          "formal": 1,
+          "tender": 2
+        },
+        "b11-c08": {
+          "formal": 2,
+          "tender": 3
+        },
+        "b12-c02": {
+          "formal": 1,
+          "tender": 3
+        },
+        "b02-c07": {
+          "tender": 10
+        },
+        "b03-c04": {
+          "tender": 1
+        },
+        "b03-c05": {
+          "tender": 15
+        },
+        "b03-c09": {
+          "tender": 6
+        },
+        "b03-c11": {
+          "tender": 9
+        },
+        "b04-c02": {
+          "tender": 7
+        },
+        "b04-c03": {
+          "tender": 2
+        },
+        "b04-c05": {
+          "tender": 2
+        },
+        "b04-c06": {
+          "tender": 1
+        },
+        "b05-c07": {
+          "tender": 1
+        },
+        "b07-c02": {
+          "tender": 3
+        },
+        "b08-c02": {
+          "tender": 4
+        },
+        "b08-c07": {
+          "tender": 46
+        },
+        "b08-c08": {
+          "tender": 21,
+          "familiar": 1
+        },
+        "b09-c01": {
+          "tender": 1
+        },
+        "b09-c02": {
+          "tender": 1
+        },
+        "b09-c03": {
+          "tender": 7,
+          "familiar": 1
+        },
+        "b09-c04": {
+          "tender": 3
+        },
+        "b09-c05": {
+          "tender": 4
+        },
+        "b09-c09": {
+          "tender": 2,
+          "familiar": 1
+        },
+        "b11-c01": {
+          "tender": 39
+        },
+        "b11-c04": {
+          "tender": 5,
+          "familiar": 8
+        },
+        "b12-c01": {
+          "tender": 3
+        },
+        "b12-c04": {
+          "tender": 11
+        },
+        "b12-c05": {
+          "tender": 1
+        },
+        "b12-c07": {
+          "tender": 2
+        },
+        "b12-c09": {
+          "tender": 2
+        },
+        "b12-c11": {
+          "tender": 1
+        },
+        "b12-c14": {
+          "tender": 1
+        },
+        "b13-c01": {
+          "tender": 1
+        },
+        "b13-c02": {
+          "tender": 6,
+          "familiar": 7
+        },
+        "b13-c03": {
+          "tender": 1
+        }
+      },
+      "fatherName": "Alexander",
+      "warmestRegister": "tender",
+      "forms": [
+        {
+          "form": "Grushenka",
+          "kind": "diminutive",
+          "register": "tender",
+          "gloss": "The affectionate diminutive. Reserved for tenderness, pity, or coaxing — never neutral.",
+          "count": 363,
+          "chapters": [
+            "b02-c07",
+            "b03-c04",
+            "b03-c05",
+            "b03-c09",
+            "b03-c10",
+            "b03-c11",
+            "b04-c02",
+            "b04-c03",
+            "b04-c05",
+            "b04-c06",
+            "b05-c02",
+            "b05-c06",
+            "b05-c07",
+            "b07-c02",
+            "b07-c03",
+            "b08-c01",
+            "b08-c02",
+            "b08-c03",
+            "b08-c04",
+            "b08-c05",
+            "b08-c06",
+            "b08-c07",
+            "b08-c08",
+            "b09-c01",
+            "b09-c02",
+            "b09-c03",
+            "b09-c04",
+            "b09-c05",
+            "b09-c07",
+            "b09-c08",
+            "b09-c09",
+            "b11-c01",
+            "b11-c04",
+            "b11-c07",
+            "b11-c08",
+            "b12-c01",
+            "b12-c02",
+            "b12-c04",
+            "b12-c05",
+            "b12-c07",
+            "b12-c09",
+            "b12-c11",
+            "b12-c14",
+            "b13-c01",
+            "b13-c02",
+            "b13-c03"
+          ],
+          "firstChapter": "b02-c07"
+        },
+        {
+          "form": "Agrafena Alexandrovna",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Alexandrovna” means son or daughter of Alexander, so the name states the parentage every time it is spoken.",
+          "count": 33,
+          "chapters": [
+            "b03-c10",
+            "b04-c07",
+            "b05-c02",
+            "b05-c06",
+            "b07-c03",
+            "b08-c01",
+            "b08-c03",
+            "b08-c04",
+            "b08-c05",
+            "b08-c06",
+            "b09-c07",
+            "b09-c08",
+            "b11-c02",
+            "b11-c07",
+            "b11-c08",
+            "b12-c02"
+          ],
+          "firstChapter": "b03-c10"
+        },
+        {
+          "form": "Grusha",
+          "kind": "diminutive",
+          "register": "familiar",
+          "gloss": "The everyday short form, used by family and close friends. Warm, but ordinary.",
+          "count": 18,
+          "chapters": [
+            "b08-c08",
+            "b09-c03",
+            "b09-c09",
+            "b11-c04",
+            "b13-c02"
+          ],
+          "firstChapter": "b08-c08"
+        }
+      ],
+      "total": 414
+    },
+    {
+      "id": "katerina",
+      "name": "Katerina Ivanovna Verhovtsev",
+      "short": "Katerina",
+      "group": "women",
+      "patronymic": "Ivanovna",
+      "givenName": "Katerina",
+      "registerByChapter": {
+        "b02-c04": {
+          "formal": 2
+        },
+        "b02-c07": {
+          "formal": 6,
+          "neutral": 2,
+          "familiar": 1
+        },
+        "b03-c03": {
+          "formal": 3,
+          "neutral": 1
+        },
+        "b03-c04": {
+          "formal": 3,
+          "familiar": 1
+        },
+        "b03-c05": {
+          "formal": 4,
+          "neutral": 1,
+          "familiar": 4
+        },
+        "b03-c09": {
+          "formal": 3
+        },
+        "b03-c10": {
+          "formal": 28,
+          "neutral": 5
+        },
+        "b03-c11": {
+          "formal": 7,
+          "neutral": 1,
+          "familiar": 4
+        },
+        "b04-c02": {
+          "formal": 1
+        },
+        "b04-c04": {
+          "formal": 3
+        },
+        "b04-c05": {
+          "formal": 18,
+          "neutral": 3
+        },
+        "b04-c06": {
+          "formal": 2,
+          "neutral": 1
+        },
+        "b04-c07": {
+          "formal": 2
+        },
+        "b05-c01": {
+          "formal": 2
+        },
+        "b05-c03": {
+          "formal": 4
+        },
+        "b05-c07": {
+          "formal": 4
+        },
+        "b08-c01": {
+          "formal": 4,
+          "neutral": 1,
+          "familiar": 2
+        },
+        "b08-c03": {
+          "formal": 5,
+          "neutral": 1,
+          "familiar": 2
+        },
+        "b09-c07": {
+          "formal": 5,
+          "familiar": 6
+        },
+        "b09-c08": {
+          "formal": 2,
+          "neutral": 1
+        },
+        "b10-c05": {
+          "formal": 2,
+          "neutral": 2
+        },
+        "b11-c01": {
+          "formal": 7,
+          "neutral": 7
+        },
+        "b11-c04": {
+          "formal": 1,
+          "neutral": 1,
+          "familiar": 2
+        },
+        "b11-c05": {
+          "formal": 7,
+          "familiar": 1
+        },
+        "b11-c06": {
+          "formal": 3,
+          "neutral": 2
+        },
+        "b11-c07": {
+          "formal": 8,
+          "neutral": 1,
+          "familiar": 3
+        },
+        "b11-c08": {
+          "formal": 1
+        },
+        "b11-c09": {
+          "formal": 2
+        },
+        "b12-c01": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b12-c03": {
+          "formal": 3
+        },
+        "b12-c04": {
+          "formal": 12,
+          "familiar": 2
+        },
+        "b12-c05": {
+          "formal": 6,
+          "neutral": 1,
+          "familiar": 9
+        },
+        "b12-c11": {
+          "formal": 3,
+          "neutral": 1
+        },
+        "b13-c01": {
+          "formal": 6,
+          "familiar": 11
+        },
+        "b13-c03": {
+          "formal": 2
+        },
+        "b07-c03": {
+          "neutral": 1
+        },
+        "b10-c02": {
+          "neutral": 6
+        },
+        "b08-c08": {
+          "familiar": 2
+        },
+        "b11-c02": {
+          "familiar": 6
+        },
+        "b11-c10": {
+          "familiar": 2
+        },
+        "b12-c14": {
+          "familiar": 1
+        },
+        "b13-c02": {
+          "familiar": 16
+        }
+      },
+      "fatherName": "Ivan",
+      "warmestRegister": "familiar",
+      "forms": [
+        {
+          "form": "Katerina Ivanovna",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Ivanovna” means son or daughter of Ivan, so the name states the parentage every time it is spoken.",
+          "count": 172,
+          "chapters": [
+            "b02-c04",
+            "b02-c07",
+            "b03-c03",
+            "b03-c04",
+            "b03-c05",
+            "b03-c09",
+            "b03-c10",
+            "b03-c11",
+            "b04-c02",
+            "b04-c04",
+            "b04-c05",
+            "b04-c06",
+            "b04-c07",
+            "b05-c01",
+            "b05-c03",
+            "b05-c07",
+            "b08-c01",
+            "b08-c03",
+            "b09-c07",
+            "b09-c08",
+            "b10-c05",
+            "b11-c01",
+            "b11-c04",
+            "b11-c05",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b11-c09",
+            "b12-c01",
+            "b12-c03",
+            "b12-c04",
+            "b12-c05",
+            "b12-c11",
+            "b13-c01",
+            "b13-c03"
+          ],
+          "firstChapter": "b02-c04"
+        },
+        {
+          "form": "Katya",
+          "kind": "diminutive",
+          "register": "familiar",
+          "gloss": "The everyday short form, used by family and close friends. Warm, but ordinary.",
+          "count": 75,
+          "chapters": [
+            "b02-c07",
+            "b03-c04",
+            "b03-c05",
+            "b03-c11",
+            "b08-c01",
+            "b08-c03",
+            "b08-c08",
+            "b09-c07",
+            "b11-c02",
+            "b11-c04",
+            "b11-c05",
+            "b11-c07",
+            "b11-c10",
+            "b12-c04",
+            "b12-c05",
+            "b12-c14",
+            "b13-c01",
+            "b13-c02"
+          ],
+          "firstChapter": "b02-c07"
+        },
+        {
+          "form": "Katerina",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 40,
+          "chapters": [
+            "b02-c07",
+            "b03-c03",
+            "b03-c05",
+            "b03-c10",
+            "b03-c11",
+            "b04-c05",
+            "b04-c06",
+            "b07-c03",
+            "b08-c01",
+            "b08-c03",
+            "b09-c08",
+            "b10-c02",
+            "b10-c05",
+            "b11-c01",
+            "b11-c04",
+            "b11-c06",
+            "b11-c07",
+            "b12-c01",
+            "b12-c05",
+            "b12-c11"
+          ],
+          "firstChapter": "b02-c07"
+        }
+      ],
+      "total": 287
+    },
+    {
+      "id": "hohlakov",
+      "name": "Madame Hohlakov",
+      "short": "Hohlakov",
+      "group": "women",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b02-c01": {
+          "neutral": 1
+        },
+        "b02-c03": {
+          "neutral": 2
+        },
+        "b03-c03": {
+          "neutral": 1
+        },
+        "b03-c10": {
+          "neutral": 1
+        },
+        "b03-c11": {
+          "neutral": 1
+        },
+        "b04-c01": {
+          "neutral": 4,
+          "distanced": 1
+        },
+        "b04-c03": {
+          "neutral": 1
+        },
+        "b04-c04": {
+          "neutral": 6,
+          "distanced": 1
+        },
+        "b04-c05": {
+          "neutral": 10,
+          "distanced": 3
+        },
+        "b05-c01": {
+          "neutral": 4
+        },
+        "b05-c03": {
+          "neutral": 1
+        },
+        "b07-c01": {
+          "neutral": 1
+        },
+        "b07-c02": {
+          "neutral": 1
+        },
+        "b08-c03": {
+          "neutral": 13,
+          "distanced": 1
+        },
+        "b08-c04": {
+          "neutral": 1
+        },
+        "b08-c05": {
+          "neutral": 2,
+          "distanced": 1
+        },
+        "b09-c01": {
+          "neutral": 11
+        },
+        "b09-c04": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b09-c05": {
+          "neutral": 2
+        },
+        "b09-c07": {
+          "neutral": 1
+        },
+        "b09-c08": {
+          "neutral": 1
+        },
+        "b10-c05": {
+          "neutral": 1
+        },
+        "b11-c02": {
+          "neutral": 10,
+          "distanced": 1
+        },
+        "b11-c03": {
+          "neutral": 1
+        },
+        "b11-c04": {
+          "neutral": 3
+        },
+        "b12-c07": {
+          "neutral": 1
+        },
+        "b13-c02": {
+          "neutral": 1
+        },
+        "b12-c01": {
+          "distanced": 1
+        },
+        "b13-c03": {
+          "distanced": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Madame Hohlakov",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 83,
+          "chapters": [
+            "b02-c01",
+            "b02-c03",
+            "b03-c03",
+            "b03-c10",
+            "b03-c11",
+            "b04-c01",
+            "b04-c03",
+            "b04-c04",
+            "b04-c05",
+            "b05-c01",
+            "b05-c03",
+            "b07-c01",
+            "b07-c02",
+            "b08-c03",
+            "b08-c04",
+            "b08-c05",
+            "b09-c01",
+            "b09-c04",
+            "b09-c05",
+            "b09-c07",
+            "b09-c08",
+            "b10-c05",
+            "b11-c02",
+            "b11-c03",
+            "b11-c04",
+            "b12-c07",
+            "b13-c02"
+          ],
+          "firstChapter": "b02-c01"
+        },
+        {
+          "form": "Hohlakov",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 11,
+          "chapters": [
+            "b04-c01",
+            "b04-c04",
+            "b04-c05",
+            "b08-c03",
+            "b08-c05",
+            "b09-c04",
+            "b11-c02",
+            "b12-c01",
+            "b13-c03"
+          ],
+          "firstChapter": "b04-c01"
+        }
+      ],
+      "total": 94
+    },
+    {
+      "id": "lise",
+      "name": "Lise Hohlakov",
+      "short": "Lise",
+      "group": "women",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b02-c04": {
+          "neutral": 16
+        },
+        "b03-c11": {
+          "neutral": 1
+        },
+        "b04-c04": {
+          "neutral": 23
+        },
+        "b04-c05": {
+          "neutral": 14
+        },
+        "b05-c01": {
+          "neutral": 50
+        },
+        "b05-c02": {
+          "neutral": 1
+        },
+        "b11-c02": {
+          "neutral": 19
+        },
+        "b11-c03": {
+          "neutral": 14
+        },
+        "b11-c05": {
+          "neutral": 1
+        },
+        "b11-c10": {
+          "neutral": 3
+        },
+        "b13-c02": {
+          "neutral": 1
+        },
+        "b13-c03": {
+          "neutral": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Lise",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 144,
+          "chapters": [
+            "b02-c04",
+            "b03-c11",
+            "b04-c04",
+            "b04-c05",
+            "b05-c01",
+            "b05-c02",
+            "b11-c02",
+            "b11-c03",
+            "b11-c05",
+            "b11-c10",
+            "b13-c02",
+            "b13-c03"
+          ],
+          "firstChapter": "b02-c04"
+        }
+      ],
+      "total": 144
+    },
+    {
+      "id": "zossima",
+      "name": "Father Zossima",
+      "short": "Zossima",
+      "group": "monastery",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b01-c05": {
+          "neutral": 3,
+          "distanced": 4
+        },
+        "b02-c01": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b02-c02": {
+          "neutral": 6,
+          "distanced": 1
+        },
+        "b02-c03": {
+          "neutral": 4
+        },
+        "b02-c05": {
+          "neutral": 3
+        },
+        "b02-c06": {
+          "neutral": 2,
+          "distanced": 2
+        },
+        "b02-c07": {
+          "neutral": 7
+        },
+        "b02-c08": {
+          "neutral": 3
+        },
+        "b03-c11": {
+          "neutral": 5,
+          "distanced": 1
+        },
+        "b04-c01": {
+          "neutral": 9,
+          "distanced": 1
+        },
+        "b04-c04": {
+          "neutral": 3,
+          "distanced": 1
+        },
+        "b04-c06": {
+          "neutral": 1
+        },
+        "b05-c01": {
+          "neutral": 1
+        },
+        "b05-c04": {
+          "neutral": 1,
+          "distanced": 1
+        },
+        "b06-c01": {
+          "neutral": 11,
+          "distanced": 2
+        },
+        "b06-c02": {
+          "neutral": 1
+        },
+        "b06-c03": {
+          "neutral": 1
+        },
+        "b07-c01": {
+          "neutral": 5,
+          "distanced": 4
+        },
+        "b07-c02": {
+          "neutral": 1
+        },
+        "b07-c03": {
+          "neutral": 2
+        },
+        "b07-c04": {
+          "neutral": 1
+        },
+        "b08-c03": {
+          "neutral": 2,
+          "distanced": 1
+        },
+        "b09-c01": {
+          "neutral": 1
+        },
+        "b09-c03": {
+          "neutral": 1
+        },
+        "b11-c02": {
+          "neutral": 3
+        },
+        "b11-c09": {
+          "neutral": 1
+        },
+        "b01-c04": {
+          "distanced": 2
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Father Zossima",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 79,
+          "chapters": [
+            "b01-c05",
+            "b02-c01",
+            "b02-c02",
+            "b02-c03",
+            "b02-c05",
+            "b02-c06",
+            "b02-c07",
+            "b02-c08",
+            "b03-c11",
+            "b04-c01",
+            "b04-c04",
+            "b04-c06",
+            "b05-c01",
+            "b05-c04",
+            "b06-c01",
+            "b06-c02",
+            "b06-c03",
+            "b07-c01",
+            "b07-c02",
+            "b07-c03",
+            "b07-c04",
+            "b08-c03",
+            "b09-c01",
+            "b09-c03",
+            "b11-c02",
+            "b11-c09"
+          ],
+          "firstChapter": "b01-c05"
+        },
+        {
+          "form": "Zossima",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 21,
+          "chapters": [
+            "b01-c04",
+            "b01-c05",
+            "b02-c01",
+            "b02-c02",
+            "b02-c06",
+            "b03-c11",
+            "b04-c01",
+            "b04-c04",
+            "b05-c04",
+            "b06-c01",
+            "b07-c01",
+            "b08-c03"
+          ],
+          "firstChapter": "b01-c04"
+        }
+      ],
+      "total": 100
+    },
+    {
+      "id": "ferapont",
+      "name": "Father Ferapont",
+      "short": "Ferapont",
+      "group": "monastery",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b04-c01": {
+          "neutral": 15,
+          "distanced": 1
+        },
+        "b07-c01": {
+          "neutral": 14,
+          "distanced": 3
+        },
+        "b07-c02": {
+          "neutral": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Father Ferapont",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 30,
+          "chapters": [
+            "b04-c01",
+            "b07-c01",
+            "b07-c02"
+          ],
+          "firstChapter": "b04-c01"
+        },
+        {
+          "form": "Ferapont",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 4,
+          "chapters": [
+            "b04-c01",
+            "b07-c01"
+          ],
+          "firstChapter": "b04-c01"
+        }
+      ],
+      "total": 34
+    },
+    {
+      "id": "paissy",
+      "name": "Father Paissy",
+      "short": "Paissy",
+      "group": "monastery",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b02-c02": {
+          "neutral": 1
+        },
+        "b02-c05": {
+          "neutral": 6
+        },
+        "b02-c06": {
+          "neutral": 3
+        },
+        "b02-c08": {
+          "neutral": 2
+        },
+        "b03-c11": {
+          "neutral": 3
+        },
+        "b04-c01": {
+          "neutral": 11
+        },
+        "b05-c01": {
+          "neutral": 1
+        },
+        "b05-c05": {
+          "neutral": 2
+        },
+        "b06-c01": {
+          "neutral": 5
+        },
+        "b07-c01": {
+          "neutral": 29
+        },
+        "b07-c02": {
+          "neutral": 3
+        },
+        "b07-c04": {
+          "neutral": 6
+        },
+        "b01-c05": {
+          "neutral": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Father Païssy",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 72,
+          "chapters": [
+            "b02-c02",
+            "b02-c05",
+            "b02-c06",
+            "b02-c08",
+            "b03-c11",
+            "b04-c01",
+            "b05-c01",
+            "b05-c05",
+            "b06-c01",
+            "b07-c01",
+            "b07-c02",
+            "b07-c04"
+          ],
+          "firstChapter": "b02-c02"
+        },
+        {
+          "form": "Païssy",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 1,
+          "chapters": [
+            "b01-c05"
+          ],
+          "firstChapter": "b01-c05"
+        }
+      ],
+      "total": 73
+    },
+    {
+      "id": "rakitin",
+      "name": "Mihail Rakitin",
+      "short": "Rakitin",
+      "group": "monastery",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b02-c02": {
+          "distanced": 2
+        },
+        "b02-c05": {
+          "distanced": 2
+        },
+        "b02-c07": {
+          "distanced": 11
+        },
+        "b02-c08": {
+          "distanced": 6
+        },
+        "b03-c03": {
+          "distanced": 2
+        },
+        "b03-c05": {
+          "distanced": 1
+        },
+        "b04-c01": {
+          "distanced": 3
+        },
+        "b07-c01": {
+          "distanced": 4
+        },
+        "b07-c02": {
+          "distanced": 13
+        },
+        "b07-c03": {
+          "distanced": 84
+        },
+        "b07-c04": {
+          "distanced": 2
+        },
+        "b08-c03": {
+          "distanced": 1
+        },
+        "b08-c05": {
+          "distanced": 1
+        },
+        "b10-c03": {
+          "distanced": 1
+        },
+        "b10-c06": {
+          "distanced": 2
+        },
+        "b11-c01": {
+          "distanced": 5
+        },
+        "b11-c02": {
+          "distanced": 8
+        },
+        "b11-c04": {
+          "distanced": 27
+        },
+        "b12-c02": {
+          "distanced": 15
+        },
+        "b12-c04": {
+          "distanced": 4
+        },
+        "b12-c06": {
+          "distanced": 1
+        },
+        "b12-c07": {
+          "distanced": 1
+        },
+        "b12-c09": {
+          "distanced": 1
+        },
+        "b13-c02": {
+          "distanced": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "distanced",
+      "forms": [
+        {
+          "form": "Rakitin",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 198,
+          "chapters": [
+            "b02-c02",
+            "b02-c05",
+            "b02-c07",
+            "b02-c08",
+            "b03-c03",
+            "b03-c05",
+            "b04-c01",
+            "b07-c01",
+            "b07-c02",
+            "b07-c03",
+            "b07-c04",
+            "b08-c03",
+            "b08-c05",
+            "b10-c03",
+            "b10-c06",
+            "b11-c01",
+            "b11-c02",
+            "b11-c04",
+            "b12-c02",
+            "b12-c04",
+            "b12-c06",
+            "b12-c07",
+            "b12-c09",
+            "b13-c02"
+          ],
+          "firstChapter": "b02-c02"
+        }
+      ],
+      "total": 198
+    },
+    {
+      "id": "ilusha",
+      "name": "Ilusha Snegiryov",
+      "short": "Ilusha",
+      "group": "boys",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b04-c06": {
+          "familiar": 3
+        },
+        "b04-c07": {
+          "familiar": 22
+        },
+        "b05-c01": {
+          "familiar": 1
+        },
+        "b07-c02": {
+          "familiar": 1
+        },
+        "b10-c01": {
+          "familiar": 1
+        },
+        "b10-c03": {
+          "familiar": 12
+        },
+        "b10-c04": {
+          "familiar": 10
+        },
+        "b10-c05": {
+          "familiar": 75
+        },
+        "b10-c06": {
+          "familiar": 1
+        },
+        "b10-c07": {
+          "familiar": 10
+        },
+        "b12-c02": {
+          "familiar": 2
+        },
+        "b13-c03": {
+          "familiar": 28
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "familiar",
+      "forms": [
+        {
+          "form": "Ilusha",
+          "kind": "diminutive",
+          "register": "familiar",
+          "gloss": "The everyday short form, used by family and close friends. Warm, but ordinary.",
+          "count": 166,
+          "chapters": [
+            "b04-c06",
+            "b04-c07",
+            "b05-c01",
+            "b07-c02",
+            "b10-c01",
+            "b10-c03",
+            "b10-c04",
+            "b10-c05",
+            "b10-c06",
+            "b10-c07",
+            "b12-c02",
+            "b13-c03"
+          ],
+          "firstChapter": "b04-c06"
+        }
+      ],
+      "total": 166
+    },
+    {
+      "id": "kolya",
+      "name": "Kolya Krassotkin",
+      "short": "Kolya",
+      "group": "boys",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b04-c03": {
+          "distanced": 3
+        },
+        "b04-c07": {
+          "distanced": 2
+        },
+        "b10-c01": {
+          "distanced": 6,
+          "familiar": 28
+        },
+        "b10-c02": {
+          "distanced": 17,
+          "familiar": 15
+        },
+        "b10-c03": {
+          "distanced": 5,
+          "familiar": 27
+        },
+        "b10-c04": {
+          "distanced": 4,
+          "familiar": 21
+        },
+        "b10-c05": {
+          "distanced": 24,
+          "familiar": 59
+        },
+        "b10-c07": {
+          "distanced": 5,
+          "familiar": 16
+        },
+        "b13-c03": {
+          "distanced": 2,
+          "familiar": 20
+        },
+        "b10-c06": {
+          "familiar": 24
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "familiar",
+      "forms": [
+        {
+          "form": "Kolya",
+          "kind": "diminutive",
+          "register": "familiar",
+          "gloss": "The everyday short form, used by family and close friends. Warm, but ordinary.",
+          "count": 210,
+          "chapters": [
+            "b10-c01",
+            "b10-c02",
+            "b10-c03",
+            "b10-c04",
+            "b10-c05",
+            "b10-c06",
+            "b10-c07",
+            "b13-c03"
+          ],
+          "firstChapter": "b10-c01"
+        },
+        {
+          "form": "Krassotkin",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 68,
+          "chapters": [
+            "b04-c03",
+            "b04-c07",
+            "b10-c01",
+            "b10-c02",
+            "b10-c03",
+            "b10-c04",
+            "b10-c05",
+            "b10-c07",
+            "b13-c03"
+          ],
+          "firstChapter": "b04-c03"
+        }
+      ],
+      "total": 278
+    },
+    {
+      "id": "snegiryov",
+      "name": "Captain Snegiryov",
+      "short": "Snegiryov",
+      "group": "boys",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b04-c05": {
+          "distanced": 1
+        },
+        "b04-c06": {
+          "distanced": 2
+        },
+        "b10-c01": {
+          "distanced": 1
+        },
+        "b10-c03": {
+          "distanced": 1
+        },
+        "b10-c05": {
+          "distanced": 3
+        },
+        "b12-c02": {
+          "distanced": 2
+        },
+        "b12-c07": {
+          "distanced": 1
+        },
+        "b13-c03": {
+          "distanced": 11
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "distanced",
+      "forms": [
+        {
+          "form": "Snegiryov",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 22,
+          "chapters": [
+            "b04-c05",
+            "b04-c06",
+            "b10-c01",
+            "b10-c03",
+            "b10-c05",
+            "b12-c02",
+            "b12-c07",
+            "b13-c03"
+          ],
+          "firstChapter": "b04-c05"
+        }
+      ],
+      "total": 22
+    },
+    {
+      "id": "smurov",
+      "name": "Smurov",
+      "short": "Smurov",
+      "group": "boys",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b04-c03": {
+          "distanced": 5
+        },
+        "b10-c03": {
+          "distanced": 22
+        },
+        "b10-c04": {
+          "distanced": 5
+        },
+        "b10-c05": {
+          "distanced": 18
+        },
+        "b10-c06": {
+          "distanced": 1
+        },
+        "b13-c03": {
+          "distanced": 4
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "distanced",
+      "forms": [
+        {
+          "form": "Smurov",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 55,
+          "chapters": [
+            "b04-c03",
+            "b10-c03",
+            "b10-c04",
+            "b10-c05",
+            "b10-c06",
+            "b13-c03"
+          ],
+          "firstChapter": "b04-c03"
+        }
+      ],
+      "total": 55
+    },
+    {
+      "id": "grigory",
+      "name": "Grigory Kutuzov",
+      "short": "Grigory",
+      "group": "town",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b01-c02": {
+          "neutral": 2
+        },
+        "b01-c03": {
+          "neutral": 4
+        },
+        "b01-c04": {
+          "neutral": 4
+        },
+        "b03-c01": {
+          "neutral": 21
+        },
+        "b03-c02": {
+          "neutral": 5
+        },
+        "b03-c06": {
+          "neutral": 13
+        },
+        "b03-c07": {
+          "neutral": 24
+        },
+        "b03-c08": {
+          "neutral": 1
+        },
+        "b03-c09": {
+          "neutral": 10
+        },
+        "b04-c02": {
+          "neutral": 1
+        },
+        "b05-c02": {
+          "neutral": 2
+        },
+        "b05-c06": {
+          "neutral": 8
+        },
+        "b05-c07": {
+          "neutral": 3
+        },
+        "b08-c04": {
+          "neutral": 9
+        },
+        "b08-c05": {
+          "neutral": 1
+        },
+        "b09-c02": {
+          "neutral": 11
+        },
+        "b09-c03": {
+          "neutral": 3
+        },
+        "b09-c04": {
+          "neutral": 1
+        },
+        "b09-c05": {
+          "neutral": 3
+        },
+        "b09-c06": {
+          "neutral": 6
+        },
+        "b11-c01": {
+          "neutral": 2
+        },
+        "b11-c02": {
+          "neutral": 4
+        },
+        "b11-c04": {
+          "neutral": 3
+        },
+        "b11-c06": {
+          "neutral": 5
+        },
+        "b11-c07": {
+          "neutral": 1
+        },
+        "b11-c08": {
+          "neutral": 9
+        },
+        "b12-c02": {
+          "neutral": 12
+        },
+        "b12-c08": {
+          "neutral": 9
+        },
+        "b12-c09": {
+          "neutral": 6
+        },
+        "b12-c10": {
+          "neutral": 2
+        },
+        "b12-c12": {
+          "neutral": 7
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Grigory",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 192,
+          "chapters": [
+            "b01-c02",
+            "b01-c03",
+            "b01-c04",
+            "b03-c01",
+            "b03-c02",
+            "b03-c06",
+            "b03-c07",
+            "b03-c08",
+            "b03-c09",
+            "b04-c02",
+            "b05-c02",
+            "b05-c06",
+            "b05-c07",
+            "b08-c04",
+            "b08-c05",
+            "b09-c02",
+            "b09-c03",
+            "b09-c04",
+            "b09-c05",
+            "b09-c06",
+            "b11-c01",
+            "b11-c02",
+            "b11-c04",
+            "b11-c06",
+            "b11-c07",
+            "b11-c08",
+            "b12-c02",
+            "b12-c08",
+            "b12-c09",
+            "b12-c10",
+            "b12-c12"
+          ],
+          "firstChapter": "b01-c02"
+        }
+      ],
+      "total": 192
+    },
+    {
+      "id": "marfa",
+      "name": "Marfa Ignatyevna",
+      "short": "Marfa",
+      "group": "town",
+      "patronymic": "Ignatyevna",
+      "givenName": "Marfa",
+      "registerByChapter": {
+        "b03-c01": {
+          "formal": 5,
+          "neutral": 6
+        },
+        "b04-c02": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b05-c06": {
+          "formal": 4
+        },
+        "b05-c07": {
+          "formal": 7,
+          "neutral": 1
+        },
+        "b08-c04": {
+          "formal": 2
+        },
+        "b09-c02": {
+          "formal": 2,
+          "neutral": 8
+        },
+        "b11-c06": {
+          "formal": 1,
+          "neutral": 1
+        },
+        "b11-c08": {
+          "formal": 4
+        },
+        "b12-c08": {
+          "formal": 2
+        },
+        "b03-c02": {
+          "neutral": 3
+        },
+        "b03-c03": {
+          "neutral": 1
+        },
+        "b03-c06": {
+          "neutral": 5
+        },
+        "b03-c08": {
+          "neutral": 1
+        },
+        "b05-c02": {
+          "neutral": 1
+        },
+        "b12-c02": {
+          "neutral": 1
+        }
+      },
+      "fatherName": "Ignat",
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Marfa",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 29,
+          "chapters": [
+            "b03-c01",
+            "b03-c02",
+            "b03-c03",
+            "b03-c06",
+            "b03-c08",
+            "b04-c02",
+            "b05-c02",
+            "b05-c07",
+            "b09-c02",
+            "b11-c06",
+            "b12-c02"
+          ],
+          "firstChapter": "b03-c01"
+        },
+        {
+          "form": "Marfa Ignatyevna",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Ignatyevna” means son or daughter of Ignat, so the name states the parentage every time it is spoken.",
+          "count": 28,
+          "chapters": [
+            "b03-c01",
+            "b04-c02",
+            "b05-c06",
+            "b05-c07",
+            "b08-c04",
+            "b09-c02",
+            "b11-c06",
+            "b11-c08",
+            "b12-c08"
+          ],
+          "firstChapter": "b03-c01"
+        }
+      ],
+      "total": 57
+    },
+    {
+      "id": "samsonov",
+      "name": "Kuzma Samsonov",
+      "short": "Samsonov",
+      "group": "town",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b08-c01": {
+          "neutral": 1,
+          "distanced": 13
+        },
+        "b02-c07": {
+          "distanced": 1
+        },
+        "b05-c06": {
+          "distanced": 1
+        },
+        "b07-c03": {
+          "distanced": 4
+        },
+        "b08-c02": {
+          "distanced": 6
+        },
+        "b08-c03": {
+          "distanced": 8
+        },
+        "b08-c04": {
+          "distanced": 1
+        },
+        "b09-c04": {
+          "distanced": 4
+        },
+        "b09-c07": {
+          "distanced": 1
+        },
+        "b09-c08": {
+          "distanced": 1
+        },
+        "b12-c02": {
+          "distanced": 1
+        },
+        "b12-c04": {
+          "distanced": 1
+        },
+        "b12-c07": {
+          "distanced": 3
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "neutral",
+      "forms": [
+        {
+          "form": "Samsonov",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 45,
+          "chapters": [
+            "b02-c07",
+            "b05-c06",
+            "b07-c03",
+            "b08-c01",
+            "b08-c02",
+            "b08-c03",
+            "b08-c04",
+            "b09-c04",
+            "b09-c07",
+            "b09-c08",
+            "b12-c02",
+            "b12-c04",
+            "b12-c07"
+          ],
+          "firstChapter": "b02-c07"
+        },
+        {
+          "form": "Kuzma Samsonov",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 1,
+          "chapters": [
+            "b08-c01"
+          ],
+          "firstChapter": "b08-c01"
+        }
+      ],
+      "total": 46
+    },
+    {
+      "id": "lizaveta",
+      "name": "Lizaveta Smerdyastchaya",
+      "short": "Lizaveta",
+      "group": "town",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b09-c02": {
+          "familiar": 1
+        },
+        "b02-c03": {
+          "neutral": 2
+        },
+        "b03-c01": {
+          "neutral": 2
+        },
+        "b03-c02": {
+          "neutral": 9
+        },
+        "b06-c01": {
+          "neutral": 2
+        },
+        "b08-c04": {
+          "neutral": 1
+        },
+        "b11-c04": {
+          "neutral": 1
+        },
+        "b12-c12": {
+          "neutral": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "familiar",
+      "forms": [
+        {
+          "form": "Lizaveta",
+          "kind": "given",
+          "register": "neutral",
+          "gloss": "The plain given name — more formal than a diminutive, less formal than name plus patronymic.",
+          "count": 18,
+          "chapters": [
+            "b02-c03",
+            "b03-c01",
+            "b03-c02",
+            "b06-c01",
+            "b08-c04",
+            "b11-c04",
+            "b12-c12"
+          ],
+          "firstChapter": "b02-c03"
+        },
+        {
+          "form": "Lizaveta Smerdyastchaya",
+          "kind": "diminutive",
+          "register": "familiar",
+          "gloss": "The everyday short form, used by family and close friends. Warm, but ordinary.",
+          "count": 1,
+          "chapters": [
+            "b09-c02"
+          ],
+          "firstChapter": "b09-c02"
+        }
+      ],
+      "total": 19
+    },
+    {
+      "id": "maximov",
+      "name": "Maximov",
+      "short": "Maximov",
+      "group": "town",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b02-c01": {
+          "distanced": 6
+        },
+        "b02-c07": {
+          "distanced": 1
+        },
+        "b02-c08": {
+          "distanced": 6
+        },
+        "b08-c06": {
+          "distanced": 3
+        },
+        "b08-c07": {
+          "distanced": 25
+        },
+        "b08-c08": {
+          "distanced": 12
+        },
+        "b09-c03": {
+          "distanced": 3
+        },
+        "b09-c08": {
+          "distanced": 2
+        },
+        "b11-c01": {
+          "distanced": 4
+        },
+        "b12-c01": {
+          "distanced": 1
+        },
+        "b12-c11": {
+          "distanced": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "distanced",
+      "forms": [
+        {
+          "form": "Maximov",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 64,
+          "chapters": [
+            "b02-c01",
+            "b02-c07",
+            "b02-c08",
+            "b08-c06",
+            "b08-c07",
+            "b08-c08",
+            "b09-c03",
+            "b09-c08",
+            "b11-c01",
+            "b12-c01",
+            "b12-c11"
+          ],
+          "firstChapter": "b02-c01"
+        }
+      ],
+      "total": 64
+    },
+    {
+      "id": "perhotin",
+      "name": "Pyotr Perhotin",
+      "short": "Perhotin",
+      "group": "town",
+      "patronymic": null,
+      "givenName": null,
+      "registerByChapter": {
+        "b08-c05": {
+          "distanced": 3
+        },
+        "b09-c01": {
+          "distanced": 5
+        },
+        "b09-c04": {
+          "distanced": 1
+        },
+        "b09-c05": {
+          "distanced": 7
+        },
+        "b09-c06": {
+          "distanced": 1
+        },
+        "b09-c07": {
+          "distanced": 2
+        },
+        "b11-c02": {
+          "distanced": 3
+        },
+        "b11-c04": {
+          "distanced": 1
+        },
+        "b11-c06": {
+          "distanced": 1
+        },
+        "b12-c01": {
+          "distanced": 1
+        },
+        "b12-c09": {
+          "distanced": 2
+        },
+        "b12-c11": {
+          "distanced": 1
+        }
+      },
+      "fatherName": null,
+      "warmestRegister": "distanced",
+      "forms": [
+        {
+          "form": "Perhotin",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 28,
+          "chapters": [
+            "b08-c05",
+            "b09-c01",
+            "b09-c04",
+            "b09-c05",
+            "b09-c06",
+            "b09-c07",
+            "b11-c02",
+            "b11-c04",
+            "b11-c06",
+            "b12-c01",
+            "b12-c09",
+            "b12-c11"
+          ],
+          "firstChapter": "b08-c05"
+        }
+      ],
+      "total": 28
+    },
+    {
+      "id": "prosecutor",
+      "name": "Ippolit Kirillovitch",
+      "short": "Prosecutor",
+      "group": "court",
+      "patronymic": "Kirillovitch",
+      "givenName": "Ippolit",
+      "registerByChapter": {
+        "b09-c02": {
+          "formal": 1
+        },
+        "b09-c03": {
+          "formal": 1
+        },
+        "b09-c04": {
+          "formal": 1
+        },
+        "b09-c05": {
+          "formal": 1
+        },
+        "b09-c06": {
+          "formal": 1
+        },
+        "b09-c08": {
+          "formal": 3
+        },
+        "b12-c01": {
+          "formal": 1
+        },
+        "b12-c05": {
+          "formal": 1
+        },
+        "b12-c06": {
+          "formal": 8
+        },
+        "b12-c07": {
+          "formal": 4
+        },
+        "b12-c08": {
+          "formal": 2
+        },
+        "b12-c09": {
+          "formal": 7
+        },
+        "b12-c14": {
+          "formal": 2
+        }
+      },
+      "fatherName": "Kirill",
+      "warmestRegister": "formal",
+      "forms": [
+        {
+          "form": "Ippolit Kirillovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Kirillovitch” means son or daughter of Kirill, so the name states the parentage every time it is spoken.",
+          "count": 33,
+          "chapters": [
+            "b09-c02",
+            "b09-c03",
+            "b09-c04",
+            "b09-c05",
+            "b09-c06",
+            "b09-c08",
+            "b12-c01",
+            "b12-c05",
+            "b12-c06",
+            "b12-c07",
+            "b12-c08",
+            "b12-c09",
+            "b12-c14"
+          ],
+          "firstChapter": "b09-c02"
+        }
+      ],
+      "total": 33
+    },
+    {
+      "id": "fetyukovitch",
+      "name": "Fetyukovitch",
+      "short": "Fetyukovitch",
+      "group": "court",
+      "patronymic": "Fetyukovitch",
+      "givenName": null,
+      "registerByChapter": {
+        "b11-c01": {
+          "distanced": 2
+        },
+        "b12-c01": {
+          "distanced": 4
+        },
+        "b12-c02": {
+          "distanced": 18
+        },
+        "b12-c03": {
+          "distanced": 2
+        },
+        "b12-c04": {
+          "distanced": 11
+        },
+        "b12-c05": {
+          "distanced": 2
+        },
+        "b12-c09": {
+          "distanced": 3
+        },
+        "b12-c10": {
+          "distanced": 2
+        },
+        "b12-c11": {
+          "distanced": 1
+        },
+        "b12-c12": {
+          "distanced": 1
+        },
+        "b12-c13": {
+          "distanced": 2
+        },
+        "b12-c14": {
+          "distanced": 7
+        }
+      },
+      "fatherName": "Fetyuk",
+      "warmestRegister": "distanced",
+      "forms": [
+        {
+          "form": "Fetyukovitch",
+          "kind": "surname",
+          "register": "distanced",
+          "gloss": "Surname alone — how the town, the court and the narrator refer to someone they are placing at a distance.",
+          "count": 55,
+          "chapters": [
+            "b11-c01",
+            "b12-c01",
+            "b12-c02",
+            "b12-c03",
+            "b12-c04",
+            "b12-c05",
+            "b12-c09",
+            "b12-c10",
+            "b12-c11",
+            "b12-c12",
+            "b12-c13",
+            "b12-c14"
+          ],
+          "firstChapter": "b11-c01"
+        }
+      ],
+      "total": 55
+    },
+    {
+      "id": "nikolay",
+      "name": "Nikolay Parfenovitch",
+      "short": "Nikolay P.",
+      "group": "court",
+      "patronymic": "Parfenovitch",
+      "givenName": "Nikolay",
+      "registerByChapter": {
+        "b09-c02": {
+          "formal": 2
+        },
+        "b09-c03": {
+          "formal": 6
+        },
+        "b09-c04": {
+          "formal": 9
+        },
+        "b09-c05": {
+          "formal": 19
+        },
+        "b09-c06": {
+          "formal": 17
+        },
+        "b09-c07": {
+          "formal": 11
+        },
+        "b09-c08": {
+          "formal": 15
+        },
+        "b09-c09": {
+          "formal": 5
+        }
+      },
+      "fatherName": "Parfen",
+      "warmestRegister": "formal",
+      "forms": [
+        {
+          "form": "Nikolay Parfenovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Parfenovitch” means son or daughter of Parfen, so the name states the parentage every time it is spoken.",
+          "count": 84,
+          "chapters": [
+            "b09-c02",
+            "b09-c03",
+            "b09-c04",
+            "b09-c05",
+            "b09-c06",
+            "b09-c07",
+            "b09-c08",
+            "b09-c09"
+          ],
+          "firstChapter": "b09-c02"
+        }
+      ],
+      "total": 84
+    },
+    {
+      "id": "trifon",
+      "name": "Trifon Borissovitch",
+      "short": "Trifon B.",
+      "group": "court",
+      "patronymic": "Borissovitch",
+      "givenName": "Trifon",
+      "registerByChapter": {
+        "b08-c06": {
+          "formal": 10
+        },
+        "b08-c07": {
+          "formal": 2
+        },
+        "b08-c08": {
+          "formal": 4
+        },
+        "b09-c02": {
+          "formal": 2
+        },
+        "b09-c06": {
+          "formal": 1
+        },
+        "b09-c08": {
+          "formal": 5
+        },
+        "b09-c09": {
+          "formal": 6
+        },
+        "b12-c01": {
+          "formal": 1
+        },
+        "b12-c02": {
+          "formal": 5
+        },
+        "b13-c02": {
+          "formal": 1
+        }
+      },
+      "fatherName": "Boris",
+      "warmestRegister": "formal",
+      "forms": [
+        {
+          "form": "Trifon Borissovitch",
+          "kind": "patronymic-pair",
+          "register": "formal",
+          "gloss": "Given name plus patronymic — the respectful address. “Borissovitch” means son or daughter of Boris, so the name states the parentage every time it is spoken.",
+          "count": 37,
+          "chapters": [
+            "b08-c06",
+            "b08-c07",
+            "b08-c08",
+            "b09-c02",
+            "b09-c06",
+            "b09-c08",
+            "b09-c09",
+            "b12-c01",
+            "b12-c02",
+            "b13-c02"
+          ],
+          "firstChapter": "b08-c06"
+        }
+      ],
+      "total": 37
+    }
+  ],
+  "addresses": [
+    {
+      "speaker": "alyosha",
+      "target": "dmitri",
+      "form": "Dmitri",
+      "register": "neutral",
+      "count": 11
+    },
+    {
+      "speaker": "grushenka",
+      "target": "dmitri",
+      "form": "Mitya",
+      "register": "familiar",
+      "count": 7
+    },
+    {
+      "speaker": "alyosha",
+      "target": "katerina",
+      "form": "Katerina Ivanovna",
+      "register": "formal",
+      "count": 6
+    },
+    {
+      "speaker": "alyosha",
+      "target": "ivan",
+      "form": "Ivan",
+      "register": "neutral",
+      "count": 6
+    },
+    {
+      "speaker": "alyosha",
+      "target": "dmitri",
+      "form": "Mitya",
+      "register": "familiar",
+      "count": 5
+    },
+    {
+      "speaker": "alyosha",
+      "target": "smerdyakov",
+      "form": "Smerdyakov",
+      "register": "distanced",
+      "count": 5
+    },
+    {
+      "speaker": "ivan",
+      "target": "alyosha",
+      "form": "Alyosha",
+      "register": "familiar",
+      "count": 5
+    },
+    {
+      "speaker": "alyosha",
+      "target": "lise",
+      "form": "Lise",
+      "register": "neutral",
+      "count": 5
+    },
+    {
+      "speaker": "alyosha",
+      "target": "grushenka",
+      "form": "Grushenka",
+      "register": "tender",
+      "count": 4
+    },
+    {
+      "speaker": "lise",
+      "target": "alyosha",
+      "form": "Alyosha",
+      "register": "familiar",
+      "count": 3
+    },
+    {
+      "speaker": "alyosha",
+      "target": "rakitin",
+      "form": "Rakitin",
+      "register": "distanced",
+      "count": 3
+    },
+    {
+      "speaker": "dmitri",
+      "target": "trifon",
+      "form": "Trifon Borissovitch",
+      "register": "formal",
+      "count": 3
+    },
+    {
+      "speaker": "alyosha",
+      "target": "kolya",
+      "form": "Kolya",
+      "register": "familiar",
+      "count": 3
+    },
+    {
+      "speaker": "dmitri",
+      "target": "alyosha",
+      "form": "Alyosha",
+      "register": "familiar",
+      "count": 2
+    },
+    {
+      "speaker": "smerdyakov",
+      "target": "grigory",
+      "form": "Grigory",
+      "register": "neutral",
+      "count": 2
+    },
+    {
+      "speaker": "hohlakov",
+      "target": "lise",
+      "form": "Lise",
+      "register": "neutral",
+      "count": 2
+    },
+    {
+      "speaker": "alyosha",
+      "target": "zossima",
+      "form": "Father Zossima",
+      "register": "neutral",
+      "count": 2
+    },
+    {
+      "speaker": "hohlakov",
+      "target": "alyosha",
+      "form": "Alexey Fyodorovitch",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "grushenka",
+      "target": "rakitin",
+      "form": "Rakitin",
+      "register": "distanced",
+      "count": 2
+    },
+    {
+      "speaker": "dmitri",
+      "target": "grushenka",
+      "form": "Agrafena Alexandrovna",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "hohlakov",
+      "target": "dmitri",
+      "form": "Dmitri Fyodorovitch",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "nikolay",
+      "target": "dmitri",
+      "form": "Dmitri Fyodorovitch",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "dmitri",
+      "target": "smerdyakov",
+      "form": "Smerdyakov",
+      "register": "distanced",
+      "count": 2
+    },
+    {
+      "speaker": "grushenka",
+      "target": "dmitri",
+      "form": "Dmitri Fyodorovitch",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "kolya",
+      "target": "smurov",
+      "form": "Smurov",
+      "register": "distanced",
+      "count": 2
+    },
+    {
+      "speaker": "kolya",
+      "target": "ilusha",
+      "form": "Ilusha",
+      "register": "familiar",
+      "count": 2
+    },
+    {
+      "speaker": "ivan",
+      "target": "smerdyakov",
+      "form": "Smerdyakov",
+      "register": "distanced",
+      "count": 2
+    },
+    {
+      "speaker": "ivan",
+      "target": "fyodor",
+      "form": "Fyodor Pavlovitch",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "katerina",
+      "target": "dmitri",
+      "form": "Dmitri Fyodorovitch",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "katerina",
+      "target": "ivan",
+      "form": "Ivan Fyodorovitch",
+      "register": "formal",
+      "count": 2
+    },
+    {
+      "speaker": "fyodor",
+      "target": "dmitri",
+      "form": "Mitya",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "rakitin",
+      "target": "alyosha",
+      "form": "Alyosha",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "rakitin",
+      "target": "ivan",
+      "form": "Ivan",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "rakitin",
+      "target": "grushenka",
+      "form": "Grushenka",
+      "register": "tender",
+      "count": 1
+    },
+    {
+      "speaker": "marfa",
+      "target": "grigory",
+      "form": "Grigory",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "fyodor",
+      "target": "smerdyakov",
+      "form": "Smerdyakov",
+      "register": "distanced",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "alyosha",
+      "form": "Alexey",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "hohlakov",
+      "target": "dmitri",
+      "form": "Dmitri",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "katerina",
+      "target": "alyosha",
+      "form": "Alexey Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "hohlakov",
+      "target": "alyosha",
+      "form": "Alyosha",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "lise",
+      "target": "alyosha",
+      "form": "Alexey Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "lise",
+      "target": "ivan",
+      "form": "Ivan",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "smerdyakov",
+      "target": "dmitri",
+      "form": "Dmitri Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "ivan",
+      "target": "dmitri",
+      "form": "Dmitri",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "ivan",
+      "target": "dmitri",
+      "form": "Dmitri Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "grushenka",
+      "target": "zossima",
+      "form": "Father Zossima",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "rakitin",
+      "target": "alyosha",
+      "form": "Alexey",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "grushenka",
+      "target": "alyosha",
+      "form": "Alyosha",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "fyodor",
+      "form": "Fyodor Pavlovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "grushenka",
+      "form": "Grushenka",
+      "register": "tender",
+      "count": 1
+    },
+    {
+      "speaker": "perhotin",
+      "target": "dmitri",
+      "form": "Dmitri Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "nikolay",
+      "form": "Nikolay Parfenovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "hohlakov",
+      "form": "Madame Hohlakov",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "perhotin",
+      "form": "Perhotin",
+      "register": "distanced",
+      "count": 1
+    },
+    {
+      "speaker": "nikolay",
+      "target": "katerina",
+      "form": "Katerina Ivanovna",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "smurov",
+      "target": "kolya",
+      "form": "Krassotkin",
+      "register": "distanced",
+      "count": 1
+    },
+    {
+      "speaker": "smurov",
+      "target": "ilusha",
+      "form": "Ilusha",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "alyosha",
+      "target": "ilusha",
+      "form": "Ilusha",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "grushenka",
+      "target": "ivan",
+      "form": "Ivan Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "alyosha",
+      "target": "grigory",
+      "form": "Grigory",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "alyosha",
+      "target": "hohlakov",
+      "form": "Madame Hohlakov",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "ivan",
+      "target": "alyosha",
+      "form": "Alexey Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "ivan",
+      "target": "lise",
+      "form": "Lise",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "fetyukovitch",
+      "target": "rakitin",
+      "form": "Rakitin",
+      "register": "distanced",
+      "count": 1
+    },
+    {
+      "speaker": "alyosha",
+      "target": "ivan",
+      "form": "Ivan Fyodorovitch",
+      "register": "formal",
+      "count": 1
+    },
+    {
+      "speaker": "alyosha",
+      "target": "grushenka",
+      "form": "Grusha",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "alyosha",
+      "target": "katerina",
+      "form": "Katya",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "ivan",
+      "form": "Ivan",
+      "register": "neutral",
+      "count": 1
+    },
+    {
+      "speaker": "katerina",
+      "target": "dmitri",
+      "form": "Mitya",
+      "register": "familiar",
+      "count": 1
+    },
+    {
+      "speaker": "dmitri",
+      "target": "katerina",
+      "form": "Katya",
+      "register": "familiar",
+      "count": 1
+    }
+  ],
+  "coverage": {
+    "quotes": 5866,
+    "attributed": 813
+  },
+  "lineages": [
+    {
+      "patronymic": "Fyodorovitch",
+      "father": "Fyodor",
+      "children": [
+        "dmitri",
+        "ivan",
+        "alyosha",
+        "smerdyakov"
+      ]
+    }
+  ],
+  "registers": [
+    {
+      "key": "formal",
+      "label": "Formal",
+      "description": "Name plus patronymic. Respect, distance, or an official occasion."
+    },
+    {
+      "key": "distanced",
+      "label": "Distanced",
+      "description": "Surname alone. The public, third-person register."
+    },
+    {
+      "key": "neutral",
+      "label": "Neutral",
+      "description": "The plain given name."
+    },
+    {
+      "key": "familiar",
+      "label": "Familiar",
+      "description": "The everyday short form, among family and friends."
+    },
+    {
+      "key": "tender",
+      "label": "Tender",
+      "description": "The affectionate diminutive. Never used casually."
+    }
+  ]
+}

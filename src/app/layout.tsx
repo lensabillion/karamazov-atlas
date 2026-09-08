@@ -14,10 +14,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* Two families only — see globals.css §2. */}
+        {/* Two families only. Fraunces for language, DM Sans for interface —
+            see docs/design-system.md §2. */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Alegreya+Sans:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1;1,9..144,400..600,0..100,0..1&family=DM+Sans:ital,opsz,wght@0,9..40,400..600;1,9..40,400..600&display=swap"
         />
       </head>
       <body>
