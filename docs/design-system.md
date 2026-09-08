@@ -4,18 +4,21 @@ description: Two typefaces, two colours, and the rules that make them consistent
 ---
 # Design System
 
-**Version 2** · 2026-09-08 · Supersedes the icon-pigment system of v1.
+**Version 3** · 2026-09-08 · Extends v2 from two hues to four.
 
 ---
 
 ## 1. The constraints
 
-1. White background.
-2. **Blue** primary, **teal** secondary. No third hue anywhere.
-3. Exactly **two** typefaces.
+1. Light ground — white, but not flat white (§3.4).
+2. Four hues: **blue**, **teal**, **purple**, **pink**. No fifth.
+3. Exactly **two** typefaces: Fraunces and DM Sans. Unchanged from v2.
 4. Consistent on every surface, without exception.
 
-Constraint 2 creates a real problem, and §5 is how it is solved.
+**Every hue must have a job.** Two colours were too few — the result read grey and
+flat, because with one accent held in reserve for selection, almost everything was
+neutral. Four is enough to carry meaning, and few enough to stay disciplined. A hue
+that is only decorative is a bug.
 
 ---
 
@@ -87,6 +90,10 @@ towards green-grey so it can sit beside the blue without vibrating.
 | `--teal` | `#0E7C7B` | Secondary. Selection, the active thing, the answer |
 | `--teal-deep` | `#0A5C5B` | Pressed |
 | `--teal-soft` | `#E0F2F1` | Tinted grounds behind teal content |
+| `--purple` | `#5B3E96` | **Uncertain, disputed, interpreted.** What the text does not settle |
+| `--purple-soft` | `#EDE8F8` | Tinted ground behind interpretation |
+| `--pink` | `#B32B65` | **Consequence.** The thread the murder travels along |
+| `--pink-soft` | `#FBE8F0` | Tinted ground behind that thread |
 
 ### Neutrals are blue, not grey
 

@@ -20,6 +20,20 @@ export default function RelationshipMap() {
 
   const at = (id: string) => PEOPLE.find((p) => p.id === id)!;
 
+  /**
+   * Hue by role, never by decoration (design-system.md §3):
+   *   teal   — what the reader has selected
+   *   pink   — consequence: the path the murder travels
+   *   purple — uncertain: what the text does not settle
+   *   blue   — everything else
+   */
+  const tieColour = (bond: string, isKey: boolean | undefined, touched: boolean) => {
+    if (touched) return 'var(--teal)';
+    if (bond === 'disputed') return 'var(--purple)';
+    if (isKey) return 'var(--pink)';
+    return 'var(--border-strong)';
+  };
+
   // Index ties by unordered pair, so duplicates can be fanned apart.
   const pairKey = (a: string, b: string) => [a, b].sort().join('~');
   const pairIndex = new Map<string, number>();
@@ -76,7 +90,7 @@ export default function RelationshipMap() {
               <g key={`${t.from}-${t.to}-${t.bond}`} opacity={active ? 1 : 0.12}>
                 <path d={`M${a.x},${a.y} Q${cx},${cy} ${b.x},${b.y}`}
                   fill="none"
-                  stroke={touched ? 'var(--teal)' : t.key ? 'var(--blue)' : 'var(--border-strong)'}
+                  stroke={tieColour(t.bond, t.key, touched)}
                   strokeWidth={style.width}
                   strokeDasharray={style.dash}
                   strokeLinecap="round" />
@@ -87,7 +101,12 @@ export default function RelationshipMap() {
                       fill="var(--surface)" rx={2} />
                     <text x={mx} y={my} textAnchor="middle" dominantBaseline="middle"
                       style={{ font: '400 11px "DM Sans", sans-serif' }}
-                      fill={touched ? 'var(--teal-deep)' : t.key ? 'var(--blue)' : 'var(--ink-3)'}>
+                      fill={
+                        touched ? 'var(--teal-deep)'
+                        : t.bond === 'disputed' ? 'var(--purple-deep)'
+                        : t.key ? 'var(--pink-deep)'
+                        : 'var(--ink-3)'
+                      }>
                       {t.label}
                     </text>
                   </>
@@ -108,10 +127,15 @@ export default function RelationshipMap() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(p); }
                 }}>
-                <path className="mark" data-active={on || undefined}
+                <path
+                  className="mark"
+                  data-active={on || undefined}
+                  data-uncertain={!on && p.id === 'smerdyakov' ? true : undefined}
                   transform={`translate(${p.x},${p.y})`}
                   d={markPath(p.group, on ? 11 : 8)}
-                  stroke="var(--bg)" strokeWidth={2} />
+                  stroke="var(--bg)"
+                  strokeWidth={2}
+                />
                 <text x={p.x} y={p.y - (on ? 22 : 18)} textAnchor="middle"
                   style={{ font: `${on ? 700 : 400} 13px "DM Sans", sans-serif` }}
                   fill="var(--ink)">
