@@ -527,6 +527,90 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 .dock:focus-visible { outline: none; }
 
+/* --- Anchored card ---------------------------------------------------------
+   A card that floats beside the person it describes, inside the diagram, so the
+   answer appears where the reader is already looking. Hovering shows a compact
+   identity; clicking pins a fuller one with relationships.
+   -------------------------------------------------------------------------- */
+
+.anchored {
+  position: absolute;
+  z-index: 5;
+  width: 17rem;
+  /* Height is CAPPED, not merely expected. RelationshipMap clamps the card into
+     the viewport using a constant, and a card taller than that constant escapes
+     the clamp — which is exactly what happened for characters with many ties.
+     CARD_H in RelationshipMap.tsx must equal this value. */
+  max-height: 20rem;
+  overflow: hidden;
+  max-width: calc(100% - var(--space-4));
+  background: var(--bg);
+  border: var(--border-width) solid var(--border-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--ink) 14%, transparent);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+.anchored--pinned {
+  pointer-events: auto;
+  border-left-color: var(--active);
+}
+.anchored--uncertain { border-left-color: var(--purple); }
+
+.anchored__name {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-variation-settings: "opsz" 18;
+  line-height: var(--leading-tight);
+}
+.anchored__who {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  line-height: var(--leading-normal);
+}
+.anchored__ties {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-height: 9rem;
+  overflow-y: auto;
+}
+.anchored__tie {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-top: var(--border-width) solid var(--border);
+  padding: var(--space-1) 0;
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.anchored__tie:hover { color: var(--teal-deep); }
+.anchored__bond { font-weight: var(--weight-bold); color: var(--ink); }
+.anchored__bond--key { color: var(--pink-deep); }
+.anchored__bond--uncertain { color: var(--purple-deep); }
+.anchored__close {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  cursor: pointer;
+}
+.anchored__close:hover { color: var(--ink); }
+
 /* Interactive marks inside a diagram. */
 .hit { cursor: pointer; }
 .hit:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }

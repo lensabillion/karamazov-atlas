@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { markPath } from './GroupMark';
 import { BOND_STYLE, H, PEOPLE, TIES, W, ZONES, type Person } from '@/lib/relationships';
 
@@ -17,6 +17,65 @@ type TieKey = string;
  */
 export default function RelationshipMap() {
   const [selected, setSelected] = useState<Person | null>(null);
+  const [hovered, setHovered] = useState<Person | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [, setTick] = useState(0);
+
+  // The card floats over the diagram, so it must follow the drawing when the
+  // container scrolls or the window resizes.
+  const bump = useCallback(() => setTick((t) => t + 1), []);
+  useEffect(() => {
+    const el = scrollRef.current;
+    el?.addEventListener('scroll', bump, { passive: true });
+    window.addEventListener('resize', bump);
+    return () => {
+      el?.removeEventListener('scroll', bump);
+      window.removeEventListener('resize', bump);
+    };
+  }, [bump]);
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSelected(null); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected]);
+
+  /** Where to put the card: beside the person, in container pixels. */
+  const anchorOf = (p: Person) => {
+    const svg = svgRef.current;
+    const box = scrollRef.current;
+    if (!svg) return { left: 12, top: 12 };
+    const rect = svg.getBoundingClientRect();
+    const scale = rect.width / W;
+    const x = p.x * scale - (box?.scrollLeft ?? 0);
+    const y = p.y * scale;
+    const CARD_W = 272;
+    const CARD_H = 320; // must equal .anchored max-height in globals.css
+    const room = box?.clientWidth ?? rect.width;
+    const flip = x + CARD_W + 28 > room;
+
+    // Clamp vertically to what is actually on screen.
+    //
+    // `top` is container-local but the viewport constraint is not, so the two
+    // have to be related through rect.top — the container's own offset from the
+    // top of the viewport. Getting this wrong put the card at viewport y 1075
+    // on an 880px screen: still below the fold, which is the exact problem the
+    // anchored card exists to solve.
+    const viewH = typeof window === 'undefined' ? rect.height : window.innerHeight;
+    const minTop = -rect.top + 8;                  // card's top edge at viewport 8
+    const maxTop = viewH - CARD_H - rect.top - 8;  // card's bottom edge inside the viewport
+    const wanted = y - 24;
+    const top = maxTop < minTop
+      ? minTop
+      : Math.max(minTop, Math.min(wanted, maxTop));
+
+    return {
+      left: Math.max(8, Math.min(flip ? x - CARD_W - 18 : x + 18, room - CARD_W - 8)),
+      top,
+    };
+  };
 
   const at = (id: string) => PEOPLE.find((p) => p.id === id)!;
 
@@ -55,8 +114,8 @@ export default function RelationshipMap() {
 
   return (
     <div className="stack stack--loose">
-      <div className="chart scroll-x">
-        <svg viewBox={`0 0 ${W} ${H}`} role="img"
+      <div className="chart scroll-x" ref={scrollRef}>
+        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} role="img"
           aria-label="Map of who the characters are to each other">
 
           {ZONES.map((z) => (
@@ -124,6 +183,10 @@ export default function RelationshipMap() {
                 tabIndex={0}
                 aria-label={p.name}
                 onClick={() => setSelected(p)}
+                onMouseEnter={() => setHovered(p)}
+                onMouseLeave={() => setHovered(null)}
+                onFocus={() => setHovered(p)}
+                onBlur={() => setHovered(null)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(p); }
                 }}>
@@ -145,41 +208,61 @@ export default function RelationshipMap() {
             );
           })}
         </svg>
+
+        {(() => {
+          const shown = selected ?? hovered;
+          if (!shown) return null;
+          const pos = anchorOf(shown);
+          const pinned = selected?.id === shown.id;
+          const uncertain = shown.id === 'smerdyakov';
+          return (
+            <div
+              className={
+                'anchored' +
+                (pinned ? ' anchored--pinned' : '') +
+                (uncertain && !pinned ? ' anchored--uncertain' : '')
+              }
+              style={{ left: pos.left, top: pos.top }}
+            >
+              <div className="anchored__name">{shown.name}</div>
+              <p className="anchored__who">{shown.who}</p>
+              {pinned ? (
+                <>
+                  <ul className="anchored__ties">
+                    {touches(shown.id).map((t) => {
+                      const other = at(t.from === shown.id ? t.to : t.from);
+                      const outgoing = t.from === shown.id;
+                      return (
+                        <li key={`${t.from}-${t.to}-${t.bond}`}>
+                          <button className="anchored__tie" onClick={() => setSelected(other)}>
+                            <span
+                              className={
+                                'anchored__bond' +
+                                (t.bond === 'disputed' ? ' anchored__bond--uncertain'
+                                  : t.key ? ' anchored__bond--key' : '')
+                              }
+                            >
+                              {outgoing ? t.label : `${t.label} by`}
+                            </span>
+                            <span className="grow">{other.name}</span>
+                            {t.cite ? <span className="meta">{t.cite}</span> : null}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <button className="anchored__close" onClick={() => setSelected(null)}>
+                    Close (Esc)
+                  </button>
+                </>
+              ) : (
+                <p className="meta">Click to see every connection</p>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
-      {selected && (
-        <div className={`name-panel group-${selected.group}`}>
-          <div className="stack stack--tight">
-            <p className="eyebrow">Who this is</p>
-            <h3 className="subheading">{selected.name}</h3>
-            <p className="text-muted">{selected.who}</p>
-          </div>
-          <ul className="list">
-            {touches(selected.id).map((t) => {
-              const other = at(t.from === selected.id ? t.to : t.from);
-              const outgoing = t.from === selected.id;
-              return (
-                <li key={`${t.from}-${t.to}-${t.bond}`}>
-                  <button className="list-item" onClick={() => setSelected(other)}>
-                    <span className="list-item__label">
-                      {outgoing ? (
-                        <>
-                          <strong>{t.label}</strong> {other.name}
-                        </>
-                      ) : (
-                        <>
-                          {other.name} <strong>{t.label}</strong> them
-                        </>
-                      )}
-                    </span>
-                    {t.cite && <span className="meta">{t.cite}</span>}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }
