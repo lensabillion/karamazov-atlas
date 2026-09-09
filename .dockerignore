@@ -1,0 +1,34 @@
+# Everything the API image does not need. Without this the build context is
+# ~700 MB (node_modules alone is 415 MB) and uploads to Render on every build.
+node_modules
+.next
+.git
+.github
+.venv
+api/.venv
+**/__pycache__
+**/.pytest_cache
+*.tsbuildinfo
+
+# The database is BUILT inside the image by `python -m atlas.ingest`; shipping a
+# local copy would silently mask a broken ingest.
+data/atlas.db
+
+# Frontend source: this image serves the API only. `src` matches the top-level
+# directory rather than any nested one, but the image depends on api/src, so
+# that is re-included explicitly rather than left to pattern semantics.
+src
+!api/src
+public
+scripts
+docs
+*.md
+next.config.ts
+tsconfig.json
+package.json
+package-lock.json
+!api/pyproject.toml
+vercel.json
+
+# The novel's source text is 1.9 MB and only the derived data/ files are read.
+karamazov.txt

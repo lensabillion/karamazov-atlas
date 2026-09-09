@@ -70,6 +70,63 @@ Next.js 16 · React 19 · AI SDK 7 (`@ai-sdk/anthropic`, model `claude-opus-5`) 
 TypeScript. No CSS framework; the palette is drawn from Russian icon pigments and each
 hue is assigned to a character group so colour carries information.
 
+## Configuration
+
+Every variable is optional. 131 of the 132 pages are prerendered from committed
+data and need none of them.
+
+| Variable | Absent | Present |
+| --- | --- | --- |
+| `ANTHROPIC_API_KEY` | `/ask` shows a notice; nothing else changes | `/ask` is live |
+| `ATLAS_API_URL` | Retrieval uses the local corpus scan | Retrieval uses the API's FTS5 index |
+| `CHAT_RATE_LIMIT` | 10 | Requests per window, per caller |
+| `CHAT_RATE_WINDOW_MS` | 60000 | Window length |
+
+Backend variables (`ALLOWED_ORIGINS`, `ATLAS_DB_PATH`, `ATLAS_DATA_DIR`) are set in
+Render; `render.yaml` supplies the last two.
+
+There is no `.env.example` — it is gitignored deliberately. `docs/deployment-plan.md`
+§11 is the reference.
+
+## Cost controls on `/ask`
+
+With a key set, `/api/chat` is a public unauthenticated LLM endpoint. Four bounds
+apply, in order of what they actually guarantee:
+
+| Bound | Value |
+| --- | --- |
+| Output tokens | 2,000 |
+| Input characters | 24,000 |
+| History length | 40 messages |
+| Rate limit | 10 per minute, per caller |
+
+The first three cap the cost of any single request. The fourth keeps per-instance
+state, so on serverless the real ceiling is instances × limit — a deterrent, not a
+hard cap on spend. `src/lib/rate-limit.ts` says so in its own header.
+
+## Deployment
+
+Backend on Render, frontend on Vercel. Full runbook in `docs/deployment-plan.md`.
+
+**Order matters.** Each platform needs the other's URL, and you break the cycle on
+the frontend, because the frontend works with no backend at all:
+
+1. Deploy to **Vercel** with no environment variables. You get a working site.
+2. Deploy to **Render** from `render.yaml`; set `ALLOWED_ORIGINS` to the Vercel origin.
+3. Return to Vercel and set `ATLAS_API_URL` to the Render URL.
+
+The Docker image builds the database into itself and fails unless it contains exactly
+96 chapters, so a bad corpus never reaches a reader.
+
+## CI
+
+`.github/workflows/ci.yml` runs on every push and pull request: typecheck, the test
+suites, a build, and the Python tests.
+
+It also regenerates the derived data and fails if it differs from what is committed.
+That check exists for a specific reason — `npm run corpus` once silently rebuilt
+nothing for weeks while every test still passed, and every derived number went stale.
+
 ## Planning
 
 `docs/plan-spec.md` follows the plan-spec template from

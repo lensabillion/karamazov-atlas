@@ -1,3 +1,6 @@
+> **Complete and superseded.** This tracked the v1 design-system rollout.
+> The system has since been rewritten twice; `design-system.md` is current.
+
 # Design system refactor — progress
 
 Applying `src/app/globals.css` to every surface. Rule: **no inline `style`

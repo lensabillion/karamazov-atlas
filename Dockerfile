@@ -1,9 +1,17 @@
 # Karamazov Atlas API — image for Render.
 #
-# Build context is the REPOSITORY ROOT, not api/, because the service needs two
-# things that live in different places: the Python source under api/ and the
-# committed corpus under data/. Render is told this via `dockerContext: .` in
-# render.yaml.
+# THIS FILE LIVES AT THE REPOSITORY ROOT ON PURPOSE.
+#
+# It needs two things from different places: the Python source under api/ and
+# the committed corpus under data/. It was originally at api/Dockerfile with
+# `dockerContext: .` in render.yaml, and Render's first build failed with
+# `"/data": not found` — a Root Directory of `api` overrides the blueprint's
+# context, so `data/` sat outside it and COPY could not see it.
+#
+# A Dockerfile at the root, built with the root as context, is unambiguous: it
+# works with Render's defaults and does not depend on a dashboard setting that
+# is invisible from the repository. If a build fails this way again, check that
+# the service's Root Directory is EMPTY.
 #
 # The database is built during the image build, never at boot and never
 # committed. data/atlas.db is gitignored precisely because it is derived: the
@@ -17,6 +25,11 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
 
 WORKDIR /app
+
+# Fail early and legibly if the context is wrong. Without this the error is
+# BuildKit's "failed to compute cache key", which says nothing about the cause.
+COPY api/pyproject.toml /tmp/ctx-check-api
+COPY data/corpus.json /tmp/ctx-check-data
 
 # Dependencies first, so edits to source or corpus do not invalidate this layer.
 COPY api/pyproject.toml /app/api/pyproject.toml

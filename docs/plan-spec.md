@@ -2,6 +2,10 @@
 title: Karamazov Atlas — Plan Spec
 description: A queryable, AI-native reading surface for The Brothers Karamazov
 ---
+
+> **Superseded.** This is the original spec from 6 September, kept for the record.
+> The architecture it describes has since changed substantially — see
+> `design-document.md` for what was actually built and `PROGRESS.md` for current state.
 # Feature: Karamazov Atlas
 
 **Date:** 2026-09-06
