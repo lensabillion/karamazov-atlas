@@ -16,10 +16,19 @@ One file on disk, rebuilt by one command, so nothing about deployment is harder.
 
 from __future__ import annotations
 
+import os
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas.db"
+# Where the database lives.
+#
+# The default walks up to the repository root, which is correct when the package
+# is run in place from a checkout. That arithmetic silently breaks the moment the
+# package is installed into site-packages, where the parents are the interpreter's
+# directories rather than the project's — so deployment sets ATLAS_DB_PATH
+# explicitly rather than relying on the layout surviving.
+DEFAULT_DB_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas.db"
+DB_PATH = Path(os.environ.get("ATLAS_DB_PATH") or DEFAULT_DB_PATH)
 
 SCHEMA = """
 PRAGMA foreign_keys = ON;

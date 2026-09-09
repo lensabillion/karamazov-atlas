@@ -1,0 +1,26 @@
+# Render blueprint — the Karamazov Atlas API.
+#
+# The frontend deploys separately to Vercel; this file covers the backend only.
+# Apply with: Render dashboard → Blueprints → New Blueprint Instance.
+
+services:
+  - type: web
+    name: karamazov-atlas-api
+    runtime: docker
+    plan: starter          # SQLite needs a real filesystem and a warm process,
+                           # so this is not a scale-to-zero workload.
+    region: oregon
+    dockerfilePath: ./api/Dockerfile
+    dockerContext: .       # repo root: the image needs api/ AND data/
+    healthCheckPath: /health
+    autoDeploy: false      # deploy on a tag or manual promote, not every push
+    envVars:
+      # Comma-separated. Set to the deployed Vercel origin once it exists; the
+      # API refuses other origins rather than allowing "*", so it cannot be
+      # borrowed as someone else's backend.
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: ATLAS_DB_PATH
+        value: /app/data/atlas.db
+      - key: ATLAS_DATA_DIR
+        value: /app/data

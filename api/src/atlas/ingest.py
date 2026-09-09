@@ -12,13 +12,16 @@ reversible.
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 from pathlib import Path
 
 from atlas.db import connect, create_schema, rebuild_fts
 
+# ATLAS_DATA_DIR lets the container point at the corpus wherever it copied it,
+# instead of depending on the source tree's shape surviving the image build.
 ROOT = Path(__file__).resolve().parents[3]
-DATA = ROOT / "data"
+DATA = Path(os.environ.get("ATLAS_DATA_DIR") or (ROOT / "data"))
 
 
 def _load(name: str) -> dict:

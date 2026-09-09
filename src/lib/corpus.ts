@@ -49,14 +49,27 @@ export interface MentionData {
 const DATA = join(process.cwd(), 'data');
 const read = <T>(f: string): T => JSON.parse(readFileSync(join(DATA, f), 'utf8')) as T;
 
+/**
+ * Cache parsed data, except in development.
+ *
+ * These files are rebuilt by `npm run corpus`. Caching for the life of the
+ * process meant a running dev server kept serving the previous parse, so a
+ * corrected dataset still rendered as wrong — which once nearly caused a
+ * working fix to be undone. Production builds read each file once at build
+ * time, where the cache is free and correct.
+ */
+const CACHE = process.env.NODE_ENV === 'production';
+
 let _corpus: Corpus | null = null;
 let _mentions: MentionData | null = null;
 
 export function getCorpus(): Corpus {
+  if (!CACHE) return read<Corpus>('corpus.json');
   return (_corpus ??= read<Corpus>('corpus.json'));
 }
 
 export function getMentions(): MentionData {
+  if (!CACHE) return read<MentionData>('mentions.json');
   return (_mentions ??= read<MentionData>('mentions.json'));
 }
 

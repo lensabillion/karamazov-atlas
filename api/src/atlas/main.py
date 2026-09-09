@@ -10,12 +10,14 @@ Python owns the data. Next owns the streaming.
 
 from __future__ import annotations
 
+import os
 import re
 import sqlite3
 from contextlib import asynccontextmanager
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 from atlas import models
 from atlas.db import connect
@@ -24,6 +26,24 @@ app = FastAPI(
     title="Karamazov Atlas API",
     version="0.1.0",
     summary="Corpus, name morphology and retrieval for The Brothers Karamazov",
+)
+
+# The API is read-only and carries no user data, but it is not free to call: it
+# fronts the corpus for a deployed frontend on a different origin. Allow exactly
+# the origins we deploy, not "*", so a stray site cannot use this as its own
+# backend. ALLOWED_ORIGINS is a comma-separated list set per environment.
+_origins = [
+    o.strip()
+    for o in os.environ.get("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+    if o.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_origins,
+    allow_credentials=False,
+    allow_methods=["GET"],
+    allow_headers=["*"],
 )
 
 
@@ -40,8 +60,17 @@ DB = Annotated[sqlite3.Connection, Depends(get_db)]
 
 @app.get("/health")
 def health(db: DB) -> dict:
+    """Readiness, not just liveness.
+
+    The container builds its own database at image-build time, so a process that
+    is up but has an empty database is not ready to serve. Report the chapter
+    count and fail the check if it is zero, so a bad build is caught by the
+    platform rather than by a reader.
+    """
     n = db.execute("SELECT count(*) FROM chapters").fetchone()[0]
-    return {"ok": True, "chapters": n}
+    if n == 0:
+        raise HTTPException(503, "database is empty — ingest did not run")
+    return {"ok": True, "chapters": n, "version": app.version}
 
 
 @app.get("/corpus", response_model=models.CorpusMeta)

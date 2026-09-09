@@ -48,9 +48,8 @@ file says so.
 | `/who` | **Who these people are to each other** — the relationship map |
 | `/names` | Patronymic tree, name orbits, warmth ladder |
 | `/timeline` | Story time vs book time, with character lanes |
-| `/network` | Co-occurrence graph (deprecated — see §7) |
-| `/map` | Structural mind map (redundant with `/` — see §7) |
-| `/ask` | Citation-backed Q&A. **Never exercised — no API key** |
+| `/timeline` | The novel as a columnar wall chart, one column per character |
+| `/ask` | Citation-backed Q&A. **Never exercised — no API key.** Now rate-limited and cost-capped before it can be made public |
 
 ---
 
@@ -141,8 +140,8 @@ to mean intimacy.
 argument: the three mothers along the top, the four sons beneath them, the two women
 below, and the lines crossing between those rows are the plot.
 
-`/network` is the counter-example — a real force simulation, and the least useful page
-in the app.
+`/network` was the counter-example — a real force simulation, and the least useful page
+in the app. It has since been removed, along with `/map`, which duplicated the overview.
 
 ### 4.5 The design system is a single documented file
 
@@ -332,8 +331,7 @@ to improve, this migration would not pay for itself — and that is the honest t
   never exercised. `ANTHROPIC_API_KEY` was absent for the whole build. (`atlas-3mzp`)
 - **`extract.ts` has never been run.** `data/entities.json` does not exist. (`atlas-94i4`)
 - **Attribution coverage is 14%.** Stated on `/names` rather than hidden.
-- **`/network` and `/map` should go.** `/map` duplicates `/`; `/network` is a
-  distant-reading artefact nobody returns to. (`atlas-qfm7`)
+- ~~`/network` and `/map` should go.~~ **Done** — both removed (`atlas-qfm7`).
 - **No portraits.** Requested, but image generation is unavailable; character cards or
   procedural emblems are the honest alternatives.
 - **The API key was exposed** in this session's transcript and must be rotated.
