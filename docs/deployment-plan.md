@@ -247,8 +247,31 @@ Configuration is in the repo. These are the manual steps that remain.
 | `api/Dockerfile` | Builds the API image and the SQLite/FTS5 database into it |
 | `render.yaml` | Render blueprint for the web service |
 | `vercel.json` | Framework preset, region, and a 60s cap on the chat function |
-| `.env.example` | Every variable, with what happens when each is absent |
 | `src/lib/atlas-api.ts` | Typed client; falls back to local search when unconfigured |
+
+### Environment variables
+
+`.env.example` is deleted and gitignored on `main` by deliberate choice, so the
+configuration is documented here instead. Set these in each platform's own
+environment store; none of them belong in the repository.
+
+**Vercel (frontend)** — both optional. 131 of 132 pages are prerendered from
+committed data and need neither.
+
+| Variable | Absent | Present |
+| --- | --- | --- |
+| `ANTHROPIC_API_KEY` | `/ask` renders a clear notice; everything else is unaffected | `/ask` is live — read §6 before setting this |
+| `ATLAS_API_URL` | Retrieval falls back to the local corpus scan | Retrieval uses the Render API's FTS5 index |
+| `CHAT_RATE_LIMIT` | Defaults to 10 | Requests per window, per caller |
+| `CHAT_RATE_WINDOW_MS` | Defaults to 60000 | Window length in milliseconds |
+
+**Render (backend)**
+
+| Variable | Notes |
+| --- | --- |
+| `ALLOWED_ORIGINS` | Comma-separated. Set to the Vercel origin. Never `*`, or the API can be used as anyone's backend |
+| `ATLAS_DB_PATH` | Set by `render.yaml` to `/app/data/atlas.db` |
+| `ATLAS_DATA_DIR` | Set by `render.yaml` to `/app/data` |
 
 ### A. Backend on Render
 

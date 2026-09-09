@@ -16,11 +16,14 @@ Status key: **[ ]** open · **[x]** fixed this pass · **[~]** partly done · **
 
 - **[!] Two commits are on no pull request.** PR #4 merged before the deployment
   config and the rate limiter were committed, so `render.yaml`, `vercel.json`,
-  `api/Dockerfile`, `.env.example` and `src/lib/rate-limit.ts` exist only on
+  `api/Dockerfile` and `src/lib/rate-limit.ts` exist only on
   `atlas-bdxb/name-key`. **Render and Vercel deploy from a branch — point either at
   `main` today and the config is not there.** Needs a PR. → `atlas-lg09`
-- **[!] `.env.example` was deleted on `main`** (commit `c4290bc`), so `main` documents
-  no configuration at all. The branch restores it.
+- **[x] `.env.example` conflict resolved in favour of the deletion.** It was deleted
+  *and* added to `.gitignore` on `main` (`c4290bc`, `e41b3ba`) — a deliberate choice,
+  not an accident, so restoring it would have fought that intent. The configuration it
+  documented now lives in `docs/deployment-plan.md` §11, which is committed and cannot
+  be gitignored away.
 - **[!] An exposed API key has still not been rotated.** → `atlas-qcsc` (P0)
 - **[ ] Another session's work is uncommitted** — new timeline and relationship-view
   modules, three CSS files, two test scripts. Their tests pass. Left untouched here
