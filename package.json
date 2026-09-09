@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "corpus": "tsx scripts/parse-corpus.ts && tsx scripts/build-mentions.ts && tsx scripts/build-names.ts",
     "extract": "tsx scripts/extract.ts",
-    "test": "tsx scripts/test-corpus.ts",
+    "test": "tsx scripts/test-corpus.ts && tsx scripts/test-relationship-view.ts && tsx scripts/test-timeline-layout.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

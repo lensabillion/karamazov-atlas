@@ -9,6 +9,7 @@ import {
   type UIMessage,
 } from 'ai';
 import { z } from 'zod';
+import { remoteSearch } from '@/lib/atlas-api';
 import { getChapter, getChapterText, getCorpus, searchCorpus } from '@/lib/corpus';
 
 export const maxDuration = 60;
@@ -55,6 +56,17 @@ export async function POST(req: Request) {
           query: z.string().describe('Words or a phrase to look for in the novel'),
         }),
         execute: async ({ query }) => {
+          // Prefer the API's FTS5 index when it is configured; fall back to the
+          // local scan so the route works with no backend deployed.
+          const remote = await remoteSearch(query, { limit: 5 });
+          if (remote) {
+            return remote.map((h) => ({
+              cite: h.cite,
+              title: h.title,
+              id: h.chapter_id,
+              excerpt: h.excerpt.slice(0, 1400),
+            }));
+          }
           const hits = searchCorpus(query, 5);
           return hits.map((h) => ({
             cite: h.chapter.cite,
