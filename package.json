@@ -12,8 +12,9 @@
     "start": "next start",
     "corpus": "tsx scripts/parse-corpus.ts && tsx scripts/build-mentions.ts && tsx scripts/build-names.ts",
     "extract": "tsx scripts/extract.ts",
-    "test": "tsx scripts/test-corpus.ts && tsx scripts/test-relationship-view.ts && tsx scripts/test-timeline-layout.ts && tsx scripts/test-rate-limit.ts",
-    "typecheck": "tsc --noEmit"
+    "test": "tsx scripts/test-corpus.ts && tsx scripts/test-relationship-view.ts && tsx scripts/test-timeline-layout.ts && tsx scripts/test-rate-limit.ts && tsx scripts/test-curated.ts && node --conditions=react-server --import tsx scripts/test-atlas-api.ts",
+    "typecheck": "tsc --noEmit",
+    "test:drift": "npm run corpus && git diff --exit-code -- data/"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.49",

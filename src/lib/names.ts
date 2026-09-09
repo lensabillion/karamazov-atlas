@@ -44,12 +44,16 @@ export interface NamesData {
   registers: { key: Register; label: string; description: string }[];
 }
 
+/** See the note in corpus.ts: caching in development hid rebuilt data. */
+const CACHE = process.env.NODE_ENV === 'production';
+
 let _names: NamesData | null = null;
 
 export function getNames(): NamesData {
-  return (_names ??= JSON.parse(
-    readFileSync(join(process.cwd(), 'data', 'names.json'), 'utf8'),
-  ) as NamesData);
+  const read = () =>
+    JSON.parse(readFileSync(join(process.cwd(), 'data', 'names.json'), 'utf8')) as NamesData;
+  if (!CACHE) return read();
+  return (_names ??= read());
 }
 
 export function getNamed(id: string): NamedCharacter | undefined {

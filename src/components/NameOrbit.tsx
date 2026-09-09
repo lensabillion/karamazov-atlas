@@ -45,7 +45,13 @@ export default function NameOrbit({
       .map((a) => nameOf?.[a.speaker] ?? a.speaker);
 
   return (
-    <figure className={`chart group-${character.group}`} style={{ margin: 0 }}>
+    <figure className={`names-orbit group-${character.group}`}>
+      <header className="names-orbit__header">
+        <h3 className="subheading">{character.short}</h3>
+        <span className="meta">{character.forms.length} name forms</span>
+      </header>
+      <div className="names-orbit__viewport" tabIndex={0} role="region"
+        aria-label={`${character.short} name diagram; scroll horizontally on small screens`}>
       <svg viewBox={`0 0 ${W} ${H}`} role="img"
         aria-label={`The names of ${character.short}, placed by intimacy`}>
 
@@ -62,13 +68,15 @@ export default function NameOrbit({
 
         {character.forms.map((f, i) => {
           const ring = RINGS.find((r) => r.key === f.register)!;
-          // Spread forms around the circle deterministically, starting top-left.
-          const angle = (-140 + i * 61) * (Math.PI / 180);
+          // Spread forms evenly around the circle. A fixed step silently wrapped
+          // the sixth form onto the first (6 x 61 = 366 degrees); dividing the
+          // circle by the count cannot collide however many forms there are.
+          const step = 360 / Math.max(character.forms.length, 1);
+          const angle = (-140 + i * step) * (Math.PI / 180);
           const x = CX + Math.cos(angle) * ring.r;
           const y = CY + Math.sin(angle) * ring.r;
           const dot = 3 + Math.sqrt(f.count / max) * 11;
           const flip = x < CX;
-          const who = speakersOf(f.form);
           const lx = x + (flip ? -(dot + 6) : dot + 6);
           const anchor = flip ? 'end' : 'start';
           return (
@@ -82,16 +90,33 @@ export default function NameOrbit({
               <text x={lx} y={y + 14} textAnchor={anchor} dominantBaseline="middle"
                 style={{ font: '400 11px "DM Sans", sans-serif' }} fill="var(--ink-3)">
                 {f.count}×
-                {who.length > 0 && ` · heard from ${who.slice(0, 3).join(', ')}`}
               </text>
             </g>
           );
         })}
       </svg>
-      <figcaption className="meta" style={{ padding: 'var(--space-2) var(--space-3)' }}>
+      </div>
+      <p className="meta names-orbit__scroll-hint">Scroll the diagram sideways, or open the name forms below.</p>
+      <figcaption className="meta names-orbit__caption">
         {character.name} — {character.forms.length} ways of being named.
         Nearer the centre is more intimate.
       </figcaption>
+      <details className="names-orbit__details">
+        <summary className="meta">Name forms & recorded speakers</summary>
+        <dl className="meta names-form-list">
+          {character.forms.map((form) => {
+            const speakers = speakersOf(form.form);
+            return (
+              <div key={form.form}>
+                <dt>{form.form}</dt>
+                <dd>{form.count.toLocaleString()}× · {form.register}
+                  {speakers.length > 0 && <span>Heard from {speakers.slice(0, 3).join(', ')}</span>}
+                </dd>
+              </div>
+            );
+          })}
+        </dl>
+      </details>
     </figure>
   );
 }
