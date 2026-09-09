@@ -12,7 +12,7 @@
     "start": "next start",
     "corpus": "tsx scripts/parse-corpus.ts && tsx scripts/build-mentions.ts && tsx scripts/build-names.ts",
     "extract": "tsx scripts/extract.ts",
-    "test": "tsx scripts/test-corpus.ts && tsx scripts/test-relationship-view.ts && tsx scripts/test-timeline-layout.ts",
+    "test": "tsx scripts/test-corpus.ts && tsx scripts/test-relationship-view.ts && tsx scripts/test-timeline-layout.ts && tsx scripts/test-rate-limit.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
