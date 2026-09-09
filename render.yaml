@@ -10,8 +10,12 @@ services:
     plan: starter          # SQLite needs a real filesystem and a warm process,
                            # so this is not a scale-to-zero workload.
     region: oregon
-    dockerfilePath: ./api/Dockerfile
-    dockerContext: .       # repo root: the image needs api/ AND data/
+    # Both are relative to the repository root. Keep the service's Root
+    # Directory EMPTY in the dashboard — setting it to `api` overrides this
+    # context and hides data/ from the build, which is how the first build
+    # failed with `"/data": not found`.
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /health
     autoDeploy: false      # deploy on a tag or manual promote, not every push
     envVars:
