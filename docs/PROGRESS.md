@@ -4,7 +4,7 @@ description: Running record of what has been built, what the reviews changed, wh
 ---
 # Progress Log
 
-**Living document. Append, do not rewrite.** Last updated 2026-09-08.
+**Living document. Append, do not rewrite.** Last updated 2026-09-10.
 
 Ground truth for work items is tbd (`tbd list`). This file explains the *why* and
 the *state*; the beads carry the detail.
@@ -22,6 +22,8 @@ the *state*; the beads carry the detail.
 | 5 · AI layer | **Unproven** | `/ask` has never made a model call |
 | 6 · Python API | **Prototype only** | 11 tests pass; app does not consume it |
 | 7 · Illustrated memory atlas | **Not started** | `atlas-t72d`, the actual product goal |
+| 8 · Deployment | **Configured, not deployed** | Render + Vercel config committed; nothing is live |
+| 9 · CI | **Done** | First automated gate; runs both stacks plus a data-drift check |
 
 ---
 
@@ -36,7 +38,10 @@ the *state*; the beads carry the detail.
 | Timeline | Columnar wall chart, 36 spans, book-time heights |
 | Design | Fraunces + DM Sans, blue + teal, shape-encoded categories |
 | API | FastAPI + SQLite/FTS5, 11 passing tests |
-| Tests | 15 TypeScript golden checks, 11 Python |
+| Tests | 4 TypeScript suites, 11 Python |
+| Deployment | `render.yaml`, `api/Dockerfile`, `vercel.json`, typed API client with fallback |
+| CI | `.github/workflows/ci.yml` — typecheck, tests, data-drift, build, Python |
+| Cost controls | Rate limit plus output, input and history caps on `/api/chat` |
 
 ---
 
@@ -75,6 +80,35 @@ of his departure.
 
 ---
 
+## 3b. Deployment, cost controls and gates (9–10 September)
+
+**Deployment configured for Render + Vercel.** The frontend is 99% static — 131
+prerendered pages and one dynamic route — and builds are hermetic because `data/`
+is committed, so a deploy needs no database and no network. `api/Dockerfile` builds
+the SQLite/FTS5 database into the image at build time and fails the build unless it
+contains exactly 96 chapters.
+
+**The backend was given a job.** My original advice was to defer deploying it, since
+nothing called it. The decision was to deploy both, so rather than ship an idle
+service the chat route's retrieval now calls the API when `ATLAS_API_URL` is set and
+falls back to local search when it is not. An outage degrades one feature instead of
+taking the site down.
+
+**`/api/chat` had no cost ceiling.** Rate limiting was the request; the audit found
+worse — no output token cap and no bound on request size, so one request could carry
+an unlimited history and generate unbounded output on the most expensive model
+configuration. Four bounds now. The API-key check also ran *before* the limiter, so
+an unauthenticated flood collected cheap 503s unbounded; the limiter is now first.
+
+**CI exists for the first time.** Typecheck, tests, build and the Python suite all
+existed and none ran automatically. The workflow adds a data-drift check —
+regenerate the derived data and fail on a diff — which is what would have caught
+review finding R4 the day it appeared.
+
+**Audit pass.** Stale caches (`atlas-arat`), a latent orbit label collision
+(`atlas-xd1p`), incomplete shape encoding (`atlas-32hp`), and curated data with
+nothing enforcing its integrity (`atlas-h0xk`). All fixed, all now tested.
+
 ## 4. What I struggled with
 
 Recorded because the pattern matters more than the individual bugs.
@@ -96,6 +130,19 @@ time, the honest move was to question the instrument.
 **Silent regex failures.** The attribution extractor reported success while matching
 nothing, because `\b` inside a template literal is the backspace character. Only caught
 because a prototype had found 827 matches and the port found 0.
+
+**Verifying in the wrong environment.** `npm test` was broken on the branch — it
+named two scripts belonging to another session's uncommitted work, which exist on no
+branch. In the main working tree those files are present as untracked, so the command
+passes there and the failure is invisible. It only surfaced by running the merged
+result in a clean worktree, and it would have failed the very CI job the same PR
+introduced.
+
+**Testing the test.** I broke the data-drift check on purpose to prove it worked, and
+my first attempt was invalid: I corrupted a generated file, but the pipeline
+regenerates that file, so it overwrote the corruption before the diff ran. Changing a
+pipeline *input* made it fail correctly. A verification can be wrong in the direction
+of false confidence.
 
 **Claims outrunning data.** R2 is the sharpest criticism and it is correct. I built a
 real measurement — register of address — and described it as emotional warmth. The
@@ -145,6 +192,10 @@ Ordered. Ground truth in tbd.
 
 | Date | Change |
 | --- | --- |
+| 2026-09-10 | Merge conflict resolved (`.env.example` deletion honoured); `npm test` repaired; docs brought current |
+| 2026-09-09 | Audit pass; CI with data-drift check; curated-data and API-client tests |
+| 2026-09-09 | Cost controls and rate limiting on `/api/chat` |
+| 2026-09-09 | Deployment plan and config: Render (API) + Vercel (frontend) |
 | 2026-09-08 | Tailwind v4 wired to design tokens; this log created |
 | 2026-09-08 | Codex review R2–R7, R9, R10 addressed (`677217b`) |
 | 2026-09-08 | Timeline rebuilt as columnar wall chart |
