@@ -153,3 +153,66 @@ Ordered. Ground truth in tbd.
 | 2026-09-07 | Name Key: morphology, lineage, orbits, register ladder |
 | 2026-09-07 | Reader research; representation research |
 | 2026-09-06 | Corpus pipeline, app scaffold, first design system |
+
+## 8. Who’s Who interaction and spacing refresh
+
+Implemented for `atlas-tox3`, starting from `b207385`, in response to the user's
+request to improve `/who` UI/UX, padding, margins, and representation.
+
+- Replaced the floating identity card with a persistent profile and a focused
+  connection view. The whole-cast diagram remains an alternate view; selecting a
+  node opens that person's connection cards.
+- Added family shortcuts, an accent-insensitive name/nickname search, circle
+  filtering, an empty state, and a collapsible cast directory on phones.
+- Grouped multiple bonds onto one person card without reversing their direction.
+  Disputed and plot-critical ties have text labels as well as color. Existing
+  literary descriptions and relationship data were preserved.
+- Turned existing relationship citations into separate chapter links, using the
+  actual corpus citation index. Uncited claims still need editorial sourcing; this
+  does not close the broader R8 evidence work.
+- Added scoped layout styles that reuse v3 tokens. The phone navigation no longer
+  forces page overflow; connection cards remain readable instead of shrinking an
+  entire SVG. No new dependencies or corpus regeneration were required.
+
+Validation: typecheck and all existing corpus tests pass, alongside the new
+`scripts/test-relationship-view.ts` checks for direction, grouping, search, filters,
+and valid citation destinations. The tests are included in `npm test`.
+
+Browser checks covered 320px, 390px, 820px, and desktop widths. At 390px, page width
+is 390px and relationship copy is 14px; the whole-cast diagram scrolls inside a
+356px panel without widening the page. Search for `adelaida` finds Adelaïda;
+keyboard activation moves focus to the visible profile; selecting Smerdyakov from
+the overview opens both his disputed parentage and murder relationships; the
+Book XI chapter 8 link opens the correct chapter.
+
+`npm run build -- --webpack` passes with 132 generated pages. The default Turbopack
+build fails in this environment when its CSS worker tries to bind a port
+(`Operation not permitted`), including on an escalated retry. The project default
+was not changed to hide that limitation. Application changes remain local; TBD
+remote synchronization was not retried after its earlier permission rejection.
+
+## 9. Names page layout refresh — 2026-09-09
+
+Implemented for `atlas-5oeh` to improve `/names` alignment, margins, padding, and
+navigation while preserving its typography.
+
+- Aligned the introduction and section headers on a consistent two-column grid,
+  with stacked layouts on smaller screens and three in-page section shortcuts.
+- Standardized orbit card spacing, captions, and headers. Removed the inherited
+  900px chart minimum from the 560px name diagrams, which had widened the page.
+- Kept diagrams at readable native sizes with contained horizontal scrolling on
+  phones. The mobile navigation wraps without creating page-level overflow.
+- Moved recorded-speaker metadata into expandable name-form lists, retaining the
+  existing names, counts, registers, and speaker data. Separated the interpretation
+  note from the comparison chart with a padded panel.
+- Preserved existing font declarations and literary content. Computed font family,
+  size, weight, line height, and letter spacing matched before and after for the
+  title, introduction, section headings, muted copy, captions, and sampled SVG text.
+
+Validation: typecheck, all corpus and relationship tests, and the Webpack production
+build pass (132 generated pages). Browser checks found no page-level horizontal
+overflow at 320px, 390px, 820px, and 1440px. At desktop width, the page previously
+overflowed to 1629px and now stays within 1440px. Section navigation reaches the
+intended headings, and the name-form disclosure opens with its recorded data.
+No dependencies or corpus data were changed. Changes and TBD tracking remain local;
+the previously documented default-build and remote-sync limitations still apply.
