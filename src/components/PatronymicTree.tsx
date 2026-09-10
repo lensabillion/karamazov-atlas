@@ -27,7 +27,8 @@ export default function PatronymicTree({
   const slot = W / children.length;
 
   return (
-    <div className="chart scroll-x">
+    <div className="chart scroll-x" tabIndex={0} role="region"
+      aria-label="Family name diagram; scroll horizontally on small screens">
       <svg viewBox={`0 0 ${W} ${H}`} role="img"
         aria-label={`Characters carrying the patronymic ${patronymic}, all children of ${father}`}>
 

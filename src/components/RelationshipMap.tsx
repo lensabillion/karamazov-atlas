@@ -1,268 +1,237 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { markPath } from './GroupMark';
+import { useRef, useState } from 'react';
+import { GROUP_LABEL, markPath, type Group } from './GroupMark';
 import { BOND_STYLE, H, PEOPLE, TIES, W, ZONES, type Person } from '@/lib/relationships';
+import { connectionsFor, describeTie, findPeople, type Connection } from '@/lib/relationship-view';
 
-type TieKey = string;
+const GROUPS: Group[] = ['family', 'women', 'monastery', 'boys', 'town', 'court'];
+const STARTERS = ['fyodor', 'dmitri', 'ivan', 'alyosha', 'smerdyakov'];
 
-/**
- * Who these people are to each other.
- *
- * Deliberately not a force simulation. The layout is the argument: the father
- * sits above his four sons, the two women below, and the lines that cross
- * between those rows are the plot. The heavy lines are the ones the murder
- * runs along — two men wanting the same woman, one brother teaching another
- * man the idea, and the killing itself.
- */
-export default function RelationshipMap() {
-  const [selected, setSelected] = useState<Person | null>(null);
-  const [hovered, setHovered] = useState<Person | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
-  const [, setTick] = useState(0);
+function Mark({ person, active = false }: { person: Person; active?: boolean }) {
+  return (
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+      <path className="mark" data-active={active || undefined}
+        transform="translate(16,16)" d={markPath(person.group, 7)} />
+    </svg>
+  );
+}
 
-  // The card floats over the diagram, so it must follow the drawing when the
-  // container scrolls or the window resizes.
-  const bump = useCallback(() => setTick((t) => t + 1), []);
-  useEffect(() => {
-    const el = scrollRef.current;
-    el?.addEventListener('scroll', bump, { passive: true });
-    window.addEventListener('resize', bump);
-    return () => {
-      el?.removeEventListener('scroll', bump);
-      window.removeEventListener('resize', bump);
-    };
-  }, [bump]);
+export default function RelationshipMap({ sources }: { sources: Record<string, string> }) {
+  const [selectedId, setSelectedId] = useState('dmitri');
+  const [query, setQuery] = useState('');
+  const [group, setGroup] = useState<Group | 'all'>('all');
+  const [mode, setMode] = useState<'focus' | 'all'>('focus');
+  const [castOpen, setCastOpen] = useState(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const selected = PEOPLE.find((person) => person.id === selectedId)!;
+  const connections = connectionsFor(selectedId);
+  const results = findPeople(query, group);
 
-  useEffect(() => {
-    if (!selected) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSelected(null); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [selected]);
-
-  /** Where to put the card: beside the person, in container pixels. */
-  const anchorOf = (p: Person) => {
-    const svg = svgRef.current;
-    const box = scrollRef.current;
-    if (!svg) return { left: 12, top: 12 };
-    const rect = svg.getBoundingClientRect();
-    const scale = rect.width / W;
-    const x = p.x * scale - (box?.scrollLeft ?? 0);
-    const y = p.y * scale;
-    const CARD_W = 272;
-    const CARD_H = 320; // must equal .anchored max-height in globals.css
-    const room = box?.clientWidth ?? rect.width;
-    const flip = x + CARD_W + 28 > room;
-
-    // Clamp vertically to what is actually on screen.
-    //
-    // `top` is container-local but the viewport constraint is not, so the two
-    // have to be related through rect.top — the container's own offset from the
-    // top of the viewport. Getting this wrong put the card at viewport y 1075
-    // on an 880px screen: still below the fold, which is the exact problem the
-    // anchored card exists to solve.
-    const viewH = typeof window === 'undefined' ? rect.height : window.innerHeight;
-    const minTop = -rect.top + 8;                  // card's top edge at viewport 8
-    const maxTop = viewH - CARD_H - rect.top - 8;  // card's bottom edge inside the viewport
-    const wanted = y - 24;
-    const top = maxTop < minTop
-      ? minTop
-      : Math.max(minTop, Math.min(wanted, maxTop));
-
-    return {
-      left: Math.max(8, Math.min(flip ? x - CARD_W - 18 : x + 18, room - CARD_W - 8)),
-      top,
-    };
-  };
-
-  const at = (id: string) => PEOPLE.find((p) => p.id === id)!;
-
-  /**
-   * Hue by role, never by decoration (design-system.md §3):
-   *   teal   — what the reader has selected
-   *   pink   — consequence: the path the murder travels
-   *   purple — uncertain: what the text does not settle
-   *   blue   — everything else
-   */
-  const tieColour = (bond: string, isKey: boolean | undefined, touched: boolean) => {
-    if (touched) return 'var(--teal)';
-    if (bond === 'disputed') return 'var(--purple)';
-    if (isKey) return 'var(--pink)';
-    return 'var(--border-strong)';
-  };
-
-  // Index ties by unordered pair, so duplicates can be fanned apart.
-  const pairKey = (a: string, b: string) => [a, b].sort().join('~');
-  const pairIndex = new Map<string, number>();
-  const bowOf = new Map<TieKey, number>();
-  for (const t of TIES) {
-    const k = pairKey(t.from, t.to);
-    const n = pairIndex.get(k) ?? 0;
-    pairIndex.set(k, n + 1);
-    // 0, then alternating ±: straight, bowed out one way, then the other.
-    bowOf.set(`${t.from}-${t.to}-${t.bond}`, n === 0 ? 0 : n % 2 ? 46 : -46);
+  function selectPerson(person: Person) {
+    setSelectedId(person.id);
+    setCastOpen(false);
+    requestAnimationFrame(() => {
+      headingRef.current?.focus({ preventScroll: true });
+      headingRef.current?.scrollIntoView({ block: 'nearest' });
+    });
   }
-  const touches = (id: string) =>
-    TIES.filter((t) => t.from === id || t.to === id);
 
-  const lit = (id: string) =>
-    !selected ||
-    selected.id === id ||
-    touches(selected.id).some((t) => t.from === id || t.to === id);
+  function connectionCard(connection: Connection) {
+    const { person, ties } = connection;
+    const tone = ties.some((tie) => tie.bond === 'disputed') ? 'disputed'
+      : ties.some((tie) => tie.key) ? 'plot' : 'ordinary';
+    return (
+      <article className="who-connection" data-tone={tone} key={person.id}>
+        <button className="who-connection__person" onClick={() => selectPerson(person)}
+          aria-label={`Explore ${person.name}`}>
+          <Mark person={person} />
+          <span>{person.name}</span>
+          <span className="who-arrow" aria-hidden="true">↗</span>
+        </button>
+        <div className="who-connection__bonds">
+          {ties.map((tie) => (
+            <div className="who-bond" key={`${tie.from}-${tie.to}-${tie.bond}`}>
+              <p>{describeTie(tie)}</p>
+              <div className="who-bond__meta">
+                {tie.bond === 'disputed' ? <span className="who-tag who-tag--disputed">Disputed</span>
+                  : tie.key ? <span className="who-tag who-tag--plot">Plot thread</span> : null}
+                {tie.cite && sources[tie.cite] && (
+                  <a href={sources[tie.cite]} className="who-source"
+                    aria-label={`Read ${tie.cite}: ${describeTie(tie)}`}>
+                    {tie.cite} <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+    );
+  }
 
   return (
-    <div className="stack stack--loose">
-      <div className="chart scroll-x" ref={scrollRef}>
-        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} role="img"
-          aria-label="Map of who the characters are to each other">
-
-          {ZONES.map((z) => (
-            <text key={z.label} x={z.x} y={z.y} textAnchor="middle"
-              style={{ font: '700 11px "DM Sans", sans-serif', letterSpacing: '0.12em' }}
-              fill="var(--ink-3)" opacity={0.5}>
-              {z.label.toUpperCase()}
-            </text>
-          ))}
-
-          {TIES.map((t) => {
-            const a = at(t.from);
-            const b = at(t.to);
-            const style = BOND_STYLE[t.bond];
-            const touched = selected?.id === t.from || selected?.id === t.to;
-            const active = !selected || touched;
-            // At rest only the plot-critical ties are labelled; selecting a
-            // person names every tie they have. Otherwise 37 labels compete.
-            const showLabel = touched || (!selected && t.key);
-            const bow = bowOf.get(`${t.from}-${t.to}-${t.bond}`) ?? 0;
-            // Control point pushed perpendicular to the line by `bow`.
-            const dx = b.x - a.x;
-            const dy = b.y - a.y;
-            const len = Math.max(1, Math.hypot(dx, dy));
-            const cx = (a.x + b.x) / 2 + (-dy / len) * bow;
-            const cy = (a.y + b.y) / 2 + (dx / len) * bow;
-            // Midpoint of a quadratic curve, where the label sits.
-            const mx = 0.25 * a.x + 0.5 * cx + 0.25 * b.x;
-            const my = 0.25 * a.y + 0.5 * cy + 0.25 * b.y;
+    <section className="who-explorer" aria-label="Character explorer">
+      <div className="who-starters">
+        <p className="eyebrow">Start with the family</p>
+        <div className="who-starters__people">
+          {STARTERS.map((id) => {
+            const person = PEOPLE.find((candidate) => candidate.id === id)!;
             return (
-              <g key={`${t.from}-${t.to}-${t.bond}`} opacity={active ? 1 : 0.12}>
-                <path d={`M${a.x},${a.y} Q${cx},${cy} ${b.x},${b.y}`}
-                  fill="none"
-                  stroke={tieColour(t.bond, t.key, touched)}
-                  strokeWidth={style.width}
-                  strokeDasharray={style.dash}
-                  strokeLinecap="round" />
-                {showLabel && (
-                  <>
-                    <rect x={mx - t.label.length * 3.4 - 5} y={my - 9}
-                      width={t.label.length * 6.8 + 10} height={18}
-                      fill="var(--surface)" rx={2} />
-                    <text x={mx} y={my} textAnchor="middle" dominantBaseline="middle"
-                      style={{ font: '400 11px "DM Sans", sans-serif' }}
-                      fill={
-                        touched ? 'var(--teal-deep)'
-                        : t.bond === 'disputed' ? 'var(--purple-deep)'
-                        : t.key ? 'var(--pink-deep)'
-                        : 'var(--ink-3)'
-                      }>
-                      {t.label}
-                    </text>
-                  </>
-                )}
-              </g>
+              <button key={id} className="who-starter" aria-pressed={selectedId === id}
+                onClick={() => selectPerson(person)}>
+                <Mark person={person} active={selectedId === id} />
+                <span>{person.name}</span>
+              </button>
             );
           })}
-
-          {PEOPLE.map((p) => {
-            const on = selected?.id === p.id;
-            return (
-              <g key={p.id} opacity={lit(p.id) ? 1 : 0.2}
-                className="hit"
-                role="button"
-                tabIndex={0}
-                aria-label={p.name}
-                onClick={() => setSelected(p)}
-                onMouseEnter={() => setHovered(p)}
-                onMouseLeave={() => setHovered(null)}
-                onFocus={() => setHovered(p)}
-                onBlur={() => setHovered(null)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(p); }
-                }}>
-                <path
-                  className="mark"
-                  data-active={on || undefined}
-                  data-uncertain={!on && p.id === 'smerdyakov' ? true : undefined}
-                  transform={`translate(${p.x},${p.y})`}
-                  d={markPath(p.group, on ? 11 : 8)}
-                  stroke="var(--bg)"
-                  strokeWidth={2}
-                />
-                <text x={p.x} y={p.y - (on ? 22 : 18)} textAnchor="middle"
-                  style={{ font: `${on ? 700 : 400} 13px "DM Sans", sans-serif` }}
-                  fill="var(--ink)">
-                  {p.name}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
-
-        {(() => {
-          const shown = selected ?? hovered;
-          if (!shown) return null;
-          const pos = anchorOf(shown);
-          const pinned = selected?.id === shown.id;
-          const uncertain = shown.id === 'smerdyakov';
-          return (
-            <div
-              className={
-                'anchored' +
-                (pinned ? ' anchored--pinned' : '') +
-                (uncertain && !pinned ? ' anchored--uncertain' : '')
-              }
-              style={{ left: pos.left, top: pos.top }}
-            >
-              <div className="anchored__name">{shown.name}</div>
-              <p className="anchored__who">{shown.who}</p>
-              {pinned ? (
-                <>
-                  <ul className="anchored__ties">
-                    {touches(shown.id).map((t) => {
-                      const other = at(t.from === shown.id ? t.to : t.from);
-                      const outgoing = t.from === shown.id;
-                      return (
-                        <li key={`${t.from}-${t.to}-${t.bond}`}>
-                          <button className="anchored__tie" onClick={() => setSelected(other)}>
-                            <span
-                              className={
-                                'anchored__bond' +
-                                (t.bond === 'disputed' ? ' anchored__bond--uncertain'
-                                  : t.key ? ' anchored__bond--key' : '')
-                              }
-                            >
-                              {outgoing ? t.label : `${t.label} by`}
-                            </span>
-                            <span className="grow">{other.name}</span>
-                            {t.cite ? <span className="meta">{t.cite}</span> : null}
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <button className="anchored__close" onClick={() => setSelected(null)}>
-                    Close (Esc)
-                  </button>
-                </>
-              ) : (
-                <p className="meta">Click to see every connection</p>
-              )}
-            </div>
-          );
-        })()}
+        </div>
       </div>
 
-    </div>
+      <div className="who-layout">
+        <aside className="who-cast" aria-label="Find a character">
+          <button className="who-cast__toggle" aria-expanded={castOpen}
+            aria-controls="who-cast-directory" onClick={() => setCastOpen(!castOpen)}>
+            <span>Browse all {PEOPLE.length} characters</span>
+            <span aria-hidden="true">{castOpen ? '−' : '+'}</span>
+          </button>
+          <div className="who-directory" id="who-cast-directory" data-open={castOpen}>
+            <div className="who-directory__header">
+              <h2 className="subheading">The cast</h2>
+              <span className="who-count">{PEOPLE.length}</span>
+            </div>
+            <div className="who-search">
+              <label className="who-label" htmlFor="who-search">Find a character</label>
+              <input id="who-search" type="search" placeholder="Name or nickname…"
+                value={query} onChange={(event) => setQuery(event.target.value)} />
+              <label className="who-label" htmlFor="who-group">Circle</label>
+              <select id="who-group" value={group}
+                onChange={(event) => setGroup(event.target.value as Group | 'all')}>
+                <option value="all">All circles</option>
+                {GROUPS.map((value) => <option key={value} value={value}>{GROUP_LABEL[value]}</option>)}
+              </select>
+            </div>
+            <p className="who-result-count" role="status">
+              {results.length} {results.length === 1 ? 'character' : 'characters'}
+            </p>
+            <div className="who-directory__list">
+              {results.map((person) => (
+                <button key={person.id} className="who-cast-person"
+                  aria-pressed={selectedId === person.id} onClick={() => selectPerson(person)}>
+                  <Mark person={person} active={selectedId === person.id} />
+                  <span>{person.name}<small>{GROUP_LABEL[person.group]}</small></span>
+                </button>
+              ))}
+              {results.length === 0 && (
+                <div className="who-empty">
+                  <p>No characters match this search.</p>
+                  <button onClick={() => { setQuery(''); setGroup('all'); }}>Clear filters</button>
+                </div>
+              )}
+            </div>
+          </div>
+        </aside>
+
+        <div className="who-workspace">
+          <header className="who-profile">
+            <div className="who-profile__mark"><Mark person={selected} active /></div>
+            <div className="who-profile__copy">
+              <div className="who-profile__meta">
+                <span className="eyebrow">{GROUP_LABEL[selected.group]}</span>
+                <span>{connections.length} connected {connections.length === 1 ? 'person' : 'people'}</span>
+              </div>
+              <h2 className="heading" ref={headingRef} tabIndex={-1}>{selected.name}</h2>
+              <p>{selected.who}</p>
+            </div>
+          </header>
+
+          <div className="who-map-toolbar">
+            <div className="who-mode" role="group" aria-label="Relationship view">
+              <button aria-pressed={mode === 'focus'} onClick={() => setMode('focus')}>Their connections</button>
+              <button aria-pressed={mode === 'all'} onClick={() => setMode('all')}>Whole cast</button>
+            </div>
+            <span className="who-map-hint">Select a person to follow the story</span>
+          </div>
+
+          {mode === 'focus' ? (
+            <div className="who-network" aria-label={`People connected to ${selected.name}`}>
+              <div className="who-network__column">
+                {connections.filter((_, index) => index % 2 === 0).map(connectionCard)}
+              </div>
+              <div className="who-network__center" aria-hidden="true">
+                <div className="who-network__seal"><Mark person={selected} active /></div>
+                <span>{selected.name}</span>
+                <small>Follow a connection</small>
+              </div>
+              <div className="who-network__column">
+                {connections.filter((_, index) => index % 2 === 1).map(connectionCard)}
+              </div>
+            </div>
+          ) : (
+            <>
+              <p className="who-overview-help" id="who-map-help">
+                The whole cast, in context. Scroll to explore the map.
+                Select a name to open their relationship cards.
+              </p>
+              <div className="who-overview" tabIndex={0} role="region"
+                aria-label="Scrollable whole-cast map" aria-describedby="who-map-help">
+                <svg viewBox={`-40 -24 ${W + 80} ${H + 48}`} role="group" aria-label="Character relationships">
+                  {ZONES.map((zone) => (
+                    <text className="who-zone" key={zone.label} x={zone.x} y={zone.y}
+                      textAnchor="middle">{zone.label}</text>
+                  ))}
+                  {TIES.map((tie, index) => {
+                    const from = PEOPLE.find((person) => person.id === tie.from)!;
+                    const to = PEOPLE.find((person) => person.id === tie.to)!;
+                    const active = tie.from === selectedId || tie.to === selectedId;
+                    const style = BOND_STYLE[tie.bond];
+                    const parallel = TIES.slice(0, index).some((previous) =>
+                      (previous.from === tie.from && previous.to === tie.to) ||
+                      (previous.from === tie.to && previous.to === tie.from),
+                    );
+                    const dx = to.x - from.x;
+                    const dy = to.y - from.y;
+                    const length = Math.max(1, Math.hypot(dx, dy));
+                    const bow = parallel ? 64 : 0;
+                    const cx = (from.x + to.x) / 2 - dy / length * bow;
+                    const cy = (from.y + to.y) / 2 + dx / length * bow;
+                    return (
+                      <g key={`${tie.from}-${tie.to}-${tie.bond}`} opacity={active ? 1 : 0.2}>
+                        <title>{describeTie(tie)}</title>
+                        <path d={`M${from.x},${from.y} Q${cx},${cy} ${to.x},${to.y}`} fill="none"
+                          stroke={tie.bond === 'disputed' ? 'var(--purple)' : tie.key ? 'var(--pink)' : active ? 'var(--teal)' : 'var(--border-strong)'}
+                          strokeWidth={style.width} strokeDasharray={style.dash} />
+                      </g>
+                    );
+                  })}
+                  {PEOPLE.map((person) => (
+                    <g key={person.id} className="who-map-person" role="button" tabIndex={0}
+                      aria-label={`Explore ${person.name}`} aria-pressed={person.id === selectedId}
+                      onClick={() => { setMode('focus'); selectPerson(person); }}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault(); setMode('focus'); selectPerson(person);
+                        }
+                      }}>
+                      <rect x={person.x - 86} y={person.y - 35} width={172} height={52} rx={3} />
+                      <path className="mark" data-active={person.id === selectedId || undefined}
+                        transform={`translate(${person.x},${person.y + 3})`} d={markPath(person.group, 6)} />
+                      <text x={person.x} y={person.y - 13} textAnchor="middle">{person.name}</text>
+                    </g>
+                  ))}
+                </svg>
+              </div>
+            </>
+          )}
+
+          <footer className="who-legend">
+            <span><i className="who-legend__line who-legend__line--plot" />Plot thread</span>
+            <span><i className="who-legend__line who-legend__line--disputed" />Disputed relationship</span>
+            <span><i className="who-legend__line" />Other connection</span>
+            <p>Curated from the novel · citations open the chapter</p>
+          </footer>
+        </div>
+      </div>
+    </section>
   );
 }

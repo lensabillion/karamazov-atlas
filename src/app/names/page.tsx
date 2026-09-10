@@ -3,6 +3,7 @@ import PatronymicTree from '@/components/PatronymicTree';
 import WarmthLadder from '@/components/WarmthLadder';
 import { getCorpus } from '@/lib/corpus';
 import { getNames } from '@/lib/names';
+import './names.css';
 
 export default function NamesPage() {
   const { characters, addresses, coverage, lineages } = getNames();
@@ -18,22 +19,33 @@ export default function NamesPage() {
   const pavel = byId.get('smerdyakov')?.forms.find((f) => f.form === 'Pavel Fyodorovitch');
 
   return (
-    <main className="page page--wide">
-      <header className="page-header">
-        <p className="eyebrow">The names</p>
-        <h1 className="title">How close does a name stand?</h1>
+    <main className="page page--wide names-page">
+      <header className="names-header">
+        <div className="names-header__title">
+          <p className="eyebrow">The names</p>
+          <h1 className="title">How close does a name stand?</h1>
+        </div>
         <p className="lede">
           Russian names carry what English names do not: the form chosen encodes formality
-          and distance. What follows is a description of how each person is <em>named</em>
+          and distance. What follows is a description of how each person is <em>named</em>{' '}
           across the text — narration included — not a measure of how they are felt about.
           Where a reading is offered, it is marked as a reading.
         </p>
       </header>
 
+      <nav className="names-sections" aria-label="On this page">
+        {lineage && <a href="#names-family"><span className="eyebrow">01</span><span className="text">The family</span><span aria-hidden="true">↓</span></a>}
+        <a href="#names-forms"><span className="eyebrow">02</span><span className="text">Names & forms</span><span aria-hidden="true">↓</span></a>
+        <a href="#names-registers"><span className="eyebrow">03</span><span className="text">Across the novel</span><span aria-hidden="true">↓</span></a>
+      </nav>
+
       {lineage && (
-        <section className="section">
-          <div className="section-header">
-            <h2 className="heading">The family, reassembled from grammar</h2>
+        <section className="names-section" id="names-family" aria-labelledby="names-family-title">
+          <div className="names-section__header">
+            <div className="names-section__title">
+              <p className="eyebrow">01 / The family</p>
+              <h2 className="heading" id="names-family-title">The family, reassembled from grammar</h2>
+            </div>
             <p className="text-muted">
               A patronymic names the father. Everyone below carries{' '}
               <strong>{lineage.patronymic}</strong>, so everyone below is a child of{' '}
@@ -44,18 +56,23 @@ export default function NamesPage() {
               , and never again.
             </p>
           </div>
-          <PatronymicTree
-            father={lineage.father}
-            patronymic={lineage.patronymic}
-            children={pick(lineage.children)}
-            disputedId="smerdyakov"
-          />
+          <div className="names-wide-chart names-family-chart">
+            <PatronymicTree
+              father={lineage.father}
+              patronymic={lineage.patronymic}
+              children={pick(lineage.children)}
+              disputedId="smerdyakov"
+            />
+          </div>
         </section>
       )}
 
-      <section className="section">
-        <div className="section-header">
-          <h2 className="heading">Who is allowed to say it</h2>
+      <section className="names-section" id="names-forms" aria-labelledby="names-forms-title">
+        <div className="names-section__header">
+          <div className="names-section__title">
+            <p className="eyebrow">02 / Names & forms</p>
+            <h2 className="heading" id="names-forms-title">Who is allowed to say it</h2>
+          </div>
           <p className="text-muted">
             Each ring is a degree of intimacy — the outer ring is name-plus-patronymic, held at
             arm’s length; the centre is the diminutive nobody uses casually. Dot size is how
@@ -65,31 +82,38 @@ export default function NamesPage() {
             a full census.
           </p>
         </div>
-        <div className="grid grid--pairs">
+        <div className="names-orbits">
           {pick(['dmitri', 'grushenka', 'alyosha', 'katerina', 'ivan', 'smerdyakov']).map((c) => (
             <NameOrbit character={c} addresses={addresses} nameOf={nameOf} key={c.id} />
           ))}
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-header">
-          <h2 className="heading">The coldest men in the book</h2>
+      <section className="names-section" id="names-registers" aria-labelledby="names-registers-title">
+        <div className="names-section__header">
+          <div className="names-section__title">
+            <p className="eyebrow">03 / Across the novel</p>
+            <h2 className="heading" id="names-registers-title">The coldest men in the book</h2>
+          </div>
           <p className="text-muted">
             Not how often someone is named, but the least formal register the text ever uses
             for them — across narration and dialogue alike, under the alias vocabulary listed
             on this page. Dmitri reaches the diminutive <em>Mityenka</em>; Fyodor appears only
             as Fyodor Pavlovitch, Ivan takes no recorded diminutive, and Smerdyakov is a
             surname 371 times against a single given name.
-            <br />
-            <br />
+          </p>
+        </div>
+        <div className="names-wide-chart names-register-chart">
+          <WarmthLadder characters={characters} markIds={['fyodor', 'ivan', 'smerdyakov']} />
+        </div>
+        <aside className="names-note" aria-label="Interpretation note">
+          <p className="text-muted">
             <strong>A reading, offered as one:</strong> those three sit at the formal end, and
             the murder runs through all three. That is a pattern in how the prose names people.
             It is not evidence of what any character feels, and an alias list this size cannot
             support a claim about what nobody ever says.
           </p>
-        </div>
-        <WarmthLadder characters={characters} markIds={['fyodor', 'ivan', 'smerdyakov']} />
+        </aside>
       </section>
     </main>
   );

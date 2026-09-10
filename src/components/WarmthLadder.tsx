@@ -42,7 +42,8 @@ export default function WarmthLadder({
   const step = trackW / LADDER.length;
 
   return (
-    <div className="chart scroll-x">
+    <div className="chart scroll-x" tabIndex={0} role="region"
+      aria-label="Name register comparison; scroll horizontally on small screens">
       <svg viewBox={`0 0 ${W} ${H}`} role="img"
         aria-label="The warmest register in which each character is ever addressed">
 
