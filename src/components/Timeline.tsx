@@ -93,14 +93,14 @@ export default function Timeline() {
                 )}
                 {wrap(s.label.toUpperCase(), 18).map((ln, j) => (
                   <text key={j} x={GUTTER - 16} y={b.y + 14 + j * 13} textAnchor="end"
-                    style={{ font: '600 11px "DM Sans", sans-serif', letterSpacing: '0.06em' }}
+                    style={{ font: '600 11px Old Standard TT, Georgia, serif', letterSpacing: '0.06em' }}
                     fill="var(--ink-3)">
                     {ln}
                   </text>
                 ))}
                 <text x={GUTTER - 16}
                   y={b.y + 14 + wrap(s.label.toUpperCase(), 18).length * 13} textAnchor="end"
-                  style={{ font: '400 10px "DM Sans", sans-serif' }} fill="var(--ink-3)">
+                  style={{ font: '400 10px Old Standard TT, Georgia, serif' }} fill="var(--ink-3)">
                   {s.elided ? 'skipped' : `${Math.round((s.words / 349367) * 100)}% of the book`}
                 </text>
               </g>
@@ -115,7 +115,7 @@ export default function Timeline() {
                 <path className="mark" transform={`translate(${x + 12},${HEADER - 30})`}
                   d={markPath(GROUP_OF[lane.id] ?? 'family', 5)} />
                 <text x={x + 24} y={HEADER - 26}
-                  style={{ font: '600 13px "DM Sans", sans-serif' }} fill="var(--ink)">
+                  style={{ font: '600 13px Old Standard TT, Georgia, serif' }} fill="var(--ink)">
                   {lane.name}
                 </text>
               </g>
@@ -144,7 +144,7 @@ export default function Timeline() {
                   strokeWidth={on || span.key ? 1.5 : 1} />
                 {lines.map((ln, j) => (
                   <text key={j} x={x + 10} y={y + 18 + j * 13}
-                    style={{ font: `${span.key ? 600 : 400} 11px "DM Sans", sans-serif` }}
+                    style={{ font: `${span.key ? 600 : 400} 11px Old Standard TT, Georgia, serif` }}
                     fill={on ? 'var(--teal-deep)' : 'var(--ink)'}>
                     {ln}
                   </text>
@@ -155,7 +155,7 @@ export default function Timeline() {
                     <line x1={x + 2} y1={y + h - 2} x2={x + COL_W - 4} y2={y + h - 2}
                       stroke="var(--teal)" strokeWidth={3} />
                     <text x={x + 10} y={y + h + 14}
-                      style={{ font: '600 10px "DM Sans", sans-serif', letterSpacing: '0.06em' }}
+                      style={{ font: '600 10px Old Standard TT, Georgia, serif', letterSpacing: '0.06em' }}
                       fill="var(--teal-deep)">
                       ENDS HERE
                     </text>

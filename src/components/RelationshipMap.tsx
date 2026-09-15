@@ -120,7 +120,7 @@ export default function RelationshipMap() {
 
           {ZONES.map((z) => (
             <text key={z.label} x={z.x} y={z.y} textAnchor="middle"
-              style={{ font: '700 11px "DM Sans", sans-serif', letterSpacing: '0.12em' }}
+              style={{ font: '700 11px Old Standard TT, Georgia, serif', letterSpacing: '0.12em' }}
               fill="var(--ink-3)" opacity={0.5}>
               {z.label.toUpperCase()}
             </text>
@@ -159,7 +159,7 @@ export default function RelationshipMap() {
                       width={t.label.length * 6.8 + 10} height={18}
                       fill="var(--surface)" rx={2} />
                     <text x={mx} y={my} textAnchor="middle" dominantBaseline="middle"
-                      style={{ font: '400 11px "DM Sans", sans-serif' }}
+                      style={{ font: '400 11px Old Standard TT, Georgia, serif' }}
                       fill={
                         touched ? 'var(--teal-deep)'
                         : t.bond === 'disputed' ? 'var(--purple-deep)'
@@ -200,7 +200,7 @@ export default function RelationshipMap() {
                   strokeWidth={2}
                 />
                 <text x={p.x} y={p.y - (on ? 22 : 18)} textAnchor="middle"
-                  style={{ font: `${on ? 700 : 400} 13px "DM Sans", sans-serif` }}
+                  style={{ font: `${on ? 700 : 400} 13px Old Standard TT, Georgia, serif` }}
                   fill="var(--ink)">
                   {p.name}
                 </text>

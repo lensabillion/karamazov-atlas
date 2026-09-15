@@ -39,15 +39,24 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
   return (
     <main className="page split">
       <article className="stack stack--loose">
-        <header className="page-header">
-          <p className="eyebrow">
-            {chapter.part} ·{' '}
-            {chapter.bookNum === 13 ? 'Epilogue' : `Book ${chapter.bookNum}. ${chapter.bookTitle}`}
+        {/* The running head, as the edition runs it: work on the verso, section
+            on the recto, folio in the outer corner on the same line. */}
+        <div className="runhead">
+          <span className="runhead__folio">{idx + 1}</span>
+          <span>The Brothers Karamazov</span>
+          <span>{chapter.bookNum === 13 ? 'Epilogue' : chapter.bookTitle}</span>
+        </div>
+
+        {/* PART / BOOK / BOOK TITLE / CHAPTER / chapter title — the hierarchy
+            photographed from an actual copy, not inferred from a title page. */}
+        <header className="leaf stack">
+          <p className="leaf__part">{chapter.part}</p>
+          <p className="leaf__book">
+            {chapter.bookNum === 13 ? 'Epilogue' : `Book ${chapter.roman ? chapter.bookNum : chapter.bookNum}`}
           </p>
-          <h1 className="title">{chapter.title}</h1>
-          <p className="meta">
-            {chapter.cite} · {chapter.wordCount.toLocaleString()} words
-          </p>
+          <h1 className="leaf__booktitle">{chapter.bookTitle}</h1>
+          <p className="leaf__chapter">Chapter {chapter.roman}</p>
+          <p className="leaf__title">{chapter.title}</p>
         </header>
 
         <ChapterProse

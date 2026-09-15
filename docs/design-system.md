@@ -1,189 +1,171 @@
 ---
 title: Karamazov Atlas — Design System
-description: Two typefaces, two colours, and the rules that make them consistent everywhere
+description: The app is set as a 1912 letterpress edition; this is how
 ---
 # Design System
 
-**Version 3** · 2026-09-08 · Extends v2 from two hues to four.
+**Version 5 — First Edition** · 2026-09-15 · Supersedes the two-then-four-hue
+screen palette of v2/v3.
+
+Working summary for agents: `.claude/skills/first-edition/SKILL.md` (mirrored to
+`.agents/skills/`). This document is the specification; that file is the
+checklist.
 
 ---
 
-## 1. The constraints
+## 1. The premise
 
-1. Light ground — white, but not flat white (§3.4).
-2. Four hues: **blue**, **teal**, **purple**, **pink**. No fifth.
-3. Exactly **two** typefaces: Fraunces and DM Sans. Unchanged from v2.
-4. Consistent on every surface, without exception.
+The corpus is the **1912 Heinemann edition of the Garnett translation**. The app
+is set as that book: letterpress ink on cream stock, letterspaced capitals,
+paired rules, centred blocks.
 
-**Every hue must have a job.** Two colours were too few — the result read grey and
-flat, because with one accent held in reserve for selection, almost everything was
-neutral. Four is enough to carry meaning, and few enough to stay disciplined. A hue
-that is only decorative is a bug.
+What is followed is the edition's **compositional convention**, which is a
+period habit rather than anyone's artwork. The edition is unillustrated, so
+there is nothing in it to reproduce even if that were wanted, and every device
+here is drawn from scratch.
+
+**The governing rule:** the page is a leaf of stock, not a screen. If a surface
+reads as a web app — a boxed card, a shadow, a gradient, a rounded panel — it is
+wrong.
 
 ---
 
-## 2. Typefaces
+## 2. Typeface
 
-Two families, chosen to be genuinely admired rather than defaults.
+**One family: Old Standard TT.** There is no sans, because the edition has none —
+and no second serif, because a 1912 trade book is set in one family at several
+sizes. Two families was a modern habit imported into a period design.
 
-### Fraunces — display and reading
+| Token | Resolves to | Use |
+| --- | --- | --- |
+| `--font-display` | Old Standard TT | Titles, headings, brand, large figures |
+| `--font-serif` | Old Standard TT | Text, italics, labels, data, prose |
+| `--font-sans` | Old Standard TT | Alias, so stray references degrade correctly |
 
-A contemporary "old style" serif with real character: soft, slightly wonky, warm. It is
-a **variable font with an optical-size axis** (`opsz`), which is why one family can do
-two jobs honestly — at 96pt it is a display face with dramatic contrast, and at 17pt the
-optical size reflows the letterforms for reading. That solves the usual problem of
-needing a display serif *and* a text serif without spending a third family.
+`--font-display` stays a separate token so display sizes can be tuned
+independently — not because it is a different face.
 
-Deliberately not Playfair Display, which has become the automatic choice for
-"editorial" and now reads as a default rather than a decision.
+### Why this face
 
-**Used for:** page titles, section headings, the novel's text, quotations, and any
-number the reader is meant to dwell on.
+The edition's type was examined rather than guessed: body pages from the actual
+1912 Heinemann printing were pulled and magnified, and the letterforms are
+**Modern (Didone)** — vertical stress, high contrast, fine flat unbracketed
+serifs, a `y` ending in a cut rather than a ball.
 
-### DM Sans — interface
+An earlier version of this document specified Libre Caslon, chosen from a
+photograph of a title page. That was wrong: Caslon is an Old Style with
+diagonal stress and bracketed serifs, close to the opposite of what the page
+shows. Old Standard TT is an explicit revival of the Modern class.
 
-A low-contrast geometric sans with a tall x-height and short descenders. It stays
-legible at 12px, which is where most interface text lives, and its geometry sits
-comfortably beside Fraunces' warmth without competing.
+Full evidence, and the limits of the claim: `docs/typeface-identification.md`.
 
-Deliberately not Inter, for the same reason as above.
+**Say "set in the Modern style of the 1912 edition."** It is a class match, not a
+face match, and the 1880 Moscow first printing is a different object entirely.
 
-**Used for:** navigation, labels, controls, data annotations, chart text, captions.
+Labels are **letterspaced capitals of the text face**, as the period set them —
+not a second family at small size.
 
-### The rule
+### The tracking rule
 
-> Fraunces is for language. DM Sans is for interface.
-> If the reader is reading *words the novel or the author wrote*, it is Fraunces.
-> If they are reading *the app talking about the novel*, it is DM Sans.
+Letterspacing adds a trailing space after the final letter, which the eye reads
+as a margin and pulls a centred block off-axis. Every letterspaced run therefore
+carries a matching `text-indent`:
+
+```css
+letter-spacing: 0.22em;
+text-indent: 0.22em;
+text-transform: uppercase;
+```
 
 ### Scale
 
-Six sizes. There is no seventh.
-
-| Token | Size | Use |
-| --- | --- | --- |
-| `--text-xs` | 12px | Labels, chart annotations, counts |
-| `--text-sm` | 14px | Interface body, list items, controls |
-| `--text-base` | 16px | Default |
-| `--text-md` | 19px | Reading prose, lede |
-| `--text-lg` | 26px | Section headings |
-| `--text-xl` | 44px | Page title, one per page |
-
-Weights: **400** and **600** only. Fraunces additionally uses its `SOFT` and `opsz`
-axes rather than reaching for more weights.
+Six sizes, `--text-xs` (12px) through `--text-xl` (44px). There is no seventh.
+Weights: 400 and 600. Emphasis comes from **tracking, size and rules** before it
+comes from weight — which is how the period got emphasis, having no variable
+axes to reach for.
 
 ---
 
 ## 3. Colour
 
-### The two hues
-
-Both are picked away from the web-default blues. `--blue` is a deep ink blue with a
-slight violet cast, which reads as considered rather than generic. `--teal` is desaturated
-towards green-grey so it can sit beside the blue without vibrating.
+Four values, taken from the object rather than invented.
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `--blue` | `#1F3A93` | Primary. Structure, data marks, links, headings-in-emphasis |
-| `--blue-deep` | `#152863` | Pressed, hover, heavy strokes |
-| `--blue-soft` | `#E8ECFA` | Tinted grounds behind blue content |
-| `--teal` | `#0E7C7B` | Secondary. Selection, the active thing, the answer |
-| `--teal-deep` | `#0A5C5B` | Pressed |
-| `--teal-soft` | `#E0F2F1` | Tinted grounds behind teal content |
-| `--purple` | `#5B3E96` | **Uncertain, disputed, interpreted.** What the text does not settle |
-| `--purple-soft` | `#EDE8F8` | Tinted ground behind interpretation |
-| `--pink` | `#B32B65` | **Consequence.** The thread the murder travels along |
-| `--pink-soft` | `#FBE8F0` | Tinted ground behind that thread |
+| `--cloth` | `#8c2f26` | The binding. Active, interactive, data marks |
+| `--gilt` | `#9a7b32` | The stamping. Selection and emphasis only |
+| `--ink`, `--ink-2`, `--ink-3` | `#1a1613` → `#786a5c` | Letterpress, three strengths |
+| `--bg`, `--surface` | `#f2ece0`, `#ece5d6` | Cream stock |
 
-### Neutrals are blue, not grey
+**The ground is laid paper, not flat cream.** A repeating horizontal grain at
+about 2% plus two faint washes, one cloth-red and one umber, in opposite
+corners. It is never strong enough to sit under running text, and it is what
+stops the page reading as a beige fill.
 
-Every neutral is the blue hue at very low saturation. Nothing in the interface is a
-true grey, which is what keeps two colours from looking like two colours plus grey.
+The v3 names (`--blue`, `--teal`, `--purple`, `--pink`) still resolve; they now
+point at cloth and gilt. Components were not rewritten to rename them, because
+the alias is honest about what happened and touches one file rather than thirty.
 
-| Token | Value |
-| --- | --- |
-| `--bg` | `#FFFFFF` |
-| `--surface` | `#F6F7FB` |
-| `--border` | `#E1E5F0` |
-| `--border-strong` | `#C2C9DE` |
-| `--ink` | `#101632` |
-| `--ink-2` | `#414A6B` |
-| `--ink-3` | `#7A83A0` |
-
-### Division of labour
-
-- **Blue is the noun.** Structure, data, the things being described.
-- **Teal is the verb.** Selection, focus, the currently active thing, the answer to the
-  reader's question.
-
-A page at rest is blue. Teal appears only where the reader has acted or where the app
-is pointing at something.
+**Do not add a fifth value.**
 
 ---
 
-## 4. There is no dark mode
+## 4. Composition
 
-v1 supported light and dark. This version commits to one: a white ground, as specified.
-Committing lets the palette be tuned exactly rather than compromised across two
-environments. `color-scheme: light` is declared so form controls follow.
-
----
-
-## 5. Encoding six groups with two colours
-
-The hard problem. The app distinguishes six character groups — household, women,
-monastery, boys, town, court — which v1 encoded by six hues. Two hues cannot do that,
-and a blue→teal ramp would be worse than useless: a sequential ramp implies **order**,
-and these categories have none.
-
-**Groups are therefore encoded by SHAPE, not colour.**
-
-| Group | Mark |
-| --- | --- |
-| Household | ● circle |
-| Women | ◆ diamond |
-| Monastery | ▲ triangle |
-| Boys | ■ square |
-| Town | ⬢ hexagon |
-| Court | ✚ cross |
-
-Shape is a categorical channel — it carries no implied order, which is exactly right
-here — and it survives greyscale printing and colour-blindness, which six hues did not.
-
-Colour is then freed to carry something it is actually good at:
-
-- **Blue** — everything at rest.
-- **Teal** — the selected element and everything connected to it.
-
-So on the relationship map, shape says *what kind of person this is* and teal says
-*what you are looking at*. The two channels stop competing.
+- **Rules, not borders.** Divide with a paired thick/thin rule, or a hairline.
+  A box around content is a UI habit, not a print one.
+- **Six spacing steps**, `--space-1` … `--space-6`; gaps set by the parent.
+- **One radius**, 2px, used sparingly. Print has no rounded corners.
+- **Figures**: `lining-nums` where they align in columns, oldstyle in prose.
+- **The running head stays on one line.** It scrolls rather than stacking.
 
 ---
 
-## 6. Structure
+## 5. Plates
 
-- One border width: **1px**.
-- One radius: **3px**.
-- No shadows, no gradients, no blur. Depth comes from the single `--surface` step.
-- Space scale, six steps: 4 / 8 / 16 / 24 / 40 / 64px.
-- Gaps are set by parents with flex or grid `gap`. Never margins on children.
-- One breakpoint: 760px.
+A character is presented as a title-page plate: `.plate` in `src/app/plate.css`,
+built by `CharacterPlate.tsx`. Letterspaced capitals, paired rules, a centred
+block, an ornament, leader dots into a cast list.
 
----
-
-## 7. Rules that must not be broken
-
-1. No colour value appears outside the token block in `globals.css`.
-2. No `style` attribute except for values computed from data (bar widths, SVG geometry).
-3. No font size outside the six tokens.
-4. Categorical data is encoded by shape; colour never encodes category.
-5. Teal means *active*. It is never decorative.
-6. Fraunces for the novel's language, DM Sans for the app's.
+`Ornament.tsx` draws a lozenge on an axis with four leaves, from primitives. If
+another device is wanted, **draw an original**; do not trace a binding, a
+publisher's mark, or any existing artwork.
 
 ---
 
-## 8. Implementation
+## 6. On portraits
 
-`src/app/globals.css` is the single source of truth and mirrors this document section
-for section. If the two disagree, this document is the specification and the CSS is the
-bug.
+There is **no historical set of Karamazov character faces**:
+
+- Grigoriev's illustrations (c. 1916–33) were exhibited once in 1933 and went
+  into a private collection; no usable scans circulate.
+- The 1912 edition is unillustrated.
+- Perov's 1872 portrait is public domain, but it is the author, not the cast.
+
+**Characters are presented typographically and no faces are generated.** That is
+a decision, not a gap awaiting an image model.
+
+---
+
+## 7. Encoding categories
+
+Six character groups cannot be told apart by a four-value palette, and a ramp
+would imply an order they do not have. **Category is encoded by shape** —
+circle, diamond, triangle, square, hexagon, cross — via `GroupMark.tsx`. Colour
+carries state instead: cloth at rest, gilt when active.
+
+---
+
+## 8. Verification
+
+Check computed styles, not screenshots. A wrapped grid row survived a screenshot
+review here and was only caught by reading `gridTemplateRows`, which reported
+two rows where there should have been one. Measure.
+
+---
+
+## 9. Implementation
+
+`src/app/globals.css` is the single source of truth and mirrors this document.
+If the two disagree, this document is the specification and the CSS is the bug.
+
