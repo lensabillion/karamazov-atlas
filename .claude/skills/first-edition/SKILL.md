@@ -17,16 +17,24 @@ Full specification: `docs/design-system.md`. This file is the working summary.
 > ruled, letterspaced, centred where a page would centre. Do not add boxes,
 > shadows, gradients, rounded cards, or anything that reads as a UI surface.
 
-## Typefaces — two, both period revivals, no sans
+## Typeface — one family, no sans
 
-| Token | Face | Use |
-| --- | --- | --- |
-| `--font-display` | Libre Caslon Display | Titles, headings, brand, large figures |
-| `--font-serif` | EB Garamond | Everything else: text, italics, labels, data |
+**Old Standard TT**, everywhere. `--font-display`, `--font-serif` and
+`--font-sans` all resolve to it; `--font-display` exists only so display sizes
+can be tuned separately.
 
-`--font-sans` still exists but **aliases to the serif**. Never introduce a sans;
-the edition has none. Labels are letterspaced capitals of the text face, which is
-how the period set them.
+Never introduce a sans, and do not add a second serif. A 1912 trade book is set
+in one family at several sizes. Labels are letterspaced capitals of the same
+face, which is how the period set them.
+
+The face was identified from the actual 1912 pages, not guessed: the letterforms
+are **Modern (Didone)** — vertical stress, high contrast, flat unbracketed
+serifs. An earlier version specified Libre Caslon from a title-page photograph
+and was wrong, since Caslon is an Old Style. Evidence and confidence levels:
+`docs/typeface-identification.md`.
+
+Describe it as *set in the Modern style of the 1912 edition* — a class match,
+not a face match.
 
 **Letterspacing needs `text-indent` to match**, or the block sits optically
 off-centre — the trailing letter carries a space the eye reads as a margin:

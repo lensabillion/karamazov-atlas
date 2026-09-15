@@ -14,12 +14,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* Two period revivals, no sans. Libre Caslon Display sets titles as the
-            1912 edition sets them; EB Garamond carries text, italics and
-            oldstyle figures. See docs/design-system.md. */}
+        {/* One family, as a 1912 trade book uses one family. Old Standard TT
+            revives the Modern (classicist) serif identified on the actual
+            page — see docs/typeface-identification.md. */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=EB+Garamond:ital,wght@0,400..700;1,400..700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
         />
       </head>
       <body>

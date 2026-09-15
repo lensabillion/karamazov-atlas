@@ -51,7 +51,7 @@ export default function WarmthLadder({
             <line x1={nameW + i * step + step / 2} y1={26} x2={nameW + i * step + step / 2} y2={H - 8}
               stroke="var(--border)" strokeWidth={1} />
             <text x={nameW + i * step + step / 2} y={16} textAnchor="middle"
-              style={{ font: '400 11px EB Garamond, Georgia, serif' }} fill="var(--ink-3)">
+              style={{ font: '400 11px Old Standard TT, Georgia, serif' }} fill="var(--ink-3)">
               {LABEL[reg]}
             </text>
           </g>
@@ -65,7 +65,7 @@ export default function WarmthLadder({
           return (
             <g key={c.id} className={`group-${c.group}`}>
               <text x={nameW - 12} y={y} textAnchor="end" dominantBaseline="middle"
-                style={{ font: `${marked ? 700 : 400} 13px EB Garamond, Georgia, serif` }}
+                style={{ font: `${marked ? 700 : 400} 13px Old Standard TT, Georgia, serif` }}
                 fill={marked ? 'var(--teal-deep)' : 'var(--ink)'}>
                 {c.short}
               </text>
@@ -75,7 +75,7 @@ export default function WarmthLadder({
               <path className="mark" data-active={marked || undefined}
                 transform={`translate(${x},${y})`} d={markPath(c.group, marked ? 6.5 : 4.5)} />
               <text x={W - 78} y={y} dominantBaseline="middle"
-                style={{ font: '400 11px EB Garamond, Georgia, serif' }} fill="var(--ink-3)">
+                style={{ font: '400 11px Old Standard TT, Georgia, serif' }} fill="var(--ink-3)">
                 {c.total.toLocaleString()} namings
               </text>
             </g>

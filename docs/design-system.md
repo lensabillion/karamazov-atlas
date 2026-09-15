@@ -4,7 +4,7 @@ description: The app is set as a 1912 letterpress edition; this is how
 ---
 # Design System
 
-**Version 4 — First Edition** · 2026-09-15 · Supersedes the two-then-four-hue
+**Version 5 — First Edition** · 2026-09-15 · Supersedes the two-then-four-hue
 screen palette of v2/v3.
 
 Working summary for agents: `.claude/skills/first-edition/SKILL.md` (mirrored to
@@ -30,17 +30,37 @@ wrong.
 
 ---
 
-## 2. Typefaces
+## 2. Typeface
 
-Two, both period revivals. **There is no sans**, because the edition has none.
+**One family: Old Standard TT.** There is no sans, because the edition has none —
+and no second serif, because a 1912 trade book is set in one family at several
+sizes. Two families was a modern habit imported into a period design.
 
-| Token | Face | Use |
+| Token | Resolves to | Use |
 | --- | --- | --- |
-| `--font-display` | **Libre Caslon Display** | Titles, headings, brand, large figures |
-| `--font-serif` | **EB Garamond** | Text, italics, labels, data, prose |
+| `--font-display` | Old Standard TT | Titles, headings, brand, large figures |
+| `--font-serif` | Old Standard TT | Text, italics, labels, data, prose |
+| `--font-sans` | Old Standard TT | Alias, so stray references degrade correctly |
 
-`--font-sans` is retained as an alias to the serif so that any component still
-asking for it degrades to the right face instead of a system sans.
+`--font-display` stays a separate token so display sizes can be tuned
+independently — not because it is a different face.
+
+### Why this face
+
+The edition's type was examined rather than guessed: body pages from the actual
+1912 Heinemann printing were pulled and magnified, and the letterforms are
+**Modern (Didone)** — vertical stress, high contrast, fine flat unbracketed
+serifs, a `y` ending in a cut rather than a ball.
+
+An earlier version of this document specified Libre Caslon, chosen from a
+photograph of a title page. That was wrong: Caslon is an Old Style with
+diagonal stress and bracketed serifs, close to the opposite of what the page
+shows. Old Standard TT is an explicit revival of the Modern class.
+
+Full evidence, and the limits of the claim: `docs/typeface-identification.md`.
+
+**Say "set in the Modern style of the 1912 edition."** It is a class match, not a
+face match, and the 1880 Moscow first printing is a different object entirely.
 
 Labels are **letterspaced capitals of the text face**, as the period set them —
 not a second family at small size.

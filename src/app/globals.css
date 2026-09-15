@@ -26,8 +26,13 @@
   /* --- Typefaces. Both are period revivals; there is no sans in this system,
      because the edition it follows has none. Labels are set in letterspaced
      capitals of the text face, as the period set them. ---------------------- */
-  --font-display: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
-  --font-serif: "EB Garamond", "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  /* One family. A 1912 trade book is set in one family at several sizes, and
+     the face identified on the page is a Modern, not an Old Style — see
+     docs/typeface-identification.md. Old Standard TT revives exactly that
+     class. --font-display is kept as a separate token so display sizes can be
+     tuned independently, not because it is a second face. */
+  --font-display: "Old Standard TT", Georgia, "Times New Roman", serif;
+  --font-serif: "Old Standard TT", Georgia, "Times New Roman", serif;
   /* Retained so any component still asking for --font-sans gets the text face
      rather than falling back to a system sans and breaking the page. */
   --font-sans: var(--font-serif);
@@ -646,6 +651,82 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .hit:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 
 
+/* --- Page architecture, taken from the book itself -------------------------
+   Photographs of an actual copy show a structure that guesswork had missed:
+
+     PART I                     large letterspaced capitals
+     BOOK I                     smaller capitals
+     THE HISTORY OF A FAMILY    capitals, letterspaced
+     CHAPTER I                  capitals
+     Fyodor Pavlovitch Kara…    SMALL capitals, letterspaced
+     Alexey Fyodorovitch…       the opening words, in small capitals
+
+   Small capitals are the load-bearing feature and were absent entirely from the
+   first attempt, which used full capitals at a small size. They are not the
+   same: small caps carry the weight of lowercase and sit near x-height, so they
+   sit quietly in a line instead of shouting in it.
+   -------------------------------------------------------------------------- */
+
+.leaf { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.leaf__part {
+  font-size: var(--text-lg);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+}
+.leaf__book {
+  font-size: var(--text-md);
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  text-transform: uppercase;
+}
+.leaf__booktitle {
+  font-size: var(--text-md);
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  text-transform: uppercase;
+}
+.leaf__chapter {
+  font-size: var(--text-base);
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+  text-transform: uppercase;
+}
+/* The chapter's own title: small capitals, widely spaced. */
+.leaf__title {
+  font-size: var(--text-sm);
+  font-variant-caps: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+  color: var(--ink);
+}
+
+/* A running head: work on the verso, section on the recto, folio outside. */
+.runhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-2);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.runhead__folio { letter-spacing: 0; text-indent: 0; font-variant-numeric: lining-nums; }
+
+/* The opening words of a chapter, as the edition sets them. */
+.opening {
+  font-variant-caps: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+
 /* ----------------------------------------------------------------------------
    7. PROSE — the novel itself
    ---------------------------------------------------------------------------- */
@@ -653,6 +734,10 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .prose {
   font-family: var(--font-serif);
   font-size: var(--text-md);
+  /* The edition sets justified with generous word spacing. Hyphenation keeps
+     that from opening rivers at this measure. */
+  text-align: justify;
+  hyphens: auto;
   line-height: var(--leading-loose);
   color: var(--ink);
   max-width: var(--measure);
