@@ -1,4 +1,8 @@
 import { notFound } from 'next/navigation';
+import CharacterPlate from '@/components/CharacterPlate';
+import { getNamed } from '@/lib/names';
+import { PEOPLE } from '@/lib/relationships';
+import '@/app/plate.css';
 import { getCharacter, getMentions, presenceOf } from '@/lib/corpus';
 
 export function generateStaticParams() {
@@ -22,16 +26,27 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
 
   const busiest = [...presence].sort((a, b) => b.count - a.count).slice(0, 6);
 
+  // The plate needs the morphology data; the rest of the page uses the mention
+  // index. Both are keyed by the same id.
+  const named = getNamed(id);
+  const epithet = PEOPLE.find((p) => p.id === id)?.who;
+  const totalChapters = presence.length;
+
   return (
     <main className={`page group-${character.group}`}>
-      <header className="page-header">
-        <p className="eyebrow">{character.group}</p>
-        <h1 className="title">{character.name}</h1>
-        <p className="text-muted">
-          Named {character.total.toLocaleString()} times across {character.chapterCount} of 96
-          chapters. Counted as: {character.aliases.join(', ')}.
-        </p>
-      </header>
+      {named ? (
+        <CharacterPlate
+          character={named}
+          chapterCount={character.chapterCount}
+          totalChapters={totalChapters}
+          epithet={epithet}
+        />
+      ) : (
+        <header className="page-header">
+          <p className="eyebrow">{character.group}</p>
+          <h1 className="title">{character.name}</h1>
+        </header>
+      )}
 
       <section className="section">
         <div className="section-header">

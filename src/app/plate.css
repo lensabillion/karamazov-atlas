@@ -1,0 +1,188 @@
+/* ============================================================================
+   FIRST-EDITION PLATES
+   ----------------------------------------------------------------------------
+   A typographic treatment in the idiom of the 1912 Heinemann edition of the
+   Garnett translation — the book this corpus is taken from.
+
+   What is borrowed is the CONVENTION, not any artwork: letterpress black on
+   cream stock, letterspaced capitals, paired thick/thin rules, centred title
+   blocks, and generous margins. Those are period compositional habits, and the
+   edition itself is unillustrated — there are no character portraits in it to
+   reproduce even if one wanted to.
+
+   The ornament is drawn from scratch in Ornament.tsx, not traced from any
+   binding.
+
+   This sits ALONGSIDE the main design system rather than replacing it. Plates
+   are a distinct surface: the app's blue and teal still carry interaction, and
+   nothing here leaks into the rest of the interface.
+   ========================================================================== */
+
+.plate {
+  /* Laid paper rather than flat cream: two barely-there washes give the stock
+     a grain, so it reads as a page instead of a beige rectangle. */
+  --ink: #1a1613;
+  --ink-soft: #4a4038;
+  --stock: #f2ece0;
+  --rule: #2b241d;
+
+  background-color: var(--stock);
+  background-image:
+    radial-gradient(60rem 30rem at 15% 0%, rgba(120, 96, 64, 0.05), transparent 70%),
+    radial-gradient(50rem 30rem at 85% 100%, rgba(90, 70, 50, 0.06), transparent 70%);
+  color: var(--ink);
+  border: 1px solid #ddd2bd;
+  border-radius: 2px;
+  padding: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+/* --- The title block ----------------------------------------------------
+   1912 title pages set the work in widely letterspaced capitals, each line on
+   its own measure, with the spacing doing the work that weight does today.
+   ------------------------------------------------------------------------ */
+
+.plate__series {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+  /* Letterspacing adds a trailing gap; pull it back so the block stays centred. */
+  text-indent: 0.34em;
+}
+
+.plate__name {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  line-height: 1.06;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-indent: 0.1em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.plate__epithet {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 24;
+  font-size: var(--text-md);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 26em;
+  margin: 0;
+}
+
+/* --- Rules --------------------------------------------------------------
+   The paired thick/thin rule is the period's workhorse divider. Drawn with
+   borders rather than glyphs so it scales with the plate.
+   ------------------------------------------------------------------------ */
+
+.plate__rule {
+  width: min(22rem, 70%);
+  border: 0;
+  border-top: 2px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  height: 3px;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.plate__rule--hair {
+  border-top: 1px solid var(--rule);
+  border-bottom: 0;
+  height: 0;
+  width: min(14rem, 50%);
+  opacity: 0.55;
+}
+
+/* --- The imprint block: where a colophon would sit ---------------------- */
+
+.plate__imprint {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-indent: 0.2em;
+  margin: 0;
+  line-height: 2;
+}
+
+/* --- Figures set as a period table -------------------------------------- */
+
+.plate__figures {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-5);
+  margin: 0;
+}
+.plate__figure { display: flex; flex-direction: column; gap: 2px; }
+.plate__figure dt {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-indent: 0.18em;
+}
+.plate__figure dd {
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 40;
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums lining-nums;
+  margin: 0;
+}
+
+/* --- The names, set as the edition would set a cast list ---------------- */
+
+.plate__forms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(30rem, 100%);
+  margin: 0;
+}
+.plate__form {
+  display: grid;
+  /* Four items sit on this row — leader, name, leader, note — so it needs four
+     tracks. Three wrapped the trailing leader onto a second row and added 9px
+     of height to every entry. */
+  grid-template-columns: 1fr auto 1fr auto;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-serif);
+  font-variation-settings: "opsz" 14;
+  font-size: var(--text-base);
+}
+/* Leader dots, as a period index or contents page would run them. */
+.plate__form::before,
+.plate__form::after {
+  content: "";
+  border-bottom: 1px dotted rgba(43, 36, 29, 0.35);
+  transform: translateY(-0.28em);
+}
+.plate__form-name { font-style: italic; }
+.plate__form-note {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 760px) {
+  .plate { padding: var(--space-5) var(--space-3); }
+  /* Leaders need room to read as leaders; on a phone they just become noise. */
+  .plate__form { grid-template-columns: auto; gap: 0; justify-items: center; }
+  .plate__form::before, .plate__form::after { display: none; }
+}
