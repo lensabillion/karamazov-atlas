@@ -3,14 +3,18 @@ type: is
 id: is-01m2jdxqkd73d689np5jm9k9q8
 title: Audit every surface against the first-edition system
 kind: task
-status: open
+status: closed
 priority: 1
-version: 1
+version: 2
 labels:
   - design
 dependencies: []
 created_at: 2026-09-15T11:41:04.493Z
-updated_at: 2026-09-15T11:41:04.493Z
+updated_at: 2026-09-15T13:28:22.639Z
+closed_at: 2026-09-15T13:28:22.638Z
+close_reason: null
+resolution: null
+duplicate_of: null
 ---
 Palette, ground, typefaces and chart labels are switched globally, but each page needs reading against docs/design-system.md rather than assumed correct.
 
