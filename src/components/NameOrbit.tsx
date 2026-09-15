@@ -62,7 +62,7 @@ export default function NameOrbit({
 
         {/* the person */}
         <text x={CX} y={CY} textAnchor="middle" dominantBaseline="middle"
-          style={{ font: '400 15px Fraunces, Georgia, serif' }} fill="var(--ink)">
+          style={{ font: '400 15px Libre Caslon Display, Georgia, serif' }} fill="var(--ink)">
           {character.short}
         </text>
 
@@ -84,11 +84,11 @@ export default function NameOrbit({
               <path className="mark" transform={`translate(${x},${y})`}
                 d={markPath(character.group, dot)} />
               <text x={lx} y={y} textAnchor={anchor} dominantBaseline="middle"
-                style={{ font: '400 13px Fraunces, Georgia, serif' }} fill="var(--ink)">
+                style={{ font: '400 13px Libre Caslon Display, Georgia, serif' }} fill="var(--ink)">
                 {f.form}
               </text>
               <text x={lx} y={y + 14} textAnchor={anchor} dominantBaseline="middle"
-                style={{ font: '400 11px "DM Sans", sans-serif' }} fill="var(--ink-3)">
+                style={{ font: '400 11px EB Garamond, Georgia, serif' }} fill="var(--ink-3)">
                 {f.count}×
               </text>
             </g>
