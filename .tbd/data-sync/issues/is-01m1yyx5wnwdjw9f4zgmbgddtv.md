@@ -3,14 +3,18 @@ type: is
 id: is-01m1yyx5wnwdjw9f4zgmbgddtv
 title: Validate the curated data at build time
 kind: task
-status: open
+status: closed
 priority: 2
-version: 3
+version: 4
 labels:
   - review
 dependencies: []
 created_at: 2026-09-07T22:13:03.508Z
-updated_at: 2026-09-07T23:32:19.831Z
+updated_at: 2026-09-09T15:55:36.373Z
+closed_at: 2026-09-09T15:55:36.373Z
+close_reason: null
+resolution: null
+duplicate_of: null
 ---
 relationships.ts and timeline.ts are hand-written and unguarded. A tie pointing at a nonexistent person id, or a timeline moment naming someone with no lane, renders as a silently missing line rather than an error.
 
