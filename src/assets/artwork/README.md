@@ -1,6 +1,6 @@
 # Smerdyakov Study
 
-`smerdyakov-after-grigoriev.png` is an AI-generated interpretation, created with the built-in image-generation tool at the user's explicit request. It is displayed on the homepage and Smerdyakov's character page. Both uses carry the same visible provenance caption.
+`smerdyakov-after-grigoriev.png` is an AI-generated interpretation, created with the built-in image-generation tool at the user's explicit request. It is displayed on the homepage, the cast index, and Smerdyakov's character page. Every use carries the same visible provenance caption.
 
 Reference: Boris Grigoriev, *Pavel Smerdyakov*, as reproduced in [Gateway to Russia](https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev), credited there to the Fabergé Museum. The downloaded reference was used for generation and is not bundled in the application. The output is not an archival image or a work by Grigoriev.
 

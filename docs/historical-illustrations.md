@@ -8,6 +8,20 @@ Smerdyakov's character plate, labeled as AI-generated. Scene links precede corpu
 statistics so returning readers can enter through remembered people and moments.
 Generation provenance is recorded in `src/assets/artwork/README.md`.
 
+### Focused presentation pass
+
+The Characters page pairs the approved Smerdyakov study with the existing biography
+in a two-column book-like spread, stacking on phones. Cast descriptions now sit
+below their names, left-aligned for reading. All 27 cast links and every existing
+page and feature remain; the homepage is unchanged in this pass.
+
+Review: no actionable defects found. The shared illustration component preserves
+its attribution, and the biography comes from the existing character data rather
+than a duplicate. Desktop and 390px browser checks confirm the image loads, the
+spread changes from two columns to one, descriptions remain left-aligned, all cast
+links remain, and there is no horizontal page overflow. Type-checking, all tests,
+and the production build pass. No new dependencies or client-side state were added.
+
 Boris Grigoriev's 58-sheet cycle is the strongest visual source for the cast.
 It depicts named characters and scenes from the novel and has the period distance
 the atlas needs without imitating an image model. The 1912 Garnett edition itself
