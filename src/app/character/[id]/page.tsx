@@ -4,6 +4,7 @@ import { getNamed } from '@/lib/names';
 import { PEOPLE } from '@/lib/relationships';
 import '@/app/plate.css';
 import { getCharacter, getMentions, presenceOf } from '@/lib/corpus';
+import { HISTORICAL_ILLUSTRATIONS } from '@/lib/historical-illustrations';
 
 export function generateStaticParams() {
   return getMentions().characters.map((c) => ({ id: c.id }));
@@ -31,6 +32,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
   const named = getNamed(id);
   const epithet = PEOPLE.find((p) => p.id === id)?.who;
   const totalChapters = presence.length;
+  const historicalWorks = HISTORICAL_ILLUSTRATIONS[id] ?? [];
 
   return (
     <main className={`page group-${character.group}`}>
@@ -46,6 +48,21 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
           <p className="eyebrow">{character.group}</p>
           <h1 className="title">{character.name}</h1>
         </header>
+      )}
+
+      {historicalWorks.length > 0 && (
+        <aside className="plate-art-record">
+          <p className="plate__series">In the historical record</p>
+          <p className="text-muted">
+            Boris Grigoriev drew {historicalWorks.map((work, index) => (
+              <span key={work}>{index > 0 ? ' and ' : ''}<cite>{work}</cite></span>
+            ))}. A reproduction belongs above this note when a reusable museum-quality
+            scan is available; the credited web and product photographs are not copied here.
+          </p>
+          <a className="link" href="https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev">
+            See the historical illustration ↗
+          </a>
+        </aside>
       )}
 
       <section className="section">
