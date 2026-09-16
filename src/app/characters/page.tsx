@@ -64,10 +64,11 @@ export default function CharactersPage() {
         <p className="eyebrow">Historical illustrations</p>
         <p className="text-muted">
           Boris Grigoriev made a 58-sheet cycle for <em>The Brothers Karamazov</em>,
-          including portraits and scenes for several principal characters. These pages
-          reserve the character plate as the place for a licensed reproduction; museum
-          and product photographs are not copied without a reusable source.
+          including portraits and scenes for several principal characters. Our first
+          illustrated plate is a new study after his Smerdyakov, identified as
+          AI-generated in its caption.
         </p>
+        <a className="link" href="/character/smerdyakov">Open the illustrated Smerdyakov plate →</a>
         <a className="link" href="https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev">
           View the surviving cycle and credits ↗
         </a>

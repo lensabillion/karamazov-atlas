@@ -2,6 +2,12 @@
 
 ## Decision
 
+The homepage now opens with a generated study after Grigoriev's *Pavel Smerdyakov*,
+requested by the user as a concrete visual experiment. The same study appears beside
+Smerdyakov's character plate, labeled as AI-generated. Scene links precede corpus
+statistics so returning readers can enter through remembered people and moments.
+Generation provenance is recorded in `src/assets/artwork/README.md`.
+
 Boris Grigoriev's 58-sheet cycle is the strongest visual source for the cast.
 It depicts named characters and scenes from the novel and has the period distance
 the atlas needs without imitating an image model. The 1912 Garnett edition itself
