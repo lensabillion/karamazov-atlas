@@ -192,6 +192,7 @@ Ordered. Ground truth in tbd.
 
 | Date | Change |
 | --- | --- |
+| 2026-09-16 | Visible character index and provenance-aware historical illustration placement |
 | 2026-09-10 | Merge conflict resolved (`.env.example` deletion honoured); `npm test` repaired; docs brought current |
 | 2026-09-09 | Audit pass; CI with data-drift check; curated-data and API-client tests |
 | 2026-09-09 | Cost controls and rate limiting on `/api/chat` |

@@ -135,15 +135,21 @@ publisher's mark, or any existing artwork.
 
 ## 6. On portraits
 
-There is **no historical set of Karamazov character faces**:
+The 1912 edition is unillustrated, but Boris Grigoriev made a later 58-sheet
+cycle for the novel. It includes portraits and scenes for Smerdyakov, Grushenka,
+Fyodor, Ivan, Dmitri, Katerina, Alyosha, Zossima, and others. The cycle was
+exhibited in New York in 1933, shown by the Fabergé Museum in 2023–24, and
+published by the museum as an album in 2026.
 
-- Grigoriev's illustrations (c. 1916–33) were exhibited once in 1933 and went
-  into a private collection; no usable scans circulate.
-- The 1912 edition is unillustrated.
-- Perov's 1872 portrait is public domain, but it is the author, not the cast.
+Historical art belongs on the individual character plate or beside the relevant
+chapter or timeline event. It must carry artist, title, date, holding collection,
+and source. The original artwork may be out of copyright in many jurisdictions,
+but a museum or product photograph is not treated as reusable without an explicit
+source statement. Until a suitable reproduction is secured, the plate records the
+known work by title rather than copying a credited web image.
 
-**Characters are presented typographically and no faces are generated.** That is
-a decision, not a gap awaiting an image model.
+**Do not generate character faces.** A historical interpretation is evidence;
+an image-model interpretation would present invention as memory of the novel.
 
 ---
 
@@ -168,4 +174,3 @@ two rows where there should have been one. Measure.
 
 `src/app/globals.css` is the single source of truth and mirrors this document.
 If the two disagree, this document is the specification and the CSS is the bug.
-

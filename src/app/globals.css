@@ -112,6 +112,8 @@
   --ink-3: var(--color-ink-3);
 
   --accent: var(--color-cloth);
+  /* Text printed ON the cloth colour. The one place white is correct. */
+  --on-cloth: #ffffff;
   --active: var(--color-gilt);
 
   --weight-normal: 400;
@@ -363,11 +365,6 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 .card {
   background-color: var(--surface);
-  background-image: linear-gradient(
-    170deg,
-    color-mix(in srgb, var(--blue) 3%, transparent),
-    transparent 60%
-  );
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-3);
@@ -458,9 +455,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .button--primary {
   background: var(--blue);
   border-color: var(--blue);
-  color: #ffffff;
+  color: var(--on-cloth);
 }
-.button--primary:hover { background: var(--blue-deep); border-color: var(--blue-deep); color: #ffffff; }
+.button--primary:hover { background: var(--blue-deep); border-color: var(--blue-deep); color: var(--on-cloth); }
 
 .button--quiet {
   background: var(--surface);
@@ -584,7 +581,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
   border: var(--border-width) solid var(--border-strong);
   border-left: 3px solid var(--accent);
   border-radius: var(--radius);
-  box-shadow: 0 6px 22px color-mix(in srgb, var(--ink) 14%, transparent);
+  /* No shadow: print has none, and the system forbids it. A card is separated
+     from the page by its rule, not by floating above it. */
+  border-left-width: 3px;
   padding: var(--space-3);
   display: flex;
   flex-direction: column;
@@ -777,11 +776,6 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 .chart {
   background-color: var(--bg);
-  background-image: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--blue) 4%, transparent),
-    color-mix(in srgb, var(--purple) 5%, transparent)
-  );
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
 }
