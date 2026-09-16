@@ -8,4 +8,5 @@ export const HISTORICAL_ILLUSTRATIONS: Record<string, string[]> = {
   grushenka: ['Agrafena (“Grushenka”)', 'The party in Mokroye'],
   fyodor: ['Fyodor Pavlovich Karamazov in his room', 'Fyodor Pavlovich Karamazov next to the window'],
   ivan: ['Ivan Karamazov and Smerdyakov'],
+  lizaveta: ['The Reeking Lizaveta'],
 };

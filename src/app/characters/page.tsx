@@ -1,6 +1,7 @@
 import { getMentions } from '@/lib/corpus';
 import { PEOPLE } from '@/lib/relationships';
-import SmerdyakovStudy from '@/components/SmerdyakovStudy';
+import CharacterIllustration from '@/components/CharacterIllustration';
+import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
 import Ornament from '@/components/Ornament';
 import './characters.css';
 
@@ -16,7 +17,6 @@ const GROUPS = [
 /** A visible table of contents for the individual character plates. */
 export default function CharactersPage() {
   const characters = getMentions().characters;
-  const smerdyakov = PEOPLE.find((person) => person.id === 'smerdyakov');
 
   return (
     <main className="page page--wide characters-page">
@@ -33,22 +33,12 @@ export default function CharactersPage() {
 
       <div className="characters-rule" aria-hidden="true" />
 
-      <section className="characters-frontispiece" aria-labelledby="portrait-name">
-        <SmerdyakovStudy />
-        <div className="characters-frontispiece__text">
-          <p className="eyebrow">Of the House of Karamazov</p>
-          <h2 className="heading" id="portrait-name">Pavel Smerdyakov</h2>
-          <Ornament />
-          <p className="characters-frontispiece__description">{smerdyakov?.who}</p>
-          <a className="link" href="/character/smerdyakov">Names, connections, and chapters →</a>
-        </div>
-      </section>
-
       {GROUPS.map(([group, title]) => {
         const members = characters.filter((character) => character.group === group);
         if (members.length === 0) return null;
         return (
-          <section className="characters-section" key={group}>
+          <section className="characters-section" key={group}
+            data-has-art={members.some((character) => Boolean(CHARACTER_ARTWORK[character.id]))}>
             <div className="characters-section__heading">
               <p className="eyebrow">{String(members.length).padStart(2, '0')}</p>
               <h2 className="heading">{title}</h2>
@@ -56,6 +46,24 @@ export default function CharactersPage() {
             <ol className="characters-list">
               {members.map((character) => {
                 const description = PEOPLE.find((person) => person.id === character.id)?.who;
+                const artwork = CHARACTER_ARTWORK[character.id];
+                if (artwork) {
+                  return (
+                    <li key={character.id} data-character={character.id}>
+                      <article className="characters-frontispiece" aria-labelledby={`portrait-${character.id}`}>
+                        <CharacterIllustration artwork={artwork} eager={character.id === 'alyosha'} />
+                        <div className="characters-frontispiece__text">
+                          <h3 className="heading" id={`portrait-${character.id}`}>
+                            <a href={`/character/${character.id}`}>{character.name}</a>
+                          </h3>
+                          <Ornament />
+                          <p className="characters-frontispiece__description">{description}</p>
+                          <a className="link" href={`/character/${character.id}`}>Names, connections, and chapters →</a>
+                        </div>
+                      </article>
+                    </li>
+                  );
+                }
                 return (
                   <li key={character.id}>
                     <a href={`/character/${character.id}`}>
@@ -78,11 +86,11 @@ export default function CharactersPage() {
         <p className="eyebrow">Historical illustrations</p>
         <p className="text-muted">
           Boris Grigoriev made a 58-sheet cycle for <em>The Brothers Karamazov</em>,
-          including portraits and scenes for several principal characters. Our first
-          illustrated plate is a new study after his Smerdyakov, identified as
-          AI-generated in its caption.
+          including portraits and scenes. The nine characters named in the linked
+          selection are illustrated here with reference-based studies, each labeled
+          as AI-generated. Shared scenes retain both people; characters without an
+          identified illustration in that selection remain in the cast list.
         </p>
-        <a className="link" href="/character/smerdyakov">Open the illustrated Smerdyakov plate →</a>
         <a className="link" href="https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev">
           View the surviving cycle and credits ↗
         </a>
