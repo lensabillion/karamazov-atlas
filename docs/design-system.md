@@ -148,8 +148,12 @@ but a museum or product photograph is not treated as reusable without an explici
 source statement. Until a suitable reproduction is secured, the plate records the
 known work by title rather than copying a credited web image.
 
-**Do not generate character faces.** A historical interpretation is evidence;
-an image-model interpretation would present invention as memory of the novel.
+A generated study after a historical work is permitted, and is held to stricter
+labelling than a reproduction. It must be captioned visibly as AI-generated, name
+and link the work it follows, and never be attributed to Grigoriev or presented as
+archival. Its reference and generation prompt are recorded in
+`src/assets/artwork/README.md`. The first is a study after Grigoriev's
+*Pavel Smerdyakov*, shared by the homepage and Smerdyakov's plate.
 
 ---
 

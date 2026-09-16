@@ -1,0 +1,28 @@
+.memory-page { gap: var(--space-6); padding-top: var(--space-5); }
+.memory-opening { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-6); align-items: center; }
+.memory-opening__text { display: flex; flex-direction: column; gap: var(--space-4); padding-block: var(--space-4); }
+.memory-opening .page-header { gap: var(--space-4); }
+.memory-opening .title { line-height: var(--leading-tight); }
+.memory-subtitle { font-style: italic; }
+.memory-opening__text > .text-muted { max-width: var(--measure); }
+.memory-rule { margin: 0; width: var(--space-6); border: 0; border-top: 2px solid var(--cloth); }
+.memory-contents { display: flex; flex-direction: column; }
+.memory-contents a { display: grid; grid-template-columns: var(--space-5) minmax(0, 1fr) auto; align-items: baseline; gap: var(--space-2); padding-block: var(--space-3); border-bottom: 1px solid var(--border-strong); font-size: var(--text-base); }
+.memory-contents a > :last-child { color: var(--cloth); }
+.memory-contents a:hover, .memory-contents a:focus-visible { color: var(--cloth); }
+.memory-scenes { border-top: 3px double var(--ink); padding-top: var(--space-5); }
+.memory-scenes__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
+.memory-scenes__list > a { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); padding-block: var(--space-3); }
+.memory-scenes__list .link { margin-top: auto; }
+.memory-scenes__list > a:hover h3, .memory-scenes__list > a:focus-visible h3 { color: var(--cloth); }
+.memory-statistics { padding-block: var(--space-4); border-block: 1px solid var(--border-strong); justify-content: space-between; }
+@media (max-width: 760px) {
+  .memory-page { padding-inline: var(--space-3); gap: var(--space-5); }
+  .memory-opening { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  .memory-opening__text { display: contents; }
+  .memory-opening .page-header { grid-row: 1; }
+  .memory-opening .smerdyakov-study { grid-row: 2; width: min(100%, 28rem); margin-inline: auto; }
+  .memory-opening .memory-rule { display: none; }
+  .memory-scenes__list { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+  .memory-scenes__list > a + a { border-top: 1px solid var(--border-strong); }
+}

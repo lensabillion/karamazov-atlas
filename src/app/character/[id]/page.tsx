@@ -5,6 +5,7 @@ import { PEOPLE } from '@/lib/relationships';
 import '@/app/plate.css';
 import { getCharacter, getMentions, presenceOf } from '@/lib/corpus';
 import { HISTORICAL_ILLUSTRATIONS } from '@/lib/historical-illustrations';
+import SmerdyakovStudy from '@/components/SmerdyakovStudy';
 
 export function generateStaticParams() {
   return getMentions().characters.map((c) => ({ id: c.id }));
@@ -36,19 +37,22 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
 
   return (
     <main className={`page group-${character.group}`}>
-      {named ? (
-        <CharacterPlate
-          character={named}
-          chapterCount={character.chapterCount}
-          totalChapters={totalChapters}
-          epithet={epithet}
-        />
-      ) : (
-        <header className="page-header">
-          <p className="eyebrow">{character.group}</p>
-          <h1 className="title">{character.name}</h1>
-        </header>
-      )}
+      <div className="character-opening" data-illustrated={id === 'smerdyakov'}>
+        {id === 'smerdyakov' && <SmerdyakovStudy />}
+        {named ? (
+          <CharacterPlate
+            character={named}
+            chapterCount={character.chapterCount}
+            totalChapters={totalChapters}
+            epithet={epithet}
+          />
+        ) : (
+          <header className="page-header">
+            <p className="eyebrow">{character.group}</p>
+            <h1 className="title">{character.name}</h1>
+          </header>
+        )}
+      </div>
 
       {historicalWorks.length > 0 && (
         <aside className="plate-art-record">
@@ -56,8 +60,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
           <p className="text-muted">
             Boris Grigoriev drew {historicalWorks.map((work, index) => (
               <span key={work}>{index > 0 ? ' and ' : ''}<cite>{work}</cite></span>
-            ))}. A reproduction belongs above this note when a reusable museum-quality
-            scan is available; the credited web and product photographs are not copied here.
+            ))} for his cycle of illustrations of the novel.
           </p>
           <a className="link" href="https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev">
             See the historical illustration ↗

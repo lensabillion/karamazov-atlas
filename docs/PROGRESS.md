@@ -192,6 +192,7 @@ Ordered. Ground truth in tbd.
 
 | Date | Change |
 | --- | --- |
+| 2026-09-16 | Illustrated homepage with a labeled generated Smerdyakov study after Grigoriev, scene entry points, and the same image on the character plate |
 | 2026-09-16 | Visible character index and provenance-aware historical illustration placement |
 | 2026-09-10 | Merge conflict resolved (`.env.example` deletion honoured); `npm test` repaired; docs brought current |
 | 2026-09-09 | Audit pass; CI with data-drift check; curated-data and API-client tests |
