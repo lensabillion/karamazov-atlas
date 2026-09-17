@@ -155,6 +155,11 @@ archival. Its reference and generation prompt are recorded in
 `src/assets/artwork/README.md`. The first is a study after Grigoriev's
 *Pavel Smerdyakov*, shared by the homepage and Smerdyakov's plate.
 
+The cast index and individual pages now illustrate all nine characters named in
+the linked selection. The additional six studies and prompts are recorded in
+`src/assets/artwork/CAST-STUDIES.md`. Shared scenes keep their full compositions and
+identify both subjects in the caption; a scene is not mislabeled as a solo portrait.
+
 ---
 
 ## 7. Encoding categories

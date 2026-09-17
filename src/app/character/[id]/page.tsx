@@ -5,7 +5,8 @@ import { PEOPLE } from '@/lib/relationships';
 import '@/app/plate.css';
 import { getCharacter, getMentions, presenceOf } from '@/lib/corpus';
 import { HISTORICAL_ILLUSTRATIONS } from '@/lib/historical-illustrations';
-import SmerdyakovStudy from '@/components/SmerdyakovStudy';
+import CharacterIllustration from '@/components/CharacterIllustration';
+import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
 
 export function generateStaticParams() {
   return getMentions().characters.map((c) => ({ id: c.id }));
@@ -34,11 +35,12 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
   const epithet = PEOPLE.find((p) => p.id === id)?.who;
   const totalChapters = presence.length;
   const historicalWorks = HISTORICAL_ILLUSTRATIONS[id] ?? [];
+  const artwork = CHARACTER_ARTWORK[id];
 
   return (
     <main className={`page group-${character.group}`}>
-      <div className="character-opening" data-illustrated={id === 'smerdyakov'}>
-        {id === 'smerdyakov' && <SmerdyakovStudy />}
+      <div className="character-opening" data-illustrated={Boolean(artwork)}>
+        {artwork && <CharacterIllustration artwork={artwork} eager />}
         {named ? (
           <CharacterPlate
             character={named}

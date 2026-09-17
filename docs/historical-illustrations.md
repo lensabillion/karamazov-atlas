@@ -2,11 +2,55 @@
 
 ## Decision
 
+Every named character in the linked Grigoriev selection now has an illustration
+beside their biography on the cast index and on their individual character page.
+Seven labeled generated studies cover nine people:
+
+| Character | Study after Grigoriev |
+| --- | --- |
+| Alyosha and Zossima | Father Zosima blesses Alyosha |
+| Dmitri and Katerina | Katerina Ivanovna and Dmitri Karamazov |
+| Ivan | Ivan Karamazov and Smerdyakov |
+| Smerdyakov | Pavel Smerdyakov (the previously approved study) |
+| Fyodor | Fyodor Pavlovich Karamazov in his room |
+| Grushenka | Agrafena (Grushenka) |
+| Lizaveta | The Reeking Lizaveta |
+
+This is complete coverage of the article's named characters, not a claim that
+unillustrated cast members have never appeared in art. Anonymous figures in the jury
+and crowd scenes are not assigned invented identities. All 27 cast entries and the
+existing application features remain available. Shared scenes are never cropped to
+simulate individual portraits. The six additional image prompts and sources are in
+`src/assets/artwork/CAST-STUDIES.md`.
+
+Review: the shared artwork registry is now appropriate for seven reusable assets,
+replacing the one-character special case. Each illustration carries descriptive alt
+text and its generated-study attribution. Browser checks verified all nine individual
+pages load an illustration with attribution and no desktop overflow; the cast index
+retains 27 entries and nine illustrated biographies at desktop and 390px widths.
+Type-checking, the full test suite, and the 133-page production build pass.
+
+### Initial visual study
+
 The homepage now opens with a generated study after Grigoriev's *Pavel Smerdyakov*,
 requested by the user as a concrete visual experiment. The same study appears beside
 Smerdyakov's character plate, labeled as AI-generated. Scene links precede corpus
 statistics so returning readers can enter through remembered people and moments.
 Generation provenance is recorded in `src/assets/artwork/README.md`.
+
+### Focused presentation pass
+
+The Characters page pairs the approved Smerdyakov study with the existing biography
+in a two-column book-like spread, stacking on phones. Cast descriptions now sit
+below their names, left-aligned for reading. All 27 cast links and every existing
+page and feature remain; the homepage is unchanged in this pass.
+
+Review: no actionable defects found. The shared illustration component preserves
+its attribution, and the biography comes from the existing character data rather
+than a duplicate. Desktop and 390px browser checks confirm the image loads, the
+spread changes from two columns to one, descriptions remain left-aligned, all cast
+links remain, and there is no horizontal page overflow. Type-checking, all tests,
+and the production build pass. No new dependencies or client-side state were added.
 
 Boris Grigoriev's 58-sheet cycle is the strongest visual source for the cast.
 It depicts named characters and scenes from the novel and has the period distance
