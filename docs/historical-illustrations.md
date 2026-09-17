@@ -1,5 +1,33 @@
 # Historical Illustration Placement
 
+## Collage Catalogue · 17 September 2026
+
+The homepage now includes an expandable catalogue of 36 native-resolution extracts
+from the user's collage. A source-image review confirms 21 subjects; seven are
+explicitly provisional and eight remain descriptively unidentified. Uncertain
+entries have no character or chapter links. A separate image-opening link lets the
+reader inspect each crop, and a ZIP contains all files and the identification guide.
+The full table and sources are in `public/artwork/grigoriev-collage/README.md`;
+`src/assets/collage/crop-bounds.json` records reproducible pixel bounds.
+
+The supplied guitar scene was already included byte-for-byte as
+`src/assets/scenes/smerdyakov-guitar.jpg`, following Smerdyakov's character spread.
+The scene contents are now open by default so its title and jump link are not hidden.
+Existing higher-resolution scene art and the approved portrait studies are unchanged.
+
+Review corrections: two touching images in the collage were separated into plates 28
+and 36; a hat-wearing portrait is Katerina, not a boy; the seated figure in plate 18 is
+not confidently Lise; plate 34 is not the published *Ivan in his father's house*.
+Enlargement does not restore absent detail, and the catalogue says so explicitly.
+
+Validation: all 36 PNGs match the corresponding source pixels exactly. The test
+suite, type checks and 133-page production build pass. Generated homepage HTML
+contains 51 images, all 36 catalogue entries, one primary heading, the guitar-scene
+anchor and no duplicate IDs or dangling fragment links. The download contains
+36 PNGs and the identification guide. Independent source-level review found no
+blocking issues; live responsive and interaction checks remain tracked in
+`atlas-znk4` because browser access was blocked by the app approval service.
+
 ## Decision
 
 The homepage presents nine illustrated character plates and six original scene

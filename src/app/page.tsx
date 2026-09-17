@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import CharacterIllustration from '@/components/CharacterIllustration';
 import CharacterPlate from '@/components/CharacterPlate';
+import CollageCatalogue from '@/components/CollageCatalogue';
 import HomeReference from '@/components/HomeReference';
 import SceneSpread from '@/components/SceneSpread';
 import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
@@ -36,13 +37,16 @@ export default function Home() {
             {characters.map((person) => <a href={`#person-${person.id}`} key={person.id}>{person.short}</a>)}
           </div>
         </details>
-        <details>
-          <summary>Find a scene <span className="meta">{ILLUSTRATED_SCENES.length}</span></summary>
+        <details open>
+          <summary>The illustrated scenes <span className="meta">{ILLUSTRATED_SCENES.length}</span></summary>
           <div className="folio-index">
             {ILLUSTRATED_SCENES.map((scene) => <a href={`#scene-${scene.id}`} key={scene.id}>{scene.title}</a>)}
           </div>
         </details>
-        <a href="#explore">Explore the text ↓</a>
+        <div className="folio-contents__further">
+          <a href="#artwork-catalogue">The extracted illustrations ↓</a>
+          <a href="#explore">Explore the text ↓</a>
+        </div>
       </nav>
 
       <div className="folio-leaves">
@@ -67,6 +71,8 @@ export default function Home() {
           </Fragment>
         ))}
       </div>
+
+      <CollageCatalogue />
 
       <section className="folio-others" aria-labelledby="other-people">
         <header className="section-header">

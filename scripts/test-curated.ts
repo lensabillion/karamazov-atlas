@@ -12,6 +12,7 @@ import { PEOPLE, TIES, ZONES, W, H } from '../src/lib/relationships.ts';
 import { LANES, MOMENTS, SEGMENTS, SPANS } from '../src/lib/timeline.ts';
 import { ILLUSTRATED_SCENES } from '../src/lib/illustrated-scenes.ts';
 import { CHARACTER_BIOGRAPHIES } from '../src/lib/character-biographies.ts';
+import { COLLAGE_PLATES } from '../src/lib/collage-catalogue.ts';
 
 let failed = 0;
 const check = (name: string, cond: boolean, detail = '') => {
@@ -50,6 +51,18 @@ check('every scene participant and placement resolves to a character page',
   ILLUSTRATED_SCENES.every((scene) => [scene.afterCharacter, ...scene.people].every((id) => castIds.has(id))));
 check('every original scene image exists locally',
   ILLUSTRATED_SCENES.every((scene) => existsSync(join(process.cwd(), 'src/assets/scenes', scene.file))));
+
+console.log('\nextracted collage');
+check('all 36 extracted compositions have unique ids', COLLAGE_PLATES.length === 36
+  && new Set(COLLAGE_PLATES.map((plate) => plate.id)).size === 36);
+check('every crop exists at its public image path', COLLAGE_PLATES.every((plate) =>
+  existsSync(join(process.cwd(), 'public', plate.image)) && plate.width > 0 && plate.height > 0));
+check('every confirmed identification cites a source', COLLAGE_PLATES.every((plate) =>
+  plate.status !== 'identified' || Boolean(plate.source?.startsWith('https://'))));
+check('uncertain identifications never assert character or chapter links', COLLAGE_PLATES.every((plate) =>
+  plate.status === 'identified' || (plate.people.length === 0 && !plate.chapter)));
+check('all catalogue reading and character links resolve', COLLAGE_PLATES.every((plate) =>
+  plate.people.every((id) => castIds.has(id)) && (!plate.chapter || chapterIds.has(plate.chapter))));
 
 const dangling = TIES.flatMap((t) =>
   [t.from, t.to].filter((id) => !personIds.has(id)).map((id) => `${t.from}->${t.to} (${id})`),
