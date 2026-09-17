@@ -1,5 +1,5 @@
 import { getMentions } from '@/lib/corpus';
-import { PEOPLE } from '@/lib/relationships';
+import { CHARACTER_BIOGRAPHIES } from '@/lib/character-biographies';
 import CharacterIllustration from '@/components/CharacterIllustration';
 import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
 import Ornament from '@/components/Ornament';
@@ -45,7 +45,7 @@ export default function CharactersPage() {
             </div>
             <ol className="characters-list">
               {members.map((character) => {
-                const description = PEOPLE.find((person) => person.id === character.id)?.who;
+                const description = CHARACTER_BIOGRAPHIES[character.id];
                 const artwork = CHARACTER_ARTWORK[character.id];
                 if (artwork) {
                   return (

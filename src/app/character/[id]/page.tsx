@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import CharacterPlate from '@/components/CharacterPlate';
 import { getNamed } from '@/lib/names';
-import { PEOPLE } from '@/lib/relationships';
+import { CHARACTER_BIOGRAPHIES } from '@/lib/character-biographies';
 import '@/app/plate.css';
 import { getCharacter, getMentions, presenceOf } from '@/lib/corpus';
 import { HISTORICAL_ILLUSTRATIONS } from '@/lib/historical-illustrations';
@@ -32,7 +32,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
   // The plate needs the morphology data; the rest of the page uses the mention
   // index. Both are keyed by the same id.
   const named = getNamed(id);
-  const epithet = PEOPLE.find((p) => p.id === id)?.who;
+  const epithet = CHARACTER_BIOGRAPHIES[id];
   const totalChapters = presence.length;
   const historicalWorks = HISTORICAL_ILLUSTRATIONS[id] ?? [];
   const artwork = CHARACTER_ARTWORK[id];
