@@ -13,6 +13,7 @@ import { LANES, MOMENTS, SEGMENTS, SPANS } from '../src/lib/timeline.ts';
 import { ILLUSTRATED_SCENES } from '../src/lib/illustrated-scenes.ts';
 import { CHARACTER_BIOGRAPHIES } from '../src/lib/character-biographies.ts';
 import { COLLAGE_PLATES } from '../src/lib/collage-catalogue.ts';
+import { STORY_MOVEMENTS } from '../src/lib/illustration-stories.ts';
 
 let failed = 0;
 const check = (name: string, cond: boolean, detail = '') => {
@@ -51,6 +52,8 @@ check('every scene participant and placement resolves to a character page',
   ILLUSTRATED_SCENES.every((scene) => [scene.afterCharacter, ...scene.people].every((id) => castIds.has(id))));
 check('every original scene image exists locally',
   ILLUSTRATED_SCENES.every((scene) => existsSync(join(process.cwd(), 'src/assets/scenes', scene.file))));
+check('each full-size scene has a visual cue and a reason to remember it',
+  ILLUSTRATED_SCENES.every((scene) => Boolean(scene.looking.trim() && scene.note.trim())));
 
 console.log('\nextracted collage');
 check('all 36 extracted compositions have unique ids', COLLAGE_PLATES.length === 36
@@ -63,6 +66,22 @@ check('uncertain identifications never assert character or chapter links', COLLA
   plate.status === 'identified' || (plate.people.length === 0 && !plate.chapter)));
 check('all catalogue reading and character links resolve', COLLAGE_PLATES.every((plate) =>
   plate.people.every((id) => castIds.has(id)) && (!plate.chapter || chapterIds.has(plate.chapter))));
+
+console.log('\nillustrated storytelling');
+const storyEntries = STORY_MOVEMENTS.flatMap((movement) => movement.entries);
+const storyPlateIds = new Set(storyEntries.map((entry) => entry.plateId));
+const identifiedPlates = COLLAGE_PLATES.filter((plate) => plate.status === 'identified');
+check('every confirmed illustration has exactly one story', storyEntries.length === identifiedPlates.length
+  && storyPlateIds.size === storyEntries.length
+  && identifiedPlates.every((plate) => storyPlateIds.has(plate.id)));
+check('story movements have unique anchors and introductions', STORY_MOVEMENTS.length > 0
+  && new Set(STORY_MOVEMENTS.map((movement) => movement.id)).size === STORY_MOVEMENTS.length
+  && STORY_MOVEMENTS.every((movement) => Boolean(movement.title.trim() && movement.introduction.trim())
+    && movement.entries.length > 0));
+check('every story explains the scene, a visual detail and its significance', storyEntries.every((entry) =>
+  Boolean(entry.heading.trim() && entry.story.trim() && entry.looking.trim() && entry.remember.trim())));
+check('all story reading companions resolve to the text', storyEntries.every((entry) =>
+  !entry.chapter || chapterIds.has(entry.chapter)));
 
 const dangling = TIES.flatMap((t) =>
   [t.from, t.to].filter((id) => !personIds.has(id)).map((id) => `${t.from}->${t.to} (${id})`),

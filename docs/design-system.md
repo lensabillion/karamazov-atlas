@@ -4,7 +4,7 @@ description: The app is set as a 1912 letterpress edition; this is how
 ---
 # Design System
 
-**Version 5 — First Edition** · 2026-09-15 · Supersedes the two-then-four-hue
+**Version 6 — White canvas, first-edition descriptions** · 2026-09-17 · Supersedes the two-then-four-hue
 screen palette of v2/v3.
 
 Working summary for agents: `.claude/skills/first-edition/SKILL.md` (mirrored to
@@ -24,9 +24,10 @@ period habit rather than anyone's artwork. The edition is unillustrated, so
 there is nothing in it to reproduce even if that were wanted, and every device
 here is drawn from scratch.
 
-**The governing rule:** the page is a leaf of stock, not a screen. If a surface
-reads as a web app — a boxed card, a shadow, a gradient, a rounded panel — it is
-wrong.
+**The governing rule:** white surroundings give the artwork room; each description
+remains a leaf of cream stock. The user explicitly requested this split on
+17 September 2026. Typography, paired rules, ornaments and name-form composition
+remain unchanged. No shadows, rounded cards or ornamental UI gradients.
 
 ---
 
@@ -88,25 +89,26 @@ axes to reach for.
 
 ## 3. Colour
 
-Four values, taken from the object rather than invented.
+Cloth, gilt, ink and stock come from the book; white provides the surrounding canvas.
 
 | Token | Value | Role |
 | --- | --- | --- |
 | `--cloth` | `#8c2f26` | The binding. Active, interactive, data marks |
 | `--gilt` | `#9a7b32` | The stamping. Selection and emphasis only |
 | `--ink`, `--ink-2`, `--ink-3` | `#1a1613` → `#786a5c` | Letterpress, three strengths |
-| `--bg`, `--surface` | `#f2ece0`, `#ece5d6` | Cream stock |
+| `--bg` | `#ffffff` | General page background |
+| `--stock`, `--surface` | `#f2ece0`, `#ece5d6` | Cream description stock |
 
-**The ground is laid paper, not flat cream.** A repeating horizontal grain at
-about 2% plus two faint washes, one cloth-red and one umber, in opposite
-corners. It is never strong enough to sit under running text, and it is what
-stops the page reading as a beige fill.
+**Descriptions retain laid paper, not flat cream.** A repeating horizontal grain
+at about 2% plus two faint washes, one cloth-red and one umber, remains in
+`--paper-texture`. Apply it to `.book-description` and `.plate`, not the body.
+The white general background is deliberate; do not restore the old full-page wash.
 
 The v3 names (`--blue`, `--teal`, `--purple`, `--pink`) still resolve; they now
 point at cloth and gilt. Components were not rewritten to rename them, because
 the alias is honest about what happened and touches one file rather than thirty.
 
-**Do not add a fifth value.**
+White is the canvas, not a new category or accent colour.
 
 ---
 
@@ -167,6 +169,14 @@ provide direct jumps. Additional analysis stays behind links and a native disclo
 The six original scene reproductions supplied by the user are kept unmodified and
 credited separately from generated studies; their provenance and chapter mappings
 are recorded in `src/assets/scenes/README.md`.
+
+Confirmed collage illustrations form five visible thematic movements, each with
+a story reminder, a specific visual cue and a reason to remember the moment.
+Images are not treated as decoration or forced into chronology where the evidence
+does not support it. Uncertain identifications remain in a separate study disclosure.
+Small extracts are never stretched beyond native pixel size; matched larger
+user-supplied reproductions replace the display version of plates 17 and 27, while
+the archival extracts remain downloadable. No generated detail is claimed as restoration.
 
 ---
 

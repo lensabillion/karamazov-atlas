@@ -12,7 +12,7 @@
 .folio-index a:hover, .folio-index a:focus-visible { color: var(--cloth); text-decoration: underline; }
 .folio-leaves { display: grid; gap: var(--space-6); }
 .folio-spread { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-5); align-items: start; padding-block: var(--space-4) var(--space-5); border-bottom: 1px solid var(--border-strong); }
-.folio-page .plate { border: 0; background: none; border-radius: 0; padding: var(--space-4) var(--space-3); }
+.folio-page .plate { border: 0; border-radius: 0; padding: var(--space-4) var(--space-3); }
 .folio-page .plate__name { font-size: var(--text-lg); }
 .folio-person__text { min-width: 0; }
 .folio-more { display: block; text-align: center; padding: var(--space-3); }
@@ -20,6 +20,9 @@
 .folio-back:hover, .folio-back:focus-visible { color: var(--cloth); }
 .folio-scene { align-items: center; }
 .folio-scene__text { min-width: 0; }
+.folio-scene__notes { display: grid; gap: var(--space-4); max-width: 54ch; margin-inline: auto; text-align: left; }
+.folio-scene__notes > div { display: grid; gap: var(--space-2); }
+.folio-scene__notes dd { margin: 0; color: var(--ink-2); line-height: 1.7; }
 .folio-participants { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-4); }
 .folio-others, .folio-explore, .folio-reference { display: grid; gap: var(--space-5); }
 .folio-people-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
@@ -41,7 +44,7 @@
   .folio-contents { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .folio-spread { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
   .folio-page .character-illustration { max-width: 100%; }
-  .folio-page .plate { padding-inline: 0; }
+  .folio-page .plate { padding-inline: var(--space-3); }
   .folio-people-grid { grid-template-columns: minmax(0, 1fr); }
   .memory-scenes__list { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
   .memory-scenes__list > a + a { border-top: 1px solid var(--border-strong); }

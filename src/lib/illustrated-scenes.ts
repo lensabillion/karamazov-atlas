@@ -13,7 +13,8 @@ export const ILLUSTRATED_SCENES = [
     chapter: 'b03-c03',
     people: ['dmitri', 'alyosha'],
     description: 'In the garden, Dmitri pours out his heart to Alyosha. Poetry gives way to confession: his longing for beauty, his shame, and the story of the two women between whom his life is divided.',
-    note: 'Their conversation continues through the next two chapters.',
+    looking: 'The luminous tree fills the space between the brothers; their dark figures sit apart beneath it.',
+    note: 'Dmitri trusts Alyosha with the contradictions that others will later flatten into a story of guilt. The confession continues through the next two chapters.',
     alt: 'Alyosha and Dmitri sit apart beneath a luminous tree, with village roofs and a crescent moon beyond.',
   },
   {
@@ -25,7 +26,8 @@ export const ILLUSTRATED_SCENES = [
     chapter: 'b03-c08',
     people: ['fyodor', 'ivan', 'alyosha', 'smerdyakov'],
     description: 'At the family table, Fyodor turns the conversation toward God and immortality. Ivan denies what Alyosha affirms. Drink loosens the father’s tongue, and his mockery of the past wounds the sons in front of him.',
-    note: 'A family gathering on the edge of a quarrel.',
+    looking: 'The huge samovar crowds the table, while faces and bodies pull the gathering in different directions.',
+    note: 'Questions about belief are already questions about how these people treat one another. The family’s cruelty gives the argument its force.',
     alt: 'The Karamazov household gathers around a large samovar in a crowded red interior.',
   },
   {
@@ -37,7 +39,8 @@ export const ILLUSTRATED_SCENES = [
     chapter: 'b03-c10',
     people: ['katerina', 'grushenka', 'alyosha'],
     description: 'Alyosha finds Katerina and Grushenka together. An apparent reconciliation turns into an exchange of humiliations: a hand kissed, a kiss withheld, and Dmitri’s future hanging between them.',
-    note: 'Courtesy becomes a contest neither woman will forget.',
+    looking: 'The women occupy the sofa while Alyosha stands behind: he can witness the contest, but cannot prevent it.',
+    note: 'What begins as generous courtesy exposes wounded pride. Alyosha sees how quickly the wish to be loved becomes the wish to humiliate.',
     alt: 'Katerina and Grushenka sit on a striped sofa while Alyosha stands quietly behind them.',
   },
   {
@@ -49,7 +52,8 @@ export const ILLUSTRATED_SCENES = [
     chapter: 'b05-c02',
     people: ['smerdyakov', 'alyosha'],
     description: 'Searching for Dmitri, Alyosha overhears Smerdyakov singing to Marya Kondratyevna. The cook’s talk is full of resentment and disdain. When Alyosha interrupts, he learns where to look for Ivan.',
-    note: 'An overheard conversation in the neighbouring garden.',
+    looking: 'Follow the guitar toward Marya on the bench, then notice Alyosha standing just outside their conversation.',
+    note: 'The servant at the edge of the family has a voice of his own. His resentment matters long before the brothers understand how closely he has been listening.',
     alt: 'Smerdyakov plays a guitar beside Marya Kondratyevna on a garden bench; Alyosha stands at the edge.',
   },
   {
@@ -61,7 +65,8 @@ export const ILLUSTRATED_SCENES = [
     chapter: 'b04-c07',
     people: ['alyosha', 'snegiryov'],
     description: 'Out in the open air, the captain tells Alyosha how Dmitri’s cruelty humiliated him before his son. Two hundred roubles seem to promise a new life for the family—until wounded pride makes him stamp the notes into the earth.',
-    note: 'Kindness cannot simply buy back a person’s dignity.',
+    looking: 'The captain’s fingers rise to his mouth; beside him, Alyosha’s lowered eyes make the encounter unusually intimate.',
+    note: 'The money could rescue the household, but accepting it feels like another humiliation. Alyosha has to learn that help must leave room for dignity.',
     alt: 'Alyosha stands beside Captain Snegiryov, who holds his fingers to his mouth, with the town behind them.',
   },
   {
@@ -73,7 +78,8 @@ export const ILLUSTRATED_SCENES = [
     chapter: 'b08-c08',
     people: ['dmitri', 'grushenka'],
     description: 'At Mokroye, the revelry grows feverish. Two girls dressed as bears tumble before the crowd while Dmitri and Grushenka imagine a life together. Before the night is over, the officers arrive to arrest him.',
-    note: 'A moment of happiness, just before the accusation.',
+    looking: 'The tumbling bear costumes and crowded faces turn the celebration into a scene of almost uncontainable motion.',
+    note: 'Dmitri and Grushenka briefly imagine a future together. The arrest interrupts that possibility, turning a night of release into the beginning of his trial.',
     alt: 'A crowded celebration with musicians and two performers dressed as bears tumbling on the floor.',
   },
 ] as const;

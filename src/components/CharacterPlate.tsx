@@ -43,7 +43,7 @@ export default function CharacterPlate({
   );
 
   return (
-    <section className="plate">
+    <section className="plate book-description">
       <p className="plate__series">{GROUP_IMPRINT[character.group] ?? 'Of the Town'}</p>
 
       <Heading className="plate__name" id={headingId}>{character.name}</Heading>

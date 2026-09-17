@@ -4,7 +4,7 @@
 .characters-rule { height: 4px; border-block: 2px solid var(--ink); }
 .characters-frontispiece { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-6); align-items: center; padding-block: var(--space-5); }
 .characters-frontispiece .character-illustration > img { max-height: 480px; }
-.characters-frontispiece__text { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); text-align: center; padding-block: var(--space-5); }
+.characters-frontispiece__text { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); text-align: center; padding: var(--space-5) var(--space-3); }
 .characters-frontispiece__description { max-width: 26em; font-size: var(--text-md); line-height: var(--leading-normal); text-wrap: pretty; }
 .characters-section { display: grid; grid-template-columns: minmax(10rem, 0.45fr) minmax(0, 1fr); gap: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--border-strong); }
 .characters-section[data-has-art="true"] { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }

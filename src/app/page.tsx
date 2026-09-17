@@ -44,7 +44,7 @@ export default function Home() {
           </div>
         </details>
         <div className="folio-contents__further">
-          <a href="#artwork-catalogue">The extracted illustrations ↓</a>
+          <a href="#artwork-catalogue">Follow the story in pictures ↓</a>
           <a href="#explore">Explore the text ↓</a>
         </div>
       </nav>

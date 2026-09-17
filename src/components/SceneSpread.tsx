@@ -35,13 +35,16 @@ export default function SceneSpread({ scene }: { scene: Scene }) {
           <span className="meta">Private collection · Reproduced in Sotheby’s, 2007</span>
         </figcaption>
       </figure>
-      <div className="folio-scene__text plate">
+      <div className="folio-scene__text plate book-description">
         <p className="plate__series">A scene remembered · {chapter.cite}</p>
         <h2 className="plate__name" id={`scene-title-${scene.id}`}>{scene.title}</h2>
         <hr className="plate__rule" />
         <p className="plate__epithet">{scene.description}</p>
         <Ornament />
-        <p className="text-muted">{scene.note}</p>
+        <dl className="folio-scene__notes">
+          <div><dt className="eyebrow">Look closely</dt><dd>{scene.looking}</dd></div>
+          <div><dt className="eyebrow">Why it matters</dt><dd>{scene.note}</dd></div>
+        </dl>
         <nav className="folio-participants" aria-label={`People in ${scene.title}`}>
           {scene.people.map((id) => (
             <a className="link" href={`/character/${id}`} key={id}>{getCharacter(id)!.short}</a>

@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   KARAMAZOV ATLAS — DESIGN SYSTEM v2 (Tailwind v4)
+   KARAMAZOV ATLAS — FIRST-EDITION DESIGN SYSTEM (Tailwind v4)
    Specification: docs/design-system.md. If the two disagree, that document is
    correct and this file is the bug.
 
-   Two typefaces. Two colours. White ground. No exceptions.
+   One typeface. White surroundings. Cream-paper descriptions.
 
    WHY TOKENS FIRST, UTILITIES SECOND
    Tailwind is configured from the design system rather than the other way
@@ -59,7 +59,8 @@
   --color-gilt-soft: #f2e9d4;
 
   /* Stock and ink. */
-  --color-bg: #f2ece0;
+  --color-bg: #ffffff;
+  --color-stock: #f2ece0;
   --color-surface: #ece5d6;
   --color-border: #d9cfba;
   --color-border-strong: #b9ab90;
@@ -101,7 +102,12 @@
   --cloth: var(--color-cloth);
   --cloth-deep: var(--color-cloth-deep);
   --gilt: var(--color-gilt);
-  --stock: var(--color-bg);
+  --stock: var(--color-stock);
+  --paper-texture:
+    repeating-linear-gradient(0deg, rgba(120, 96, 64, 0.022) 0px,
+      rgba(120, 96, 64, 0.022) 1px, transparent 1px, transparent 3px),
+    radial-gradient(60rem 34rem at 12% 0%, rgba(140, 47, 38, 0.045), transparent 70%),
+    radial-gradient(54rem 34rem at 88% 100%, rgba(120, 96, 64, 0.06), transparent 68%);
 
   --bg: var(--color-bg);
   --surface: var(--color-surface);
@@ -112,7 +118,7 @@
   --ink-3: var(--color-ink-3);
 
   --accent: var(--color-cloth);
-  /* Text printed ON the cloth colour. The one place white is correct. */
+  /* Text printed on the cloth colour. */
   --on-cloth: #ffffff;
   --active: var(--color-gilt);
 
@@ -144,30 +150,19 @@
 html, body { margin: 0; padding: 0; }
 
 body {
-  /* Not flat white: two very faint washes in opposite corners so the page has a
-     temperature. A few percent each — never strong enough to sit behind text.
-     See docs/design-system.md §3.4. */
+  /* White surroundings; the existing laid stock is reserved for descriptions. */
   background-color: var(--bg);
-  /* Laid stock: two faint washes plus a horizontal grain, so the page reads as
-     paper rather than a beige fill. Nothing here is strong enough to sit under
-     running text. */
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(120, 96, 64, 0.022) 0px,
-      rgba(120, 96, 64, 0.022) 1px,
-      transparent 1px,
-      transparent 3px
-    ),
-    radial-gradient(60rem 34rem at 12% 0%, rgba(140, 47, 38, 0.045), transparent 70%),
-    radial-gradient(54rem 34rem at 88% 100%, rgba(120, 96, 64, 0.06), transparent 68%);
-  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--text-base);
   font-weight: var(--weight-normal);
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
+}
+
+.book-description {
+  background-color: var(--stock);
+  background-image: var(--paper-texture);
 }
 
 img, svg { max-width: 100%; }
