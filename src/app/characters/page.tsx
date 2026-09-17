@@ -52,7 +52,7 @@ export default function CharactersPage() {
                     <li key={character.id} data-character={character.id}>
                       <article className="characters-frontispiece" aria-labelledby={`portrait-${character.id}`}>
                         <CharacterIllustration artwork={artwork} eager={character.id === 'alyosha'} />
-                        <div className="characters-frontispiece__text">
+                        <div className="characters-frontispiece__text book-description">
                           <h3 className="heading" id={`portrait-${character.id}`}>
                             <a href={`/character/${character.id}`}>{character.name}</a>
                           </h3>

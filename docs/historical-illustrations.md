@@ -1,5 +1,42 @@
 # Historical Illustration Placement
 
+## Storytelling and White Surroundings · 17 September 2026
+
+The 21 confirmed collage illustrations now form five visible thematic movements,
+not a contact-sheet dump or an asserted chronology of the paintings. Each combines
+a narrative reminder, a concrete detail to look at, and a reason the moment matters.
+People, related passages and artwork sources remain clickable. All 15 uncertain
+subjects are retained in a clearly separate study disclosure; none is promoted to
+a definite episode. Katya and the town panorama have no invented chapter mapping.
+
+The six full-size scenes also gain visual cues and explicit narrative significance.
+For *Both Together* and *Delirium*, the display uses the larger originals already
+supplied by the user. All other extracts are displayed at or below native size,
+without a second lossy compression or invented pixels. The 36 original extracts
+and their download are unchanged.
+
+The user requested white as the general background while retaining the exact
+book-style description treatment. The global canvas is white; descriptions retain
+cream laid stock, Old Standard TT, the existing rules, ornaments and character
+name-form layout. This supersedes the older skill guidance for all-over cream.
+
+Story coverage tests were added before the story data and failed on the absent
+module; with the data present, all 21 confirmed entries are covered exactly once.
+Reading links resolve to existing chapters and uncertain works remain excluded.
+
+Verification: tests, type checks, the 133-page production build and corpus drift
+check pass. Browser inspection at 1280, 760 and 390 pixels confirms no horizontal
+page overflow, white surroundings and cream textured descriptions in Old Standard
+TT. It caught and corrected a grid intrinsic-width issue on phone-sized screens.
+All 51 homepage images loaded, including the larger 980×679 and 976×677 originals.
+Keyboard disclosure tests, movement navigation and an actual related-reading
+navigation pass. The ZIP endpoint returns 200 with the correct archive type.
+Static output has all 36 plate anchors, 21 story panels, one main heading and no
+duplicate IDs or dangling fragment links. Independent source review found no
+blocking defects; the related-reading label was clarified during review.
+The same white/cream separation was also checked on Smerdyakov’s individual page
+and all nine illustrated descriptions on the character index.
+
 ## Collage Catalogue · 17 September 2026
 
 The homepage now includes an expandable catalogue of 36 native-resolution extracts
