@@ -192,6 +192,7 @@ Ordered. Ground truth in tbd.
 
 | Date | Change |
 | --- | --- |
+| 2026-09-17 | Extracted 36 historical compositions from the supplied collage: 21 source-matched, 7 provisional, 8 unidentified. Added an expandable homepage catalogue, individual image links and ZIP; opened scene contents so the guitar scene is visible by name. |
 | 2026-09-17 | Homepage becomes an illustrated companion: nine character spreads, six original Grigoriev scene reproductions, all 27 biographies and name plates, and linked deeper reading. Existing tools and chapter index retained. Tests/typecheck/133-page build pass; live responsive review blocked by app usage limit. |
 | 2026-09-16 | All nine named characters in the Grigoriev selection illustrated on the cast and individual pages with visibly labeled studies |
 | 2026-09-16 | Illustrated homepage with a labeled generated Smerdyakov study after Grigoriev, scene entry points, and the same image on the character plate |
