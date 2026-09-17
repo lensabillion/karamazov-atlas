@@ -1,16 +1,7 @@
 import Ornament from './Ornament';
 import type { NamedCharacter } from '@/lib/names';
 
-/**
- * A character presented as a first-edition plate.
- *
- * The 1912 Heinemann edition this corpus comes from is unillustrated, so there
- * is no portrait to reproduce and none is invented here. What it does have is a
- * way of setting a page — letterspaced capitals, paired rules, a centred block,
- * an ornament — and that is what the person is presented in.
- *
- * Every figure below is computed from the text.
- */
+/** The typographic half of a character spread, with figures computed from the text. */
 
 const GROUP_IMPRINT: Record<string, string> = {
   family: 'Of the House of Karamazov',
@@ -34,13 +25,18 @@ export default function CharacterPlate({
   chapterCount,
   totalChapters,
   epithet,
+  heading = 'h1',
+  headingId,
 }: {
   character: NamedCharacter;
   chapterCount: number;
   totalChapters: number;
   /** One line on who this is. */
   epithet?: string;
+  heading?: 'h1' | 'h2' | 'h3';
+  headingId?: string;
 }) {
+  const Heading = heading;
   const ORDER = ['formal', 'distanced', 'neutral', 'familiar', 'tender'];
   const forms = [...character.forms].sort(
     (a, b) => ORDER.indexOf(a.register) - ORDER.indexOf(b.register),
@@ -50,7 +46,7 @@ export default function CharacterPlate({
     <section className="plate">
       <p className="plate__series">{GROUP_IMPRINT[character.group] ?? 'Of the Town'}</p>
 
-      <h1 className="plate__name">{character.name}</h1>
+      <Heading className="plate__name" id={headingId}>{character.name}</Heading>
 
       <hr className="plate__rule" />
 

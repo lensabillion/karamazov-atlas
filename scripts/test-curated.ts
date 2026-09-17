@@ -6,10 +6,12 @@
  * span naming a character with no column, rendered as a silently missing line
  * on a diagram — a wrong picture rather than an error. These make that loud.
  */
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PEOPLE, TIES, ZONES, W, H } from '../src/lib/relationships.ts';
 import { LANES, MOMENTS, SEGMENTS, SPANS } from '../src/lib/timeline.ts';
+import { ILLUSTRATED_SCENES } from '../src/lib/illustrated-scenes.ts';
+import { CHARACTER_BIOGRAPHIES } from '../src/lib/character-biographies.ts';
 
 let failed = 0;
 const check = (name: string, cond: boolean, detail = '') => {
@@ -22,10 +24,32 @@ const corpus = JSON.parse(readFileSync(join(process.cwd(), 'data', 'corpus.json'
 };
 const chapterIds = new Set(corpus.chapters.map((c) => c.id));
 const cites = new Set(corpus.chapters.map((c) => c.cite));
+const mentions = JSON.parse(readFileSync(join(process.cwd(), 'data', 'mentions.json'), 'utf8')) as {
+  characters: { id: string }[];
+};
+const names = JSON.parse(readFileSync(join(process.cwd(), 'data', 'names.json'), 'utf8')) as {
+  characters: { id: string }[];
+};
+const castIds = new Set(mentions.characters.map((c) => c.id));
+const namedIds = new Set(names.characters.map((c) => c.id));
 
 console.log('relationships');
 const personIds = new Set(PEOPLE.map((p) => p.id));
 check('every person id is unique', personIds.size === PEOPLE.length);
+check('every homepage character has name-form data',
+  [...castIds].every((id) => namedIds.has(id)));
+check('every homepage character has a biography',
+  [...castIds].every((id) => Boolean(CHARACTER_BIOGRAPHIES[id]?.trim())));
+
+console.log('\nillustrated scenes');
+check('the six supplied scenes have distinct anchors', ILLUSTRATED_SCENES.length === 6
+  && new Set(ILLUSTRATED_SCENES.map((scene) => scene.id)).size === 6);
+check('every scene opens an existing chapter',
+  ILLUSTRATED_SCENES.every((scene) => chapterIds.has(scene.chapter)));
+check('every scene participant and placement resolves to a character page',
+  ILLUSTRATED_SCENES.every((scene) => [scene.afterCharacter, ...scene.people].every((id) => castIds.has(id))));
+check('every original scene image exists locally',
+  ILLUSTRATED_SCENES.every((scene) => existsSync(join(process.cwd(), 'src/assets/scenes', scene.file))));
 
 const dangling = TIES.flatMap((t) =>
   [t.from, t.to].filter((id) => !personIds.has(id)).map((id) => `${t.from}->${t.to} (${id})`),

@@ -160,6 +160,14 @@ the linked selection. The additional six studies and prompts are recorded in
 `src/assets/artwork/CAST-STUDIES.md`. Shared scenes keep their full compositions and
 identify both subjects in the caption; a scene is not mislabeled as a solo portrait.
 
+The homepage is an illustrated sequence of people and scenes. Character spreads
+reuse the full `CharacterPlate` typography; scene spreads use the same paired rules,
+italic description, ornament, and rectangular image beside text. In-page contents
+provide direct jumps. Additional analysis stays behind links and a native disclosure.
+The six original scene reproductions supplied by the user are kept unmodified and
+credited separately from generated studies; their provenance and chapter mappings
+are recorded in `src/assets/scenes/README.md`.
+
 ---
 
 ## 7. Encoding categories

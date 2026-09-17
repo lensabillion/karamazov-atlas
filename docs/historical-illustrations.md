@@ -2,6 +2,37 @@
 
 ## Decision
 
+The homepage presents nine illustrated character plates and six original scene
+spreads, with all 27 character introductions visible on the page. Each person has a
+link to further details; each scene pairs its full composition with a reminder and
+a chapter link. The remaining 18 people have typographic plates, without fabricated
+portrait placeholders. Contents disclosures jump directly to any person or scene.
+The existing analytical pages, mention counts, passage shortcuts, and full chapter
+index remain accessible through “Explore the text.”
+
+The six user-supplied original illustrations and their verified source mappings are
+documented in `src/assets/scenes/README.md`. Dates in their captions follow the
+magazine, and the text descriptions follow the local Garnett chapters.
+
+### Homepage Review · 17 September 2026
+
+- Reused `CharacterPlate`, including figures, name forms, and patronymic, rather
+  than approximating the user's screenshot with a new card design.
+- Added missing introductions for Nikolay, Paissy, Maximov, Trifon, and Perhotin;
+  the homepage, cast index, and detail pages share the same biographies.
+- Added checks for complete biography/name-data coverage, scene assets, unique
+  anchors, and valid participant/chapter references. The biography test failed
+  before the five missing descriptions were added, then passed.
+- Independent code review found no actionable correctness or accessibility defect.
+- Type checks, the complete frontend test suite, and the 133-page production build
+  pass. Static homepage output contains nine generated-study captions, six historical
+  scene captions, 15 images, one primary heading, and no dangling in-page links.
+- Browser inspection was blocked by the app's usage-limit approval failure.
+  Responsive spacing and live image loading are not claimed as verified for this
+  homepage revision.
+
+### Character Artwork Coverage
+
 Every named character in the linked Grigoriev selection now has an illustration
 beside their biography on the cast index and on their individual character page.
 Seven labeled generated studies cover nine people:
@@ -30,7 +61,7 @@ pages load an illustration with attribution and no desktop overflow; the cast in
 retains 27 entries and nine illustrated biographies at desktop and 390px widths.
 Type-checking, the full test suite, and the 133-page production build pass.
 
-### Initial visual study
+### Initial visual study (historical implementation note)
 
 The homepage now opens with a generated study after Grigoriev's *Pavel Smerdyakov*,
 requested by the user as a concrete visual experiment. The same study appears beside
@@ -38,7 +69,7 @@ Smerdyakov's character plate, labeled as AI-generated. Scene links precede corpu
 statistics so returning readers can enter through remembered people and moments.
 Generation provenance is recorded in `src/assets/artwork/README.md`.
 
-### Focused presentation pass
+### Focused presentation pass (historical implementation note)
 
 The Characters page pairs the approved Smerdyakov study with the existing biography
 in a two-column book-like spread, stacking on phones. Cast descriptions now sit

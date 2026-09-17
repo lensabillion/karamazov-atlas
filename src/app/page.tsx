@@ -1,117 +1,104 @@
-import { getBooks, getCorpus, getMentions } from '@/lib/corpus';
-import SmerdyakovStudy from '@/components/SmerdyakovStudy';
+import { Fragment } from 'react';
+import CharacterIllustration from '@/components/CharacterIllustration';
+import CharacterPlate from '@/components/CharacterPlate';
+import HomeReference from '@/components/HomeReference';
+import SceneSpread from '@/components/SceneSpread';
+import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
+import { CHARACTER_BIOGRAPHIES } from '@/lib/character-biographies';
+import { getCorpus, getMentions } from '@/lib/corpus';
+import { ILLUSTRATED_SCENES } from '@/lib/illustrated-scenes';
+import { getNames } from '@/lib/names';
+import './plate.css';
 import './home.css';
 
+/** The illustrated companion is the front door; deeper tools remain one click away. */
 export default function Home() {
-  const corpus = getCorpus();
-  const books = getBooks();
-  const { characters, edges } = getMentions();
-  const top = characters.slice(0, 12);
-  const max = top[0]!.total;
-
-  const stats: [string, string][] = [
-    ['Words', corpus.wordCount.toLocaleString()],
-    ['Chapters', String(corpus.chapters.length)],
-    ['Books', String(books.length - 1)],
-    ['Characters', String(characters.length)],
-    ['Ties', String(edges.length)],
-  ];
+  const { characters } = getMentions();
+  const totalChapters = getCorpus().chapters.length;
+  const names = new Map(getNames().characters.map((person) => [person.id, person]));
+  const illustrated = characters.filter((person) => CHARACTER_ARTWORK[person.id]);
+  const otherPeople = characters.filter((person) => !CHARACTER_ARTWORK[person.id]);
 
   return (
-    <main className="page page--wide memory-page">
-      <section className="memory-opening" aria-labelledby="memory-title">
-        <div className="memory-opening__text">
-          <header className="page-header">
-            <p className="eyebrow">An illustrated companion · Full-book spoilers</p>
-            <h1 className="title" id="memory-title">The Brothers<br />Karamazov</h1>
-            <p className="memory-subtitle lede">Return to the faces.<br />Remember what passed between them.</p>
-          </header>
-          <hr className="memory-rule" />
-          <p className="text-muted">
-            A father, three brothers, and the people bound to them. Find a familiar
-            name, follow a relationship, or step back into a scene you remember.
-          </p>
-          <nav className="memory-contents" aria-label="Explore the novel">
-            <a href="/characters"><span className="eyebrow">I</span><span>The people</span><span aria-hidden="true">→</span></a>
-            <a href="/who"><span className="eyebrow">II</span><span>What binds them</span><span aria-hidden="true">→</span></a>
-            <a href="/timeline"><span className="eyebrow">III</span><span>The days that change everything</span><span aria-hidden="true">→</span></a>
-            <a href="/names"><span className="eyebrow">IV</span><span>One person, many names</span><span aria-hidden="true">→</span></a>
-          </nav>
-          <p className="meta">Fyodor Dostoyevsky · 1880<br />Constance Garnett’s translation · 1912</p>
+    <main className="page page--wide folio-page">
+      <header className="folio-title">
+        <div>
+          <p className="eyebrow">An illustrated companion · Full-book spoilers</p>
+          <h1 className="title">The Brothers Karamazov</h1>
         </div>
-        <SmerdyakovStudy />
-      </section>
+        <p className="text-muted">The people you remember.<br />The moments that remain.</p>
+      </header>
 
-      <section className="memory-scenes section" aria-labelledby="memory-scenes-title">
-        <div className="row row--between">
-          <h2 className="heading" id="memory-scenes-title">Begin with a memory</h2>
-          <a className="link text-muted" href="/read">The complete novel →</a>
-        </div>
-        <div className="memory-scenes__list">
-          <a href="/read/b05-c05"><p className="eyebrow">Book V · Chapter 5</p><h3 className="subheading">The Grand Inquisitor</h3><p className="text-muted">Ivan’s poem. Alyosha’s answer.</p><span className="link">Return to the tavern →</span></a>
-          <a href="/read/b11-c08"><p className="eyebrow">Book XI · Chapter 8</p><h3 className="subheading">The last interview</h3><p className="text-muted">Ivan, Smerdyakov, and the money.</p><span className="link">Return to the confession →</span></a>
-          <a href="/read/b13-c03"><p className="eyebrow">Epilogue · Chapter 3</p><h3 className="subheading">At the stone</h3><p className="text-muted">Alyosha and the boys. A memory to keep.</p><span className="link">Return to the farewell →</span></a>
-        </div>
-      </section>
-
-      <section className="row row--wide memory-statistics" aria-label="The novel in figures">
-        {stats.map(([label, value]) => (
-          <div className="stat" key={label}>
-            <span className="stat__value">{value}</span>
-            <span className="eyebrow">{label}</span>
+      <nav className="folio-contents" id="contents" aria-label="Illustrated contents">
+        <details>
+          <summary>Find a person <span className="meta">{characters.length}</span></summary>
+          <div className="folio-index">
+            {characters.map((person) => <a href={`#person-${person.id}`} key={person.id}>{person.short}</a>)}
           </div>
+        </details>
+        <details>
+          <summary>Find a scene <span className="meta">{ILLUSTRATED_SCENES.length}</span></summary>
+          <div className="folio-index">
+            {ILLUSTRATED_SCENES.map((scene) => <a href={`#scene-${scene.id}`} key={scene.id}>{scene.title}</a>)}
+          </div>
+        </details>
+        <a href="#explore">Explore the text ↓</a>
+      </nav>
+
+      <div className="folio-leaves">
+        {illustrated.map((person, index) => (
+          <Fragment key={person.id}>
+            <article className="folio-spread character-opening" data-illustrated="true"
+              id={`person-${person.id}`} aria-labelledby={`person-title-${person.id}`}>
+              <CharacterIllustration artwork={CHARACTER_ARTWORK[person.id]!} eager={index === 0} />
+              <div className="folio-person__text">
+                <CharacterPlate character={names.get(person.id)!} chapterCount={person.chapterCount}
+                  totalChapters={totalChapters} epithet={CHARACTER_BIOGRAPHIES[person.id]}
+                  heading="h2" headingId={`person-title-${person.id}`} />
+                <a className="link folio-more" href={`/character/${person.id}`}>
+                  More about {person.short}: connections &amp; chapters →
+                </a>
+              </div>
+              <a className="folio-back meta" href="#contents">Back to contents ↑</a>
+            </article>
+            {ILLUSTRATED_SCENES.filter((scene) => scene.afterCharacter === person.id).map((scene) => (
+              <SceneSpread key={scene.id} scene={scene} />
+            ))}
+          </Fragment>
         ))}
-      </section>
+      </div>
 
-      <section className="section">
-        <div className="section-header">
-          <h2 className="heading">Find a character in the text</h2>
-          <p className="text-muted">
-            Mention counts with aliases resolved — Dmitri, Mitya, Mitka and Dmitri Fyodorovitch
-            counted as one person. Overlapping names are claimed longest-first, so nothing is
-            double-counted.
-          </p>
-        </div>
-        <div className="stack stack--tight">
-          {top.map((c) => (
-            <a className={`bar-row group-${c.group}`} key={c.id} href={`/character/${c.id}`}>
-              <span>{c.short}</span>
-              <span className="bar-track">
-                <span
-                  className="bar-fill"
-                  style={{ width: `${Math.max(2, (c.total / max) * 100)}%` }}
-                />
-              </span>
-              <span className="meta">
-                {c.total} · {c.chapterCount} ch
-              </span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <h2 className="heading">The novel, book by book</h2>
-        <div className="grid">
-          {books.map((b) => (
-            <article className="card" key={b.num}>
-              <p className="eyebrow">{b.part}</p>
-              <h3 className="subheading">
-                {b.num === 13 ? 'Epilogue' : `${b.num}. ${b.title}`}
-              </h3>
-              <ul className="list">
-                {b.chapters.map((ch) => (
-                  <li key={ch.id}>
-                    <a className="list-item" href={`/read/${ch.id}`}>
-                      <span className="list-item__lead">{ch.roman}</span>
-                      <span className="list-item__label">{ch.title}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+      <section className="folio-others" aria-labelledby="other-people">
+        <header className="section-header">
+          <p className="eyebrow">The rest of the company</p>
+          <h2 className="heading" id="other-people">More lives in the novel</h2>
+          <p className="text-muted">No separate portrait in this selection. Their stories still belong here.</p>
+        </header>
+        <div className="folio-people-grid">
+          {otherPeople.map((person) => (
+            <article id={`person-${person.id}`} className="folio-person--type" key={person.id}>
+              <CharacterPlate character={names.get(person.id)!} chapterCount={person.chapterCount}
+                totalChapters={totalChapters} epithet={CHARACTER_BIOGRAPHIES[person.id]} heading="h3" />
+              <a className="link folio-more" href={`/character/${person.id}`}>More about {person.short} →</a>
             </article>
           ))}
         </div>
+      </section>
+
+      <section id="explore" className="folio-explore" aria-labelledby="explore-title">
+        <h2 className="heading" id="explore-title">Explore the text</h2>
+        <nav className="folio-tools" aria-label="Explore the novel">
+          <a className="link" href="/characters">The cast →</a>
+          <a className="link" href="/who">Relationships →</a>
+          <a className="link" href="/timeline">The timeline →</a>
+          <a className="link" href="/names">Names &amp; forms →</a>
+          <a className="link" href="/read">Read the novel →</a>
+        </nav>
+        <details className="folio-reference-disclosure">
+          <summary>Open the chapter index, memorable passages &amp; mention counts</summary>
+          <HomeReference />
+        </details>
+        <p className="meta">Fyodor Dostoyevsky · 1880 · Constance Garnett’s translation · 1912</p>
       </section>
     </main>
   );
