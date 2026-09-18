@@ -190,9 +190,10 @@ Ordered. Ground truth in tbd.
 
 ## 8. The open-beads pass (18 September 2026)
 
-Asked to address every open bead. 27 were open; 25 are now closed (one new bead was
-filed and closed along the way). Each closing note in tbd says what changed and how it
-was verified. Branch `chore/address-open-beads`.
+Asked to address every open bead. 27 were open and one more was filed along the way;
+24 are now closed and 4 remain, each needing something only the owner can do. Each
+closing note in tbd says what changed and how it was verified. Branch
+`chore/address-open-beads`.
 
 ### Stage of change, now
 
@@ -262,7 +263,7 @@ was verified. Branch `chore/address-open-beads`.
 
 | Date | Change |
 | --- | --- |
-| 2026-09-18 | Open-beads pass: evidence links to paragraphs, reading position, spoiler-scoped `/ask` verified live, BM25 search, attribution precision, chapter notes, translation brief, title leaf, labelled Desktop studies, Katerina's portrait, the case file with verdicts and arc, who says this. 25 beads closed. |
+| 2026-09-18 | Open-beads pass: evidence links to paragraphs, reading position, spoiler-scoped `/ask` verified live, BM25 search, attribution precision, chapter notes, translation brief, title leaf, labelled Desktop studies, Katerina's portrait, the case file with verdicts and arc, who says this. 24 beads closed, 4 left for the owner. |
 | 2026-09-17 | Reframed 21 confirmed illustrations as five story movements, with visual cues and memory notes; kept 15 uncertain works separate. White general background now surrounds unchanged first-edition cream descriptions. Two matched scenes use larger supplied originals; small extracts are no longer stretched or recompressed. |
 | 2026-09-17 | Extracted 36 historical compositions from the supplied collage: 21 source-matched, 7 provisional, 8 unidentified. Added an expandable homepage catalogue, individual image links and ZIP; opened scene contents so the guitar scene is visible by name. |
 | 2026-09-17 | Homepage becomes an illustrated companion: nine character spreads, six original Grigoriev scene reproductions, all 27 biographies and name plates, and linked deeper reading. Existing tools and chapter index retained. Tests/typecheck/133-page build pass; live responsive review blocked by app usage limit. |
