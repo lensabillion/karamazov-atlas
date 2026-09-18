@@ -77,8 +77,14 @@ const studySource = readFileSync(join(process.cwd(), 'src/lib/collage-studies.ts
 const studyIds = [...studySource.matchAll(/plateId: (\d+)/g)].map((m) => Number(m[1]));
 check('every generated study follows a real plate', studyIds.length > 0
   && studyIds.every((id) => COLLAGE_PLATES.some((plate) => plate.id === id)));
-check('every study image exists', studyIds.every((id) =>
-  existsSync(join(process.cwd(), 'src/assets/studies', `study-plate-${String(id).padStart(2, '0')}.jpg`))));
+const studyImports = [...studySource.matchAll(/from '@\/assets\/([^']+)'/g)].map((m) => m[1]!);
+check('every study image exists', studyImports.length === studyIds.length
+  && studyImports.every((path) => existsSync(join(process.cwd(), 'src/assets', path))));
+check('every study says how it was made', (studySource.match(/madeFrom: '(extract|reproduction)',/g) ?? []).length === studyIds.length);
+// A person is shown by a picture of that person: Katerina's portrait is her own study.
+const artworkSource = readFileSync(join(process.cwd(), 'src/lib/character-artwork.ts'), 'utf8');
+check('Katerina’s portrait is a portrait, not the scene with Dmitri',
+  /katerina: \{\s*image: katerinaPortrait/.test(artworkSource));
 check('every study says what it invents', (studySource.match(/invented: '/g) ?? []).length === studyIds.length);
 check('the two studies that change their subject stay out', !studyIds.includes(21) && !studyIds.includes(31));
 check('a study never adds a link its plate lacks', studyIds.every((id) => {

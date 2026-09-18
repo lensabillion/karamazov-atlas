@@ -20,7 +20,7 @@ export default function CharacterIllustration({
         <span className="eyebrow">{artwork.title}</span>
         <span className="meta">
           AI-generated study after{' '}
-          <a className="link" href="https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev">Boris Grigoriev’s illustration</a>.
+          <a className="link" href={artwork.source ?? 'https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev'}>Boris Grigoriev’s illustration</a>.
         </span>
       </figcaption>
     </figure>

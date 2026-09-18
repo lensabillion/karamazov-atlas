@@ -67,7 +67,10 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
           <p className="plate__series">In the historical record</p>
           <p className="text-muted">
             Boris Grigoriev drew {historicalWorks.map((work, index) => (
-              <span key={work}>{index > 0 ? ' and ' : ''}<cite>{work}</cite></span>
+              <span key={work}>
+                {index === 0 ? '' : index === historicalWorks.length - 1 ? ' and ' : ', '}
+                <cite>{work}</cite>
+              </span>
             ))} for his cycle of illustrations of the novel.
           </p>
           <a className="link" href="https://www.gw2ru.com/arts/1392-karamazov-illustrations-grigoriev">

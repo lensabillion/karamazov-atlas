@@ -6,6 +6,7 @@ import plate13 from '@/assets/studies/study-plate-13.jpg';
 import plate15 from '@/assets/studies/study-plate-15.jpg';
 import plate20 from '@/assets/studies/study-plate-20.jpg';
 import plate32 from '@/assets/studies/study-plate-32.jpg';
+import plate06 from '@/assets/artwork/katerina-dmitri-after-grigoriev.png';
 
 /**
  * Generated studies after collage plates (atlas-08gb).
@@ -31,22 +32,31 @@ export interface CollageStudy {
   image: StaticImageData;
   /** What the study shows that the collage extract does not. */
   invented: string;
+  /**
+   * 'extract': re-rendered from the small collage crop (the Desktop studies).
+   * 'reproduction': generated from the museum's reproduction of the same work,
+   * with the prompt recorded in src/assets/artwork/CAST-STUDIES.md.
+   */
+  madeFrom: 'extract' | 'reproduction';
 }
 
 export const COLLAGE_STUDIES: CollageStudy[] = [
+  // The bow (III.4). Once Katerina's portrait slot, now shown with the scene it depicts.
+  { plateId: 6, image: plate06, madeFrom: 'reproduction',
+    invented: 'Redrawn in coloured pencil from the museum’s reproduction, keeping the two figures, their poses, the mirror and the window; the hatching and the warm paper are the generator’s.' },
   { plateId: 2, image: plate02,
-    invented: 'The extract already has the house, the crescent moon, the sunflowers and the old woman at the fence; the study sharpens them and adds the carpentry, the lit windows, the flowers and the texture of oil paint.' },
-  { plateId: 8, image: plate08,
+    madeFrom: 'extract', invented: 'The extract already has the house, the crescent moon, the sunflowers and the old woman at the fence; the study sharpens them and adds the carpentry, the lit windows, the flowers and the texture of oil paint.' },
+  { plateId: 8, image: plate08, madeFrom: 'extract',
     invented: 'It extends the picture beyond the extract: the monastery gate, the monk walking away, the benches and the building at the right are generated, not seen.' },
-  { plateId: 11, image: plate11,
+  { plateId: 11, image: plate11, madeFrom: 'extract',
     invented: 'The sunset, the town and river beyond the curtains, the cracked window, the rug and the signature are added, and the mask-like faces are repainted as realistic ones.' },
-  { plateId: 13, image: plate13,
+  { plateId: 13, image: plate13, madeFrom: 'extract',
     invented: 'Enlarged about eight times: every fine detail of the face, the headscarf, the barred windows and the brickwork is generated.' },
-  { plateId: 15, image: plate15,
+  { plateId: 15, image: plate15, madeFrom: 'extract',
     invented: 'The icon, candle, books, rugs and the snowy view through the window are added or elaborated, and every face is repainted.' },
-  { plateId: 20, image: plate20,
+  { plateId: 20, image: plate20, madeFrom: 'extract',
     invented: 'The church domes and bell tower, the detail of the painted saints and the texture of the trees are generated; the faces are repainted.' },
-  { plateId: 32, image: plate32,
+  { plateId: 32, image: plate32, madeFrom: 'extract',
     invented: 'The legible shop signs, the lamp post, the church skyline and a realistic face — in place of Grigoriev’s mask-like one — are all generated.' },
 ];
 

@@ -27,12 +27,13 @@ function StudyDisclosure({ plate }: { plate: CollagePlate }) {
   if (!study) return null;
   return (
     <details className="collage-catalogue__study">
-      <summary>A generated study after this plate <span className="meta">· AI</span></summary>
+      <summary>A generated study of this {plate.people.length > 1 ? 'scene' : 'plate'} <span className="meta">· AI</span></summary>
       <figure>
         <Image src={study.image} alt={`AI-generated study after illustration ${plate.id}, ${plate.title}. Not by Grigoriev.`}
           sizes="(max-width: 760px) 90vw, 440px" loading="lazy" />
         <figcaption className="meta">
-          <strong>AI-generated, not by Grigoriev</strong> — made from the small collage extract above,
+          <strong>AI-generated, not by Grigoriev</strong> — made from{' '}
+          {study.madeFrom === 'extract' ? 'the small collage extract above' : 'the museum’s reproduction of this illustration'},
           and not a restoration of it. {study.invented} Do not use it to identify the scene.
         </figcaption>
       </figure>
