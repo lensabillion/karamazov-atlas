@@ -107,19 +107,44 @@ export function presenceOf(characterId: string): { chapter: Chapter; count: numb
   }));
 }
 
+interface IndexedChapter { chapter: Chapter; text: string; lower: string }
+
+let _index: IndexedChapter[] | null = null;
+
+/**
+ * Every chapter's text and its lowercase copy, read once.
+ *
+ * Search used to read all 96 files and lowercase the whole novel on every
+ * query. Built once per process in production; rebuilt per call in development
+ * for the same stale-data reason as the loaders above.
+ */
+function chapterIndex(): IndexedChapter[] {
+  const build = () =>
+    getCorpus().chapters.map((chapter) => {
+      const text = getChapterText(chapter.id);
+      return { chapter, text, lower: text.toLowerCase() };
+    });
+  if (!CACHE) return build();
+  return (_index ??= build());
+}
+
 /**
  * Lexical retrieval over chapter text. Scores by term frequency with a bonus for
  * whole-phrase hits, and returns a window of context around the best match so the
  * caller can quote it with a real citation.
+ *
+ * `through` is the spoiler bound: a 1-based reading-order position, so only
+ * chapters up to and including it are searched. Omit it to search the whole book.
  */
-export function searchCorpus(query: string, limit = 6) {
+export function searchCorpus(query: string, limit = 6, through?: number) {
   const terms = query.toLowerCase().match(/[a-z’']{3,}/g) ?? [];
   if (terms.length === 0) return [];
   const phrase = query.toLowerCase().trim();
 
-  const scored = getCorpus().chapters.map((chapter) => {
-    const text = getChapterText(chapter.id);
-    const lower = text.toLowerCase();
+  const index = chapterIndex();
+  const scope = through === undefined ? index : index.slice(0, Math.max(0, through));
+
+  const scored = scope.map(({ chapter, text, lower }) => {
 
     let score = 0;
     let best = -1;
