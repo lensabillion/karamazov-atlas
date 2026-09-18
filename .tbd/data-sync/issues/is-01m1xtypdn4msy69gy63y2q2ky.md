@@ -3,9 +3,9 @@ type: is
 id: is-01m1xtypdn4msy69gy63y2q2ky
 title: Reading position as first-class state
 kind: feature
-status: open
+status: closed
 priority: 1
-version: 3
+version: 4
 labels:
   - reader
 dependencies:
@@ -15,7 +15,11 @@ dependencies:
     target: is-01m1xtzj2vpws0jx7zj83mcdh2
 parent_id: is-01m1xty0ybnq416hd8apek32xf
 created_at: 2026-09-07T11:44:44.469Z
-updated_at: 2026-09-07T11:45:29.217Z
+updated_at: 2026-09-18T14:31:59.735Z
+closed_at: 2026-09-18T14:31:59.735Z
+close_reason: "Place control in the running head (localStorage, default whole book, one-click 'Show everything'); pre-paint gate stylesheet keyed on data-spoiler-from / data-spoiler-note, so no flash and no hydration dependence. Applied to map, timeline, biographies (27 spoiler-free intros), name forms, patronymic, homepage scenes/stories, character pages, reader and contents. Verified in browser at Bk V ch. 5: later scenes, ties, blocks and bios fold; reload keeps it; reveal and Show-everything work; no console/server errors on a fresh server. Tests: scripts/test-reading-position.ts. Commit bd3e97e."
+resolution: null
+duplicate_of: null
 ---
 The reader tells the app where they are. Everything then scopes to it.
 

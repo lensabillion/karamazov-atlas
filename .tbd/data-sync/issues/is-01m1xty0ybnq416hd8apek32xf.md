@@ -3,9 +3,9 @@ type: is
 id: is-01m1xty0ybnq416hd8apek32xf
 title: "The Case File: turn a corpus browser into a reader's companion"
 kind: epic
-status: open
+status: closed
 priority: 1
-version: 12
+version: 13
 labels: []
 dependencies: []
 child_order_hints:
@@ -21,7 +21,11 @@ child_order_hints:
   - is-01m1xv9esyw6tfn9s8jq6cfg56
   - is-01m1xv9ezbqapy0xw2wfafej3r
 created_at: 2026-09-07T11:44:22.475Z
-updated_at: 2026-09-07T11:50:37.291Z
+updated_at: 2026-09-18T15:44:17.899Z
+closed_at: 2026-09-18T15:44:17.899Z
+close_reason: "All 11 children closed: name key, reading position, reader research, momentum layer, surface consolidation, evidence records, the verdict, the divergence view, spoiler-scoped /ask, translation brief, who says this. The reader now sits in the jury box at /case: evidence accrues as they read, cited to paragraph; they answer two questions the court merged; and they see their own arc against the jury and the elder."
+resolution: null
+duplicate_of: null
 ---
 The app is currently an analyst's tool wearing a reader's clothes. Every page answers 'what does the data say' — mention counts, co-occurrence, structure. None answers 'what do I need right now, at chapter 41, having forgotten who Rakitin is.'
 

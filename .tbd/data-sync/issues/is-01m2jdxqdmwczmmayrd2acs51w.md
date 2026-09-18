@@ -3,14 +3,18 @@ type: is
 id: is-01m2jdxqdmwczmmayrd2acs51w
 title: First-edition design system (v4)
 kind: epic
-status: open
+status: closed
 priority: 1
-version: 1
+version: 2
 labels:
   - design
 dependencies: []
 created_at: 2026-09-15T11:41:04.308Z
-updated_at: 2026-09-15T11:41:04.308Z
+updated_at: 2026-09-18T15:29:40.004Z
+closed_at: 2026-09-18T15:29:40.004Z
+close_reason: "First-edition system delivered and superseded by v6 (white canvas, stock descriptions; docs/design-system.md). Follow-ups done: 79wu audit, 2oai colour aliases retired, 1d7j title leaf. Skill mirrored in .claude and .agents and brought up to v6."
+resolution: null
+duplicate_of: null
 ---
 The app is set as the 1912 Heinemann edition of the Garnett translation — the text the corpus comes from. Letterpress ink on cream stock, letterspaced capitals, paired rules, centred blocks.
 

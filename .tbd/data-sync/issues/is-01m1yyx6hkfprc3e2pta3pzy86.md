@@ -3,13 +3,17 @@ type: is
 id: is-01m1yyx6hkfprc3e2pta3pzy86
 title: Give the project a real database
 kind: epic
-status: open
+status: closed
 priority: 1
-version: 1
+version: 2
 labels: []
 dependencies: []
 created_at: 2026-09-07T22:13:04.178Z
-updated_at: 2026-09-07T22:13:04.178Z
+updated_at: 2026-09-18T15:29:40.179Z
+closed_at: 2026-09-18T15:29:40.178Z
+close_reason: "Delivered in api/: SQLite with FTS5 over chapter text, ordinal-based spoiler filter (before=), foreign keys, one-command ingest (python -m atlas.ingest), built into the Docker image with a 96-chapter assertion. The Next app consumes it for chat retrieval when ATLAS_API_URL is set; pages stay prerendered from committed JSON by design (no runtime DB needed for static pages). 12 pytest checks."
+resolution: null
+duplicate_of: null
 ---
 Data lives in three JSON files and 96 text files, parsed on demand. This served the deterministic pipeline well but blocks everything queued next.
 

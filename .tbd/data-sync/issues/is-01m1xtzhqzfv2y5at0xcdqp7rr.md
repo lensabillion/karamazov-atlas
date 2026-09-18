@@ -3,9 +3,9 @@ type: is
 id: is-01m1xtzhqzfv2y5at0xcdqp7rr
 title: "The verdict: two questions, kept apart"
 kind: feature
-status: open
+status: closed
 priority: 2
-version: 3
+version: 4
 labels:
   - reader
 dependencies:
@@ -13,7 +13,11 @@ dependencies:
     target: is-01m1xtzhxc0veaz3jmk0hzrtmy
 parent_id: is-01m1xty0ybnq416hd8apek32xf
 created_at: 2026-09-07T11:45:12.446Z
-updated_at: 2026-09-07T11:50:37.556Z
+updated_at: 2026-09-18T15:43:56.478Z
+closed_at: 2026-09-18T15:43:56.477Z
+close_reason: "Two questions kept apart on /case: who killed (single) and who is responsible (multiple, incl. 'everyone'); answer/change any time; each answer stored with its reading position (localStorage). Verified in browser. Commit 044b8fc."
+resolution: null
+duplicate_of: null
 ---
 The distinctive idea. The reader is asked two questions and they are never merged:
 

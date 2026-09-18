@@ -3,13 +3,17 @@ type: is
 id: is-01m1ych13jsades3wqh0t4r2ma
 title: Migrate the data layer to a Python FastAPI service
 kind: epic
-status: open
+status: closed
 priority: 2
-version: 1
+version: 2
 labels: []
 dependencies: []
 created_at: 2026-09-07T16:51:51.026Z
-updated_at: 2026-09-07T16:51:51.026Z
+updated_at: 2026-09-18T15:30:08.588Z
+closed_at: 2026-09-18T15:30:08.588Z
+close_reason: "Decision, not delivery (docs/design-document.md §6.9). Done: API on the pipeline's JSON, SQLite+FTS5, 12 pytest checks, chat retrieval via ATLAS_API_URL. Not taken: porting the pipeline (no output change), pointing prerendered pages at a service (adds a dependency for nothing), and the linguistics upgrade — the one justification — because measured precision is already 50/50 and the real limit is recall (807/5,857 tagged). Reopen if a hand-labelled recall benchmark shows a Python attributor finds materially more speakers at equal precision."
+resolution: null
+duplicate_of: null
 ---
 Move the corpus pipeline and retrieval out of Next.js into a Python service, per docs/design-document.md section 6.
 

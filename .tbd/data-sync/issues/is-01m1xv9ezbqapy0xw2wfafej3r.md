@@ -3,15 +3,19 @@ type: is
 id: is-01m1xv9ezbqapy0xw2wfafej3r
 title: "Translation brief: the decision readers make before page one"
 kind: feature
-status: open
+status: closed
 priority: 3
-version: 1
+version: 3
 labels:
   - reader
 dependencies: []
 parent_id: is-01m1xty0ybnq416hd8apek32xf
 created_at: 2026-09-07T11:50:37.291Z
-updated_at: 2026-09-07T11:50:37.291Z
+updated_at: 2026-09-18T15:22:50.990Z
+closed_at: 2026-09-18T15:22:50.989Z
+close_reason: "/translations: five translations (keeps/costs/for, as sourced readers' consensus), an explicit section on what Garnett costs this atlas, and a Garnett ↔ P&V spelling concordance (book/chapter numbers are the author's, so citations work in any translation). Linked from home and /read. Verified at 340px: no overflow, tracking mirrored, laid stock, no shadows."
+resolution: null
+duplicate_of: null
 ---
 A documented pre-reading barrier: readers must choose between Pevear & Volokhonsky, Garnett, McDuff and Avsey with no basis for choosing, and the Goodreads thread on it runs for dozens of replies.
 
