@@ -397,6 +397,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
 /* The running head must hold on one line at laptop widths; the select names
    itself through its first option, so the label can go. */
 @media (max-width: 1199px) {
+  .nav { gap: var(--space-2); }
+  .nav-place__select { max-width: 10rem; }
   .nav-place__label {
     position: absolute;
     width: 1px;
