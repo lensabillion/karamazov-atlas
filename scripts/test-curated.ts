@@ -69,6 +69,22 @@ check('uncertain identifications never assert character or chapter links', COLLA
 check('all catalogue reading and character links resolve', COLLAGE_PLATES.every((plate) =>
   plate.people.every((id) => castIds.has(id)) && (!plate.chapter || chapterIds.has(plate.chapter))));
 
+console.log('\ngenerated studies');
+// The studies are imported as images, which plain tsx cannot load, so they are
+// checked from the source text and the files on disk.
+const studySource = readFileSync(join(process.cwd(), 'src/lib/collage-studies.ts'), 'utf8');
+const studyIds = [...studySource.matchAll(/plateId: (\d+)/g)].map((m) => Number(m[1]));
+check('every generated study follows a real plate', studyIds.length > 0
+  && studyIds.every((id) => COLLAGE_PLATES.some((plate) => plate.id === id)));
+check('every study image exists', studyIds.every((id) =>
+  existsSync(join(process.cwd(), 'src/assets/studies', `study-plate-${String(id).padStart(2, '0')}.jpg`))));
+check('every study says what it invents', (studySource.match(/invented: '/g) ?? []).length === studyIds.length);
+check('the two studies that change their subject stay out', !studyIds.includes(21) && !studyIds.includes(31));
+check('a study never adds a link its plate lacks', studyIds.every((id) => {
+  const plate = COLLAGE_PLATES.find((p) => p.id === id)!;
+  return plate.status === 'identified' || (plate.people.length === 0 && !plate.chapter);
+}));
+
 console.log('\nillustrated storytelling');
 const storyEntries = STORY_MOVEMENTS.flatMap((movement) => movement.entries);
 const storyPlateIds = new Set(storyEntries.map((entry) => entry.plateId));

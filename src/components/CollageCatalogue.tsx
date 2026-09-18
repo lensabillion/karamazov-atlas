@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { COLLAGE_PLATES } from '@/lib/collage-catalogue';
 import { getCollageDisplayImage } from '@/lib/collage-display-images';
+import { studyFor } from '@/lib/collage-studies';
 import { getChapter, getCharacter, ordinalOf } from '@/lib/corpus';
 import { STORY_MOVEMENTS } from '@/lib/illustration-stories';
 import Ornament from './Ornament';
@@ -15,6 +16,29 @@ const IDENTIFICATION_LABELS = {
   probable: 'Probable match · not confirmed',
   unidentified: 'Not yet identified',
 } as const;
+
+/**
+ * A generated study after a plate, if the user supplied one (atlas-08gb).
+ * Closed by default and captioned as AI-generated: the extract above it is the
+ * historical object; this is only a way of seeing it larger.
+ */
+function StudyDisclosure({ plate }: { plate: CollagePlate }) {
+  const study = studyFor(plate.id);
+  if (!study) return null;
+  return (
+    <details className="collage-catalogue__study">
+      <summary>A generated study after this plate <span className="meta">· AI</span></summary>
+      <figure>
+        <Image src={study.image} alt={`AI-generated study after illustration ${plate.id}, ${plate.title}. Not by Grigoriev.`}
+          sizes="(max-width: 760px) 90vw, 440px" loading="lazy" />
+        <figcaption className="meta">
+          <strong>AI-generated, not by Grigoriev</strong> — made from the small collage extract above,
+          and not a restoration of it. {study.invented} Do not use it to identify the scene.
+        </figcaption>
+      </figure>
+    </details>
+  );
+}
 
 function IllustrationFigure({ plate }: { plate: CollagePlate }) {
   const image = getCollageDisplayImage(plate);
@@ -105,7 +129,10 @@ export default function CollageCatalogue() {
               const spread = (
                 <article className="collage-catalogue__spread" key={plate.id}
                   id={`collage-plate-${plate.id}`} aria-labelledby={`collage-title-${plate.id}`}>
-                  <IllustrationFigure plate={plate} />
+                  <div className="collage-catalogue__figures">
+                    <IllustrationFigure plate={plate} />
+                    <StudyDisclosure plate={plate} />
+                  </div>
                   <div className="collage-catalogue__story book-description">
                     <p className="plate__series">Illustration {String(plate.id).padStart(2, '0')}</p>
                     <h4 className="plate__name collage-catalogue__story-title" id={`collage-title-${plate.id}`}>{entry.heading}</h4>
@@ -160,7 +187,10 @@ export default function CollageCatalogue() {
             {UNCONFIRMED_PLATES.map((plate) => (
               <article className="collage-catalogue__plate" key={plate.id}
                 id={`collage-plate-${plate.id}`} aria-labelledby={`collage-title-${plate.id}`}>
-                <IllustrationFigure plate={plate} />
+                <div className="collage-catalogue__figures">
+                  <IllustrationFigure plate={plate} />
+                  <StudyDisclosure plate={plate} />
+                </div>
                 <div className="collage-catalogue__unconfirmed-description book-description">
                   <p className="plate__series">Illustration {String(plate.id).padStart(2, '0')}</p>
                   <h4 className="collage-catalogue__title" id={`collage-title-${plate.id}`}>{plate.title}</h4>
