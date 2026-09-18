@@ -2,6 +2,7 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useState } from 'react';
+import AnswerText from './AnswerText';
 import type { PlaceChapter } from '@/lib/reading-position';
 import { setReadingPosition, useReadingPosition } from '@/lib/use-reading-position';
 
@@ -74,9 +75,7 @@ export default function AskPanel({ hasKey, places }: { hasKey: boolean; places: 
                     {part.text}
                   </p>
                 ) : (
-                  <p className="answer" key={i}>
-                    {part.text}
-                  </p>
+                  <AnswerText text={part.text} key={i} />
                 );
               }
               if (part.type.startsWith('tool-')) {
