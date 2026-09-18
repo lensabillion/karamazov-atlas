@@ -3,7 +3,7 @@ import CharacterPlate from '@/components/CharacterPlate';
 import { getNamed } from '@/lib/names';
 import { CHARACTER_BIOGRAPHIES } from '@/lib/character-biographies';
 import '@/app/plate.css';
-import { getCharacter, getMentions, presenceOf } from '@/lib/corpus';
+import { getCharacter, getMentions, ordinalOf, presenceOf } from '@/lib/corpus';
 import { HISTORICAL_ILLUSTRATIONS } from '@/lib/historical-illustrations';
 import CharacterIllustration from '@/components/CharacterIllustration';
 import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
@@ -22,9 +22,15 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
   const peak = Math.max(...presence.map((p) => p.count), 1);
   const nameOf = (cid: string) => characters.find((c) => c.id === cid)?.short ?? cid;
 
+  // A pair is folded until the first chapter they share, so the list does not
+  // announce who this person will end up beside.
   const ties = edges
     .filter((e) => e.source === id || e.target === id)
-    .map((e) => ({ other: e.source === id ? e.target : e.source, weight: e.weight }))
+    .map((e) => ({
+      other: e.source === id ? e.target : e.source,
+      weight: e.weight,
+      from: e.chapters.length ? Math.min(...e.chapters.map(ordinalOf)) : undefined,
+    }))
     .slice(0, 10);
 
   const busiest = [...presence].sort((a, b) => b.count - a.count).slice(0, 6);
@@ -75,14 +81,16 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
           <h2 className="heading">Presence across the novel</h2>
           <p className="text-muted">
             One bar per chapter, in reading order. Height is mentions in that chapter.
+            If you have set your place in the book, the strip stops there.
           </p>
         </div>
         <div className="scroll-x">
           <div className="sparkbar">
-            {presence.map(({ chapter, count }) => (
+            {presence.map(({ chapter, count }, i) => (
               <a
                 className="sparkbar__bar"
                 key={chapter.id}
+                data-spoiler-from={i + 1}
                 href={`/read/${chapter.id}`}
                 data-empty={count === 0}
                 title={`${chapter.cite} — ${chapter.title}: ${count}`}
@@ -98,7 +106,8 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
           <h2 className="heading">Shares chapters with</h2>
           <div className="stack stack--tight">
             {ties.map((t) => (
-              <a className="bar-row" key={t.other} href={`/character/${t.other}`}>
+              <a className="bar-row" key={t.other} href={`/character/${t.other}`}
+                data-spoiler-from={t.from}>
                 <span>{nameOf(t.other)}</span>
                 <span className="bar-track">
                   <span
@@ -116,7 +125,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
           <h2 className="heading">Densest chapters</h2>
           <ul className="list">
             {busiest.map(({ chapter, count }) => (
-              <li key={chapter.id}>
+              <li key={chapter.id} data-spoiler-from={ordinalOf(chapter.id)}>
                 <a className="list-item" href={`/read/${chapter.id}`}>
                   <span className="list-item__label">{chapter.title}</span>
                   <span className="meta">

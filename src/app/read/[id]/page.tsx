@@ -57,6 +57,12 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
           <p className="leaf__title">{chapter.title}</p>
         </header>
 
+        {/* Shown only when the reader's place is earlier than this chapter. */}
+        <p className="spoiler-note ahead-note" data-spoiler-note={idx + 1}>
+          This chapter lies past your place in the book. Reading it does not move your place;
+          change that in the running head.
+        </p>
+
         <ChapterProse
           paragraphs={paragraphs}
           aliases={aliases}

@@ -1,4 +1,6 @@
+import Biography from './Biography';
 import Ornament from './Ornament';
+import { ordinalOf } from '@/lib/corpus';
 import type { NamedCharacter } from '@/lib/names';
 
 /** The typographic half of a character spread, with figures computed from the text. */
@@ -41,6 +43,8 @@ export default function CharacterPlate({
   const forms = [...character.forms].sort(
     (a, b) => ORDER.indexOf(a.register) - ORDER.indexOf(b.register),
   );
+  const patronymicForm = character.forms.find((f) => f.kind === 'patronymic-pair' && f.firstChapter);
+  const patronymicFrom = patronymicForm ? ordinalOf(patronymicForm.firstChapter!) : undefined;
 
   return (
     <section className="plate book-description">
@@ -50,7 +54,7 @@ export default function CharacterPlate({
 
       <hr className="plate__rule" />
 
-      {epithet && <p className="plate__epithet">{epithet}</p>}
+      {epithet && <Biography id={character.id} full={epithet} className="plate__epithet" />}
 
       <Ornament />
 
@@ -77,7 +81,9 @@ export default function CharacterPlate({
 
       <div className="plate__forms">
         {forms.map((f) => (
-          <p className="plate__form" key={f.form}>
+          // A form the reader has not met yet is folded away with its chapter.
+          <p className="plate__form" key={f.form}
+            data-spoiler-from={f.firstChapter ? ordinalOf(f.firstChapter) : undefined}>
             <span className="plate__form-name">{f.form}</span>
             <span className="plate__form-note">
               {REGISTER_NOTE[f.register]} · {f.count}
@@ -89,7 +95,8 @@ export default function CharacterPlate({
       {character.patronymic && character.fatherName && (
         <>
           <hr className="plate__rule plate__rule--hair" />
-          <p className="plate__imprint">
+          {/* The patronymic is itself a disclosure for Smerdyakov, said once, late. */}
+          <p className="plate__imprint" data-spoiler-from={patronymicFrom}>
             {character.patronymic} — child of {character.fatherName}
           </p>
         </>

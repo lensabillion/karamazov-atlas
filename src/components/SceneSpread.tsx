@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import Ornament from './Ornament';
+import Spoiler from './Spoiler';
 import { ILLUSTRATED_SCENES, SCENE_SOURCE } from '@/lib/illustrated-scenes';
-import { getChapter, getCharacter } from '@/lib/corpus';
+import { getChapter, getCharacter, ordinalOf } from '@/lib/corpus';
 import brandy from '@/assets/scenes/over-the-brandy.jpg';
 import confession from '@/assets/scenes/passionate-heart.jpg';
 import guitar from '@/assets/scenes/smerdyakov-guitar.jpg';
@@ -24,6 +25,7 @@ const IMAGES: Record<Scene['file'], StaticImageData> = {
 export default function SceneSpread({ scene }: { scene: Scene }) {
   const chapter = getChapter(scene.chapter)!;
   return (
+    <Spoiler from={ordinalOf(scene.chapter)} cite={chapter.cite} what={`The scene “${scene.title}”`}>
     <article className="folio-spread folio-scene" id={`scene-${scene.id}`}
       aria-labelledby={`scene-title-${scene.id}`}>
       <figure className="character-illustration">
@@ -54,5 +56,6 @@ export default function SceneSpread({ scene }: { scene: Scene }) {
       </div>
       <a className="folio-back meta" href="#contents">Back to contents ↑</a>
     </article>
+    </Spoiler>
   );
 }

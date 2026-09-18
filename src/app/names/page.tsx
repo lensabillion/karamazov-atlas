@@ -1,7 +1,8 @@
 import NameOrbit from '@/components/NameOrbit';
 import PatronymicTree from '@/components/PatronymicTree';
 import WarmthLadder from '@/components/WarmthLadder';
-import { getCorpus } from '@/lib/corpus';
+import { getCorpus, ordinalOf } from '@/lib/corpus';
+import { WHOLE_BOOK } from '@/lib/reading-position';
 import { getNames } from '@/lib/names';
 
 export default function NamesPage() {
@@ -16,6 +17,8 @@ export default function NamesPage() {
 
   const lineage = lineages[0];
   const pavel = byId.get('smerdyakov')?.forms.find((f) => f.form === 'Pavel Fyodorovitch');
+  // Smerdyakov's patronymic is itself a disclosure: fold it until the chapter that says it.
+  const pavelFrom = pavel?.firstChapter ? ordinalOf(pavel.firstChapter) : undefined;
 
   return (
     <main className="page page--wide">
@@ -37,11 +40,14 @@ export default function NamesPage() {
             <p className="text-muted">
               A patronymic names the father. Everyone below carries{' '}
               <strong>{lineage.patronymic}</strong>, so everyone below is a child of{' '}
-              {lineage.father}. The dashed thread is said once, at{' '}
-              {pavel && (
-                <a className="link" href={`/read/${pavel.firstChapter}`}>{cite(pavel.firstChapter)}</a>
-              )}
-              , and never again.
+              {lineage.father}.{' '}
+              <span data-spoiler-from={pavelFrom}>
+                The dashed thread is said once, at{' '}
+                {pavel && (
+                  <a className="link" href={`/read/${pavel.firstChapter}`}>{cite(pavel.firstChapter)}</a>
+                )}
+                , and never again.
+              </span>
             </p>
           </div>
           <PatronymicTree
@@ -49,6 +55,7 @@ export default function NamesPage() {
             patronymic={lineage.patronymic}
             children={pick(lineage.children)}
             disputedId="smerdyakov"
+            gateFrom={pavelFrom ? { smerdyakov: pavelFrom } : {}}
           />
         </section>
       )}
@@ -83,10 +90,12 @@ export default function NamesPage() {
             surname 371 times against a single given name.
             <br />
             <br />
+            <span data-spoiler-from={WHOLE_BOOK}>
             <strong>A reading, offered as one:</strong> those three sit at the formal end, and
             the murder runs through all three. That is a pattern in how the prose names people.
             It is not evidence of what any character feels, and an alias list this size cannot
             support a claim about what nobody ever says.
+            </span>
           </p>
         </div>
         <WarmthLadder characters={characters} markIds={['fyodor', 'ivan', 'smerdyakov']} />

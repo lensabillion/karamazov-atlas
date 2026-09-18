@@ -419,6 +419,25 @@ button, input, textarea, select { font: inherit; color: inherit; }
   border-block: var(--border-width) dashed var(--border-strong);
   font-style: italic;
 }
+/* The scope of an answer, stated above every conversation (atlas-zbt8). */
+.ask-scope {
+  margin: 0;
+  padding-block: var(--space-2);
+  border-block: var(--border-width) solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+.ask-scope[data-scoped] { color: var(--ink-2); border-color: var(--gilt); }
+
+/* A standing notice that the reader is past, or short of, their place. */
+p.ahead-note {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--gilt);
+  background: var(--gilt-soft);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
 .spoiler-note__show {
   font: inherit;
   font-style: normal;

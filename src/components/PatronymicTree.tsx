@@ -13,11 +13,14 @@ export default function PatronymicTree({
   patronymic,
   children,
   disputedId,
+  gateFrom = {},
 }: {
   father: string;
   patronymic: string;
   children: NamedCharacter[];
   disputedId?: string;
+  /** Reading-order position from which each child's thread may be shown (atlas-fn3v). */
+  gateFrom?: Record<string, number>;
 }) {
   const W = 860;
   const H = 300;
@@ -60,7 +63,7 @@ export default function PatronymicTree({
           const disputed = c.id === disputedId;
           const formal = c.forms.find((f) => f.register === 'formal');
           return (
-            <g key={c.id}>
+            <g key={c.id} data-spoiler-from={gateFrom[c.id]}>
               <line x1={x} y1={bandY} x2={x} y2={kidY - 30}
                 stroke={disputed ? 'var(--ink-3)' : 'var(--border-strong)'}
                 strokeWidth={1}

@@ -1,4 +1,5 @@
 import { markPath } from './GroupMark';
+import { ordinalOf } from '@/lib/corpus';
 import type { Address, NamedCharacter, Register } from '@/lib/names';
 
 /**
@@ -80,7 +81,7 @@ export default function NameOrbit({
           const lx = x + (flip ? -(dot + 6) : dot + 6);
           const anchor = flip ? 'end' : 'start';
           return (
-            <g key={f.form}>
+            <g key={f.form} data-spoiler-from={f.firstChapter ? ordinalOf(f.firstChapter) : undefined}>
               <path className="mark" transform={`translate(${x},${y})`}
                 d={markPath(character.group, dot)} />
               <text x={lx} y={y} textAnchor={anchor} dominantBaseline="middle"
@@ -107,7 +108,8 @@ export default function NameOrbit({
           {character.forms.map((form) => {
             const speakers = speakersOf(form.form);
             return (
-              <div key={form.form}>
+              <div key={form.form}
+                data-spoiler-from={form.firstChapter ? ordinalOf(form.firstChapter) : undefined}>
                 <dt>{form.form}</dt>
                 <dd>{form.count.toLocaleString()}× · {form.register}
                   {speakers.length > 0 && <span>Heard from {speakers.slice(0, 3).join(', ')}</span>}

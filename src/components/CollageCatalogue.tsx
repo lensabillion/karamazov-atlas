@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import { COLLAGE_PLATES } from '@/lib/collage-catalogue';
 import { getCollageDisplayImage } from '@/lib/collage-display-images';
-import { getChapter, getCharacter } from '@/lib/corpus';
+import { getChapter, getCharacter, ordinalOf } from '@/lib/corpus';
 import { STORY_MOVEMENTS } from '@/lib/illustration-stories';
 import Ornament from './Ornament';
+import Spoiler from './Spoiler';
 import './collage-catalogue.css';
 
 type CollagePlate = (typeof COLLAGE_PLATES)[number];
@@ -100,7 +101,8 @@ export default function CollageCatalogue() {
                 throw new Error(`Story illustration ${entry.plateId} must have a confirmed identification.`);
               }
 
-              return (
+              const readingChapter = entry.chapter ?? plate.chapter;
+              const spread = (
                 <article className="collage-catalogue__spread" key={plate.id}
                   id={`collage-plate-${plate.id}`} aria-labelledby={`collage-title-${plate.id}`}>
                   <IllustrationFigure plate={plate} />
@@ -120,10 +122,18 @@ export default function CollageCatalogue() {
                         <dd>{entry.remember}</dd>
                       </div>
                     </dl>
-                    <ArtworkReferences plate={plate} chapterId={entry.chapter ?? plate.chapter} />
+                    <ArtworkReferences plate={plate} chapterId={readingChapter} />
                   </div>
                 </article>
               );
+              // An illustration with no chapter (a town view, a portrait) spoils nothing.
+              const reading = readingChapter ? getChapter(readingChapter) : undefined;
+              return reading ? (
+                <Spoiler key={plate.id} from={ordinalOf(reading.id)} cite={reading.cite}
+                  what={`Illustration ${String(plate.id).padStart(2, '0')}`}>
+                  {spread}
+                </Spoiler>
+              ) : spread;
             })}
             <div className="collage-catalogue__movement-footer">
               <a className="meta" href="#artwork-catalogue">Back to the movements ↑</a>

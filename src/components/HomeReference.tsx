@@ -1,4 +1,4 @@
-import { getBooks, getCorpus, getMentions } from '@/lib/corpus';
+import { getBooks, getCorpus, getMentions, ordinalOf } from '@/lib/corpus';
 
 /** The original homepage's reading and analysis tools, kept behind a disclosure. */
 export default function HomeReference() {
@@ -24,9 +24,9 @@ export default function HomeReference() {
           <a className="link text-muted" href="/read">The complete novel →</a>
         </div>
         <div className="memory-scenes__list">
-          <a href="/read/b05-c05"><p className="eyebrow">Book V · Chapter 5</p><h3 className="subheading">The Grand Inquisitor</h3><p className="text-muted">Ivan’s poem. Alyosha’s answer.</p><span className="link">Return to the tavern →</span></a>
-          <a href="/read/b11-c08"><p className="eyebrow">Book XI · Chapter 8</p><h3 className="subheading">The last interview</h3><p className="text-muted">Ivan, Smerdyakov, and the money.</p><span className="link">Return to the confession →</span></a>
-          <a href="/read/b13-c03"><p className="eyebrow">Epilogue · Chapter 3</p><h3 className="subheading">At the stone</h3><p className="text-muted">Alyosha and the boys. A memory to keep.</p><span className="link">Return to the farewell →</span></a>
+          <a href="/read/b05-c05" data-spoiler-from={ordinalOf('b05-c05')}><p className="eyebrow">Book V · Chapter 5</p><h3 className="subheading">The Grand Inquisitor</h3><p className="text-muted">Ivan’s poem. Alyosha’s answer.</p><span className="link">Return to the tavern →</span></a>
+          <a href="/read/b11-c08" data-spoiler-from={ordinalOf('b11-c08')}><p className="eyebrow">Book XI · Chapter 8</p><h3 className="subheading">The last interview</h3><p className="text-muted">Ivan, Smerdyakov, and the money.</p><span className="link">Return to the confession →</span></a>
+          <a href="/read/b13-c03" data-spoiler-from={ordinalOf('b13-c03')}><p className="eyebrow">Epilogue · Chapter 3</p><h3 className="subheading">At the stone</h3><p className="text-muted">Alyosha and the boys. A memory to keep.</p><span className="link">Return to the farewell →</span></a>
         </div>
       </section>
 

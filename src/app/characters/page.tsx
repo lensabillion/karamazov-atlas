@@ -3,6 +3,7 @@ import { CHARACTER_BIOGRAPHIES } from '@/lib/character-biographies';
 import CharacterIllustration from '@/components/CharacterIllustration';
 import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
 import Ornament from '@/components/Ornament';
+import Biography from '@/components/Biography';
 import './characters.css';
 
 const GROUPS = [
@@ -57,7 +58,10 @@ export default function CharactersPage() {
                             <a href={`/character/${character.id}`}>{character.name}</a>
                           </h3>
                           <Ornament />
-                          <p className="characters-frontispiece__description">{description}</p>
+                          {description && (
+                            <Biography id={character.id} full={description}
+                              className="characters-frontispiece__description" />
+                          )}
                           <a className="link" href={`/character/${character.id}`}>Names, connections, and chapters →</a>
                         </div>
                       </article>
@@ -70,7 +74,9 @@ export default function CharactersPage() {
                       <span className="characters-list__name">{character.name}</span>
                       <span className="characters-list__leader" aria-hidden="true" />
                       <span className="characters-list__description">
-                        {description ?? `${character.total.toLocaleString()} mentions`}
+                        {description
+                          ? <Biography id={character.id} full={description} as="span" />
+                          : `${character.total.toLocaleString()} mentions`}
                       </span>
                       <span className="characters-list__mark" aria-hidden="true">→</span>
                     </a>
