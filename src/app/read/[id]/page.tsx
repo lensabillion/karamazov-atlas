@@ -3,6 +3,7 @@ import ChapterProse from '@/components/ChapterProse';
 import { getChapter, getChapterText, getCorpus, getMentions } from '@/lib/corpus';
 import { getNames } from '@/lib/names';
 import { toParagraphs } from '@/lib/passage';
+import { BOOK_ORIENTATION, CHAPTER_ORIENTATION } from '@/lib/orientation';
 
 export function generateStaticParams() {
   return getCorpus().chapters.map((c) => ({ id: c.id }));
@@ -56,6 +57,17 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
           <p className="leaf__chapter">Chapter {chapter.roman}</p>
           <p className="leaf__title">{chapter.title}</p>
         </header>
+
+        {/* The chapter's argument, as the period printed one under the heading:
+            where this sits in the book's argument and why it is here — never
+            what happens (atlas-z9ro). */}
+        {BOOK_ORIENTATION[chapter.bookNum] && (
+          <aside className="argument" aria-label="Why this is here">
+            <p className="argument__label">Why this is here</p>
+            <p>{BOOK_ORIENTATION[chapter.bookNum]!.where} {BOOK_ORIENTATION[chapter.bookNum]!.why}</p>
+            {CHAPTER_ORIENTATION[chapter.id] && <p>{CHAPTER_ORIENTATION[chapter.id]}</p>}
+          </aside>
+        )}
 
         {/* Shown only when the reader's place is earlier than this chapter. */}
         <p className="spoiler-note ahead-note" data-spoiler-note={idx + 1}>

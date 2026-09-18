@@ -15,6 +15,8 @@ import { CHARACTER_BIOGRAPHIES } from '../src/lib/character-biographies.ts';
 import { COLLAGE_PLATES } from '../src/lib/collage-catalogue.ts';
 import { STORY_MOVEMENTS } from '../src/lib/illustration-stories.ts';
 import { findPassage, toParagraphs } from '../src/lib/passage.ts';
+import { BOOK_ORIENTATION, CHAPTER_ORIENTATION } from '../src/lib/orientation.ts';
+import { CHARACTER_INTRODUCTIONS } from '../src/lib/character-biographies.ts';
 
 let failed = 0;
 const check = (name: string, cond: boolean, detail = '') => {
@@ -175,6 +177,32 @@ check(`all ${quoted.length} quoted phrases occur verbatim in one paragraph of th
   misquoted.length === 0, misquoted.join(', '));
 const keyUnquoted = TIES.filter((t) => t.key && !t.quote).map((t) => `${t.from}->${t.to}`);
 check('every tie the murder runs along lands on its sentence', keyUnquoted.length === 0, keyUnquoted.join(', '));
+
+console.log('\nwhy this is here');
+const order = new Map(corpus.chapters.map((c, i) => [c.id, i + 1]));
+const books = [...new Set(corpus.chapters.map((c) => Number(c.id.slice(1, 3))))];
+check('every book has an orientation', books.every((b) => BOOK_ORIENTATION[b]?.where.trim() && BOOK_ORIENTATION[b]?.why.trim()));
+const badOrientation = Object.keys(CHAPTER_ORIENTATION).filter((id) => !chapterIds.has(id));
+check('every chapter note belongs to a real chapter', badOrientation.length === 0, badOrientation.join(', '));
+// The one rule a spoiler-free note cannot break mechanically: naming someone
+// the reader has not met. A book note shows from the book's first chapter.
+const namesFull = JSON.parse(readFileSync(join(process.cwd(), 'data', 'names.json'), 'utf8')) as {
+  characters: { id: string; forms: { form: string }[] }[];
+};
+const metAt = (id: string) => order.get(CHARACTER_INTRODUCTIONS[id]?.chapter ?? '') ?? 1;
+const namedTooEarly = (text: string, at: number) => namesFull.characters
+  .filter((c) => metAt(c.id) > at && c.forms.some((f) => new RegExp(`\\b${f.form}\\b`).test(text)))
+  .map((c) => c.id);
+const early = [
+  ...books.flatMap((b) => {
+    const first = order.get(corpus.chapters.find((c) => Number(c.id.slice(1, 3)) === b)!.id)!;
+    const o = BOOK_ORIENTATION[b]!;
+    return namedTooEarly(`${o.where} ${o.why}`, first).map((id) => `Book ${b}: ${id}`);
+  }),
+  ...Object.entries(CHAPTER_ORIENTATION).flatMap(([id, note]) =>
+    namedTooEarly(note, order.get(id) ?? 0).map((who) => `${id}: ${who}`)),
+];
+check('no orientation names a person before the reader meets them', early.length === 0, early.join(', '));
 
 console.log(failed === 0 ? '\nCurated data checks passed.' : `\n${failed} check(s) failed`);
 process.exit(failed === 0 ? 0 : 1);

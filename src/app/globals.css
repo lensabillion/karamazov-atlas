@@ -943,6 +943,32 @@ p.ahead-note {
    RESPONSIVE — one breakpoint
    ---------------------------------------------------------------------------- */
 
+/* --- The chapter's argument (atlas-z9ro) ------------------------------------
+   A few italic lines under the heading, between hairlines, as a Victorian
+   edition printed a chapter's argument. Centred, set small, no box. */
+.argument {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-block: var(--space-3);
+  border-block: var(--border-width) solid var(--border);
+  display: grid;
+  gap: var(--space-2);
+  text-align: center;
+  font-size: var(--text-sm);
+  font-style: italic;
+  line-height: var(--leading-normal);
+  color: var(--ink-2);
+}
+.argument p { margin: 0; }
+.argument__label {
+  font-style: normal;
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
 /* --- A cited paragraph ----------------------------------------------------
    Where an evidence link lands. Marked as a reader marks a margin: a gilt rule
    beside the paragraph and the faintest wash, the text itself left alone. */
