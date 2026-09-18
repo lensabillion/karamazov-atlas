@@ -8,6 +8,10 @@ export default function Contents() {
       <header className="page-header">
         <p className="eyebrow">Full text</p>
         <h1 className="title">Contents</h1>
+        <p className="text-muted">
+          Constance Garnett’s translation (1912). Reading another? Book and chapter numbers are
+          the same in every translation. <a className="link" href="/translations">Which translation? →</a>
+        </p>
       </header>
 
       {books.map((b) => (

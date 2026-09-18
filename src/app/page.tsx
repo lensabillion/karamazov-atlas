@@ -107,6 +107,7 @@ export default function Home() {
           <a className="link" href="/timeline">The timeline →</a>
           <a className="link" href="/names">Names &amp; forms →</a>
           <a className="link" href="/read">Read the novel →</a>
+          <a className="link" href="/translations">Which translation? →</a>
         </nav>
         <details className="folio-reference-disclosure">
           <summary>Open the chapter index, memorable passages &amp; mention counts</summary>
