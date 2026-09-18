@@ -323,6 +323,27 @@ purpose.
 None is severe, and the NLP gain is worth them. But if the linguistics were *not* going
 to improve, this migration would not pay for itself — and that is the honest test.
 
+### 6.9 Decision, 18 September 2026 — steps 1, 2 and 4 done; 3, 5 and 6 not taken
+
+The migration stopped where §6.8's own test says it should. Done: the API stands
+against the pipeline's JSON (step 1), with 12 pytest checks (step 2, in part), on
+SQLite + FTS5 (step 4); `/api/chat` uses its index when `ATLAS_API_URL` is set.
+
+Not taken, deliberately (atlas-gc9d, closed as a decision, not as delivered):
+
+- **Step 3, porting the pipeline.** No output would change; the risk is all cost.
+- **Step 5, pointing the pages at the API.** Every page is prerendered from committed
+  JSON, which needs no service at build or run time — strictly simpler than §6.8's
+  "static generation gets a dependency".
+- **Step 6, better linguistics.** This was the whole justification. The measured gap is
+  not what §6.1 assumed: a hand-judged sample (`docs/attribution-precision.md`) puts
+  the rule-based attributor's precision at 50/50, and its real limit is recall —
+  807 of 5,857 quotations carry a readable tag. A Python NLP stack might raise that.
+
+**Reopen when** a recall benchmark on a hand-labelled sample of untagged speeches
+shows a Python attributor finds materially more speakers at the same precision. That
+is the measurement R10 asked for; until it exists, a second runtime does not pay.
+
 ---
 
 ## 7. Known gaps
