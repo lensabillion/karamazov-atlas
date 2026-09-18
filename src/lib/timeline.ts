@@ -109,6 +109,8 @@ export interface Span {
    * string is derived from the corpus.
    */
   chapter: string;
+  /** A verbatim phrase from that chapter, so the link can land on the sentence. */
+  quote?: string;
   /** Set when the block states an interpretation rather than what the text says. */
   reading?: boolean;
   /**
@@ -131,8 +133,8 @@ export const SPANS: Span[] = [
   // Fyodor — the column that stops on the night of the murder.
   { character: 'fyodor', segments: ['before'], chapter: 'b01-c02', label: 'Forgets his sons', detail: 'Two marriages, two dead wives, and three children left to servants and relatives. He does not think of them for years.' },
   { character: 'fyodor', segments: ['day1'], chapter: 'b02-c02', label: 'Performs at the monastery', detail: 'Summoned to settle Dmitri’s inheritance, he plays the buffoon instead, and the meeting settles nothing.' },
-  { character: 'fyodor', segments: ['day2'], chapter: 'b05-c06', label: 'Waiting for Grushenka', detail: 'Three thousand roubles in a sealed envelope tied with ribbon — “To my angel Grushenka, if she will come” — and a signal knock known only to his servant.' },
-  { character: 'fyodor', segments: ['day3'], chapter: 'b09-c02', label: 'Killed', detail: 'Sometime in the night Dmitri comes to the garden, and in the morning he is found dead with his skull battered in, the envelope torn open and empty. The column ends here — everything after this point in the novel is about a man who is no longer in it.', ends: true, key: true },
+  { character: 'fyodor', segments: ['day2'], chapter: 'b05-c06', quote: 'To my angel Grushenka, if she will come', label: 'Waiting for Grushenka', detail: 'Three thousand roubles in a sealed envelope tied with ribbon — “To my angel Grushenka, if she will come” — and a signal knock known only to his servant.' },
+  { character: 'fyodor', segments: ['day3'], chapter: 'b09-c02', quote: 'Fyodor Pavlovitch was found to be quite dead, with his skull battered in', label: 'Killed', detail: 'Sometime in the night Dmitri comes to the garden, and in the morning he is found dead with his skull battered in, the envelope torn open and empty. The column ends here — everything after this point in the novel is about a man who is no longer in it.', ends: true, key: true },
 
   // Dmitri — the longest thread, and the one on trial.
   { character: 'dmitri', segments: ['before'], chapter: 'b01-c02', label: 'Raised by servants', detail: 'Left behind by a mother who ran, forgotten by a father who did not notice, and passed between relatives.' },
@@ -140,21 +142,21 @@ export const SPANS: Span[] = [
   { character: 'dmitri', segments: ['day2'], chapter: 'b03-c05', label: 'Torn between two women', detail: 'Engaged to Katerina, whose money he has half spent; in thrall to Grushenka, whom his father also wants.' },
   { character: 'dmitri', segments: ['day3'], chapter: 'b08-c01', label: 'Hunting three thousand roubles', detail: 'A whole day of it — Samsonov, a drunk peasant, gold-mines — then the garden, the pestle, and Mokroe.', key: true },
   { character: 'dmitri', segments: ['day4'], chapter: 'b09-c03', label: 'The three ordeals', detail: 'Tells the truth about everything and is believed about nothing, least of all the money sewn into a rag round his neck.' },
-  { character: 'dmitri', segments: ['gap', 'trial'], chapter: 'b12-c05', label: 'In prison, then on trial', detail: 'Two months awaiting a verdict, then two days in court where his own letter, produced by Katerina, convicts him.' },
+  { character: 'dmitri', segments: ['gap', 'trial'], chapter: 'b12-c05', quote: 'It’s a letter from that monster', label: 'In prison, then on trial', detail: 'Two months awaiting a verdict, then two days in court where his own letter, produced by Katerina, convicts him.' },
   { character: 'dmitri', segments: ['after'], chapter: 'b13-c01', label: 'Twenty years — or escape', detail: 'Sentenced to the Siberian mines. Whether he accepts the suffering or takes the escape Ivan planned and paid for is the question the novel leaves open.' },
 
   // Ivan — note the gap at day3 and day4. He is in Moscow; that absence is the question of his guilt.
   { character: 'ivan', segments: ['before'], chapter: 'b01-c03', label: 'Educated away', detail: 'Raised elsewhere, on charity, and made himself into an intellectual who owes his family nothing.' },
   { character: 'ivan', segments: ['day1'], chapter: 'b02-c05', label: 'Watching, saying little', detail: 'Present at the monastery and at the scandal, contributing almost nothing except an argument about ecclesiastical courts.' },
-  { character: 'ivan', segments: ['day2'], chapter: 'b05-c07', label: 'Rebellion, then he leaves', detail: 'Returns the ticket and tells the Grand Inquisitor. His father and Smerdyakov both press him to go to Tchermashnya, a short trip nearby; Smerdyakov all but spells out what an absence would permit. Ivan refuses it and takes the seven o’clock train to Moscow instead — further away, and by his own choice. The distinction matters: he did not do what he was asked, and he went anyway.', key: true },
-  { character: 'ivan', segments: ['gap'], chapter: 'b11-c06', label: 'Returns; three visits to Smerdyakov', detail: 'Summoned by telegram, he arrives the day after the funeral. On the third visit he is handed the money and told, calmly, that he was the author and Smerdyakov only the instrument.', key: true },
+  { character: 'ivan', segments: ['day2'], chapter: 'b05-c07', quote: '“I am a scoundrel,” he whispered to himself', label: 'Rebellion, then he leaves', detail: 'Returns the ticket and tells the Grand Inquisitor. His father and Smerdyakov both press him to go to Tchermashnya, a short trip nearby; Smerdyakov all but spells out what an absence would permit. Ivan refuses it and takes the seven o’clock train to Moscow instead — further away, and by his own choice. The distinction matters: he did not do what he was asked, and he went anyway.', key: true },
+  { character: 'ivan', segments: ['gap'], chapter: 'b11-c06', quote: 'the funeral, which took place the day before he came back', label: 'Returns; three visits to Smerdyakov', detail: 'Summoned by telegram, he arrives the day after the funeral. On the third visit he is handed the money and told, calmly, that he was the author and Smerdyakov only the instrument.', key: true },
   { character: 'ivan', segments: ['trial', 'after'], chapter: 'b11-c09', label: 'Brain fever', detail: 'A shabby gentleman on his sofa repeats his own worst thoughts back to him. He testifies incoherently and collapses.' },
 
   // Alyosha — continuous, which is the point of him.
   { character: 'alyosha', segments: ['before'], chapter: 'b01-c04', label: 'A novice', detail: 'Came home to find his mother’s grave and stayed for the monastery instead.' },
   { character: 'alyosha', segments: ['day1'], chapter: 'b03-c05', label: 'Sent between them all', detail: 'Everyone confides in him and nobody is embarrassed by him, which is how he ends up carrying every message in the book.' },
   { character: 'alyosha', segments: ['day2'], chapter: 'b05-c04', label: 'Hears the case against God', detail: 'Takes Ivan’s argument in the tavern, then returns to find Zossima dying.' },
-  { character: 'alyosha', segments: ['day3'], chapter: 'b07-c04', label: 'Cana of Galilee', detail: 'The body decays, his faith cracks, and he goes out and falls to the earth weeping. He gets up settled.', key: true },
+  { character: 'alyosha', segments: ['day3'], chapter: 'b07-c04', quote: 'Alyosha stood, gazed, and suddenly threw himself down on the earth', label: 'Cana of Galilee', detail: 'The body decays, his faith cracks, and he goes out and falls to the earth weeping. He gets up settled.', key: true },
   { character: 'alyosha', segments: ['day4', 'gap'], chapter: 'b10-c05', label: 'With the boys', detail: 'Ilusha is dying. Alyosha spends the missing two months reconciling the boys at his bedside rather than at the case.' },
   { character: 'alyosha', segments: ['trial', 'after'], chapter: 'b13-c03', label: 'The speech at the stone', detail: 'At his brother’s trial, then at a child’s funeral, where the novel chooses to end.', key: true },
 
@@ -162,9 +164,9 @@ export const SPANS: Span[] = [
   { character: 'smerdyakov', segments: ['before'], chapter: 'b03-c02', label: 'Born in the garden', detail: 'To Lizaveta, who died doing it. Raised by Grigory as a servant and named after his mother’s nickname.' },
   { character: 'smerdyakov', segments: ['day1'], chapter: 'b03-c06', label: 'In the kitchen', detail: 'Trained in Moscow as a cook; spends almost his whole wage on clothes, is bored by every book he is lent, and holds the house in contempt.' },
   { character: 'smerdyakov', segments: ['day2'], chapter: 'b05-c06', label: 'Teaches the signal', detail: 'Tells Ivan that Dmitri knows the knocks, and that he himself may well have a fit tomorrow — without quite saying what an absence would permit.', key: true },
-  { character: 'smerdyakov', segments: ['day3', 'day4'], chapter: 'b05-c07', label: 'The fit, and the night', detail: 'The day Ivan leaves, he falls down the cellar steps in a fit and is put to bed. Much later he tells Ivan it was a sham, and that a real attack came the next morning.', key: true },
-  { character: 'smerdyakov', segments: ['gap'], chapter: 'b11-c08', label: 'Three interviews', detail: 'Ill, contemptuous, and finally explicit: he did it, and the reasoning was Ivan’s.' },
-  { character: 'smerdyakov', segments: ['trial'], chapter: 'b11-c10', label: 'Hangs himself', detail: 'The night before the trial opens. The only witness who could clear Dmitri removes himself before a word of evidence is heard — so this thread ends at the very start of the trial, not across it.', ends: true, key: true, endFraction: 0.06 },
+  { character: 'smerdyakov', segments: ['day3', 'day4'], chapter: 'b05-c07', quote: 'Smerdyakov went to the cellar for something and fell down from the top of the steps', label: 'The fit, and the night', detail: 'The day Ivan leaves, he falls down the cellar steps in a fit and is put to bed. Much later he tells Ivan it was a sham, and that a real attack came the next morning.', key: true },
+  { character: 'smerdyakov', segments: ['gap'], chapter: 'b11-c08', quote: 'It was only with you, with your help, I killed him, and Dmitri Fyodorovitch is quite innocent', label: 'Three interviews', detail: 'Ill, contemptuous, and finally explicit: he did it, and the reasoning was Ivan’s.' },
+  { character: 'smerdyakov', segments: ['trial'], chapter: 'b11-c10', quote: 'I knew he had hanged himself', label: 'Hangs himself', detail: 'The night before the trial opens. The only witness who could clear Dmitri removes himself before a word of evidence is heard — so this thread ends at the very start of the trial, not across it.', ends: true, key: true, endFraction: 0.06 },
 
   // Grushenka
   { character: 'grushenka', segments: ['day1'], chapter: 'b03-c05', label: 'Courted by father and son', detail: 'Kept by Samsonov, wanted by Fyodor, and amusing herself with Dmitri — the arrangement the whole plot turns on.', key: true },
@@ -174,6 +176,6 @@ export const SPANS: Span[] = [
   // Katerina
   { character: 'katerina', segments: ['day1'], chapter: 'b03-c04', label: 'Engaged to Dmitri', detail: 'Out of gratitude for a humiliation she has never forgiven — and, Alyosha will tell her, in love with his brother.' },
   { character: 'katerina', segments: ['gap'], chapter: 'b11-c01', label: 'Financing the defence', detail: 'Paying for the doctor from Moscow and helping to bring the famous lawyer, while visiting Ivan.' },
-  { character: 'katerina', segments: ['trial'], chapter: 'b12-c05', label: 'The letter', detail: 'Produces, in a fit of jealousy, the letter in which Dmitri wrote that he would kill his father for the money. It is what convicts him.', key: true },
+  { character: 'katerina', segments: ['trial'], chapter: 'b12-c05', quote: 'It’s a letter from that monster', label: 'The letter', detail: 'Produces, in a fit of jealousy, the letter in which Dmitri wrote that he would kill his father for the money. It is what convicts him.', key: true },
   { character: 'katerina', segments: ['after'], chapter: 'b13-c02', label: 'Asks forgiveness', detail: 'Comes to him after the sentence, and for a moment the lie between them becomes true.' },
 ];

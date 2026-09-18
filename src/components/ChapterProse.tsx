@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import NameKey from './NameKey';
 import type { NamedCharacter } from '@/lib/names';
+import { findPassage, passageFromHash } from '@/lib/passage';
 
 export interface Alias {
   alias: string;
@@ -63,8 +64,27 @@ export default function ChapterProse({
   cites: Record<string, string>;
 }) {
   const [open, setOpen] = useState<string | null>(null);
+  const [cited, setCited] = useState<number | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const citedRef = useRef<HTMLParagraphElement>(null);
   const byId = new Map(characters.map((c) => [c.id, c]));
+
+  // Evidence links elsewhere in the atlas arrive as #passage=<phrase>
+  // (lib/passage.ts). Find that paragraph, mark it, and bring it into view.
+  useEffect(() => {
+    const locate = () => {
+      const quote = passageFromHash(window.location.hash);
+      const i = quote ? findPassage(paragraphs, quote) : -1;
+      setCited(i === -1 ? null : i);
+    };
+    locate();
+    window.addEventListener('hashchange', locate);
+    return () => window.removeEventListener('hashchange', locate);
+  }, [paragraphs]);
+
+  useEffect(() => {
+    if (cited !== null) citedRef.current?.scrollIntoView({ block: 'center' });
+  }, [cited]);
 
   // The panel used to be inserted above every paragraph, so opening it from a
   // late chapter scrolled the answer thousands of pixels off-screen (review
@@ -84,7 +104,9 @@ export default function ChapterProse({
     <div className="stack stack--loose">
       <div className="prose">
         {paragraphs.map((p, i) => (
-          <p key={i}>
+          <p key={i} ref={cited === i ? citedRef : undefined}
+            data-cited={cited === i || undefined}
+            aria-label={cited === i ? 'The cited passage' : undefined}>
             {segments(p).map((seg, s) => {
               const inner = split(seg.text, aliases).map((part, j) =>
                 typeof part === 'string' ? (

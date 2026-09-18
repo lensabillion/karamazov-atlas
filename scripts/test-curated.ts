@@ -14,6 +14,7 @@ import { ILLUSTRATED_SCENES } from '../src/lib/illustrated-scenes.ts';
 import { CHARACTER_BIOGRAPHIES } from '../src/lib/character-biographies.ts';
 import { COLLAGE_PLATES } from '../src/lib/collage-catalogue.ts';
 import { STORY_MOVEMENTS } from '../src/lib/illustration-stories.ts';
+import { findPassage, toParagraphs } from '../src/lib/passage.ts';
 
 let failed = 0;
 const check = (name: string, cond: boolean, detail = '') => {
@@ -159,6 +160,21 @@ check('endFraction is only set on a span that ends', endsWithoutFlag.length === 
 const declared = SEGMENTS.reduce((n, s) => n + s.words, 0);
 check('segment word counts stay within the corpus', declared > 300_000 && declared <= 349_367,
   `declared ${declared}`);
+
+console.log('\nquoted passages');
+// A link that lands on a passage must land on a real one, inside a single
+// paragraph split exactly as the reader splits it.
+const paragraphsOf = (id: string) =>
+  toParagraphs(readFileSync(join(process.cwd(), 'data', 'chapters', `${id}.txt`), 'utf8'));
+const quoted = [
+  ...TIES.filter((t) => t.quote).map((t) => ({ where: `${t.from}->${t.to}`, chapter: t.chapter, quote: t.quote! })),
+  ...SPANS.filter((s) => s.quote).map((s) => ({ where: `${s.character}:${s.label}`, chapter: s.chapter, quote: s.quote! })),
+];
+const misquoted = quoted.filter((q) => findPassage(paragraphsOf(q.chapter), q.quote) === -1).map((q) => q.where);
+check(`all ${quoted.length} quoted phrases occur verbatim in one paragraph of their chapter`,
+  misquoted.length === 0, misquoted.join(', '));
+const keyUnquoted = TIES.filter((t) => t.key && !t.quote).map((t) => `${t.from}->${t.to}`);
+check('every tie the murder runs along lands on its sentence', keyUnquoted.length === 0, keyUnquoted.join(', '));
 
 console.log(failed === 0 ? '\nCurated data checks passed.' : `\n${failed} check(s) failed`);
 process.exit(failed === 0 ? 0 : 1);

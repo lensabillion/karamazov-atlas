@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import ChapterProse from '@/components/ChapterProse';
 import { getChapter, getChapterText, getCorpus, getMentions } from '@/lib/corpus';
 import { getNames } from '@/lib/names';
+import { toParagraphs } from '@/lib/passage';
 
 export function generateStaticParams() {
   return getCorpus().chapters.map((c) => ({ id: c.id }));
@@ -31,10 +32,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
   const named = getNames().characters.filter((n) => present.some((p) => p.id === n.id));
   const cites = Object.fromEntries(chapters.map((c) => [c.id, c.cite]));
 
-  const paragraphs = text
-    .split(/\n\s*\n/)
-    .map((p) => p.replace(/\n/g, ' ').trim())
-    .filter(Boolean);
+  const paragraphs = toParagraphs(text);
 
   return (
     <main className="page split">

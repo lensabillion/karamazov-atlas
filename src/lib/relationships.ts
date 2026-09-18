@@ -52,6 +52,8 @@ export interface Tie {
   label: string;
   /** Chapter id where the text establishes this tie. Required: every line is checkable. */
   chapter: string;
+  /** A verbatim phrase from that chapter, so the link can land on the sentence. */
+  quote?: string;
   /** Defaults to 'fact'. */
   basis?: Basis;
   /** Qualifies a 'said' or 'reading' tie: who says it, or what is uncertain. */
@@ -169,37 +171,50 @@ export const TIES: Tie[] = [
   { from: 'adelaida', to: 'dmitri', bond: 'mother', label: 'mother', chapter: 'b01-c01' },
   { from: 'sofya', to: 'ivan', bond: 'mother', label: 'mother', chapter: 'b01-c03' },
   { from: 'sofya', to: 'alyosha', bond: 'mother', label: 'mother', chapter: 'b01-c03' },
-  { from: 'lizaveta', to: 'smerdyakov', bond: 'mother', label: 'mother', chapter: 'b03-c02' },
+  { from: 'lizaveta', to: 'smerdyakov', bond: 'mother', label: 'mother', chapter: 'b03-c02',
+    quote: 'They saved the baby, but Lizaveta died at dawn' },
 
   { from: 'fyodor', to: 'dmitri', bond: 'father', label: 'father', chapter: 'b01-c01' },
   { from: 'fyodor', to: 'ivan', bond: 'father', label: 'father', chapter: 'b01-c03' },
   { from: 'fyodor', to: 'alyosha', bond: 'father', label: 'father', chapter: 'b01-c03' },
   { from: 'fyodor', to: 'smerdyakov', bond: 'disputed', label: 'father?', chapter: 'b03-c02', basis: 'said',
+    quote: 'rumor pointed straight at Fyodor',
     note: 'The town’s rumour. The narrator reports it and never settles it.' },
 
   // the rivalry that becomes the motive
-  { from: 'fyodor', to: 'grushenka', bond: 'desire', label: 'wants', key: true, chapter: 'b03-c05' },
-  { from: 'dmitri', to: 'grushenka', bond: 'desire', label: 'wants', key: true, chapter: 'b03-c05' },
-  { from: 'samsonov', to: 'grushenka', bond: 'keeps', label: 'keeps', chapter: 'b07-c03' },
+  { from: 'fyodor', to: 'grushenka', bond: 'desire', label: 'wants', key: true, chapter: 'b03-c05',
+    quote: 'That’s what the old man wants, so that Grushenka can come while he’s away' },
+  { from: 'dmitri', to: 'grushenka', bond: 'desire', label: 'wants', key: true, chapter: 'b03-c05',
+    quote: 'I went in the first place to beat her' },
+  { from: 'samsonov', to: 'grushenka', bond: 'keeps', label: 'keeps', chapter: 'b07-c03',
+    quote: 'the merchant Samsonov, who was known to be the girl’s protector' },
   { from: 'rakitin', to: 'grushenka', bond: 'kin', label: 'cousin of', chapter: 'b12-c04', basis: 'said',
+    quote: 'Why, he is my cousin',
     note: 'Grushenka says so in court; Rakitin had kept it quiet.' },
 
-  { from: 'dmitri', to: 'katerina', bond: 'betrothed', label: 'engaged to', chapter: 'b03-c05' },
+  { from: 'dmitri', to: 'katerina', bond: 'betrothed', label: 'engaged to', chapter: 'b03-c05',
+    quote: 'We weren’t betrothed at once, not for three months after that adventure' },
   { from: 'katerina', to: 'ivan', bond: 'love', label: 'loves', key: true, chapter: 'b04-c05', basis: 'said',
+    quote: 'you’re torturing Ivan, simply because you love him',
     note: 'Alyosha tells her so to her face; the rest of the novel bears him out.' },
 
   // the crime
   { from: 'ivan', to: 'smerdyakov', bond: 'taught', label: 'taught', key: true, chapter: 'b11-c08', basis: 'said',
+    quote: 'I was only your instrument, your faithful servant, and it was following your words I did it',
     note: 'Smerdyakov’s account, given to Ivan alone: the idea was Ivan’s.' },
   { from: 'smerdyakov', to: 'fyodor', bond: 'killed', label: 'killed', key: true, chapter: 'b11-c08', basis: 'said',
+    quote: 'It was only with you, with your help, I killed him, and Dmitri Fyodorovitch is quite innocent',
     note: 'Smerdyakov’s confession to Ivan. No one else hears it, and he hangs himself before the trial.' },
-  { from: 'dmitri', to: 'grigory', bond: 'humiliated', label: 'struck', chapter: 'b08-c04' },
+  { from: 'dmitri', to: 'grigory', bond: 'humiliated', label: 'struck', chapter: 'b08-c04',
+    quote: 'In Mitya’s hands was a brass pestle, and he flung it mechanically in the grass' },
 
   // the household that raised them
   { from: 'grigory', to: 'fyodor', bond: 'serves', label: 'servant to', chapter: 'b01-c02' },
   { from: 'grigory', to: 'marfa', bond: 'married', label: 'married to', chapter: 'b03-c01' },
-  { from: 'grigory', to: 'smerdyakov', bond: 'raised', label: 'raised', chapter: 'b03-c02' },
-  { from: 'grigory', to: 'alyosha', bond: 'raised', label: 'raised', chapter: 'b01-c03' },
+  { from: 'grigory', to: 'smerdyakov', bond: 'raised', label: 'raised', chapter: 'b03-c02',
+    quote: 'Grigory took the baby, brought it home' },
+  { from: 'grigory', to: 'alyosha', bond: 'raised', label: 'raised', chapter: 'b01-c03',
+    quote: 'They were looked after by the same Grigory and lived in his cottage' },
 
   // the monastery
   { from: 'zossima', to: 'alyosha', bond: 'guides', label: 'elder to', chapter: 'b01-c05' },
@@ -213,7 +228,8 @@ export const TIES: Tie[] = [
 
   // the boys
   { from: 'snegiryov', to: 'ilusha', bond: 'father', label: 'father', chapter: 'b04-c06' },
-  { from: 'dmitri', to: 'snegiryov', bond: 'humiliated', label: 'humiliated', key: true, chapter: 'b04-c07' },
+  { from: 'dmitri', to: 'snegiryov', bond: 'humiliated', label: 'humiliated', key: true, chapter: 'b04-c07',
+    quote: 'your brother Dmitri Fyodorovitch was pulling me by my beard' },
   { from: 'alyosha', to: 'ilusha', bond: 'befriends', label: 'befriends', chapter: 'b10-c04' },
   { from: 'kolya', to: 'ilusha', bond: 'befriends', label: 'friend', chapter: 'b10-c04' },
   { from: 'smurov', to: 'ilusha', bond: 'befriends', label: 'friend', chapter: 'b10-c03' },

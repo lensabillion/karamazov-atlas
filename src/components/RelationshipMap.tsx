@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { markPath } from './GroupMark';
 import { BOND_STYLE, H, PEOPLE, TIES, W, ZONES, type Person, type Tie } from '@/lib/relationships';
+import { passageHref } from '@/lib/passage';
 import { WHOLE_BOOK, type PlaceChapter } from '@/lib/reading-position';
 
 type TieKey = string;
@@ -279,7 +280,7 @@ export default function RelationshipMap({
                             </span>
                             {outgoing && <> {other.name}</>}
                           </button>
-                          <a className="anchored__cite" href={`/read/${t.chapter}`}
+                          <a className="anchored__cite" href={passageHref(t.chapter, t.quote)}
                             aria-label={`Read the passage: ${citeOf(t.chapter)}`}>
                             {citeOf(t.chapter)}
                           </a>

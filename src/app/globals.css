@@ -413,7 +413,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
    works before hydration — see lib/reading-position.ts. */
 .spoiler { display: contents; }
 .spoiler-note { display: none; }
-p.spoiler-note {
+.spoiler + p.spoiler-note {
   margin: 0;
   padding-block: var(--space-2);
   border-block: var(--border-width) dashed var(--border-strong);
@@ -913,6 +913,17 @@ p.spoiler-note {
 /* ----------------------------------------------------------------------------
    RESPONSIVE — one breakpoint
    ---------------------------------------------------------------------------- */
+
+/* --- A cited paragraph ----------------------------------------------------
+   Where an evidence link lands. Marked as a reader marks a margin: a gilt rule
+   beside the paragraph and the faintest wash, the text itself left alone. */
+.prose p[data-cited] {
+  margin-left: calc(-1 * var(--space-3));
+  padding-left: calc(var(--space-3) - 3px);
+  border-left: 3px solid var(--gilt);
+  background: var(--gilt-soft);
+  scroll-margin-top: calc(var(--nav-h) + var(--space-4));
+}
 
 /* --- Timeline (atlas-9hx1) ---------------------------------------------------
    Wide: the chart and, beside it, a sticky account of the chosen block; the

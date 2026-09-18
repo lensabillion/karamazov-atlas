@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { markPath } from './GroupMark';
 import { LANES, SEGMENTS, SPANS, type Span } from '@/lib/timeline';
+import { passageHref } from '@/lib/passage';
 import type { PlaceChapter } from '@/lib/reading-position';
 
 /**
@@ -232,7 +233,7 @@ export default function Timeline({ places }: { places: PlaceChapter[] }) {
             <p className="text-muted">{selected.detail}</p>
             {selected.reading && <p className="meta"><em>An interpretation, not a statement in the text.</em></p>}
             {chosen && (
-              <a className="link" href={`/read/${chosen.id}`}>
+              <a className="link" href={passageHref(chosen.id, selected.quote)}>
                 Read the passage: {chosen.cite} · {chosen.title.replace(/^“|”$/g, '')} →
               </a>
             )}
