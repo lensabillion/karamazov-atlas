@@ -139,13 +139,13 @@ export default function Timeline() {
                 }}>
                 <title>{span.label}</title>
                 <rect x={x + 2} y={y + 2} width={COL_W - 6} height={h - 4} rx={2}
-                  fill={on ? 'var(--teal-soft)' : span.key ? 'var(--blue-soft)' : 'var(--bg)'}
-                  stroke={on ? 'var(--teal)' : span.key ? 'var(--blue)' : 'var(--border-strong)'}
+                  fill={on ? 'var(--gilt-soft)' : span.key ? 'var(--cloth-soft)' : 'var(--bg)'}
+                  stroke={on ? 'var(--gilt)' : span.key ? 'var(--cloth)' : 'var(--border-strong)'}
                   strokeWidth={on || span.key ? 1.5 : 1} />
                 {lines.map((ln, j) => (
                   <text key={j} x={x + 10} y={y + 18 + j * 13}
                     style={{ font: `${span.key ? 600 : 400} 11px Old Standard TT, Georgia, serif` }}
-                    fill={on ? 'var(--teal-deep)' : 'var(--ink)'}>
+                    fill={on ? 'var(--cloth-deep)' : 'var(--ink)'}>
                     {ln}
                   </text>
                 ))}
@@ -153,10 +153,10 @@ export default function Timeline() {
                 {span.ends && (
                   <>
                     <line x1={x + 2} y1={y + h - 2} x2={x + COL_W - 4} y2={y + h - 2}
-                      stroke="var(--teal)" strokeWidth={3} />
+                      stroke="var(--gilt)" strokeWidth={3} />
                     <text x={x + 10} y={y + h + 14}
                       style={{ font: '600 10px Old Standard TT, Georgia, serif', letterSpacing: '0.06em' }}
-                      fill="var(--teal-deep)">
+                      fill="var(--cloth-deep)">
                       ENDS HERE
                     </text>
                   </>

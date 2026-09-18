@@ -10,7 +10,7 @@
    WHY TOKENS FIRST, UTILITIES SECOND
    Tailwind is configured from the design system rather than the other way
    round. Every value the system allows is declared in @theme below, and
-   Tailwind generates the matching utilities from it — `bg-blue`, `text-ink-3`,
+   Tailwind generates the matching utilities from it — `bg-cloth`, `text-ink-3`,
    `font-serif`, `text-lg`. Nothing outside these tokens can be expressed as a
    utility, so the palette cannot quietly grow a seventh colour or a ninth type
    size.
@@ -84,24 +84,14 @@
 :root {
   color-scheme: light;
 
-  /* Legacy names kept so every component keeps working; they now point at the
-     first-edition palette. blue → cloth, teal → gilt. */
-  --blue: var(--color-cloth);
-  --blue-deep: var(--color-cloth-deep);
-  --blue-soft: var(--color-cloth-soft);
-  --teal: var(--color-gilt);
-  --teal-deep: var(--color-cloth-deep);
-  --teal-soft: var(--color-gilt-soft);
-  --purple: var(--color-ink-2);
-  --purple-deep: var(--color-ink);
-  --purple-soft: var(--color-surface);
-  --pink: var(--color-cloth);
-  --pink-deep: var(--color-cloth-deep);
-  --pink-soft: var(--color-cloth-soft);
-
+  /* Named for what they are on the book. The v2/v3 screen names (--blue,
+     --teal, --purple, --pink) were retired in atlas-2oai: a rule reading
+     var(--blue) that rendered red was lying about itself. */
   --cloth: var(--color-cloth);
   --cloth-deep: var(--color-cloth-deep);
+  --cloth-soft: var(--color-cloth-soft);
   --gilt: var(--color-gilt);
+  --gilt-soft: var(--color-gilt-soft);
   --stock: var(--color-stock);
   --paper-texture:
     repeating-linear-gradient(0deg, rgba(120, 96, 64, 0.022) 0px,
@@ -251,10 +241,10 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .num { font-variant-numeric: tabular-nums; }
 
 .link {
-  color: var(--blue);
+  color: var(--cloth);
   border-bottom: var(--border-width) solid transparent;
 }
-.link:hover { border-bottom-color: var(--blue); }
+.link:hover { border-bottom-color: var(--cloth); }
 
 
 /* ----------------------------------------------------------------------------
@@ -352,8 +342,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 .nav-link:hover { color: var(--ink); }
 .nav-link[aria-current="page"] {
-  color: var(--teal-deep);
-  border-bottom-color: var(--teal);
+  color: var(--cloth-deep);
+  border-bottom-color: var(--gilt);
 }
 .nav-spacer { flex: 1; min-width: var(--space-3); }
 .nav .meta { white-space: nowrap; }
@@ -383,7 +373,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   background: none;
   cursor: pointer;
 }
-.list-item:hover { color: var(--teal-deep); }
+.list-item:hover { color: var(--cloth-deep); }
 .list-item__label { flex: 1; min-width: 0; }
 .list-item__lead { color: var(--ink-3); min-width: 2.5em; font-variant-numeric: tabular-nums; }
 
@@ -402,9 +392,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
   display: block;
   height: 100%;
   border-radius: var(--radius);
-  background: var(--blue);
+  background: var(--cloth);
 }
-.bar-row:hover .bar-fill { background: var(--teal); }
+.bar-row:hover .bar-fill { background: var(--gilt); }
 
 .stat { display: flex; flex-direction: column; gap: var(--space-1); }
 .stat__value {
@@ -413,7 +403,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   font-weight: var(--weight-normal);
   line-height: var(--leading-tight);
   font-variant-numeric: tabular-nums;
-  color: var(--blue);
+  color: var(--cloth);
 }
 
 .chip {
@@ -433,26 +423,26 @@ button, input, textarea, select { font: inherit; color: inherit; }
   font-size: var(--text-sm);
 }
 .field::placeholder { color: var(--ink-3); }
-.field:focus { border-color: var(--teal); }
+.field:focus { border-color: var(--gilt); }
 
 .button {
   padding: var(--space-2) var(--space-4);
   background: var(--bg);
-  color: var(--blue);
+  color: var(--cloth);
   border: var(--border-width) solid var(--border-strong);
   border-radius: var(--radius);
   font-size: var(--text-sm);
   cursor: pointer;
 }
-.button:hover { border-color: var(--teal); color: var(--teal-deep); }
+.button:hover { border-color: var(--gilt); color: var(--cloth-deep); }
 .button:disabled { opacity: 0.4; cursor: default; }
 
 .button--primary {
-  background: var(--blue);
-  border-color: var(--blue);
+  background: var(--cloth);
+  border-color: var(--cloth);
   color: var(--on-cloth);
 }
-.button--primary:hover { background: var(--blue-deep); border-color: var(--blue-deep); color: var(--on-cloth); }
+.button--primary:hover { background: var(--cloth-deep); border-color: var(--cloth-deep); color: var(--on-cloth); }
 
 .button--quiet {
   background: var(--surface);
@@ -461,18 +451,18 @@ button, input, textarea, select { font: inherit; color: inherit; }
   text-align: left;
 }
 
-.range { accent-color: var(--teal); }
+.range { accent-color: var(--gilt); }
 
 .notice {
-  background: var(--blue-soft);
+  background: var(--cloth-soft);
   border: var(--border-width) solid var(--border);
-  border-left: 3px solid var(--blue);
+  border-left: 3px solid var(--cloth);
   border-radius: var(--radius);
   padding: var(--space-3);
   font-size: var(--text-sm);
   color: var(--ink-2);
 }
-.notice code { font-family: var(--font-sans); color: var(--blue-deep); }
+.notice code { font-family: var(--font-sans); color: var(--cloth-deep); }
 
 .name-panel {
   background: var(--surface);
@@ -495,7 +485,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .form-row:last-child { border-bottom: none; }
 .form-row > :last-child { text-align: right; }
 
-.rung { display: block; height: 3px; border-radius: var(--radius); background: var(--blue); }
+.rung { display: block; height: 3px; border-radius: var(--radius); background: var(--cloth); }
 .form-name { font-family: var(--font-serif); font-size: var(--text-base); }
 .form-name--tender { font-style: italic; }
 .form-name--formal { font-weight: var(--weight-bold); }
@@ -510,8 +500,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
   border-bottom: var(--border-width) dotted var(--border-strong);
 }
 .name-hit:hover, .name-hit[aria-expanded="true"] {
-  background: var(--teal-soft);
-  border-bottom-color: var(--teal);
+  background: var(--gilt-soft);
+  border-bottom-color: var(--gilt);
 }
 
 .lineage { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
@@ -523,9 +513,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 .lineage__child--disputed {
   border-style: dashed;
-  border-color: var(--purple);
-  color: var(--purple-deep);
-  background: var(--purple-soft);
+  border-color: var(--ink-2);
+  color: var(--ink);
+  background: var(--surface);
 }
 
 
@@ -541,7 +531,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   bottom: 0;
   z-index: 20;
   background: var(--bg);
-  border-top: 2px solid var(--teal);
+  border-top: 2px solid var(--gilt);
   max-height: 55vh;
   overflow-y: auto;
 }
@@ -589,7 +579,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   pointer-events: auto;
   border-left-color: var(--active);
 }
-.anchored--uncertain { border-left-color: var(--purple); }
+.anchored--uncertain { border-left-color: var(--ink-2); }
 
 .anchored__name {
   font-family: var(--font-serif);
@@ -625,10 +615,10 @@ button, input, textarea, select { font: inherit; color: inherit; }
   color: var(--ink-2);
   cursor: pointer;
 }
-.anchored__tie:hover { color: var(--teal-deep); }
+.anchored__tie:hover { color: var(--cloth-deep); }
 .anchored__bond { font-weight: var(--weight-bold); color: var(--ink); }
-.anchored__bond--key { color: var(--pink-deep); }
-.anchored__bond--uncertain { color: var(--purple-deep); }
+.anchored__bond--key { color: var(--cloth-deep); }
+.anchored__bond--uncertain { color: var(--ink); }
 .anchored__close {
   align-self: flex-start;
   background: none;
@@ -642,7 +632,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 /* Interactive marks inside a diagram. */
 .hit { cursor: pointer; }
-.hit:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.hit:focus-visible { outline: 2px solid var(--gilt); outline-offset: 2px; }
 
 
 /* --- Page architecture, taken from the book itself -------------------------
@@ -742,7 +732,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .prose p { margin: 0; }
 .prose em { font-style: italic; }
 .prose mark {
-  background: var(--teal-soft);
+  background: var(--gilt-soft);
   color: inherit;
   border-radius: var(--radius);
   padding: 0 2px;
@@ -762,11 +752,11 @@ button, input, textarea, select { font: inherit; color: inherit; }
 /* ----------------------------------------------------------------------------
    8. DATA MARKS
    Category is encoded by SHAPE, never by colour — six groups cannot be told
-   apart by two hues, and a blue-to-teal ramp would imply an order these
+   apart by two hues, and a cloth-to-gilt ramp would imply an order these
    categories do not have. Shape is categorical, survives greyscale, and does
    not fail for colour-blind readers.
 
-   Colour then carries state instead: blue at rest, teal when active.
+   Colour then carries state instead: cloth at rest, gilt when active.
    ---------------------------------------------------------------------------- */
 
 .chart {
@@ -799,18 +789,18 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .chart-label { font-family: var(--font-sans); font-size: var(--text-xs); fill: var(--ink); }
 .chart-label--muted { fill: var(--ink-3); }
 
-/* Marks default to blue; `data-active` promotes them to teal. */
-.mark { fill: var(--blue); }
-.mark[data-active="true"] { fill: var(--teal); }
-.mark[data-uncertain="true"] { fill: var(--purple); }
-.mark[data-consequence="true"] { fill: var(--pink); }
-.mark-stroke { stroke: var(--blue); fill: none; }
-.mark-stroke[data-active="true"] { stroke: var(--teal); }
+/* Marks default to cloth; `data-active` promotes them to gilt. */
+.mark { fill: var(--cloth); }
+.mark[data-active="true"] { fill: var(--gilt); }
+.mark[data-uncertain="true"] { fill: var(--ink-2); }
+.mark[data-consequence="true"] { fill: var(--cloth); }
+.mark-stroke { stroke: var(--cloth); fill: none; }
+.mark-stroke[data-active="true"] { stroke: var(--gilt); }
 
 .sparkbar { display: flex; align-items: flex-end; gap: 2px; height: 88px; min-width: 640px; }
-.sparkbar__bar { flex: 1; min-width: 3px; border-radius: var(--radius) var(--radius) 0 0; background: var(--blue); }
+.sparkbar__bar { flex: 1; min-width: 3px; border-radius: var(--radius) var(--radius) 0 0; background: var(--cloth); }
 .sparkbar__bar[data-empty="true"] { background: var(--border); }
-.sparkbar__bar:hover { background: var(--teal); }
+.sparkbar__bar:hover { background: var(--gilt); }
 
 
 /* ----------------------------------------------------------------------------

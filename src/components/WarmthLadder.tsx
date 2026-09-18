@@ -66,12 +66,12 @@ export default function WarmthLadder({
             <g key={c.id} className={`group-${c.group}`}>
               <text x={nameW - 12} y={y} textAnchor="end" dominantBaseline="middle"
                 style={{ font: `${marked ? 700 : 400} 13px Old Standard TT, Georgia, serif` }}
-                fill={marked ? 'var(--teal-deep)' : 'var(--ink)'}>
+                fill={marked ? 'var(--cloth-deep)' : 'var(--ink)'}>
                 {c.short}
               </text>
               {/* how far warmth reaches for this person */}
               <line x1={nameW + step / 2} y1={y} x2={x} y2={y}
-                stroke={marked ? 'var(--teal)' : 'var(--blue)'} strokeWidth={marked ? 3 : 2} opacity={0.5} />
+                stroke={marked ? 'var(--gilt)' : 'var(--cloth)'} strokeWidth={marked ? 3 : 2} opacity={0.5} />
               <path className="mark" data-active={marked || undefined}
                 transform={`translate(${x},${y})`} d={markPath(c.group, marked ? 6.5 : 4.5)} />
               <text x={W - 78} y={y} dominantBaseline="middle"

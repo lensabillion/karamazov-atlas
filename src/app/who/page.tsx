@@ -9,29 +9,29 @@ export default function WhoPage() {
         <h1 className="title">Everyone, and what they are to each other</h1>
         <p className="lede">
           Click anyone to find out who they are and how they connect. Shape says what kind of
-          person; colour says what kind of link. Pink is the path the murder travels — two men
-          wanting the same woman, one brother handing another man the idea, and the killing
-          itself. Purple is the one thing the novel never settles.
+          person; line says what kind of link. The heavy cloth-red lines are the path the murder
+          travels — two men wanting the same woman, one brother handing another man the idea,
+          and the killing itself. The dashed grey line is the one thing the novel never settles.
         </p>
       </header>
       <section className="section">
         <div className="row" style={{ gap: 'var(--space-4)' }}>
           <span className="chip">
             <svg width="34" height="10" aria-hidden="true">
-              <line x1="1" y1="5" x2="33" y2="5" stroke="var(--pink)" strokeWidth="2.5" />
+              <line x1="1" y1="5" x2="33" y2="5" stroke="var(--cloth)" strokeWidth="2.5" />
             </svg>
             the path the murder travels
           </span>
           <span className="chip">
             <svg width="34" height="10" aria-hidden="true">
-              <line x1="1" y1="5" x2="33" y2="5" stroke="var(--purple)" strokeWidth="1.5"
+              <line x1="1" y1="5" x2="33" y2="5" stroke="var(--ink-2)" strokeWidth="1.5"
                 strokeDasharray="4 4" />
             </svg>
             the novel does not settle it
           </span>
           <span className="chip">
             <svg width="34" height="10" aria-hidden="true">
-              <line x1="1" y1="5" x2="33" y2="5" stroke="var(--teal)" strokeWidth="2.5" />
+              <line x1="1" y1="5" x2="33" y2="5" stroke="var(--gilt)" strokeWidth="2.5" />
             </svg>
             what you have selected
           </span>

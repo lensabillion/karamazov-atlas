@@ -81,15 +81,15 @@ export default function RelationshipMap() {
 
   /**
    * Hue by role, never by decoration (design-system.md §3):
-   *   teal   — what the reader has selected
-   *   pink   — consequence: the path the murder travels
-   *   purple — uncertain: what the text does not settle
-   *   blue   — everything else
+   *   gilt       — what the reader has selected
+   *   cloth      — consequence: the path the murder travels
+   *   ink, dashed — uncertain: what the text does not settle
+   *   rule grey  — everything else
    */
   const tieColour = (bond: string, isKey: boolean | undefined, touched: boolean) => {
-    if (touched) return 'var(--teal)';
-    if (bond === 'disputed') return 'var(--purple)';
-    if (isKey) return 'var(--pink)';
+    if (touched) return 'var(--gilt)';
+    if (bond === 'disputed') return 'var(--ink-2)';
+    if (isKey) return 'var(--cloth)';
     return 'var(--border-strong)';
   };
 
@@ -161,9 +161,9 @@ export default function RelationshipMap() {
                     <text x={mx} y={my} textAnchor="middle" dominantBaseline="middle"
                       style={{ font: '400 11px Old Standard TT, Georgia, serif' }}
                       fill={
-                        touched ? 'var(--teal-deep)'
-                        : t.bond === 'disputed' ? 'var(--purple-deep)'
-                        : t.key ? 'var(--pink-deep)'
+                        touched ? 'var(--cloth-deep)'
+                        : t.bond === 'disputed' ? 'var(--ink)'
+                        : t.key ? 'var(--cloth-deep)'
                         : 'var(--ink-3)'
                       }>
                       {t.label}

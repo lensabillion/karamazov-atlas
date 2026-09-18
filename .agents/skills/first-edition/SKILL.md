@@ -45,20 +45,24 @@ text-indent: 0.22em;   /* always mirror the tracking */
 text-transform: uppercase;
 ```
 
-## Colour — four values, from the object itself
+## Colour — four values from the object, on a white canvas
 
 | Token | Value | Role |
 | --- | --- | --- |
 | `--cloth` | `#8c2f26` | The binding. Active, interactive, data marks |
 | `--gilt` | `#9a7b32` | The stamping. Selection and emphasis only |
 | `--ink` / `--ink-2` / `--ink-3` | `#1a1613` → `#786a5c` | Letterpress, in three strengths |
-| `--bg` / `--surface` | `#f2ece0` / `#ece5d6` | Cream stock |
+| `--stock` / `--surface` | `#f2ece0` / `#ece5d6` | Cream stock, for descriptions and plates |
+| `--bg` | `#ffffff` | The general page canvas (user request, 17 Sep 2026) |
 
-The ground is **laid paper**, not flat cream: a horizontal grain plus two faint
-washes. Never replace it with a solid fill.
+White surrounds the artwork; each **description** stays a leaf of laid paper —
+`--paper-texture` (horizontal grain plus two faint washes) on `.plate` and
+`.book-description`, never on the body. Do not restore the full-page cream wash.
 
-Legacy names (`--blue`, `--teal`, `--purple`, `--pink`) still resolve — they
-point at cloth and gilt now. Do not add new colour values; four is the palette.
+Use the book names only: `--cloth`, `--cloth-deep`, `--cloth-soft`, `--gilt`,
+`--gilt-soft`, `--ink*`, `--surface`, `--stock`. The v3 names (`--blue`,
+`--teal`, `--purple`, `--pink`) were retired in atlas-2oai and no longer
+resolve. Do not add new colour values.
 
 ## Composition
 
@@ -79,21 +83,27 @@ rules, centred block, ornament, leader dots.
 original one**; do not trace a binding, a publisher's mark, or any existing
 artwork.
 
-## On portraits
+## On portraits and historical art
 
-There is **no historical set of Karamazov character faces**. Grigoriev's
-illustrations (c. 1916–33) were shown once in 1933 and are in a private
-collection with no usable scans; the 1912 edition is unillustrated. Perov's 1872
-portrait is public domain but depicts the author, not the cast.
+The 1912 edition is unillustrated. Boris Grigoriev's later 58-sheet cycle
+(1916–1932) is the historical source; the user-supplied reproductions and the
+36-plate collage are catalogued in `src/assets/scenes/README.md` and
+`public/artwork/grigoriev-collage/README.md`. Full rules: design-system.md §6.
 
-**Do not generate or commission character faces.** Present people
-typographically. This is a deliberate decision, not a gap to be filled.
+- A **generated study** is allowed only as the spec describes: visibly captioned
+  as AI-generated, linked to the work it follows, never attributed to Grigoriev.
+- An **identification** needs a published caption or catalogue source. Uncertain
+  plates keep their label and get no character or chapter link.
+- **Treat "enhanced" copies as suspect.** A sharpened or repainted copy of a
+  collage crop invents detail (faces, signs, moons, extra figures). Compare it
+  with the native crop before using any detail as evidence, and never display
+  one as the original.
 
 ## Checklist before committing any UI
 
 1. Does it use `--font-display` or `--font-serif`? (Never a system sans.)
 2. Does every letterspaced run carry a matching `text-indent`?
-3. Are all colours from the four tokens?
+3. Are all colours from the book tokens, by their book names?
 4. Did you add a box, shadow, or gradient? Remove it.
 5. Is every size from the six-step scale?
 6. Does the running head stay on one line?

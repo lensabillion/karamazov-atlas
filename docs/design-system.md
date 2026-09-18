@@ -104,9 +104,12 @@ at about 2% plus two faint washes, one cloth-red and one umber, remains in
 `--paper-texture`. Apply it to `.book-description` and `.plate`, not the body.
 The white general background is deliberate; do not restore the old full-page wash.
 
-The v3 names (`--blue`, `--teal`, `--purple`, `--pink`) still resolve; they now
-point at cloth and gilt. Components were not rewritten to rename them, because
-the alias is honest about what happened and touches one file rather than thirty.
+The v3 names (`--blue`, `--teal`, `--purple`, `--pink`) were **retired on
+18 September 2026** (atlas-2oai). They had been aliased to cloth and gilt, which
+meant a rule reading `var(--blue)` rendered red — a token name a reader cannot
+trust. Every use now names the book colour it means. Short names for SVG
+attributes: `--cloth`, `--cloth-deep`, `--cloth-soft`, `--gilt`, `--gilt-soft`,
+`--ink`, `--ink-2`, `--ink-3`, `--surface`, `--stock`.
 
 White is the canvas, not a new category or accent colour.
 
