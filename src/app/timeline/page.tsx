@@ -1,4 +1,5 @@
 import Timeline from '@/components/Timeline';
+import { chapterPlaces } from '@/lib/corpus';
 
 export default function TimelinePage() {
   return (
@@ -10,10 +11,11 @@ export default function TimelinePage() {
           Time runs down. Each column is one person, read top to bottom as a continuous
           thread, and every block is as tall as the share of the novel that state occupies —
           so the four days that take two thirds of the book look like two thirds. Read across
-          a row to see what everyone was doing at once. Two columns simply stop.
+          a row to see what everyone was doing at once. Two columns simply stop. Every block
+          opens onto the chapter it comes from.
         </p>
       </header>
-      <Timeline />
+      <Timeline places={chapterPlaces()} />
     </main>
   );
 }

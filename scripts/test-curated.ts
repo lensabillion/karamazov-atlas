@@ -22,10 +22,9 @@ const check = (name: string, cond: boolean, detail = '') => {
 };
 
 const corpus = JSON.parse(readFileSync(join(process.cwd(), 'data', 'corpus.json'), 'utf8')) as {
-  chapters: { id: string; cite: string }[];
+  chapters: { id: string }[];
 };
 const chapterIds = new Set(corpus.chapters.map((c) => c.id));
-const cites = new Set(corpus.chapters.map((c) => c.cite));
 const mentions = JSON.parse(readFileSync(join(process.cwd(), 'data', 'mentions.json'), 'utf8')) as {
   characters: { id: string }[];
 };
@@ -97,8 +96,25 @@ check('every person sits inside the diagram', outOfBounds.length === 0, outOfBou
 const zoneOob = ZONES.filter((z) => z.x < 0 || z.x > W || z.y < 0 || z.y > H).map((z) => z.label);
 check('every zone label sits inside the diagram', zoneOob.length === 0, zoneOob.join(', '));
 
-const badTieCite = TIES.filter((t) => t.cite && !cites.has(t.cite)).map((t) => t.cite!);
-check('every tie citation names a real chapter', badTieCite.length === 0, badTieCite.join(', '));
+// R8: every line on the map must open onto the passage behind it.
+const badTieChapter = TIES.filter((t) => !chapterIds.has(t.chapter)).map((t) => `${t.from}->${t.to}`);
+check('every tie opens a real chapter', badTieChapter.length === 0, badTieChapter.join(', '));
+
+const badPersonChapter = PEOPLE.filter((p) => !chapterIds.has(p.chapter)).map((p) => p.id);
+check('every person opens the chapter where they are met', badPersonChapter.length === 0,
+  badPersonChapter.join(', '));
+
+const noIntro = PEOPLE.filter((p) => !p.intro.trim() || !p.who.trim()).map((p) => p.id);
+check('every person has a first-meeting intro and a full-book line', noIntro.length === 0, noIntro.join(', '));
+
+// A claim a character makes, or a reading this atlas offers, must say so.
+const unqualified = TIES.filter((t) => t.basis && t.basis !== 'fact' && !t.note?.trim())
+  .map((t) => `${t.from}->${t.to}`);
+check('every claimed or interpreted tie explains itself', unqualified.length === 0, unqualified.join(', '));
+
+// The murder is only ever a character's account in this novel; it must not be drawn as narrated fact.
+const killing = TIES.find((t) => t.bond === 'killed');
+check('the killing is marked as Smerdyakov’s own account', killing?.basis === 'said');
 
 console.log('\ntimeline');
 const laneIds = new Set(LANES.map((l) => l.id));
@@ -119,8 +135,12 @@ check('multi-segment spans are contiguous and in order', unordered.length === 0,
 const badSpanChapter = SPANS.filter((s) => s.chapter && !chapterIds.has(s.chapter)).map((s) => s.chapter!);
 check('every span chapter exists in the corpus', badSpanChapter.length === 0, badSpanChapter.join(', '));
 
-const badSpanCite = SPANS.filter((s) => s.cite && !cites.has(s.cite)).map((s) => s.cite!);
-check('every span citation names a real chapter', badSpanCite.length === 0, badSpanCite.join(', '));
+const noSpanChapter = SPANS.filter((s) => !s.chapter).map((s) => `${s.character}:${s.label}`);
+check('every timeline block opens a chapter (R8)', noSpanChapter.length === 0, noSpanChapter.join(', '));
+
+// R5 regression: Ivan went to Moscow, not Tchermashnya.
+check('no moment sends Ivan to Tchermashnya',
+  !MOMENTS.some((m) => m.who.includes('ivan') && /leaves for Tchermashnya/.test(m.label)));
 
 const badMomentCh = MOMENTS.filter((m) => !chapterIds.has(m.chapter)).map((m) => m.chapter);
 check('every moment chapter exists', badMomentCh.length === 0, badMomentCh.join(', '));

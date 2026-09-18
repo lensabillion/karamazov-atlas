@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { markPath } from './GroupMark';
-import { BOND_STYLE, H, PEOPLE, TIES, W, ZONES, type Person } from '@/lib/relationships';
+import { BOND_STYLE, H, PEOPLE, TIES, W, ZONES, type Person, type Tie } from '@/lib/relationships';
+import { WHOLE_BOOK, type PlaceChapter } from '@/lib/reading-position';
 
 type TieKey = string;
 
@@ -14,8 +15,24 @@ type TieKey = string;
  * between those rows are the plot. The heavy lines are the ones the murder
  * runs along — two men wanting the same woman, one brother teaching another
  * man the idea, and the killing itself.
+ *
+ * Every person and every tie opens onto the chapter behind it (R8), and each
+ * carries its reading-order position so the reader's place can fold away
+ * people and ties they have not reached yet (atlas-fn3v).
  */
-export default function RelationshipMap() {
+export default function RelationshipMap({
+  places,
+  profiles,
+}: {
+  places: PlaceChapter[];
+  /** Ids that have a character page; the two mothers outside the cast do not. */
+  profiles: string[];
+}) {
+  const place = new Map(places.map((c) => [c.id, c]));
+  const ord = (chapter: string) => place.get(chapter)?.ordinal ?? WHOLE_BOOK;
+  const citeOf = (chapter: string) => place.get(chapter)?.cite ?? chapter;
+  /** A tie can only be shown once its chapter and both people have been reached. */
+  const tieGate = (t: Tie) => Math.max(ord(t.chapter), ord(at(t.from).chapter), ord(at(t.to).chapter));
   const [selected, setSelected] = useState<Person | null>(null);
   const [hovered, setHovered] = useState<Person | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -146,7 +163,8 @@ export default function RelationshipMap() {
             const mx = 0.25 * a.x + 0.5 * cx + 0.25 * b.x;
             const my = 0.25 * a.y + 0.5 * cy + 0.25 * b.y;
             return (
-              <g key={`${t.from}-${t.to}-${t.bond}`} opacity={active ? 1 : 0.12}>
+              <g key={`${t.from}-${t.to}-${t.bond}`} opacity={active ? 1 : 0.12}
+                data-spoiler-from={tieGate(t)}>
                 <path d={`M${a.x},${a.y} Q${cx},${cy} ${b.x},${b.y}`}
                   fill="none"
                   stroke={tieColour(t.bond, t.key, touched)}
@@ -178,6 +196,7 @@ export default function RelationshipMap() {
             const on = selected?.id === p.id;
             return (
               <g key={p.id} opacity={lit(p.id) ? 1 : 0.2}
+                data-spoiler-from={ord(p.chapter)}
                 className="hit"
                 role="button"
                 tabIndex={0}
@@ -225,16 +244,30 @@ export default function RelationshipMap() {
               style={{ left: pos.left, top: pos.top }}
             >
               <div className="anchored__name">{shown.name}</div>
-              <p className="anchored__who">{shown.who}</p>
+              {/* The full-book line is folded for a reader part-way through;
+                  they get who this person is when first met instead. */}
+              <p className="anchored__who" data-spoiler-from={WHOLE_BOOK}>{shown.who}</p>
+              <p className="anchored__who spoiler-note" data-spoiler-note={WHOLE_BOOK}>{shown.intro}</p>
               {pinned ? (
                 <>
+                  <p className="anchored__links">
+                    <a className="link" href={`/read/${shown.chapter}`}>First met: {citeOf(shown.chapter)}</a>
+                    {profiles.includes(shown.id) && (
+                      <a className="link" href={`/character/${shown.id}`}>Character page</a>
+                    )}
+                  </p>
                   <ul className="anchored__ties">
                     {touches(shown.id).map((t) => {
                       const other = at(t.from === shown.id ? t.to : t.from);
                       const outgoing = t.from === shown.id;
                       return (
-                        <li key={`${t.from}-${t.to}-${t.bond}`}>
-                          <button className="anchored__tie" onClick={() => setSelected(other)}>
+                        <li key={`${t.from}-${t.to}-${t.bond}`} className="anchored__tie"
+                          data-spoiler-from={tieGate(t)}>
+                          {/* Two actions, kept apart: go to the person, or open the evidence. */}
+                          <button type="button" className="anchored__person" onClick={() => setSelected(other)}>
+                            {/* Outgoing reads as a phrase (“wants Grushenka”);
+                                incoming names the other person first (“Adelaïda · mother”). */}
+                            {!outgoing && <>{other.name} · </>}
                             <span
                               className={
                                 'anchored__bond' +
@@ -242,11 +275,20 @@ export default function RelationshipMap() {
                                   : t.key ? ' anchored__bond--key' : '')
                               }
                             >
-                              {outgoing ? t.label : `${t.label} by`}
+                              {t.label}
                             </span>
-                            <span className="grow">{other.name}</span>
-                            {t.cite ? <span className="meta">{t.cite}</span> : null}
+                            {outgoing && <> {other.name}</>}
                           </button>
+                          <a className="anchored__cite" href={`/read/${t.chapter}`}
+                            aria-label={`Read the passage: ${citeOf(t.chapter)}`}>
+                            {citeOf(t.chapter)}
+                          </a>
+                          {t.basis && t.basis !== 'fact' && (
+                            <span className="anchored__basis">
+                              {t.basis === 'said' ? 'A character’s claim' : 'Our reading'}
+                              {t.note ? ` — ${t.note}` : ''}
+                            </span>
+                          )}
                         </li>
                       );
                     })}

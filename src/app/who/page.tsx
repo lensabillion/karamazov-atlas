@@ -1,5 +1,6 @@
 import { GROUP_LABEL, markPath } from '@/components/GroupMark';
 import RelationshipMap from '@/components/RelationshipMap';
+import { chapterPlaces, getMentions } from '@/lib/corpus';
 
 export default function WhoPage() {
   return (
@@ -8,7 +9,7 @@ export default function WhoPage() {
         <p className="eyebrow">Who’s who</p>
         <h1 className="title">Everyone, and what they are to each other</h1>
         <p className="lede">
-          Click anyone to find out who they are and how they connect. Shape says what kind of
+          Click anyone to find out who they are and how they connect, with the chapter behind every link. Shape says what kind of
           person; line says what kind of link. The heavy cloth-red lines are the path the murder
           travels — two men wanting the same woman, one brother handing another man the idea,
           and the killing itself. The dashed grey line is the one thing the novel never settles.
@@ -56,7 +57,8 @@ export default function WhoPage() {
         </div>
       </section>
 
-      <RelationshipMap />
+      <RelationshipMap places={chapterPlaces()}
+        profiles={getMentions().characters.map((c) => c.id)} />
     </main>
   );
 }

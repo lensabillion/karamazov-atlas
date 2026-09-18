@@ -5,6 +5,7 @@
 import 'server-only';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import type { PlaceChapter } from './reading-position';
 
 export interface Chapter {
   id: string;
@@ -81,6 +82,28 @@ export function getChapter(id: string): Chapter | undefined {
   return getCorpus().chapters.find((c) => c.id === id);
 }
 
+/**
+ * Every chapter's reading-order position, citation and title, in the compact
+ * shape client components receive as props. Position is the spoiler axis: see
+ * lib/reading-position.ts.
+ */
+export function chapterPlaces(): PlaceChapter[] {
+  return getCorpus().chapters.map((c, i) => ({
+    ordinal: i + 1,
+    id: c.id,
+    cite: c.cite,
+    title: c.title,
+    book: c.bookNum === 13 ? 'Epilogue' : `Book ${c.cite.split(',')[0]!.replace('Bk ', '')}. ${c.bookTitle}`,
+  }));
+}
+
+/** 1-based reading-order position of a chapter id; throws on an unknown id. */
+export function ordinalOf(id: string): number {
+  const i = getCorpus().chapters.findIndex((c) => c.id === id);
+  if (i === -1) throw new Error(`Unknown chapter id: ${id}`);
+  return i + 1;
+}
+
 /** Chapters grouped by book, in reading order. */
 export function getBooks() {
   const corpus = getCorpus();
@@ -145,7 +168,6 @@ export function searchCorpus(query: string, limit = 6, through?: number) {
   const scope = through === undefined ? index : index.slice(0, Math.max(0, through));
 
   const scored = scope.map(({ chapter, text, lower }) => {
-
     let score = 0;
     let best = -1;
     for (const term of terms) {
