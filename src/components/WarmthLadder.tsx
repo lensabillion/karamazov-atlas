@@ -2,13 +2,14 @@ import { markPath } from './GroupMark';
 import type { NamedCharacter, Register } from '@/lib/names';
 
 /**
- * The warmest thing anyone in the novel ever calls each person.
+ * How far the naming of each person ever relaxes.
  *
- * Not a frequency chart — a ceiling. Each row shows how far up the register
- * ladder a character is ever addressed, across all 349,367 words. The three
- * men at the centre of the murder occupy the three coldest rows in the book:
- * the father nobody ever addresses familiarly, the brother nobody gives a
- * diminutive, and the son called by a surname 371 times and a name once.
+ * Not a frequency chart — a ceiling. Each row shows the least formal register
+ * in which the TEXT names a character anywhere, narration included, under the
+ * alias list in scripts/lib/characters.ts. It says how the prose names people;
+ * it is not a measure of how anyone feels, and a finite alias list cannot
+ * prove what nobody ever says (review finding R2). The page frames the
+ * pattern it shows as a reading, offered as one.
  */
 const LADDER: Register[] = ['formal', 'distanced', 'neutral', 'familiar', 'tender'];
 const LABEL: Record<Register, string> = {
@@ -44,7 +45,7 @@ export default function WarmthLadder({
   return (
     <div className="chart scroll-x">
       <svg viewBox={`0 0 ${W} ${H}`} role="img"
-        aria-label="The warmest register in which each character is ever addressed">
+        aria-label="The least formal register in which the text ever names each character">
 
         {LADDER.map((reg, i) => (
           <g key={reg}>

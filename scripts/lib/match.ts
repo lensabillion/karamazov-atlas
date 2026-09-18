@@ -29,6 +29,14 @@ export interface Occurrence {
 export const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /**
+ * A name as a pattern: the space between words matches any whitespace, because
+ * Gutenberg wraps lines mid-name. "Pyotr\nIlyitch" and "Dmitri\nFyodorovitch"
+ * were missed or counted as their short, familiar form (found by atlas-30o1:
+ * 19 lines end in "Pyotr", 41 in "Dmitri").
+ */
+export const formPattern = (form: string) => escapeRe(form).replace(/ /g, '\\s+');
+
+/**
  * Find every non-overlapping alias occurrence in `text`.
  * Longest form wins; positions are claimed once.
  */
@@ -38,7 +46,7 @@ export function findOccurrences(text: string, aliases: AliasSpec[]): Occurrence[
   const out: Occurrence[] = [];
 
   for (const { owner, form } of ordered) {
-    const re = new RegExp(`\\b${escapeRe(form)}\\b`, 'g');
+    const re = new RegExp(`\\b${formPattern(form)}\\b`, 'g');
     let m: RegExpExecArray | null;
     while ((m = re.exec(text)) !== null) {
       const start = m.index;

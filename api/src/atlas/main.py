@@ -175,20 +175,49 @@ def coverage(db: DB) -> models.Coverage:
     fixed numerator and denominator meant the test could never notice extraction
     coverage changing, which is precisely what such a test is for.
     """
+    # Same definition as the pipeline (scripts/lib/attribution.ts): a quotation
+    # of eight characters or more that does not cross a line break once single
+    # line wraps are joined.
     quotes = 0
     for (body,) in db.execute("SELECT body FROM chapters"):
-        quotes += len(re.findall(r"[\u201c\"][^\u201d\"]{8,900}[\u201d\"]", body))
-    attributed = db.execute("SELECT COALESCE(SUM(count), 0) FROM addresses").fetchone()[0]
+        flat = re.sub(r"(?<!\n)\n(?!\n)", " ", body)
+        quotes += len(re.findall(r"[\u201c\"][^\u201d\"\n]{8,900}[\u201d\"]", flat))
+    row = db.execute("SELECT value FROM meta WHERE key = 'attributed_quotes'").fetchone()
+    attributed = int(row[0]) if row else 0
+    addressed = db.execute("SELECT COALESCE(SUM(count), 0) FROM addresses").fetchone()[0]
+    mentioned = db.execute("SELECT COALESCE(SUM(count), 0) FROM spoken_of").fetchone()[0]
     return models.Coverage(
         quotes=quotes,
         attributed=attributed,
         ratio=(attributed / quotes) if quotes else 0.0,
+        addressed=addressed,
+        mentioned=mentioned,
     )
 
 
 @app.get("/addresses", response_model=list[models.Address])
 def addresses(db: DB, speaker: str | None = None, target: str | None = None):
     sql = "SELECT * FROM addresses WHERE 1=1"
+    args: list = []
+    if speaker:
+        sql += " AND speaker_id = ?"
+        args.append(speaker)
+    if target:
+        sql += " AND target_id = ?"
+        args.append(target)
+    sql += " ORDER BY count DESC"
+    return [
+        models.Address(
+            speaker=r["speaker_id"], target=r["target_id"], form=r["form"],
+            register=r["register"], count=r["count"],
+        )
+        for r in db.execute(sql, args)
+    ]
+
+
+@app.get("/spoken-of", response_model=list[models.Address])
+def spoken_of(db: DB, speaker: str | None = None, target: str | None = None):
+    sql = "SELECT * FROM spoken_of WHERE 1=1"
     args: list = []
     if speaker:
         sql += " AND speaker_id = ?"

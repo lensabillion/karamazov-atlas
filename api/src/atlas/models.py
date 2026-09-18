@@ -73,8 +73,8 @@ class NamedCharacter(BaseModel):
     total: int
     warmest_register: Register = Field(
         description=(
-            "The least distant register in which this character is ever addressed. "
-            "This measures FORM OF ADDRESS, not affection — see atlas-w56r."
+            "The least formal register in which the text ever names this character, "
+            "narration included. It measures naming, not affection — see atlas-w56r."
         )
     )
 
@@ -86,11 +86,13 @@ class Lineage(BaseModel):
 
 
 class Address(BaseModel):
-    """One observed act of address, extracted from attributed dialogue.
+    """A name used in attributed dialogue: who said which form of whose name.
 
-    Coverage is partial by construction: only quoted passages whose speaker can
-    be identified are counted. `/names/coverage` reports the ratio so no caller
-    can mistake this for a census.
+    `/addresses` returns direct address only (a vocative: "Listen, Alyosha, …");
+    `/spoken-of` returns third-person mentions. Coverage is partial by
+    construction: only quoted passages whose speaker can be identified are
+    counted, and `/names/coverage` reports the ratio so no caller can mistake
+    this for a census.
     """
 
     speaker: str
@@ -104,6 +106,8 @@ class Coverage(BaseModel):
     quotes: int
     attributed: int
     ratio: float
+    addressed: int = Field(description="Names used as direct address in attributed speech.")
+    mentioned: int = Field(description="Names mentioned in the third person in attributed speech.")
 
 
 class SearchHit(BaseModel):

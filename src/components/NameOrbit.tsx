@@ -31,14 +31,15 @@ export default function NameOrbit({
   nameOf,
 }: {
   character: NamedCharacter;
-  /** Observed acts of address aimed at this character. */
+  /** Direct address aimed at this character, from attributed speech only. */
   addresses?: Address[];
   /** Character id → short name, for labelling speakers. */
   nameOf?: Record<string, string>;
 }) {
   const max = Math.max(...character.forms.map((f) => f.count), 1);
 
-  // Who is on record using each form for this person.
+  // Who is on record using each form TO this person's face (a vocative in
+  // tagged dialogue). Speaking of them in the third person does not count.
   const speakersOf = (form: string) =>
     addresses
       .filter((a) => a.target === character.id && a.form === form)
@@ -103,7 +104,7 @@ export default function NameOrbit({
         Nearer the centre is more intimate.
       </figcaption>
       <details className="names-orbit__details">
-        <summary className="meta">Name forms & recorded speakers</summary>
+        <summary className="meta">Name forms, and who is heard using them</summary>
         <dl className="meta names-form-list">
           {character.forms.map((form) => {
             const speakers = speakersOf(form.form);
@@ -112,7 +113,7 @@ export default function NameOrbit({
                 data-spoiler-from={form.firstChapter ? ordinalOf(form.firstChapter) : undefined}>
                 <dt>{form.form}</dt>
                 <dd>{form.count.toLocaleString()}× · {form.register}
-                  {speakers.length > 0 && <span>Heard from {speakers.slice(0, 3).join(', ')}</span>}
+                  {speakers.length > 0 && <span>Said to their face by {speakers.slice(0, 3).join(', ')}</span>}
                 </dd>
               </div>
             );

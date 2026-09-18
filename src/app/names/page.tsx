@@ -17,6 +17,7 @@ export default function NamesPage() {
 
   const lineage = lineages[0];
   const pavel = byId.get('smerdyakov')?.forms.find((f) => f.form === 'Pavel Fyodorovitch');
+  const smerdyakovSurname = byId.get('smerdyakov')?.forms.find((f) => f.form === 'Smerdyakov')?.count ?? 0;
   // Smerdyakov's patronymic is itself a disclosure: fold it until the chapter that says it.
   const pavelFrom = pavel?.firstChapter ? ordinalOf(pavel.firstChapter) : undefined;
 
@@ -64,12 +65,15 @@ export default function NamesPage() {
         <div className="section-header">
           <h2 className="heading">Who is allowed to say it</h2>
           <p className="text-muted">
-            Each ring is a degree of intimacy — the outer ring is name-plus-patronymic, held at
-            arm’s length; the centre is the diminutive nobody uses casually. Dot size is how
-            often the form is spoken, and where the novel attributes the speech, the speakers
-            are named. Attribution covers {coverage.attributed.toLocaleString()} of{' '}
-            {coverage.quotes.toLocaleString()} quoted passages, so “heard from” is a floor, not
-            a full census.
+            Each ring is a degree of formality — the outer ring is name-plus-patronymic, held at
+            arm’s length; the centre is the diminutive. Dot size is how often the form appears
+            anywhere in the text, narration included. Where a speech is tagged with its speaker
+            and the name is used to someone’s face, that speaker is named. Only{' '}
+            {coverage.attributed.toLocaleString()} of {coverage.quotes.toLocaleString()} quoted
+            passages carry a tag the atlas can read; inside them it found{' '}
+            {coverage.addressed.toLocaleString()} names used as direct address and{' '}
+            {coverage.mentioned.toLocaleString()} spoken of in the third person. So “said to
+            their face by” is a floor, never a census.
           </p>
         </div>
         <div className="grid grid--pairs">
@@ -81,13 +85,13 @@ export default function NamesPage() {
 
       <section className="section">
         <div className="section-header">
-          <h2 className="heading">The coldest men in the book</h2>
+          <h2 className="heading">How far the naming ever relaxes</h2>
           <p className="text-muted">
             Not how often someone is named, but the least formal register the text ever uses
             for them — across narration and dialogue alike, under the alias vocabulary listed
             on this page. Dmitri reaches the diminutive <em>Mityenka</em>; Fyodor appears only
             as Fyodor Pavlovitch, Ivan takes no recorded diminutive, and Smerdyakov is a
-            surname 371 times against a single given name.
+            surname {smerdyakovSurname.toLocaleString()} times against a single given name.
             <br />
             <br />
             <span data-spoiler-from={WHOLE_BOOK}>
