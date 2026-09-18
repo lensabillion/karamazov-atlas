@@ -16,6 +16,10 @@ import { COLLAGE_PLATES } from '../src/lib/collage-catalogue.ts';
 import { STORY_MOVEMENTS } from '../src/lib/illustration-stories.ts';
 import { findPassage, toParagraphs } from '../src/lib/passage.ts';
 import { isVerbatim } from './lib/verbatim.ts';
+import { EVIDENCE, SOURCE_NAMES } from '../src/lib/evidence.ts';
+import { IDEAS, SPEAKER_NAMES } from '../src/lib/ideas.ts';
+import { apart } from '../src/components/Divergence.tsx';
+import { KILLED_OPTIONS, RESPONSIBLE_OPTIONS } from '../src/components/Verdict.tsx';
 import { BOOK_ORIENTATION, CHAPTER_ORIENTATION } from '../src/lib/orientation.ts';
 import { CHARACTER_INTRODUCTIONS } from '../src/lib/character-biographies.ts';
 
@@ -226,6 +230,38 @@ const early = [
     namedTooEarly(note, order.get(id) ?? 0).map((who) => `${id}: ${who}`)),
 ];
 check('no orientation names a person before the reader meets them', early.length === 0, early.join(', '));
+
+console.log('\nthe case file');
+check('every evidence id is unique', new Set(EVIDENCE.map((e) => e.id)).size === EVIDENCE.length);
+const badEvidenceChapter = EVIDENCE.filter((e) => !chapterIds.has(e.chapter)).map((e) => e.id);
+check('every piece of evidence opens a real chapter', badEvidenceChapter.length === 0, badEvidenceChapter.join(', '));
+const misquotedEvidence = EVIDENCE.filter((e) => findPassage(paragraphsOf(e.chapter), e.quote) === -1).map((e) => e.id);
+check(`all ${EVIDENCE.length} pieces of evidence quote their chapter verbatim`, misquotedEvidence.length === 0,
+  misquotedEvidence.join(', '));
+check('every source is named', EVIDENCE.every((e) => Boolean(SOURCE_NAMES[e.source])));
+check('every piece of evidence says what it establishes', EVIDENCE.every((e) => Boolean(e.says.trim())));
+// The novel's argument, as data: the confession that would clear Dmitri never reached the jury.
+check('Smerdyakov’s confession is recorded as never heard by the court',
+  EVIDENCE.some((e) => e.kind === 'confession' && e.points.dmitri === 'away' && e.court === 'never heard'));
+
+console.log('\nthe two questions');
+check('the court’s way — one name for both — is not a divergence', !apart({ killed: 'dmitri', responsible: ['dmitri'] }));
+check('holding more than the killer responsible is a divergence', apart({ killed: 'smerdyakov', responsible: ['smerdyakov', 'ivan'] }));
+check('holding someone other than the killer responsible is a divergence', apart({ killed: 'dmitri', responsible: ['fyodor'] }));
+check('an unanswered question is not a divergence',
+  !apart({ killed: null, responsible: ['everyone'] }) && !apart({ killed: 'dmitri', responsible: [] }));
+check('the second question offers the elder’s answer, everyone', RESPONSIBLE_OPTIONS.some((o) => o.id === 'everyone'));
+check('the first question offers each of the three the novel puts in the frame',
+  ['dmitri', 'smerdyakov', 'ivan'].every((id) => KILLED_OPTIONS.some((o) => o.id === id)));
+
+console.log('\nwho says this');
+const voices = IDEAS.flatMap((i) => i.voices.map((v) => ({ ...v, idea: i.id })));
+const misquotedVoices = voices.filter((v) => !chapterIds.has(v.chapter) || findPassage(paragraphsOf(v.chapter), v.quote) === -1)
+  .map((v) => `${v.idea}:${v.who}@${v.chapter}`);
+check(`all ${voices.length} voices quote their chapter verbatim`, misquotedVoices.length === 0, misquotedVoices.join(', '));
+check('every speaker is named', voices.every((v) => Boolean(SPEAKER_NAMES[v.who])));
+check('each idea is followed in reading order', IDEAS.every((i) =>
+  i.voices.every((v, k) => k === 0 || (order.get(v.chapter) ?? 0) >= (order.get(i.voices[k - 1]!.chapter) ?? 0))));
 
 console.log('\nextracted chapters');
 // data/entities.json is model output. Its quotations are the field most likely

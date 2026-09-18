@@ -11,6 +11,7 @@ const LINKS = [
   { href: '/who', label: 'Who’s who' },
   { href: '/names', label: 'Names' },
   { href: '/timeline', label: 'Timeline' },
+  { href: '/case', label: 'The case' },
   { href: '/ask', label: 'Ask' },
 ];
 

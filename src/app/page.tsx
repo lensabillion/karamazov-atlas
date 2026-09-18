@@ -118,6 +118,8 @@ export default function Home() {
           <a className="link" href="/characters">The cast →</a>
           <a className="link" href="/who">Relationships →</a>
           <a className="link" href="/timeline">The timeline →</a>
+          <a className="link" href="/case">The case file →</a>
+          <a className="link" href="/ideas">Who says this →</a>
           <a className="link" href="/names">Names &amp; forms →</a>
           <a className="link" href="/read">Read the novel →</a>
           <a className="link" href="/translations">Which translation? →</a>
