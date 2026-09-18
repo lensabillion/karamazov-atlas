@@ -138,6 +138,20 @@ publisher's mark, or any existing artwork.
 
 ---
 
+## 5a. The title leaf
+
+The homepage opens as the edition opens: a title page (atlas-1d7j). Title, the
+part-line, "by", the author, the translator, a device, then the imprint — each line
+on its own measure, in graduated letterspaced capitals from the six-step scale, each
+tracked run mirrored by its `text-indent`, line breaks balanced. The wording is the
+atlas's own and the imprint lines *cite* the 1912 London edition the text comes from
+rather than imitating its imprint. The device (`TitleDevice.tsx`) is original: three
+interlocked rings for the sons Fyodor acknowledges and a fourth, dashed, for the one
+the town says is his — the dashed line the map uses for what the novel never settles.
+Never substitute a publisher's mark.
+
+---
+
 ## 6. On portraits
 
 The 1912 edition is unillustrated, but Boris Grigoriev made a later 58-sheet

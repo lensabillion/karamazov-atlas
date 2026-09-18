@@ -4,6 +4,7 @@ import CharacterPlate from '@/components/CharacterPlate';
 import CollageCatalogue from '@/components/CollageCatalogue';
 import HomeReference from '@/components/HomeReference';
 import SceneSpread from '@/components/SceneSpread';
+import TitleDevice from '@/components/TitleDevice';
 import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
 import { CHARACTER_BIOGRAPHIES } from '@/lib/character-biographies';
 import { getCorpus, getMentions } from '@/lib/corpus';
@@ -23,12 +24,24 @@ export default function Home() {
 
   return (
     <main className="page page--wide folio-page">
-      <header className="folio-title">
-        <div>
-          <p className="eyebrow">An illustrated companion · Full-book spoilers</p>
-          <h1 className="title">The Brothers Karamazov</h1>
-        </div>
-        <p className="text-muted">The people you remember.<br />The moments that remain.</p>
+      {/* The first leaf, set as the edition sets its title page: each line on
+          its own measure, in graduated letterspaced capitals, with a device
+          between the names and the imprint (atlas-1d7j). The wording is the
+          atlas's own; the last lines cite the edition the text comes from
+          rather than imitating its imprint, and the device is original. */}
+      <header className="title-leaf book-description">
+        <p className="title-leaf__over">An illustrated companion</p>
+        <h1 className="title-leaf__title">The Brothers<br />Karamazov</h1>
+        <hr className="plate__rule" />
+        <p className="title-leaf__line">A novel in four parts and an epilogue</p>
+        <p className="title-leaf__by">by</p>
+        <p className="title-leaf__author">Fyodor Dostoyevsky</p>
+        <p className="title-leaf__line">In the translation of Constance Garnett</p>
+        <TitleDevice />
+        <p className="title-leaf__imprint">The text of the London edition<br />1912</p>
+        <hr className="plate__rule plate__rule--hair" />
+        <p className="title-leaf__motto">The people you remember. The moments that remain.<br />
+          <span className="meta">Written for readers who have finished · full-book spoilers</span></p>
       </header>
 
       {/* Shown whenever the reader has set a place short of the end. */}
