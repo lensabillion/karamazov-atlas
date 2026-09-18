@@ -15,6 +15,7 @@ import { CHARACTER_BIOGRAPHIES } from '../src/lib/character-biographies.ts';
 import { COLLAGE_PLATES } from '../src/lib/collage-catalogue.ts';
 import { STORY_MOVEMENTS } from '../src/lib/illustration-stories.ts';
 import { findPassage, toParagraphs } from '../src/lib/passage.ts';
+import { isVerbatim } from './lib/verbatim.ts';
 import { BOOK_ORIENTATION, CHAPTER_ORIENTATION } from '../src/lib/orientation.ts';
 import { CHARACTER_INTRODUCTIONS } from '../src/lib/character-biographies.ts';
 
@@ -219,6 +220,23 @@ const early = [
     namedTooEarly(note, order.get(id) ?? 0).map((who) => `${id}: ${who}`)),
 ];
 check('no orientation names a person before the reader meets them', early.length === 0, early.join(', '));
+
+console.log('\nextracted chapters');
+// data/entities.json is model output. Its quotations are the field most likely
+// to drift, so every one committed must be in its chapter word for word.
+const entitiesPath = join(process.cwd(), 'data', 'entities.json');
+if (existsSync(entitiesPath)) {
+  const entities = JSON.parse(readFileSync(entitiesPath, 'utf8')) as {
+    chapters: Record<string, { keyQuote: { text: string } | null }>;
+  };
+  const ids = Object.keys(entities.chapters);
+  check('every extracted chapter is a real chapter', ids.every((id) => chapterIds.has(id)));
+  const bad = ids.filter((id) => {
+    const q = entities.chapters[id]!.keyQuote;
+    return q && !isVerbatim(q.text, readFileSync(join(process.cwd(), 'data', 'chapters', `${id}.txt`), 'utf8'));
+  });
+  check(`every extracted quotation is verbatim (${ids.length} chapters)`, bad.length === 0, bad.join(', '));
+}
 
 console.log(failed === 0 ? '\nCurated data checks passed.' : `\n${failed} check(s) failed`);
 process.exit(failed === 0 ? 0 : 1);
