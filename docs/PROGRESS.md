@@ -4,7 +4,7 @@ description: Running record of what has been built, what the reviews changed, wh
 ---
 # Progress Log
 
-**Living document. Append, do not rewrite.** Last updated 2026-09-10.
+**Living document. Append, do not rewrite.** Last updated 2026-09-18.
 
 Ground truth for work items is tbd (`tbd list`). This file explains the *why* and
 the *state*; the beads carry the detail.
@@ -188,10 +188,82 @@ Ordered. Ground truth in tbd.
 
 ---
 
+## 8. The open-beads pass (18 September 2026)
+
+Asked to address every open bead. 27 were open and one more was filed along the way;
+24 are now closed and 4 remain, each needing something only the owner can do. Each
+closing note in tbd says what changed and how it was verified. Branch
+`chore/address-open-beads`.
+
+### Stage of change, now
+
+| Stage | Status | Evidence |
+| --- | --- | --- |
+| 1–2 · Corpus and derived data | **Done, corrected again** | Names wrapped across a line break were missed; fixed in the shared matcher (Fyodor 298, Perhotin 119) |
+| 3 · Design system | **Done (v6)** | Colour aliases retired; title-page leaf; skill brought up to v6 |
+| 4 · Reader surfaces | **Done for the rereader, and safe for a first reader** | Reading position folds every view; each chapter says why it is there |
+| 5 · AI layer | **Verified live** | `/ask` answered, refused and declined to spoil; search fixed; answers set as prose. Account now out of credit |
+| 6 · Python API | **Decided** | Kept as the chat route's index; pipeline port not taken (design-document §6.9) |
+| 7 · Illustrated memory atlas | **Done** | Illustrated book, studies labelled, every claim opens its passage |
+| 8 · Deployment | **Configured, not deployed** | Needs the key rotated and a Vercel project — both the owner's |
+| 9 · CI | **Done** | Six TypeScript suites, pytest, data drift |
+| 10 · The case file | **Done** | `/case`: 28 verified pieces of evidence, two verdicts, the reader's arc; `/ideas` |
+
+### What changed
+
+- **Evidence is reachable from every claim (R8).** Every tie, person and timeline block
+  carries a verified chapter; key claims carry a verbatim quote and open the reader at
+  that paragraph, marked. Ties say whether they are narrated fact, a character's claim
+  or this atlas's reading. Citing them found three errors: Ivan's return (after the
+  funeral, not the next day), Smerdyakov's fit (a sham, by his own account) and the
+  chapter of Snegiryov's trampled money.
+- **The reader's place.** Set once; every page folds what lies past it before first
+  paint. `/ask` answers only from chapters up to it.
+- **Names (R2, 30o1).** Direct address is told apart from mention; tags no longer reach
+  across quotes. Writing the tests found four more faults. Precision, hand-judged: 50/50.
+- **New pages.** `/case` (evidence, two verdicts, the reader's arc), `/ideas` (who says
+  this), `/translations` (the choice before page one); a "why this is here" note on
+  every chapter; the homepage opens on a title page.
+- **Illustrations.** The nine Desktop images are AI re-renderings of collage crops, not
+  Grigoriev; seven are shown as labelled studies, two excluded. Katerina is now shown by
+  a portrait of her, and the bow study stands with the scene it depicts.
+
+### What went wrong, and what it taught
+
+- **Text fragments failed silently.** Chrome only honours `#:~:text=` on a user click
+  and cannot match across the buttons round character names; the reader now finds and
+  marks the paragraph itself.
+- **The first live `/ask` call exposed useless search.** Every query returned the same
+  five long chapters; the model got the answer right by guessing. BM25 now, with tests
+  pinning six known passages. A green typecheck had said nothing about this.
+- **A test harness can lie too.** Twice my own scripted clicks produced wrong data (a
+  radio label matched before a checkbox). Checking the harness before the product saved
+  a false bug report.
+- **A stash mid-session** left the dev server with a new nav and an old layout, and the
+  console kept the stale errors after the fix. A fresh server was the only clean
+  reading.
+- **I misread an image, then corrected it.** The moonlit-house study was first matched
+  to the wrong plate, and the plate 8 study was first judged a genuine reproduction.
+  Both corrected before anything shipped; provenance (`app://` origin) was the tell.
+- **Spend.** Live checks and extraction used about $5–6 on the owner's key; the
+  account ran out of credit mid-extraction, so 41 chapters failed.
+
+### Still open
+
+| Bead | What is needed | Whose |
+| --- | --- | --- |
+| `atlas-qcsc` | Rotate the exposed key in the Anthropic console | The owner's |
+| `atlas-lg09` | Create the Vercel project and deploy; then Render | The owner's accounts |
+| `atlas-94i4` | Add credit, then `npm run extract` and `-- --redo-dropped` (≈$3) | Owner, then one command |
+| `atlas-isd0` | The Fabergé Museum's 2026 album of the cycle | A book, not a search |
+
+---
+
 ## Changelog
 
 | Date | Change |
 | --- | --- |
+| 2026-09-18 | Open-beads pass: evidence links to paragraphs, reading position, spoiler-scoped `/ask` verified live, BM25 search, attribution precision, chapter notes, translation brief, title leaf, labelled Desktop studies, Katerina's portrait, the case file with verdicts and arc, who says this. 24 beads closed, 4 left for the owner. |
 | 2026-09-17 | Reframed 21 confirmed illustrations as five story movements, with visual cues and memory notes; kept 15 uncertain works separate. White general background now surrounds unchanged first-edition cream descriptions. Two matched scenes use larger supplied originals; small extracts are no longer stretched or recompressed. |
 | 2026-09-17 | Extracted 36 historical compositions from the supplied collage: 21 source-matched, 7 provisional, 8 unidentified. Added an expandable homepage catalogue, individual image links and ZIP; opened scene contents so the guitar scene is visible by name. |
 | 2026-09-17 | Homepage becomes an illustrated companion: nine character spreads, six original Grigoriev scene reproductions, all 27 biographies and name plates, and linked deeper reading. Existing tools and chapter index retained. Tests/typecheck/133-page build pass; live responsive review blocked by app usage limit. |

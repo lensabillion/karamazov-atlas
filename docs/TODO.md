@@ -4,7 +4,7 @@ description: Everything the 2026-09-09 review found, what has been fixed, and wh
 ---
 # TODO
 
-**Audit date:** 2026-09-09 · Ground truth for work items is tbd (`tbd list`).
+**Audit date:** 2026-09-09 · **Status updated:** 2026-09-18 · Ground truth for work items is tbd (`tbd list`).
 This file is the review's own record: what was found, what was fixed in this pass,
 and what remains.
 
@@ -14,7 +14,7 @@ Status key: **[ ]** open · **[x]** fixed this pass · **[~]** partly done · **
 
 ## 1. Process — the things that fell through the cracks
 
-- **[!] Two commits are on no pull request.** PR #4 merged before the deployment
+- **[x] Two commits are on no pull request.** *(Merged in PR #5.)* PR #4 merged before the deployment
   config and the rate limiter were committed, so `render.yaml`, `vercel.json`,
   `api/Dockerfile` and `src/lib/rate-limit.ts` exist only on
   `atlas-bdxb/name-key`. **Render and Vercel deploy from a branch — point either at
@@ -25,7 +25,7 @@ Status key: **[ ]** open · **[x]** fixed this pass · **[~]** partly done · **
   documented now lives in `docs/deployment-plan.md` §11, which is committed and cannot
   be gitignored away.
 - **[!] An exposed API key has still not been rotated.** → `atlas-qcsc` (P0)
-- **[ ] Another session's work is uncommitted** — new timeline and relationship-view
+- **[x] Another session's work is uncommitted** *(Pushed as PR #7 and closed by the owner.)* — new timeline and relationship-view
   modules, three CSS files, two test scripts. Their tests pass. Left untouched here
   because it is someone else's in-progress work, not mine to commit.
 
@@ -41,7 +41,7 @@ Status key: **[ ]** open · **[x]** fixed this pass · **[~]** partly done · **
 - **[x] Curated data had nothing enforcing its integrity.** A tie pointing at a
   missing person, or a timeline span naming an unknown character, rendered as a
   silently absent line. → `atlas-h0xk`
-- **[ ] Attribution treats a mentioned person as an addressee.** The data model, not
+- **[x] Attribution treats a mentioned person as an addressee.** *(Fixed 18 Sep: address vs mention, precision 50/50.)* The data model, not
   the copy, still conflates "Alyosha said X about Dmitri" with "said it to Dmitri".
   → `atlas-w56r`
 
@@ -60,7 +60,7 @@ Status key: **[ ]** open · **[x]** fixed this pass · **[~]** partly done · **
   → `atlas-nkqm`
 - **[x] `src/lib/atlas-api.ts` had no tests** — including its fallback, which is the
   behaviour that keeps the site up when Render is down. *(new finding)*
-- **[ ] Name morphology, lineage and attribution are untested.** → `atlas-30o1`
+- **[x] Name morphology, lineage and attribution are untested.** *(`scripts/test-names.ts`.)* → `atlas-30o1`
 
 ## 5. Documentation
 
@@ -71,11 +71,11 @@ Status key: **[ ]** open · **[x]** fixed this pass · **[~]** partly done · **
 
 ## 6. Performance
 
-- **[ ] `searchCorpus` reads all 96 chapter files per query.** Now only the fallback
+- **[x] `searchCorpus` reads all 96 chapter files per query.** *(Indexed once; BM25.)* Now only the fallback
   path, so less pressing, but unchanged. → `atlas-0goa`
 
 ## 7. Product — the largest open item
 
-- **[ ] The app optimises for the wrong reader.** The Codex review's R1: statistics
+- **[x] The app optimises for the wrong reader.** *(Closed with `atlas-t72d`, 18 Sep.)* The Codex review's R1: statistics
   lead, and there is no illustrated scene sequence. This is the actual product goal
   and the biggest open piece of work. → `atlas-t72d`

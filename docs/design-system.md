@@ -104,9 +104,12 @@ at about 2% plus two faint washes, one cloth-red and one umber, remains in
 `--paper-texture`. Apply it to `.book-description` and `.plate`, not the body.
 The white general background is deliberate; do not restore the old full-page wash.
 
-The v3 names (`--blue`, `--teal`, `--purple`, `--pink`) still resolve; they now
-point at cloth and gilt. Components were not rewritten to rename them, because
-the alias is honest about what happened and touches one file rather than thirty.
+The v3 names (`--blue`, `--teal`, `--purple`, `--pink`) were **retired on
+18 September 2026** (atlas-2oai). They had been aliased to cloth and gilt, which
+meant a rule reading `var(--blue)` rendered red — a token name a reader cannot
+trust. Every use now names the book colour it means. Short names for SVG
+attributes: `--cloth`, `--cloth-deep`, `--cloth-soft`, `--gilt`, `--gilt-soft`,
+`--ink`, `--ink-2`, `--ink-3`, `--surface`, `--stock`.
 
 White is the canvas, not a new category or accent colour.
 
@@ -132,6 +135,20 @@ block, an ornament, leader dots into a cast list.
 `Ornament.tsx` draws a lozenge on an axis with four leaves, from primitives. If
 another device is wanted, **draw an original**; do not trace a binding, a
 publisher's mark, or any existing artwork.
+
+---
+
+## 5a. The title leaf
+
+The homepage opens as the edition opens: a title page (atlas-1d7j). Title, the
+part-line, "by", the author, the translator, a device, then the imprint — each line
+on its own measure, in graduated letterspaced capitals from the six-step scale, each
+tracked run mirrored by its `text-indent`, line breaks balanced. The wording is the
+atlas's own and the imprint lines *cite* the 1912 London edition the text comes from
+rather than imitating its imprint. The device (`TitleDevice.tsx`) is original: three
+interlocked rings for the sons Fyodor acknowledges and a fourth, dashed, for the one
+the town says is his — the dashed line the map uses for what the novel never settles.
+Never substitute a publisher's mark.
 
 ---
 

@@ -55,3 +55,12 @@
 @media (max-width: 600px) {
   .collage-catalogue__grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* A generated study after a plate (atlas-08gb): closed by default, under the
+   extract it follows, and labelled before it is seen. */
+.collage-catalogue__figures { display: grid; justify-items: center; gap: var(--space-3); align-content: start; min-width: 0; }
+.collage-catalogue__study { width: 100%; max-width: 440px; border-top: var(--border-width) dashed var(--border-strong); padding-top: var(--space-2); }
+.collage-catalogue__study > summary { cursor: pointer; color: var(--cloth); font-size: var(--text-sm); }
+.collage-catalogue__study figure { margin: var(--space-2) 0 0; display: grid; gap: var(--space-2); }
+.collage-catalogue__study img { width: 100%; height: auto; }
+.collage-catalogue__study figcaption { line-height: var(--leading-normal); }

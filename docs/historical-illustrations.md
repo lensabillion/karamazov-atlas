@@ -1,5 +1,24 @@
 # Historical Illustration Placement
 
+## Generated Studies After Seven Plates · 18 September 2026
+
+The user asked for the nine images in `~/Desktop/Karamazov illustrations` to be
+considered. All nine are AI re-renderings of the collage extracts, not Grigoriev:
+saved from a desktop app, generated filenames (one is "Codex Image"), five to eight
+times the extract's size, each adding detail the extract lacks. Seven are shown as
+**generated studies**, each behind a closed disclosure under the extract it follows,
+captioned "AI-generated, not by Grigoriev" with a sentence on what it invents. None
+replaces an extract or adds a link. Two are left out because their inventions change
+the subject (plate 21: the figure becomes a woman and a man is added; plate 31: a
+reflection becomes a person). Details: `src/assets/studies/README.md`; tests in
+`scripts/test-curated.ts`.
+
+While matching them, the moonlit-house study was first taken for plate 25 ("A fine,
+warm and clear day…"), which would have made it a contradiction; it follows plate 2
+("What if Grushenka comes today…"), a moonlit house and garden, and is faithful to it.
+The plate 8 study, first judged a less-cropped genuine reproduction because its style
+matches, came from the same generator and is treated as a study too.
+
 ## Storytelling and White Surroundings · 17 September 2026
 
 The 21 confirmed collage illustrations now form five visible thematic movements,

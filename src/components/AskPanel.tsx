@@ -2,6 +2,9 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useState } from 'react';
+import AnswerText from './AnswerText';
+import type { PlaceChapter } from '@/lib/reading-position';
+import { setReadingPosition, useReadingPosition } from '@/lib/use-reading-position';
 
 const SUGGESTED = [
   'Where does Ivan first state the idea Smerdyakov later acts on?',
@@ -10,14 +13,18 @@ const SUGGESTED = [
   'How does the dog Zhutchka connect Smerdyakov to Ilusha?',
 ];
 
-export default function AskPanel({ hasKey }: { hasKey: boolean }) {
+export default function AskPanel({ hasKey, places }: { hasKey: boolean; places: PlaceChapter[] }) {
   const [input, setInput] = useState('');
   const { messages, sendMessage, status, error } = useChat();
   const busy = status === 'submitted' || status === 'streaming';
+  // atlas-zbt8: retrieval is limited to the reader's place. Sent with every
+  // question, so moving the place mid-conversation takes effect at once.
+  const position = useReadingPosition();
+  const place = position === null ? null : places[position - 1];
 
   const ask = (text: string) => {
     if (!text.trim() || busy) return;
-    sendMessage({ text });
+    sendMessage({ text }, { body: { position } });
     setInput('');
   };
 
@@ -30,6 +37,22 @@ export default function AskPanel({ hasKey }: { hasKey: boolean }) {
           <code>ANTHROPIC_API_KEY=sk-ant-…</code> and restart <code>npm run dev</code>.
         </p>
       )}
+
+      {/* The scope is always stated: silently withholding half the book from
+          someone who has finished it would be its own failure. */}
+      <p className="ask-scope" data-scoped={place ? true : undefined}>
+        {place ? (
+          <>
+            Answers draw only on chapters up to <strong>{place.cite}</strong> ({place.title}),
+            your place in the book.{' '}
+            <button type="button" className="spoiler-note__show" onClick={() => setReadingPosition(null)}>
+              Use the whole book
+            </button>
+          </>
+        ) : (
+          <>Answers draw on the whole book, ending included. Set your place in the running head to keep them spoiler-free.</>
+        )}
+      </p>
 
       {messages.length === 0 && (
         <div className="row">
@@ -52,9 +75,7 @@ export default function AskPanel({ hasKey }: { hasKey: boolean }) {
                     {part.text}
                   </p>
                 ) : (
-                  <p className="answer" key={i}>
-                    {part.text}
-                  </p>
+                  <AnswerText text={part.text} key={i} />
                 );
               }
               if (part.type.startsWith('tool-')) {

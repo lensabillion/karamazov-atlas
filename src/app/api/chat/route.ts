@@ -11,7 +11,8 @@ import {
 import { z } from 'zod';
 import { remoteSearch } from '@/lib/atlas-api';
 import { callerKey, check } from '@/lib/rate-limit';
-import { getChapter, getChapterText, getCorpus, searchCorpus } from '@/lib/corpus';
+import { getChapter, getChapterText, getCorpus, ordinalOf, searchCorpus } from '@/lib/corpus';
+import { parsePosition } from '@/lib/reading-position';
 
 export const maxDuration = 60;
 
@@ -51,6 +52,24 @@ Rules:
   Smerdyakov, Grushenka).
 - Be concise and concrete. No throat-clearing.`;
 
+/**
+ * atlas-zbt8. When the reader has set a place, the tools cannot reach past it —
+ * but the model has read the novel, so it is also told not to volunteer what it
+ * knows. Retrieval scoping stops the text leaking; this stops the model.
+ */
+function scopeRule(through: number): string {
+  const ch = getCorpus().chapters[through - 1]!;
+  return `
+
+The reader has read up to and including ${ch.cite} ("${ch.title}") and no further.
+- Your tools only return chapters up to that point. Answer from those alone.
+- Do not reveal, hint at, or confirm anything that happens later: not who dies, who
+  is guilty, what anyone confesses, or how the trial ends. This holds even if you
+  know it from outside the tools.
+- If a question can only be answered by later chapters, say that the novel takes it
+  up later, and stop there.`;
+}
+
 export async function POST(req: Request) {
   const limit = check(callerKey(req), { limit: RATE_LIMIT, windowMs: RATE_WINDOW_MS });
   const limitHeaders = {
@@ -73,7 +92,7 @@ export async function POST(req: Request) {
     );
   }
 
-  let body: { messages?: UIMessage[] };
+  let body: { messages?: UIMessage[]; position?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -101,9 +120,14 @@ export async function POST(req: Request) {
     );
   }
 
+  // Null means the whole book. Anything malformed is treated as the whole book
+  // rather than rejected: the scope is a courtesy to the reader, not a security
+  // boundary, and the answer header on the page states which scope applied.
+  const through = parsePosition(body.position == null ? null : String(body.position)) ?? undefined;
+
   const result = streamText({
     model: anthropic('claude-opus-5'),
-    system: SYSTEM,
+    system: through === undefined ? SYSTEM : SYSTEM + scopeRule(through),
     messages: await convertToModelMessages(messages),
     stopWhen: stepCountIs(6),
     maxOutputTokens: MAX_OUTPUT_TOKENS,
@@ -121,7 +145,7 @@ export async function POST(req: Request) {
         execute: async ({ query }) => {
           // Prefer the API's FTS5 index when it is configured; fall back to the
           // local scan so the route works with no backend deployed.
-          const remote = await remoteSearch(query, { limit: 5 });
+          const remote = await remoteSearch(query, { limit: 5, before: through });
           if (remote) {
             return remote.map((h) => ({
               cite: h.cite,
@@ -130,7 +154,7 @@ export async function POST(req: Request) {
               excerpt: h.excerpt.slice(0, 1400),
             }));
           }
-          const hits = searchCorpus(query, 5);
+          const hits = searchCorpus(query, 5, through);
           return hits.map((h) => ({
             cite: h.chapter.cite,
             title: h.chapter.title,
@@ -150,6 +174,9 @@ export async function POST(req: Request) {
         execute: async ({ id }) => {
           const chapter = getChapter(id);
           if (!chapter) return { error: `No chapter ${id}` };
+          if (through !== undefined && ordinalOf(id) > through) {
+            return { error: `${chapter.cite} is past the reader's place. Do not describe it.` };
+          }
           return {
             cite: chapter.cite,
             title: chapter.title,
@@ -162,7 +189,9 @@ export async function POST(req: Request) {
         description: 'List every chapter with its id, title and citation. Use to orient yourself.',
         inputSchema: z.object({}),
         execute: async () =>
-          getCorpus().chapters.map((c) => ({ id: c.id, cite: c.cite, title: c.title })),
+          getCorpus().chapters
+            .slice(0, through ?? undefined)
+            .map((c) => ({ id: c.id, cite: c.cite, title: c.title })),
       }),
     },
   });

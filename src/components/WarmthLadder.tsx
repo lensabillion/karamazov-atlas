@@ -2,13 +2,14 @@ import { markPath } from './GroupMark';
 import type { NamedCharacter, Register } from '@/lib/names';
 
 /**
- * The warmest thing anyone in the novel ever calls each person.
+ * How far the naming of each person ever relaxes.
  *
- * Not a frequency chart — a ceiling. Each row shows how far up the register
- * ladder a character is ever addressed, across all 349,367 words. The three
- * men at the centre of the murder occupy the three coldest rows in the book:
- * the father nobody ever addresses familiarly, the brother nobody gives a
- * diminutive, and the son called by a surname 371 times and a name once.
+ * Not a frequency chart — a ceiling. Each row shows the least formal register
+ * in which the TEXT names a character anywhere, narration included, under the
+ * alias list in scripts/lib/characters.ts. It says how the prose names people;
+ * it is not a measure of how anyone feels, and a finite alias list cannot
+ * prove what nobody ever says (review finding R2). The page frames the
+ * pattern it shows as a reading, offered as one.
  */
 const LADDER: Register[] = ['formal', 'distanced', 'neutral', 'familiar', 'tender'];
 const LABEL: Record<Register, string> = {
@@ -44,7 +45,7 @@ export default function WarmthLadder({
   return (
     <div className="chart scroll-x">
       <svg viewBox={`0 0 ${W} ${H}`} role="img"
-        aria-label="The warmest register in which each character is ever addressed">
+        aria-label="The least formal register in which the text ever names each character">
 
         {LADDER.map((reg, i) => (
           <g key={reg}>
@@ -66,12 +67,12 @@ export default function WarmthLadder({
             <g key={c.id} className={`group-${c.group}`}>
               <text x={nameW - 12} y={y} textAnchor="end" dominantBaseline="middle"
                 style={{ font: `${marked ? 700 : 400} 13px Old Standard TT, Georgia, serif` }}
-                fill={marked ? 'var(--teal-deep)' : 'var(--ink)'}>
+                fill={marked ? 'var(--cloth-deep)' : 'var(--ink)'}>
                 {c.short}
               </text>
               {/* how far warmth reaches for this person */}
               <line x1={nameW + step / 2} y1={y} x2={x} y2={y}
-                stroke={marked ? 'var(--teal)' : 'var(--blue)'} strokeWidth={marked ? 3 : 2} opacity={0.5} />
+                stroke={marked ? 'var(--gilt)' : 'var(--cloth)'} strokeWidth={marked ? 3 : 2} opacity={0.5} />
               <path className="mark" data-active={marked || undefined}
                 transform={`translate(${x},${y})`} d={markPath(c.group, marked ? 6.5 : 4.5)} />
               <text x={W - 78} y={y} dominantBaseline="middle"

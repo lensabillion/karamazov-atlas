@@ -64,7 +64,7 @@ def test_search_finds_the_inquisitor():
 
 
 def test_spoiler_scope_excludes_later_chapters():
-    """Book V chapter 5 is ordinal 31; scoping to 20 must exclude it."""
+    """Book V chapter 5 is ordinal 36; scoping to 20 must exclude it."""
     early = client.get("/search", params={"q": "Inquisitor", "before": 20}).json()
     assert all(h["chapter_id"] != "b05-c05" for h in early)
 
@@ -72,3 +72,13 @@ def test_spoiler_scope_excludes_later_chapters():
 def test_attribution_coverage_is_reported_not_hidden():
     cov = client.get("/names/coverage").json()
     assert 0 < cov["ratio"] < 0.25, "coverage should be stated honestly"
+    assert cov["attributed"] <= cov["quotes"]
+    assert cov["addressed"] > 0 and cov["mentioned"] > 0
+
+
+def test_direct_address_is_kept_apart_from_mention():
+    """R2: a name spoken about someone is not the speaker addressing them."""
+    addressed = client.get("/addresses", params={"speaker": "alyosha", "target": "dmitri"}).json()
+    spoken = client.get("/spoken-of", params={"speaker": "alyosha", "target": "dmitri"}).json()
+    assert any(a["form"] == "Mitya" for a in addressed), "Alyosha calls him Mitya to his face"
+    assert spoken, "and speaks of him in the third person too"

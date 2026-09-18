@@ -4,11 +4,13 @@ import CharacterPlate from '@/components/CharacterPlate';
 import CollageCatalogue from '@/components/CollageCatalogue';
 import HomeReference from '@/components/HomeReference';
 import SceneSpread from '@/components/SceneSpread';
+import TitleDevice from '@/components/TitleDevice';
 import { CHARACTER_ARTWORK } from '@/lib/character-artwork';
 import { CHARACTER_BIOGRAPHIES } from '@/lib/character-biographies';
 import { getCorpus, getMentions } from '@/lib/corpus';
 import { ILLUSTRATED_SCENES } from '@/lib/illustrated-scenes';
 import { getNames } from '@/lib/names';
+import { WHOLE_BOOK } from '@/lib/reading-position';
 import './plate.css';
 import './home.css';
 
@@ -22,13 +24,32 @@ export default function Home() {
 
   return (
     <main className="page page--wide folio-page">
-      <header className="folio-title">
-        <div>
-          <p className="eyebrow">An illustrated companion · Full-book spoilers</p>
-          <h1 className="title">The Brothers Karamazov</h1>
-        </div>
-        <p className="text-muted">The people you remember.<br />The moments that remain.</p>
+      {/* The first leaf, set as the edition sets its title page: each line on
+          its own measure, in graduated letterspaced capitals, with a device
+          between the names and the imprint (atlas-1d7j). The wording is the
+          atlas's own; the last lines cite the edition the text comes from
+          rather than imitating its imprint, and the device is original. */}
+      <header className="title-leaf book-description">
+        <p className="title-leaf__over">An illustrated companion</p>
+        <h1 className="title-leaf__title">The Brothers<br />Karamazov</h1>
+        <hr className="plate__rule" />
+        <p className="title-leaf__line">A novel in four parts and an epilogue</p>
+        <p className="title-leaf__by">by</p>
+        <p className="title-leaf__author">Fyodor Dostoyevsky</p>
+        <p className="title-leaf__line">In the translation of Constance Garnett</p>
+        <TitleDevice />
+        <p className="title-leaf__imprint">The text of the London edition<br />1912</p>
+        <hr className="plate__rule plate__rule--hair" />
+        <p className="title-leaf__motto">The people you remember. The moments that remain.<br />
+          <span className="meta">Written for readers who have finished · full-book spoilers</span></p>
       </header>
+
+      {/* Shown whenever the reader has set a place short of the end. */}
+      <p className="spoiler-note ahead-note" data-spoiler-note={WHOLE_BOOK}>
+        This illustrated book is written for readers who have finished the novel. You have set
+        your place part-way through, so scenes from later chapters are folded away and each
+        person is described as you first meet them.
+      </p>
 
       <nav className="folio-contents" id="contents" aria-label="Illustrated contents">
         <details>
@@ -97,8 +118,11 @@ export default function Home() {
           <a className="link" href="/characters">The cast →</a>
           <a className="link" href="/who">Relationships →</a>
           <a className="link" href="/timeline">The timeline →</a>
+          <a className="link" href="/case">The case file →</a>
+          <a className="link" href="/ideas">Who says this →</a>
           <a className="link" href="/names">Names &amp; forms →</a>
           <a className="link" href="/read">Read the novel →</a>
+          <a className="link" href="/translations">Which translation? →</a>
         </nav>
         <details className="folio-reference-disclosure">
           <summary>Open the chapter index, memorable passages &amp; mention counts</summary>

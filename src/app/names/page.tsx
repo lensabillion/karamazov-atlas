@@ -1,7 +1,8 @@
 import NameOrbit from '@/components/NameOrbit';
 import PatronymicTree from '@/components/PatronymicTree';
 import WarmthLadder from '@/components/WarmthLadder';
-import { getCorpus } from '@/lib/corpus';
+import { getCorpus, ordinalOf } from '@/lib/corpus';
+import { WHOLE_BOOK } from '@/lib/reading-position';
 import { getNames } from '@/lib/names';
 
 export default function NamesPage() {
@@ -16,6 +17,9 @@ export default function NamesPage() {
 
   const lineage = lineages[0];
   const pavel = byId.get('smerdyakov')?.forms.find((f) => f.form === 'Pavel Fyodorovitch');
+  const smerdyakovSurname = byId.get('smerdyakov')?.forms.find((f) => f.form === 'Smerdyakov')?.count ?? 0;
+  // Smerdyakov's patronymic is itself a disclosure: fold it until the chapter that says it.
+  const pavelFrom = pavel?.firstChapter ? ordinalOf(pavel.firstChapter) : undefined;
 
   return (
     <main className="page page--wide">
@@ -37,11 +41,14 @@ export default function NamesPage() {
             <p className="text-muted">
               A patronymic names the father. Everyone below carries{' '}
               <strong>{lineage.patronymic}</strong>, so everyone below is a child of{' '}
-              {lineage.father}. The dashed thread is said once, at{' '}
-              {pavel && (
-                <a className="link" href={`/read/${pavel.firstChapter}`}>{cite(pavel.firstChapter)}</a>
-              )}
-              , and never again.
+              {lineage.father}.{' '}
+              <span data-spoiler-from={pavelFrom}>
+                The dashed thread is said once, at{' '}
+                {pavel && (
+                  <a className="link" href={`/read/${pavel.firstChapter}`}>{cite(pavel.firstChapter)}</a>
+                )}
+                , and never again.
+              </span>
             </p>
           </div>
           <PatronymicTree
@@ -49,6 +56,7 @@ export default function NamesPage() {
             patronymic={lineage.patronymic}
             children={pick(lineage.children)}
             disputedId="smerdyakov"
+            gateFrom={pavelFrom ? { smerdyakov: pavelFrom } : {}}
           />
         </section>
       )}
@@ -57,12 +65,15 @@ export default function NamesPage() {
         <div className="section-header">
           <h2 className="heading">Who is allowed to say it</h2>
           <p className="text-muted">
-            Each ring is a degree of intimacy — the outer ring is name-plus-patronymic, held at
-            arm’s length; the centre is the diminutive nobody uses casually. Dot size is how
-            often the form is spoken, and where the novel attributes the speech, the speakers
-            are named. Attribution covers {coverage.attributed.toLocaleString()} of{' '}
-            {coverage.quotes.toLocaleString()} quoted passages, so “heard from” is a floor, not
-            a full census.
+            Each ring is a degree of formality — the outer ring is name-plus-patronymic, held at
+            arm’s length; the centre is the diminutive. Dot size is how often the form appears
+            anywhere in the text, narration included. Where a speech is tagged with its speaker
+            and the name is used to someone’s face, that speaker is named. Only{' '}
+            {coverage.attributed.toLocaleString()} of {coverage.quotes.toLocaleString()} quoted
+            passages carry a tag the atlas can read; inside them it found{' '}
+            {coverage.addressed.toLocaleString()} names used as direct address and{' '}
+            {coverage.mentioned.toLocaleString()} spoken of in the third person. So “said to
+            their face by” is a floor, never a census.
           </p>
         </div>
         <div className="grid grid--pairs">
@@ -74,19 +85,21 @@ export default function NamesPage() {
 
       <section className="section">
         <div className="section-header">
-          <h2 className="heading">The coldest men in the book</h2>
+          <h2 className="heading">How far the naming ever relaxes</h2>
           <p className="text-muted">
             Not how often someone is named, but the least formal register the text ever uses
             for them — across narration and dialogue alike, under the alias vocabulary listed
             on this page. Dmitri reaches the diminutive <em>Mityenka</em>; Fyodor appears only
             as Fyodor Pavlovitch, Ivan takes no recorded diminutive, and Smerdyakov is a
-            surname 371 times against a single given name.
+            surname {smerdyakovSurname.toLocaleString()} times against a single given name.
             <br />
             <br />
+            <span data-spoiler-from={WHOLE_BOOK}>
             <strong>A reading, offered as one:</strong> those three sit at the formal end, and
             the murder runs through all three. That is a pattern in how the prose names people.
             It is not evidence of what any character feels, and an alias list this size cannot
             support a claim about what nobody ever says.
+            </span>
           </p>
         </div>
         <WarmthLadder characters={characters} markIds={['fyodor', 'ivan', 'smerdyakov']} />

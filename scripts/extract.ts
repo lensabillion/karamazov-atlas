@@ -15,6 +15,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { z } from 'zod';
 import type { Corpus } from './parse-corpus.ts';
+import { isVerbatim } from './lib/verbatim.ts';
 
 const DATA = join(process.cwd(), 'data');
 const OUT = join(DATA, 'entities.json');
@@ -57,7 +58,10 @@ interface Entities {
   model: string;
   generatedAt: string;
   chapters: Record<string, ChapterExtraction>;
+  /** Chapters whose keyQuote failed verification and was dropped; `--redo-dropped` retries them. */
+  quotesDropped?: string[];
 }
+
 
 const CONCURRENCY = 4;
 
@@ -79,6 +83,11 @@ async function main() {
     ? JSON.parse(readFileSync(OUT, 'utf8'))
     : { model: 'claude-opus-5', generatedAt: new Date().toISOString(), chapters: {} };
 
+  // --redo-dropped retries the chapters whose quotation failed verification.
+  if (process.argv.includes('--redo-dropped')) {
+    for (const id of existing.quotesDropped ?? []) delete existing.chapters[id];
+  }
+
   const todo = corpus.chapters
     .filter((c) => !existing.chapters[c.id])
     .slice(0, limit === Infinity ? undefined : limit);
@@ -90,6 +99,8 @@ async function main() {
   console.log(`extracting ${todo.length} chapter(s) with claude-opus-5, ${CONCURRENCY} at a time`);
 
   let done = 0;
+  let tokensIn = 0;
+  let tokensOut = 0;
   const queue = [...todo];
 
   const worker = async () => {
@@ -98,7 +109,7 @@ async function main() {
       if (!ch) break;
       const text = readFileSync(join(DATA, 'chapters', `${ch.id}.txt`), 'utf8');
       try {
-        const { output } = await generateText({
+        const { output, usage } = await generateText({
           model: anthropic('claude-opus-5'),
           maxOutputTokens: 8000,
           providerOptions: { anthropic: { thinking: { type: 'adaptive' }, effort: 'medium' } },
@@ -110,9 +121,21 @@ async function main() {
             'copied exactly from the text given; if no short quotation fits, return null.',
           prompt: `Chapter: ${ch.title} (${ch.cite}, from Book ${ch.bookNum}. ${ch.bookTitle})\n\n${text}`,
         });
+        // The schema asks for a verbatim quotation, the field most likely to
+        // drift. Keep it only if it really is in the chapter (atlas-94i4).
+        const quoteOk = !output.keyQuote || isVerbatim(output.keyQuote.text, text);
+        if (!quoteOk) {
+          console.warn(`  ${ch.cite}: keyQuote not found verbatim, dropped: "${output.keyQuote!.text}"`);
+          output.keyQuote = null;
+          existing.quotesDropped = [...new Set([...(existing.quotesDropped ?? []), ch.id])];
+        } else {
+          existing.quotesDropped = (existing.quotesDropped ?? []).filter((id) => id !== ch.id);
+        }
         existing.chapters[ch.id] = output;
         done++;
-        console.log(`  [${done}/${todo.length}] ${ch.cite} — ${ch.title}`);
+        tokensIn += usage.inputTokens ?? 0;
+        tokensOut += usage.outputTokens ?? 0;
+        console.log(`  [${done}/${todo.length}] ${ch.cite} — ${ch.title} · ${usage.inputTokens} in / ${usage.outputTokens} out${quoteOk ? '' : ' · quote dropped'}`);
         // Write as we go so an interrupted run keeps its work.
         writeFileSync(OUT, JSON.stringify(existing, null, 2));
       } catch (err) {
@@ -126,6 +149,7 @@ async function main() {
   existing.generatedAt = new Date().toISOString();
   writeFileSync(OUT, JSON.stringify(existing, null, 2));
   console.log(`\nwrote ${Object.keys(existing.chapters).length} chapters to data/entities.json`);
+  console.log(`this run: ${tokensIn.toLocaleString()} input tokens, ${tokensOut.toLocaleString()} output tokens`);
 }
 
 main();

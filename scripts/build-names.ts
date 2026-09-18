@@ -20,7 +20,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { CHARACTERS } from './lib/characters.ts';
-import { countByForm, escapeRe, findOccurrences, type AliasSpec } from './lib/match.ts';
+import { attribute, countQuotes, type Relation } from './lib/attribution.ts';
+import { countByForm, findOccurrences, type AliasSpec } from './lib/match.ts';
 import type { Corpus } from './parse-corpus.ts';
 
 const DATA = join(process.cwd(), 'data');
@@ -53,11 +54,15 @@ export interface NamedCharacter {
   total: number;
   /** Per chapter, how many namings fell in each register. Drives the ribbon. */
   registerByChapter: Record<string, Partial<Record<Register, number>>>;
-  /** The warmest register anyone in the novel ever uses for this person. */
+  /**
+   * The least formal register in which the TEXT ever names this person,
+   * narration included, under this alias list. A fact about naming, not about
+   * how anyone feels (R2). Kept under its old name for the API's schema.
+   */
   warmestRegister: Register;
 }
 
-/** One observed act of address: who called whom what, and how often. */
+/** A name used in attributed speech, aggregated: who said which form of whose name, and how often. */
 export interface Address {
   speaker: string;
   target: string;
@@ -66,11 +71,34 @@ export interface Address {
   count: number;
 }
 
+/** One attributed speech, with every name in it and where it is (R2: the evidence, not just a tally). */
+export interface SpeechRecord {
+  chapter: string;
+  /** Offset of the opening quotation mark in data/chapters/<chapter>.txt. */
+  at: number;
+  length: number;
+  speaker: string;
+  names: { target: string; form: string; register: Register; relation: Relation }[];
+}
+
 export interface NamesData {
   characters: NamedCharacter[];
-  /** Observed in attributed dialogue only — see `coverage`. */
+  /** Direct address only — a vocative in attributed speech ("Listen, Alyosha, …"). */
   addresses: Address[];
-  coverage: { quotes: number; attributed: number };
+  /** Names spoken ABOUT someone in attributed speech — third-person mention. */
+  spokenOf: Address[];
+  /** Every attributed speech that names someone other than the speaker. */
+  speech: SpeechRecord[];
+  coverage: {
+    /** Quotations of eight characters or more. */
+    quotes: number;
+    /** Quotations with an identified speaker. */
+    attributed: number;
+    /** Names used as direct address inside attributed speech. */
+    addressed: number;
+    /** Names mentioned in the third person inside attributed speech. */
+    mentioned: number;
+  };
   /** patronymic → everyone who carries it. Reconstructs paternity from names. */
   lineages: { patronymic: string; father: string; children: string[] }[];
   registers: { key: Register; label: string; description: string }[];
@@ -83,6 +111,8 @@ export interface NamesData {
  */
 const IRREGULAR_STEMS: Record<string, string> = {
   Pavl: 'Pavel',
+  Ily: 'Ilya',
+  Kuzm: 'Kuzma',
   Alexandr: 'Alexander',
   Boriss: 'Boris',
   Ignaty: 'Ignat',
@@ -92,18 +122,31 @@ const IRREGULAR_STEMS: Record<string, string> = {
   Vassilye: 'Vassily',
 };
 
+/** -ovitch / -evitch / -ovna / -evna, and the -itch of Ilyitch and Kuzmitch. */
+const PATRONYMIC_SUFFIX = /(ovitch|evitch|itch|ovna|evna|ichna)$/;
+
 function fatherFromPatronymic(patronymic: string): string {
-  const stem = patronymic.replace(/(ovitch|evitch|ovna|evna)$/, '');
+  const stem = patronymic.replace(PATRONYMIC_SUFFIX, '');
   return IRREGULAR_STEMS[stem] ?? stem;
 }
 
-const isPatronymic = (w: string) => /(ovitch|evitch|ovna|evna)$/.test(w);
+/**
+ * A patronymic is the second word of a given-name pair. On its own, an -ovitch
+ * word is a surname: Fetyukovitch, the defence counsel, was read as "child of
+ * Fetyuk" until patronymics were only taken from multi-word forms (atlas-30o1).
+ */
+const isPatronymic = (w: string) => PATRONYMIC_SUFFIX.test(w);
+const patronymicOf = (form: string): string | null => {
+  const words = form.split(' ');
+  const last = words[words.length - 1]!;
+  return words.length > 1 && isPatronymic(last) ? last : null;
+};
 
 /** Classify a name form by its morphology. Order matters: longest suffix wins. */
 function classify(form: string, surnames: Set<string>): Omit<NameForm, 'count' | 'chapters' | 'firstChapter'> {
   const words = form.split(' ');
 
-  if (words.length > 1 && isPatronymic(words[words.length - 1]!)) {
+  if (patronymicOf(form)) {
     const pat = words[words.length - 1]!;
     const father = fatherFromPatronymic(pat);
     return {
@@ -111,6 +154,18 @@ function classify(form: string, surnames: Set<string>): Omit<NameForm, 'count' |
       kind: 'patronymic-pair',
       register: 'formal',
       gloss: `Given name plus patronymic — the respectful address. “${pat}” means son or daughter of ${father}, so the name states the parentage every time it is spoken.`,
+    };
+  }
+
+  // A byname — "Lizaveta Smerdyastchaya", the town's "Stinking Lizaveta" — is
+  // how the town places someone at a distance, not a diminutive, whatever its
+  // ending (atlas-30o1: the -ya rule below classed it as familiar).
+  if (words.length > 1 && /aya$/.test(words[words.length - 1]!)) {
+    return {
+      form,
+      kind: 'surname',
+      register: 'distanced',
+      gloss: 'A byname the town gives her — a label worn in public, set at a distance.',
     };
   }
 
@@ -153,62 +208,58 @@ function classify(form: string, surnames: Set<string>): Omit<NameForm, 'count' |
 export const REGISTER_LADDER: Register[] = ['formal', 'distanced', 'neutral', 'familiar', 'tender'];
 
 /**
- * Who calls whom what.
- *
- * Garnett attributes speech as `"…," said Alyosha.` or `"…" Ivan answered.`
- * Matching those gives a speaker for a minority of quoted passages; within each,
- * any other character's name is an observed act of address. Coverage is partial
- * by construction and is reported alongside the result, never hidden.
+ * Who says whose name, and how: direct address or mention. The matching rules
+ * and their reasons live in lib/attribution.ts, where they are unit-tested.
  */
-function buildAddresses(
+function buildSpeech(
   chapterText: Map<string, string>,
   aliasIndex: { form: string; id: string; register: Register }[],
-): { addresses: Address[]; coverage: { quotes: number; attributed: number } } {
-  const VERBS =
-    'said|cried|answered|asked|shouted|murmured|added|replied|exclaimed|observed|whispered|repeated|began|interrupted';
-  const speakerPat = aliasIndex.map((a) => escape(a.form)).join('|');
-  const patterns = [
-    new RegExp(`[“"]([^”"]{8,900})[”"][^.!?\\n]{0,40}?\\b(?:${VERBS})\\s+(${speakerPat})\\b`, 'g'),
-    new RegExp(`[“"]([^”"]{8,900})[”"][^.!?\\n]{0,40}?\\b(${speakerPat})\\s+(?:${VERBS})\\b`, 'g'),
-  ];
-
-  const tally = new Map<string, number>();
+): Pick<NamesData, 'addresses' | 'spokenOf' | 'speech' | 'coverage'> {
+  const registerOf = new Map(aliasIndex.map((a) => [a.form, a.register]));
+  const speech: SpeechRecord[] = [];
   let quotes = 0;
   let attributed = 0;
-
-  for (const raw of chapterText.values()) {
-    const text = raw.replace(/\n/g, ' ');
-    quotes += (text.match(/[“"][^”"]{8,900}[”"]/g) ?? []).length;
-    for (const re of patterns) {
-      re.lastIndex = 0;
-      let m: RegExpExecArray | null;
-      while ((m = re.exec(text)) !== null) {
-        const speech = m[1]!;
-        const speaker = aliasIndex.find((a) => a.form === m![2])?.id;
-        if (!speaker) continue;
-        attributed++;
-        const claimed: string[] = [];
-        for (const a of aliasIndex) {
-          if (a.id === speaker) continue;
-          if (!new RegExp(`\\b${escape(a.form)}\\b`).test(speech)) continue;
-          // A longer form already claimed this text; don't double-count the stem.
-          if (claimed.some((f) => f.includes(a.form))) continue;
-          claimed.push(a.form);
-          const key = `${speaker}|${a.id}|${a.form}|${a.register}`;
-          tally.set(key, (tally.get(key) ?? 0) + 1);
-        }
-      }
+  for (const [chapter, text] of chapterText) {
+    quotes += countQuotes(text);
+    for (const u of attribute(text, aliasIndex)) {
+      attributed++;
+      if (u.names.length === 0) continue;
+      speech.push({
+        chapter,
+        at: u.at,
+        length: u.length,
+        speaker: u.speaker,
+        names: u.names.map((n) => ({ ...n, register: registerOf.get(n.form)! })),
+      });
     }
   }
 
-  const addresses: Address[] = [...tally.entries()]
-    .map(([key, count]) => {
-      const [speaker, target, form, register] = key.split('|') as [string, string, string, Register];
-      return { speaker, target, form, register, count };
-    })
-    .sort((a, b) => b.count - a.count);
+  const tally = (relation: Relation): Address[] => {
+    const counts = new Map<string, number>();
+    for (const s of speech) {
+      for (const n of s.names) {
+        if (n.relation !== relation) continue;
+        const key = `${s.speaker}|${n.target}|${n.form}|${n.register}`;
+        counts.set(key, (counts.get(key) ?? 0) + 1);
+      }
+    }
+    return [...counts.entries()]
+      .map(([key, count]) => {
+        const [speaker, target, form, register] = key.split('|') as [string, string, string, Register];
+        return { speaker, target, form, register, count };
+      })
+      .sort((a, b) => b.count - a.count || a.speaker.localeCompare(b.speaker) || a.form.localeCompare(b.form));
+  };
 
-  return { addresses, coverage: { quotes, attributed } };
+  const addresses = tally('address');
+  const spokenOf = tally('mention');
+  const sum = (xs: Address[]) => xs.reduce((n, a) => n + a.count, 0);
+  return {
+    addresses,
+    spokenOf,
+    speech,
+    coverage: { quotes, attributed, addressed: sum(addresses), mentioned: sum(spokenOf) },
+  };
 }
 
 const REGISTERS: NamesData['registers'] = [
@@ -219,7 +270,6 @@ const REGISTERS: NamesData['registers'] = [
   { key: 'tender', label: 'Tender', description: 'The affectionate diminutive. Never used casually.' },
 ];
 
-const escape = escapeRe;
 
 function main() {
   const corpus: Corpus = JSON.parse(readFileSync(join(DATA, 'corpus.json'), 'utf8'));
@@ -243,12 +293,14 @@ function main() {
   const characters: NamedCharacter[] = CHARACTERS.map((c) => {
     let patronymic: string | null = null;
     for (const alias of c.aliases) {
-      const last = alias.split(' ').pop()!;
-      if (isPatronymic(last)) { patronymic = last; break; }
+      patronymic = patronymicOf(alias);
+      if (patronymic) break;
     }
-    // Fall back to the canonical full name, which may carry one the aliases don't.
+    // Fall back to the canonical full name, which may carry one the aliases
+    // don't — but only in second position or later, after a given name.
     if (!patronymic) {
-      for (const w of c.name.split(' ')) if (isPatronymic(w)) { patronymic = w; break; }
+      const words = c.name.split(' ');
+      patronymic = words.slice(1).find(isPatronymic) ?? null;
     }
 
     const forms: NameForm[] = c.aliases.map((alias) => {
@@ -265,10 +317,7 @@ function main() {
     });
 
     // The given name is whatever precedes the patronymic in the formal form.
-    const formalForm = c.aliases.find((a) => {
-      const parts = a.split(' ');
-      return parts.length > 1 && isPatronymic(parts[parts.length - 1]!);
-    });
+    const formalForm = c.aliases.find((a) => patronymicOf(a) !== null);
     const givenName = formalForm ? formalForm.split(' ').slice(0, -1).join(' ') : null;
 
     // Register mix per chapter, from the same claimed spans as the totals.
@@ -317,7 +366,7 @@ function main() {
   const aliasIndex = characters
     .flatMap((c) => c.forms.map((f) => ({ form: f.form, id: c.id, register: f.register })))
     .sort((a, b) => b.form.length - a.form.length);
-  const { addresses, coverage } = buildAddresses(chapterText, aliasIndex);
+  const { addresses, spokenOf, speech, coverage } = buildSpeech(chapterText, aliasIndex);
 
   // R3: the two datasets must agree by construction. Assert it, so they cannot
   // silently drift apart again.
@@ -344,12 +393,13 @@ function main() {
     }
   }
 
-  const out: NamesData = { characters, addresses, coverage, lineages, registers: REGISTERS };
+  const out: NamesData = { characters, addresses, spokenOf, speech, coverage, lineages, registers: REGISTERS };
   writeFileSync(join(DATA, 'names.json'), JSON.stringify(out, null, 2));
 
   console.log(`${characters.length} characters, ${characters.reduce((n, c) => n + c.forms.length, 0)} name forms`);
   console.log(
-    `${addresses.length} observed acts of address, from ${coverage.attributed} of ${coverage.quotes} quoted passages`,
+    `${coverage.attributed} of ${coverage.quotes} quoted passages attributed; ` +
+      `names in them: ${coverage.addressed} direct address, ${coverage.mentioned} mention`,
   );
   const zero = characters.flatMap((c) => c.forms.filter((f) => f.count === 0).map((f) => f.form));
   console.log(zero.length ? `forms with no occurrences: ${zero.join(', ')}` : 'every form occurs in the text');

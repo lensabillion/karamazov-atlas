@@ -25,9 +25,11 @@ export interface NamedCharacter {
   forms: NameForm[];
   total: number;
   registerByChapter: Record<string, Partial<Record<Register, number>>>;
+  /** Least formal register the TEXT ever uses for them, narration included. Naming, not feeling. */
   warmestRegister: Register;
 }
 
+/** A name used in attributed speech: who said which form of whose name, and how often. */
 export interface Address {
   speaker: string;
   target: string;
@@ -36,10 +38,22 @@ export interface Address {
   count: number;
 }
 
+export interface SpeechRecord {
+  chapter: string;
+  at: number;
+  length: number;
+  speaker: string;
+  names: { target: string; form: string; register: Register; relation: 'address' | 'mention' }[];
+}
+
 export interface NamesData {
   characters: NamedCharacter[];
+  /** Direct address only: a vocative in attributed speech. */
   addresses: Address[];
-  coverage: { quotes: number; attributed: number };
+  /** Third-person mention in attributed speech. */
+  spokenOf: Address[];
+  speech: SpeechRecord[];
+  coverage: { quotes: number; attributed: number; addressed: number; mentioned: number };
   lineages: { patronymic: string; father: string; children: string[] }[];
   registers: { key: Register; label: string; description: string }[];
 }

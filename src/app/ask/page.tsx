@@ -1,5 +1,5 @@
 import AskPanel from '@/components/AskPanel';
-import { getCorpus } from '@/lib/corpus';
+import { chapterPlaces, getCorpus } from '@/lib/corpus';
 
 export default function AskPage() {
   const corpus = getCorpus();
@@ -14,7 +14,7 @@ export default function AskPage() {
           instructed to say when the text does not support an answer rather than fill the gap.
         </p>
       </header>
-      <AskPanel hasKey={Boolean(process.env.ANTHROPIC_API_KEY)} />
+      <AskPanel hasKey={Boolean(process.env.ANTHROPIC_API_KEY)} places={chapterPlaces()} />
     </main>
   );
 }

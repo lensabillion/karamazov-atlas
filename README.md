@@ -1,17 +1,20 @@
 # Karamazov Atlas
 
-A queryable atlas of Dostoyevsky's *The Brothers Karamazov*, built from the full text
-of the Constance Garnett translation (Project Gutenberg #28054, public domain).
+An illustrated companion to Dostoyevsky's *The Brothers Karamazov*, built from the full
+text of the Constance Garnett translation (Project Gutenberg #28054, public domain) and
+written first for readers who have finished it. A reader part-way through can set their
+place in the running head and everything past it folds away.
 
-349,367 words across 96 chapters, parsed into a typed corpus. Every number in the app
-is computed from that file — nothing is asserted from memory.
+349,367 words across 96 chapters, parsed into a typed corpus. Every count is computed
+from that file; every curated claim — a tie on the map, a block on the timeline — opens
+the chapter, and usually the paragraph, that supports it.
 
 ## Quick start
 
 ```bash
 npm install
 npm run corpus   # parse karamazov.txt -> data/ (deterministic, no API key)
-npm run test     # 15 golden checks against the real text
+npm test         # six suites: corpus, rate limit, curated data, names, API client, reading position
 npm run dev
 ```
 
@@ -26,23 +29,24 @@ ANTHROPIC_API_KEY=sk-ant-...
 
 | Route | What it does |
 | --- | --- |
-| `/` | Corpus overview — mention counts, book structure |
-| `/read` · `/read/[id]` | All 96 chapters, with character mentions highlighted |
-| `/character/[id]` | Per-character presence across the novel, ties, densest chapters |
-| `/who` | Who the characters are to each other — the relationship map |
-| `/timeline` | The novel as a columnar wall chart, one column per character |
-| `/names` | Patronymic lineage, name orbits, register ladder |
-| `/ask` | Citation-backed Q&A over the full text (AI SDK + Claude) |
+| `/` | A title page, then an illustrated book of people and scenes (Grigoriev's cycle and labelled studies) |
+| `/characters` · `/character/[id]` | The cast; each person's plate, name forms, presence and chapters |
+| `/who` | The relationship map. Every tie opens its chapter; claims and readings are labelled as such |
+| `/timeline` | The novel as a columnar wall chart, one column per character, each block citing its chapter |
+| `/names` | Patronymic lineage, name orbits, how far each person's naming relaxes |
+| `/read` · `/read/[id]` | All 96 chapters, each with a spoiler-free note on why it is there; names open the Name Key |
+| `/translations` | The five English translations, what Garnett costs this atlas, a spelling concordance |
+| `/ask` | Citation-backed Q&A over the text, scoped to the reader's place (AI SDK + Claude) |
 
 ## Architecture
 
 > **Implemented vs proposed.** Everything below under "three layers" is built and
-> running. The Python service in `api/` is a **prototype**: it ingests the JSON the
-> TypeScript pipeline produces and serves it over FastAPI with SQLite/FTS5, and its
-> 11 tests pass — but the Next.js app does not read from it, and the chat route does
-> not call it. Treat it as a proven contract, not as the live data path. Any decision
-> to migrate should be benchmarked against the current TypeScript path first, which
-> already filters and ranks results.
+> running. The Python service in `api/` ingests the JSON the TypeScript pipeline
+> produces and serves it over FastAPI with SQLite/FTS5 (12 tests). One thing reads
+> from it: when `ATLAS_API_URL` is set, `/api/chat`'s search tool uses its FTS5 index,
+> falling back to the local BM25 search when it is unset or unreachable. The pages do
+> not read from it; they are prerendered from the committed JSON. The pipeline itself
+> stays in TypeScript — see `docs/design-document.md` §6 and atlas-gc9d for why.
 
 
 Three layers, deliberately separated:
@@ -52,28 +56,41 @@ Three layers, deliberately separated:
    index and co-occurrence edges. No LLM, fully reproducible, committed to `data/`.
 2. **Enrichment (batch, LLM).** `scripts/extract.ts` uses `generateText` + `Output.object`
    with a Zod schema to pull events, typed relations and themes per chapter. Resumable,
-   writes as it goes. Output is committed — the app never runs this at request time.
-3. **App (runtime).** Next.js App Router. `/api/chat` is the only path that touches the
-   API; it gives Claude three tools over the corpus (`searchNovel`, `readChapter`,
-   `listChapters`) and requires book/chapter citations.
+   writes as it goes, logs token usage, and drops any "verbatim" quote that is not in
+   the chapter. Output is committed to `data/entities.json` — the app never runs this
+   at request time.
+3. **App (runtime).** Next.js App Router, prerendered. `/api/chat` is the only path that
+   calls a model; it gives Claude three tools over the corpus (`searchNovel`,
+   `readChapter`, `listChapters`), requires book/chapter citations, and limits all
+   three to the reader's place when one is set.
+
+Curated knowledge — who is what to whom, the timeline, why each chapter is there — is
+written by hand in `src/lib/relationships.ts`, `timeline.ts` and `orientation.ts`, and
+`scripts/test-curated.ts` checks every chapter reference and every quoted phrase
+against the text.
 
 ### Why aliases matter
 
-Dostoyevsky names one person many ways. A naive `grep Mitya` finds 923 hits; resolving
-Dmitri / Mitya / Mitka / Dmitri Fyodorovitch as one person finds 1,291. Aliases are
-matched longest-first and each source position is claimed once, so overlapping names
-can't double-count.
+Dostoyevsky names one person many ways. A naive `grep Mitya` finds 911 hits; resolving
+Dmitri / Mitya / Mityenka / Dmitri Fyodorovitch as one person finds 1,294. Aliases are
+matched longest-first, across line breaks, and each source position is claimed once,
+so overlapping names can't double-count.
 
 ## Stack
 
 Next.js 16 · React 19 · AI SDK 7 (`@ai-sdk/anthropic`, model `claude-opus-5`) · Zod 4 ·
-TypeScript. No CSS framework; the palette is drawn from Russian icon pigments and each
-hue is assigned to a character group so colour carries information.
+TypeScript · Tailwind v4, configured from the design tokens. FastAPI + SQLite/FTS5 for
+the optional API.
+
+The app is set as the 1912 Heinemann edition the text comes from: one family (Old
+Standard TT), four colours taken from the book, letterspaced capitals, paired rules.
+Character groups are told apart by shape, not hue. Specification:
+`docs/design-system.md`; working checklist: `.claude/skills/first-edition/SKILL.md`.
 
 ## Configuration
 
-Every variable is optional. 131 of the 132 pages are prerendered from committed
-data and need none of them.
+Every variable is optional. Every page but `/api/chat` is prerendered from committed
+data and needs none of them.
 
 | Variable | Absent | Present |
 | --- | --- | --- |
@@ -129,8 +146,9 @@ nothing for weeks while every test still passed, and every derived number went s
 
 ## Planning
 
-`docs/plan-spec.md` follows the plan-spec template from
-[jlevy/tbd](https://github.com/jlevy/tbd).
+Work is tracked as tbd beads (`tbd list`); `docs/PROGRESS.md` explains the state and
+the why. `docs/plan-spec.md` (superseded, kept for history) follows the plan-spec
+template from [jlevy/tbd](https://github.com/jlevy/tbd).
 
 The [September 8 visual-memory review](docs/reviews/2026-09-08-visual-memory-review.md)
 assesses the project against the returning-reader illustration goal and links

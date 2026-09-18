@@ -2,12 +2,12 @@
  * A character group, drawn as a shape.
  *
  * The design system allows two hues (docs/design-system.md §5). Six groups
- * cannot be told apart by two hues, and a blue-to-teal ramp would imply an
+ * cannot be told apart by two hues, and a cloth-to-gilt ramp would imply an
  * order these categories do not have. So category is encoded by SHAPE — a
  * genuinely categorical channel, which also survives greyscale printing and
  * does not fail for colour-blind readers.
  *
- * Colour is then free to carry state: blue at rest, teal when active.
+ * Colour is then free to carry state: cloth at rest, gilt when active.
  */
 export type Group = 'family' | 'women' | 'monastery' | 'boys' | 'town' | 'court';
 

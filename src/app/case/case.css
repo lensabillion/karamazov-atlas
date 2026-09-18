@@ -1,0 +1,98 @@
+/* The case file, the verdict and the reader's arc (atlas-1bj0, o9w6, tbhb),
+   and the ideas page (atlas-sto5). Set as a printed dossier: small-caps
+   running labels, quotations indented as extracts, rules between items. */
+.case { display: grid; gap: var(--space-6); }
+
+.verdict {
+  --rule: var(--color-ink);
+  display: grid;
+  gap: var(--space-4);
+  justify-items: center;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+}
+.verdict__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-normal);
+  letter-spacing: 0.08em;
+  text-indent: 0.08em;
+  text-transform: uppercase;
+}
+.verdict__question { border: 0; margin: 0; padding: 0; display: grid; gap: var(--space-3); max-width: 44rem; }
+.verdict__question legend { margin-bottom: var(--space-3); font-size: var(--text-md); font-style: italic; }
+.verdict__question legend .meta { display: block; font-style: normal; margin-top: var(--space-1); }
+.verdict__options { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-4); }
+.verdict__option { display: inline-flex; align-items: baseline; gap: var(--space-2); cursor: pointer; }
+.verdict__option input { accent-color: var(--cloth); }
+.verdict__actions { display: grid; gap: var(--space-2); justify-items: center; }
+.verdict__kept { margin: 0; }
+
+.divergence { display: grid; gap: var(--space-4); }
+.divergence__reading { display: grid; gap: var(--space-3); max-width: var(--measure); line-height: var(--leading-loose); }
+.divergence__reading p { margin: 0; }
+.divergence__changes { margin: 0; padding-left: var(--space-4); display: grid; gap: var(--space-2); color: var(--ink-2); }
+
+.case__evidence { display: grid; gap: var(--space-4); }
+.case__list { list-style: none; margin: 0; padding: 0; display: grid; }
+.case__item {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-4);
+  border-top: var(--border-width) solid var(--border);
+}
+.case__meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.case__meta .link { letter-spacing: 0.04em; font-variant-numeric: lining-nums; }
+.case__quote {
+  margin: 0 0 0 var(--space-4);
+  font-size: var(--text-md);
+  font-style: italic;
+  line-height: var(--leading-normal);
+  max-width: var(--measure);
+}
+.case__says { margin: 0; color: var(--ink-2); max-width: var(--measure); line-height: var(--leading-normal); }
+.case__points { margin: 0; }
+.case__court {
+  margin: 0;
+  justify-self: start;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--border-strong);
+}
+.case__court[data-court="never heard"] { color: var(--cloth-deep); border-bottom-color: var(--cloth); }
+.case__court[data-court="heard, not believed"] { color: var(--gilt); border-bottom-color: var(--gilt); }
+
+.ideas { display: grid; gap: var(--space-5); }
+.ideas__idea {
+  --rule: var(--color-ink);
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: var(--space-5) var(--space-4);
+}
+.ideas__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-normal);
+  text-align: center;
+  text-wrap: balance;
+}
+.ideas__stake { margin: 0; text-align: center; font-style: italic; color: var(--ink-2); max-width: 32rem; }
+.ideas__voices { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); width: 100%; }
+.ideas__voice { display: grid; gap: var(--space-2); padding-top: var(--space-3); border-top: var(--border-width) solid var(--border); }
+.ideas__stance { color: var(--ink); }

@@ -116,6 +116,18 @@ CREATE TABLE IF NOT EXISTS addresses (
     PRIMARY KEY (speaker_id, target_id, form)
 );
 
+-- Names spoken ABOUT someone in attributed speech (third-person mention).
+-- `addresses` above holds direct address only; the two were one table, and
+-- conflating them is review finding R2.
+CREATE TABLE IF NOT EXISTS spoken_of (
+    speaker_id TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+    target_id  TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+    form       TEXT NOT NULL,
+    register   TEXT NOT NULL,
+    count      INTEGER NOT NULL,
+    PRIMARY KEY (speaker_id, target_id, form)
+);
+
 CREATE TABLE IF NOT EXISTS cooccurrence (
     source_id TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
     target_id TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,

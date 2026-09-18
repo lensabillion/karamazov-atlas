@@ -132,6 +132,25 @@ def ingest(conn: sqlite3.Connection) -> dict[str, int]:
     )
     counts["addresses"] = len(addrs)
 
+    spoken = [
+        (a["speaker"], a["target"], a["form"], a["register"], a["count"])
+        for a in names.get("spokenOf", [])
+    ]
+    conn.executemany(
+        """INSERT OR REPLACE INTO spoken_of
+           (speaker_id, target_id, form, register, count) VALUES (?,?,?,?,?)""",
+        spoken,
+    )
+    counts["spoken_of"] = len(spoken)
+
+    # How many quotations the pipeline could give a speaker. Not derivable from
+    # the tables (speeches that name nobody are not stored), so it is carried
+    # from the pipeline's own count rather than approximated.
+    conn.execute(
+        "INSERT OR REPLACE INTO meta(key, value) VALUES ('attributed_quotes', ?)",
+        (str(names.get("coverage", {}).get("attributed", 0)),),
+    )
+
     edges = [(e["source"], e["target"], e["weight"]) for e in mentions["edges"]]
     conn.executemany(
         "INSERT OR REPLACE INTO cooccurrence(source_id, target_id, weight) VALUES (?,?,?)",

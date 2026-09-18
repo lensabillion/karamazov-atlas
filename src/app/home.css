@@ -1,7 +1,45 @@
 .folio-page { gap: var(--space-5); padding-top: var(--space-5); }
-.folio-title { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); }
-.folio-title > div { display: grid; gap: var(--space-2); }
-.folio-title > .text-muted { text-align: right; font-style: italic; }
+/* The first leaf: a title page (atlas-1d7j). Lines on their own measure,
+   sizes stepping down from the title, every tracked run mirrored by its
+   text-indent so the block stays optically centred. */
+.title-leaf {
+  --rule: var(--color-ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4) var(--space-5);
+  text-align: center;
+  color: var(--ink);
+}
+.title-leaf p { margin: 0; text-wrap: balance; }
+.title-leaf__over, .title-leaf__line, .title-leaf__imprint {
+  font-size: var(--text-xs);
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.title-leaf__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-normal);
+  line-height: 1.1;
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  text-transform: uppercase;
+}
+.title-leaf__by { font-size: var(--text-sm); font-style: italic; color: var(--ink-3); }
+.title-leaf__author {
+  font-size: var(--text-md);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+}
+.title-leaf__imprint { line-height: 1.9; }
+.title-leaf__motto { font-style: italic; color: var(--ink-2); display: grid; gap: var(--space-1); }
+.title-leaf__motto .meta { font-style: normal; }
 .folio-contents { display: grid; grid-template-columns: 1fr 1fr auto; align-items: start; gap: var(--space-4); border-block: 3px double var(--ink); padding-block: var(--space-3); }
 .folio-contents summary, .folio-reference-disclosure > summary { cursor: pointer; color: var(--cloth); padding-block: var(--space-2); }
 .folio-contents__further { display: grid; gap: var(--space-2); }
@@ -39,8 +77,8 @@
 .memory-statistics { padding-block: var(--space-4); border-block: 1px solid var(--border-strong); justify-content: space-between; }
 @media (max-width: 760px) {
   .folio-page { padding-inline: var(--space-3); }
-  .folio-title { display: grid; }
-  .folio-title > .text-muted { text-align: left; }
+  .title-leaf { padding-inline: var(--space-3); }
+  .title-leaf__over, .title-leaf__line, .title-leaf__imprint { letter-spacing: 0.18em; text-indent: 0.18em; }
   .folio-contents { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .folio-spread { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
   .folio-page .character-illustration { max-width: 100%; }

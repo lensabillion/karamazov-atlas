@@ -6,13 +6,18 @@ import ivanSmerdyakov from '@/assets/artwork/ivan-smerdyakov-after-grigoriev.png
 import grushenka from '@/assets/artwork/grushenka-after-grigoriev.png';
 import fyodor from '@/assets/artwork/fyodor-after-grigoriev.png';
 import lizaveta from '@/assets/artwork/lizaveta-after-grigoriev.png';
+import katerinaPortrait from '@/assets/studies/study-plate-13.jpg';
 
 /** A reference-based study, never presented as an original Grigoriev work. */
 export type CharacterArtwork = {
   image: StaticImageData;
   title: string;
   alt: string;
+  /** Where the work it follows is published; defaults to the museum selection. */
+  source?: string;
 };
+
+const TRETYAKOV_2023 = 'https://www.tretyakovgallerymagazine.ru/articles/3-4-2023-80-81/obrazy-dostoevskogo-i-gogolya-v-pozdnem-tvorchestve-borisa-grigoreva-mezhdu-';
 
 const blessing: CharacterArtwork = {
   image: zossimaAlyosha,
@@ -20,7 +25,13 @@ const blessing: CharacterArtwork = {
   alt: 'Study of the white-bearded elder Zossima resting his hand on the bowed head of the young Alyosha, both in dark robes.',
 };
 
-const bow: CharacterArtwork = {
+/**
+ * A scene, not a portrait: it illustrates Dmitri's story of the bow (III.4)
+ * and appears with that scene in the collage catalogue. Katerina has her own
+ * portrait below; the user asked (18 Sep 2026) that a person be shown by a
+ * picture of that person, and a scene by the scene.
+ */
+export const bow: CharacterArtwork = {
   image: katerinaDmitri,
   title: 'Katerina Ivanovna and Dmitri Karamazov',
   alt: 'Study of Katerina bowing low at the left, with Dmitri in uniform at the right, in a room with a tall mirror and curtained window.',
@@ -31,7 +42,12 @@ export const CHARACTER_ARTWORK: Partial<Record<string, CharacterArtwork>> = {
   alyosha: blessing,
   zossima: blessing,
   dmitri: bow,
-  katerina: bow,
+  katerina: {
+    image: katerinaPortrait,
+    title: 'Katerina Ivanovna',
+    alt: 'Study of Katerina Ivanovna, eyes lowered, in a fringed headscarf and a blue coat, before a red building with barred windows.',
+    source: TRETYAKOV_2023,
+  },
   ivan: {
     image: ivanSmerdyakov,
     title: 'Ivan Karamazov and Smerdyakov',

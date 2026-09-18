@@ -10,7 +10,7 @@
    WHY TOKENS FIRST, UTILITIES SECOND
    Tailwind is configured from the design system rather than the other way
    round. Every value the system allows is declared in @theme below, and
-   Tailwind generates the matching utilities from it — `bg-blue`, `text-ink-3`,
+   Tailwind generates the matching utilities from it — `bg-cloth`, `text-ink-3`,
    `font-serif`, `text-lg`. Nothing outside these tokens can be expressed as a
    utility, so the palette cannot quietly grow a seventh colour or a ninth type
    size.
@@ -84,24 +84,14 @@
 :root {
   color-scheme: light;
 
-  /* Legacy names kept so every component keeps working; they now point at the
-     first-edition palette. blue → cloth, teal → gilt. */
-  --blue: var(--color-cloth);
-  --blue-deep: var(--color-cloth-deep);
-  --blue-soft: var(--color-cloth-soft);
-  --teal: var(--color-gilt);
-  --teal-deep: var(--color-cloth-deep);
-  --teal-soft: var(--color-gilt-soft);
-  --purple: var(--color-ink-2);
-  --purple-deep: var(--color-ink);
-  --purple-soft: var(--color-surface);
-  --pink: var(--color-cloth);
-  --pink-deep: var(--color-cloth-deep);
-  --pink-soft: var(--color-cloth-soft);
-
+  /* Named for what they are on the book. The v2/v3 screen names (--blue,
+     --teal, --purple, --pink) were retired in atlas-2oai: a rule reading
+     var(--blue) that rendered red was lying about itself. */
   --cloth: var(--color-cloth);
   --cloth-deep: var(--color-cloth-deep);
+  --cloth-soft: var(--color-cloth-soft);
   --gilt: var(--color-gilt);
+  --gilt-soft: var(--color-gilt-soft);
   --stock: var(--color-stock);
   --paper-texture:
     repeating-linear-gradient(0deg, rgba(120, 96, 64, 0.022) 0px,
@@ -137,6 +127,8 @@
   --radius: var(--radius-sm);
 
   --measure: 34em;
+  /* Height of the sticky running head; sticky children sit under it. */
+  --nav-h: 3.75rem;
   --page-width: 1080px;
   --page-width-wide: 1280px;
   --page-width-narrow: 720px;
@@ -251,10 +243,10 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .num { font-variant-numeric: tabular-nums; }
 
 .link {
-  color: var(--blue);
+  color: var(--cloth);
   border-bottom: var(--border-width) solid transparent;
 }
-.link:hover { border-bottom-color: var(--blue); }
+.link:hover { border-bottom-color: var(--cloth); }
 
 
 /* ----------------------------------------------------------------------------
@@ -352,11 +344,112 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 .nav-link:hover { color: var(--ink); }
 .nav-link[aria-current="page"] {
-  color: var(--teal-deep);
-  border-bottom-color: var(--teal);
+  color: var(--cloth-deep);
+  border-bottom-color: var(--gilt);
 }
 .nav-spacer { flex: 1; min-width: var(--space-3); }
 .nav .meta { white-space: nowrap; }
+
+/* --- The reader's place ------------------------------------------------------
+   Set once in the running head; every view folds away what lies past it. It
+   reads as a line of the running head, not a form control: small caps label,
+   the select set in the text face with a hairline under it. */
+.nav-place {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+.nav-place__label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.nav-place__select {
+  max-width: 12rem;
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+  background: transparent;
+  border: 0;
+  border-bottom: var(--border-width) solid var(--border-strong);
+  border-radius: 0;
+  padding: 0 0 var(--space-1);
+  cursor: pointer;
+}
+.nav-place[data-set] .nav-place__label,
+.nav-place[data-set] .nav-place__select { color: var(--cloth-deep); }
+.nav-place[data-set] .nav-place__select { border-bottom-color: var(--gilt); }
+.nav-place__all {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--cloth);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.nav-place__all:hover { text-decoration: underline; }
+/* The running head must hold on one line at laptop widths; the select names
+   itself through its first option, so the label can go. */
+@media (max-width: 1199px) {
+  .nav { gap: var(--space-2); }
+  .nav-place__select { max-width: 10rem; }
+  .nav-place__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* --- Folded material ---------------------------------------------------------
+   Gated content keeps its layout (display: contents); its note is hidden until
+   the gate stylesheet shows it. Both are driven by data attributes so the gate
+   works before hydration — see lib/reading-position.ts. */
+.spoiler { display: contents; }
+.spoiler-note { display: none; }
+.spoiler + p.spoiler-note {
+  margin: 0;
+  padding-block: var(--space-2);
+  border-block: var(--border-width) dashed var(--border-strong);
+  font-style: italic;
+}
+/* The scope of an answer, stated above every conversation (atlas-zbt8). */
+.ask-scope {
+  margin: 0;
+  padding-block: var(--space-2);
+  border-block: var(--border-width) solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+.ask-scope[data-scoped] { color: var(--ink-2); border-color: var(--gilt); }
+
+/* A standing notice that the reader is past, or short of, their place. */
+p.ahead-note {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--gilt);
+  background: var(--gilt-soft);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+.spoiler-note__show {
+  font: inherit;
+  font-style: normal;
+  color: var(--cloth);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
 
 .card {
   background-color: var(--surface);
@@ -383,7 +476,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   background: none;
   cursor: pointer;
 }
-.list-item:hover { color: var(--teal-deep); }
+.list-item:hover { color: var(--cloth-deep); }
 .list-item__label { flex: 1; min-width: 0; }
 .list-item__lead { color: var(--ink-3); min-width: 2.5em; font-variant-numeric: tabular-nums; }
 
@@ -402,9 +495,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
   display: block;
   height: 100%;
   border-radius: var(--radius);
-  background: var(--blue);
+  background: var(--cloth);
 }
-.bar-row:hover .bar-fill { background: var(--teal); }
+.bar-row:hover .bar-fill { background: var(--gilt); }
 
 .stat { display: flex; flex-direction: column; gap: var(--space-1); }
 .stat__value {
@@ -413,7 +506,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   font-weight: var(--weight-normal);
   line-height: var(--leading-tight);
   font-variant-numeric: tabular-nums;
-  color: var(--blue);
+  color: var(--cloth);
 }
 
 .chip {
@@ -433,26 +526,26 @@ button, input, textarea, select { font: inherit; color: inherit; }
   font-size: var(--text-sm);
 }
 .field::placeholder { color: var(--ink-3); }
-.field:focus { border-color: var(--teal); }
+.field:focus { border-color: var(--gilt); }
 
 .button {
   padding: var(--space-2) var(--space-4);
   background: var(--bg);
-  color: var(--blue);
+  color: var(--cloth);
   border: var(--border-width) solid var(--border-strong);
   border-radius: var(--radius);
   font-size: var(--text-sm);
   cursor: pointer;
 }
-.button:hover { border-color: var(--teal); color: var(--teal-deep); }
+.button:hover { border-color: var(--gilt); color: var(--cloth-deep); }
 .button:disabled { opacity: 0.4; cursor: default; }
 
 .button--primary {
-  background: var(--blue);
-  border-color: var(--blue);
+  background: var(--cloth);
+  border-color: var(--cloth);
   color: var(--on-cloth);
 }
-.button--primary:hover { background: var(--blue-deep); border-color: var(--blue-deep); color: var(--on-cloth); }
+.button--primary:hover { background: var(--cloth-deep); border-color: var(--cloth-deep); color: var(--on-cloth); }
 
 .button--quiet {
   background: var(--surface);
@@ -461,18 +554,18 @@ button, input, textarea, select { font: inherit; color: inherit; }
   text-align: left;
 }
 
-.range { accent-color: var(--teal); }
+.range { accent-color: var(--gilt); }
 
 .notice {
-  background: var(--blue-soft);
+  background: var(--cloth-soft);
   border: var(--border-width) solid var(--border);
-  border-left: 3px solid var(--blue);
+  border-left: 3px solid var(--cloth);
   border-radius: var(--radius);
   padding: var(--space-3);
   font-size: var(--text-sm);
   color: var(--ink-2);
 }
-.notice code { font-family: var(--font-sans); color: var(--blue-deep); }
+.notice code { font-family: var(--font-sans); color: var(--cloth-deep); }
 
 .name-panel {
   background: var(--surface);
@@ -495,7 +588,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .form-row:last-child { border-bottom: none; }
 .form-row > :last-child { text-align: right; }
 
-.rung { display: block; height: 3px; border-radius: var(--radius); background: var(--blue); }
+.rung { display: block; height: 3px; border-radius: var(--radius); background: var(--cloth); }
 .form-name { font-family: var(--font-serif); font-size: var(--text-base); }
 .form-name--tender { font-style: italic; }
 .form-name--formal { font-weight: var(--weight-bold); }
@@ -510,8 +603,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
   border-bottom: var(--border-width) dotted var(--border-strong);
 }
 .name-hit:hover, .name-hit[aria-expanded="true"] {
-  background: var(--teal-soft);
-  border-bottom-color: var(--teal);
+  background: var(--gilt-soft);
+  border-bottom-color: var(--gilt);
 }
 
 .lineage { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
@@ -523,9 +616,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 .lineage__child--disputed {
   border-style: dashed;
-  border-color: var(--purple);
-  color: var(--purple-deep);
-  background: var(--purple-soft);
+  border-color: var(--ink-2);
+  color: var(--ink);
+  background: var(--surface);
 }
 
 
@@ -541,7 +634,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   bottom: 0;
   z-index: 20;
   background: var(--bg);
-  border-top: 2px solid var(--teal);
+  border-top: 2px solid var(--gilt);
   max-height: 55vh;
   overflow-y: auto;
 }
@@ -589,7 +682,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   pointer-events: auto;
   border-left-color: var(--active);
 }
-.anchored--uncertain { border-left-color: var(--purple); }
+.anchored--uncertain { border-left-color: var(--ink-2); }
 
 .anchored__name {
   font-family: var(--font-serif);
@@ -612,23 +705,48 @@ button, input, textarea, select { font: inherit; color: inherit; }
   overflow-y: auto;
 }
 .anchored__tie {
-  display: flex;
-  gap: var(--space-2);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-2);
   align-items: baseline;
-  width: 100%;
-  text-align: left;
-  background: none;
-  border: none;
   border-top: var(--border-width) solid var(--border);
   padding: var(--space-1) 0;
   font-size: var(--text-xs);
   color: var(--ink-2);
+}
+.anchored__person {
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-xs);
+  color: inherit;
   cursor: pointer;
 }
-.anchored__tie:hover { color: var(--teal-deep); }
+.anchored__person:hover, .anchored__person:focus-visible { color: var(--cloth-deep); }
+/* The evidence: a real link to the passage, never part of the person button. */
+.anchored__cite {
+  color: var(--cloth);
+  white-space: nowrap;
+  font-variant-numeric: lining-nums;
+  border-bottom: var(--border-width) solid var(--cloth-soft);
+}
+.anchored__cite:hover, .anchored__cite:focus-visible { border-bottom-color: var(--cloth); }
+.anchored__basis {
+  grid-column: 1 / -1;
+  font-style: italic;
+  color: var(--ink-3);
+}
+.anchored__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  font-size: var(--text-xs);
+}
 .anchored__bond { font-weight: var(--weight-bold); color: var(--ink); }
-.anchored__bond--key { color: var(--pink-deep); }
-.anchored__bond--uncertain { color: var(--purple-deep); }
+.anchored__bond--key { color: var(--cloth-deep); }
+.anchored__bond--uncertain { color: var(--ink); }
 .anchored__close {
   align-self: flex-start;
   background: none;
@@ -642,7 +760,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 /* Interactive marks inside a diagram. */
 .hit { cursor: pointer; }
-.hit:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.hit:focus-visible { outline: 2px solid var(--gilt); outline-offset: 2px; }
 
 
 /* --- Page architecture, taken from the book itself -------------------------
@@ -742,7 +860,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .prose p { margin: 0; }
 .prose em { font-style: italic; }
 .prose mark {
-  background: var(--teal-soft);
+  background: var(--gilt-soft);
   color: inherit;
   border-radius: var(--radius);
   padding: 0 2px;
@@ -754,19 +872,29 @@ button, input, textarea, select { font: inherit; color: inherit; }
   line-height: var(--leading-loose);
   color: var(--ink);
   max-width: var(--measure);
-  white-space: pre-wrap;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.answer p, .answer ul, .answer ol { margin: 0; }
+.answer ul, .answer ol { padding-left: var(--space-4); }
+/* A quoted passage, set as the edition sets an extract: indented, smaller,
+   no box. */
+.answer blockquote {
+  margin: 0 0 0 var(--space-4);
+  font-size: var(--text-base);
+  color: var(--ink-2);
 }
 
 
 /* ----------------------------------------------------------------------------
    8. DATA MARKS
    Category is encoded by SHAPE, never by colour — six groups cannot be told
-   apart by two hues, and a blue-to-teal ramp would imply an order these
+   apart by two hues, and a cloth-to-gilt ramp would imply an order these
    categories do not have. Shape is categorical, survives greyscale, and does
    not fail for colour-blind readers.
 
-   Colour then carries state instead: blue at rest, teal when active.
+   Colour then carries state instead: cloth at rest, gilt when active.
    ---------------------------------------------------------------------------- */
 
 .chart {
@@ -799,23 +927,137 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .chart-label { font-family: var(--font-sans); font-size: var(--text-xs); fill: var(--ink); }
 .chart-label--muted { fill: var(--ink-3); }
 
-/* Marks default to blue; `data-active` promotes them to teal. */
-.mark { fill: var(--blue); }
-.mark[data-active="true"] { fill: var(--teal); }
-.mark[data-uncertain="true"] { fill: var(--purple); }
-.mark[data-consequence="true"] { fill: var(--pink); }
-.mark-stroke { stroke: var(--blue); fill: none; }
-.mark-stroke[data-active="true"] { stroke: var(--teal); }
+/* Marks default to cloth; `data-active` promotes them to gilt. */
+.mark { fill: var(--cloth); }
+.mark[data-active="true"] { fill: var(--gilt); }
+.mark[data-uncertain="true"] { fill: var(--ink-2); }
+.mark[data-consequence="true"] { fill: var(--cloth); }
+.mark-stroke { stroke: var(--cloth); fill: none; }
+.mark-stroke[data-active="true"] { stroke: var(--gilt); }
 
 .sparkbar { display: flex; align-items: flex-end; gap: 2px; height: 88px; min-width: 640px; }
-.sparkbar__bar { flex: 1; min-width: 3px; border-radius: var(--radius) var(--radius) 0 0; background: var(--blue); }
+.sparkbar__bar { flex: 1; min-width: 3px; border-radius: var(--radius) var(--radius) 0 0; background: var(--cloth); }
 .sparkbar__bar[data-empty="true"] { background: var(--border); }
-.sparkbar__bar:hover { background: var(--teal); }
+.sparkbar__bar:hover { background: var(--gilt); }
 
 
 /* ----------------------------------------------------------------------------
    RESPONSIVE — one breakpoint
    ---------------------------------------------------------------------------- */
+
+/* --- The chapter's argument (atlas-z9ro) ------------------------------------
+   A few italic lines under the heading, between hairlines, as a Victorian
+   edition printed a chapter's argument. Centred, set small, no box. */
+.argument {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-block: var(--space-3);
+  border-block: var(--border-width) solid var(--border);
+  display: grid;
+  gap: var(--space-2);
+  text-align: center;
+  font-size: var(--text-sm);
+  font-style: italic;
+  line-height: var(--leading-normal);
+  color: var(--ink-2);
+}
+.argument p { margin: 0; }
+.argument__label {
+  font-style: normal;
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* --- A cited paragraph ----------------------------------------------------
+   Where an evidence link lands. Marked as a reader marks a margin: a gilt rule
+   beside the paragraph and the faintest wash, the text itself left alone. */
+.prose p[data-cited] {
+  margin-left: calc(-1 * var(--space-3));
+  padding-left: calc(var(--space-3) - 3px);
+  border-left: 3px solid var(--gilt);
+  background: var(--gilt-soft);
+  scroll-margin-top: calc(var(--nav-h) + var(--space-4));
+}
+
+/* --- Timeline (atlas-9hx1) ---------------------------------------------------
+   Wide: the chart and, beside it, a sticky account of the chosen block; the
+   column heads stick under the running head. Narrow: the chart is a framed
+   plate that scrolls in both directions inside itself, heads pinned to its
+   top, and the account docks to the bottom of the viewport when opened. */
+.timeline { display: grid; gap: var(--space-4); }
+.timeline__heads {
+  position: sticky;
+  z-index: 2;
+  display: grid;
+  align-items: baseline;
+  background: var(--bg);
+  border-bottom: var(--border-width) solid var(--border);
+  padding-block: var(--space-2);
+}
+.timeline__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-left: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-indent: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.chart .timeline__head svg { display: inline-block; width: 12px; min-width: 0; flex: none; }
+.timeline__heads-key {
+  padding-right: 16px;
+  text-align: right;
+  font-size: var(--text-xs);
+  font-style: italic;
+  color: var(--ink-3);
+}
+.timeline__close {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  cursor: pointer;
+}
+.timeline__close:hover { color: var(--ink); }
+@media (min-width: 1100px) {
+  .timeline { grid-template-columns: minmax(0, 1fr) 17rem; align-items: start; }
+  .timeline__chart { overflow: visible; }
+  .timeline__heads { top: var(--nav-h); }
+  .timeline__aside {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--space-3));
+    border-top: 3px double var(--ink);
+    padding-top: var(--space-3);
+  }
+  .timeline__close { display: none; }
+}
+@media (max-width: 1099px) {
+  .timeline__chart { overflow: auto; max-height: 78vh; }
+  .timeline__heads { top: 0; min-width: var(--chart-min, 900px); }
+  .timeline__aside { display: none; }
+  .timeline__aside[data-open] {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    max-height: 55vh;
+    overflow-y: auto;
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg);
+    border-top: 2px solid var(--gilt);
+  }
+}
 
 @media (max-width: 760px) {
   .split { grid-template-columns: minmax(0, 1fr); }
