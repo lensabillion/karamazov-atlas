@@ -13,6 +13,7 @@ import {
 } from '../src/lib/reading-position.ts';
 import { ordinalOf, searchCorpus } from '../src/lib/corpus.ts';
 import { findPassage, passageFromHash, passageHref } from '../src/lib/passage.ts';
+import { chapterIdOf } from '../src/components/AnswerText.tsx';
 
 let failed = 0;
 const check = (name: string, cond: boolean, detail = '') => {
@@ -77,6 +78,25 @@ for (const through of [5, 36, 60]) {
   check(`search at place ${through} returns nothing past it`, past.length === 0, past.join(', '));
 }
 
+console.log('\nretrieval quality');
+// Known passages, found by the words a reader would use. Before BM25 and a
+// stopword list, every one of these returned the same five long chapters.
+const top = (q: string, n = 1) => searchCorpus(q, n).map((h) => h.chapter.id);
+const cases: [string, string, number][] = [
+  ['Snegiryov trampling the notes under his heel', 'b04-c07', 1],
+  ['the Grand Inquisitor', 'b05-c05', 1],
+  ['Cana of Galilee', 'b07-c04', 1],
+  ['returns the ticket', 'b05-c04', 3],
+  ['Zhutchka the dog with a pin in the bread', 'b10-c04', 3],
+  ['the pestle Grigory struck on the fence', 'b08-c04', 3],
+];
+for (const [q, want, n] of cases) {
+  const got = top(q, n);
+  check(`“${q}” finds ${want} in the top ${n}`, got.includes(want), got.join(', '));
+}
+const distinct = new Set(['Alyosha', 'trampling money', 'Grand Inquisitor'].map((q) => top(q, 5).join()));
+check('different questions no longer return the same chapters', distinct.size === 3);
+
 console.log('\npassage links');
 const href = passageHref('b03-c02', 'They saved the baby, but Lizaveta died at dawn');
 check('a passage link round-trips through the hash',
@@ -84,6 +104,12 @@ check('a passage link round-trips through the hash',
 check('matching ignores italic underscores and wrapping',
   findPassage(['one _two_\nthree', 'four'], 'two three') === 0);
 check('an absent phrase is -1', findPassage(['one'], 'nothing like it') === -1);
+
+console.log('\nanswer citations');
+check('Bk V, ch. 4 links to b05-c04', chapterIdOf('V', '4') === 'b05-c04');
+check('Bk XII, ch. 14 links to b12-c14', chapterIdOf('XII', '14') === 'b12-c14');
+check('Epilogue, ch. 3 links to b13-c03', chapterIdOf('Epilogue', '3') === 'b13-c03');
+check('an impossible citation links nowhere', chapterIdOf('XX', '4') === null && chapterIdOf('V', '40') === null);
 
 console.log(failed === 0 ? '\nReading-position checks passed.' : `\n${failed} check(s) failed`);
 process.exit(failed === 0 ? 0 : 1);

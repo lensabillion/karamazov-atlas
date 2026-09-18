@@ -130,70 +130,130 @@ export function presenceOf(characterId: string): { chapter: Chapter; count: numb
   }));
 }
 
-interface IndexedChapter { chapter: Chapter; text: string; lower: string }
+/**
+ * Words too common to say anything about which chapter a passage is in. Before
+ * they were dropped, "the", "his" and "was" decided every ranking, and every
+ * query returned the same five longest chapters (found by atlas-3mzp's first
+ * live call, where the model had to guess the chapter itself).
+ */
+const STOPWORDS = new Set(
+  (
+    'the and that his her him she was with for not but you had have all they this what from are ' +
+    'were been there their them one would said who when which will into out then now only like very ' +
+    'did your yes how can could more even has its our why any some just over such too than about ' +
+    'upon these those again also own same other does done don\'t i\'m it\'s that\'s he\'s she\'s ' +
+    'you\'re i\'ll i\'ve can\'t won\'t didn\'t isn\'t wasn\'t there\'s let\'s here where after before ' +
+    'while because though still ever never much many most well may might must shall should being ' +
+    'himself herself itself myself yourself themselves ourselves whom whose each both few through ' +
+    'under once off down came come went going know knew see saw say says tell told'
+  ).split(' '),
+);
 
-let _index: IndexedChapter[] | null = null;
+const normalize = (s: string) => s.toLowerCase().replace(/[’‘]/g, "'");
+
+/** Content words, lowercased, with curly apostrophes made straight. */
+function tokens(s: string): string[] {
+  return (normalize(s).match(/[a-z][a-z']*[a-z]/g) ?? []).filter(
+    (w) => w.length >= 3 && !STOPWORDS.has(w),
+  );
+}
+
+interface IndexedChapter {
+  chapter: Chapter;
+  /** Text with line wrapping collapsed, so phrases match across lines. */
+  flat: string;
+  lower: string;
+  tf: Map<string, number>;
+  length: number;
+}
+
+interface SearchIndex {
+  chapters: IndexedChapter[];
+  df: Map<string, number>;
+  avgLength: number;
+}
+
+let _index: SearchIndex | null = null;
 
 /**
- * Every chapter's text and its lowercase copy, read once.
+ * Term statistics for every chapter, built once.
  *
  * Search used to read all 96 files and lowercase the whole novel on every
  * query. Built once per process in production; rebuilt per call in development
  * for the same stale-data reason as the loaders above.
  */
-function chapterIndex(): IndexedChapter[] {
-  const build = () =>
-    getCorpus().chapters.map((chapter) => {
-      const text = getChapterText(chapter.id);
-      return { chapter, text, lower: text.toLowerCase() };
+function searchIndex(): SearchIndex {
+  const build = (): SearchIndex => {
+    const df = new Map<string, number>();
+    const chapters = getCorpus().chapters.map((chapter) => {
+      const flat = getChapterText(chapter.id).replace(/\s+/g, ' ').trim();
+      const tf = new Map<string, number>();
+      const words = tokens(flat);
+      for (const w of words) tf.set(w, (tf.get(w) ?? 0) + 1);
+      for (const w of tf.keys()) df.set(w, (df.get(w) ?? 0) + 1);
+      return { chapter, flat, lower: normalize(flat), tf, length: words.length };
     });
+    const avgLength = chapters.reduce((n, c) => n + c.length, 0) / chapters.length;
+    return { chapters, df, avgLength };
+  };
   if (!CACHE) return build();
   return (_index ??= build());
 }
 
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 /**
- * Lexical retrieval over chapter text. Scores by term frequency with a bonus for
- * whole-phrase hits, and returns a window of context around the best match so the
+ * Ranked retrieval over chapter text: BM25 over content words, plus a strong
+ * bonus when the query occurs as a phrase. Returns a window of context around
+ * the phrase, or around the rarest query word the chapter contains, so the
  * caller can quote it with a real citation.
  *
  * `through` is the spoiler bound: a 1-based reading-order position, so only
  * chapters up to and including it are searched. Omit it to search the whole book.
  */
 export function searchCorpus(query: string, limit = 6, through?: number) {
-  const terms = query.toLowerCase().match(/[a-z’']{3,}/g) ?? [];
+  const terms = [...new Set(tokens(query))];
   if (terms.length === 0) return [];
-  const phrase = query.toLowerCase().trim();
+  const phrase = normalize(query).replace(/["“”]/g, '').replace(/\s+/g, ' ').trim();
 
-  const index = chapterIndex();
-  const scope = through === undefined ? index : index.slice(0, Math.max(0, through));
+  const { chapters, df, avgLength } = searchIndex();
+  const N = chapters.length;
+  const idf = (term: string) => {
+    const n = df.get(term) ?? 0;
+    return Math.log(1 + (N - n + 0.5) / (n + 0.5));
+  };
+  const K1 = 1.2;
+  const B = 0.75;
 
-  const scored = scope.map(({ chapter, text, lower }) => {
+  const scope = through === undefined ? chapters : chapters.slice(0, Math.max(0, through));
+
+  const scored = scope.map(({ chapter, flat, lower, tf, length }) => {
     let score = 0;
-    let best = -1;
+    let rarest: string | null = null;
     for (const term of terms) {
-      let idx = lower.indexOf(term);
-      while (idx !== -1) {
-        score += 1;
-        if (best === -1) best = idx;
-        idx = lower.indexOf(term, idx + term.length);
-      }
+      const f = tf.get(term) ?? 0;
+      if (!f) continue;
+      score += idf(term) * ((f * (K1 + 1)) / (f + K1 * (1 - B + (B * length) / avgLength)));
+      if (rarest === null || idf(term) > idf(rarest)) rarest = term;
     }
-    const phraseAt = lower.indexOf(phrase);
-    if (phrase.length > 8 && phraseAt !== -1) {
-      score += 25;
-      best = phraseAt;
+
+    let at = -1;
+    if (phrase.length > 8 && terms.length > 1) {
+      at = lower.indexOf(phrase);
+      // A verbatim phrase outranks any amount of scattered vocabulary.
+      if (at !== -1) score += 10 + terms.reduce((n, t) => n + idf(t), 0);
     }
-    // Normalize so long chapters don't dominate purely by length.
-    const normalized = score / Math.log2(chapter.wordCount + 2);
+    if (at === -1 && rarest) {
+      at = lower.search(new RegExp(`\\b${escapeRe(rarest)}\\b`));
+    }
 
-    const from = Math.max(0, best - 320);
-    const excerpt = best === -1 ? '' : text.slice(from, from + 900).trim();
-
-    return { chapter, score: normalized, raw: score, excerpt };
+    const from = Math.max(0, at - 320);
+    const excerpt = at === -1 ? '' : flat.slice(from, from + 900).trim();
+    return { chapter, score, excerpt };
   });
 
   return scored
-    .filter((s) => s.raw > 0)
+    .filter((s) => s.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 }
