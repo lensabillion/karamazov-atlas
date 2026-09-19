@@ -73,6 +73,3 @@ export function getNames(): NamesData {
 export function getNamed(id: string): NamedCharacter | undefined {
   return getNames().characters.find((c) => c.id === id);
 }
-
-/** Register ordered from most distant to most intimate. Used to place rungs. */
-export const REGISTER_ORDER: Register[] = ['formal', 'distanced', 'neutral', 'familiar', 'tender'];
