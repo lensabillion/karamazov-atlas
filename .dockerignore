@@ -8,6 +8,7 @@ node_modules
 api/.venv
 **/__pycache__
 **/.pytest_cache
+**/.uv-cache
 *.tsbuildinfo
 
 # The database is BUILT inside the image by `python -m atlas.ingest`; shipping a
@@ -27,7 +28,12 @@ next.config.ts
 tsconfig.json
 package.json
 package-lock.json
+# The three files the dependency layer copies before anything else. Re-included
+# explicitly so a future broad exclusion cannot quietly cost the image its
+# lockfile and leave `uv sync --locked` resolving from nothing.
 !api/pyproject.toml
+!api/uv.lock
+!api/.python-version
 vercel.json
 
 # The novel's source text is 1.9 MB and only the derived data/ files are read.

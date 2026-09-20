@@ -18,11 +18,25 @@
 # same commit in produces the same database out, so the running container is
 # immutable and needs no volume, no migration step and no warm-up.
 
-FROM python:3.12-slim AS base
+FROM python:3.14-slim AS base
 
+# uv comes from its own published image, which is the pattern uv documents for
+# Docker. The tag pins the exact uv that replays the lockfile, so the resolver
+# is as fixed as the resolution it is reading.
+COPY --from=ghcr.io/astral-sh/uv:0.12.8 /uv /uvx /usr/local/bin/
+
+# UV_COMPILE_BYTECODE precompiles the installed dependencies during the build so
+# the first request does not pay for it; PYTHONDONTWRITEBYTECODE below only
+# suppresses writes at run time, which is still wanted for the source that is
+# run in place. UV_LINK_MODE=copy: uv's cache and the venv are not on the same
+# filesystem here, so hardlinking would warn on every build. UV_PYTHON_DOWNLOADS
+# =never makes the build fail loudly rather than quietly fetch a second
+# interpreter if this base image ever stops being 3.14.
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never
 
 WORKDIR /app
 
@@ -32,9 +46,14 @@ COPY api/pyproject.toml /tmp/ctx-check-api
 COPY data/corpus.json /tmp/ctx-check-data
 
 # Dependencies first, so edits to source or corpus do not invalidate this layer.
-COPY api/pyproject.toml /app/api/pyproject.toml
-RUN pip install --no-cache-dir \
-      "fastapi>=0.115" "uvicorn[standard]>=0.32" "pydantic>=2.9"
+# The versions are no longer restated here: uv.lock is the single place they are
+# written down, and --locked fails the build if it and pyproject.toml have
+# drifted apart, which is the whole reason to commit a lockfile. --no-dev keeps
+# pytest and httpx out of the image; --no-install-project keeps this layer
+# independent of api/src, which the next layer copies and which is never
+# installed in any case.
+COPY api/pyproject.toml api/uv.lock api/.python-version /app/api/
+RUN uv sync --project /app/api --locked --no-dev --no-install-project
 
 # Source is run in place rather than installed: db.py resolves its default paths
 # relative to the project layout, and installing into site-packages would break
@@ -42,7 +61,10 @@ RUN pip install --no-cache-dir \
 COPY api/src /app/api/src
 COPY data /app/data
 
-ENV PYTHONPATH=/app/api/src \
+# Putting the venv on PATH is what makes `python` and `uvicorn` below the ones
+# uv installed, without wrapping every command in `uv run`.
+ENV PATH="/app/api/.venv/bin:$PATH" \
+    PYTHONPATH=/app/api/src \
     ATLAS_DATA_DIR=/app/data \
     ATLAS_DB_PATH=/app/data/atlas.db
 
