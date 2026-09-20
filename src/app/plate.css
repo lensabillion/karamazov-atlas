@@ -22,16 +22,17 @@
   /* Laid paper rather than flat cream: two barely-there washes give the stock
      a grain, so it reads as a page instead of a beige rectangle. */
   /* Reference the system rather than restating it. These were literals, which
-     meant a palette change would have left the plates behind. */
-  --ink: var(--color-ink);
+     meant a palette change would have left the plates behind. --ink, --stock
+     and --rule restated their :root values word for word and now simply come
+     from globals.css (atlas-3w18). --ink-soft stays local because it is NOT a
+     root token: it is the switch that lets these plate classes be reused on a
+     surface that is not a .plate — see .collage-catalogue__story. */
   --ink-soft: var(--color-ink-2);
-  --stock: var(--color-stock);
-  --rule: var(--color-ink);
 
   background-color: var(--stock);
   background-image: var(--paper-texture);
   color: var(--ink);
-  border: 1px solid var(--color-border);
+  border: var(--rule-hair) solid var(--color-border);
   border-radius: 2px;
   padding: var(--space-6) var(--space-5);
   display: flex;
@@ -89,15 +90,15 @@
 .plate__rule {
   width: min(22rem, 70%);
   border: 0;
-  border-top: 2px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
+  border-top: var(--rule-thick) solid var(--rule);
+  border-bottom: var(--rule-hair) solid var(--rule);
   height: 3px;
   margin: 0;
   opacity: 0.85;
 }
 
 .plate__rule--hair {
-  border-top: 1px solid var(--rule);
+  border-top: var(--rule-hair) solid var(--rule);
   border-bottom: 0;
   height: 0;
   width: min(14rem, 50%);
@@ -164,11 +165,17 @@
   font-variation-settings: "opsz" 14;
   font-size: var(--text-base);
 }
-/* Leader dots, as a period index or contents page would run them. */
+/* Leader dots, as a period index or contents page would run them. The colour
+   was rgba(43, 36, 29, 0.35) — a fifth ink, in no token, that the palette did
+   not know it had. The cast list on /characters runs the identical device
+   (.characters-list__leader) on --border-strong, which is the system's hairline
+   against stock, so the leaders here now agree with it. This is the one
+   deliberate change of appearance in atlas-3w18: on cream the old value
+   composited to rgb(172, 166, 156) and --border-strong is rgb(185, 171, 144). */
 .plate__form::before,
 .plate__form::after {
   content: "";
-  border-bottom: 1px dotted rgba(43, 36, 29, 0.35);
+  border-bottom: var(--rule-hair) dotted var(--border-strong);
   transform: translateY(-0.28em);
 }
 .plate__form-name { font-style: italic; }
@@ -187,7 +194,7 @@
   gap: var(--space-2);
   padding-block: var(--space-4);
   text-align: center;
-  border-block: 1px solid var(--border-strong);
+  border-block: var(--rule-hair) solid var(--border-strong);
 }
 .plate-art-record .text-muted { max-width: var(--measure); }
 .plate-art-record cite { font-style: italic; color: var(--ink); }

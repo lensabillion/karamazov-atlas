@@ -2,7 +2,6 @@
    centred like a plate; the notes beneath are set as a small reading list. */
 .translations__list { display: grid; gap: var(--space-5); }
 .translations__entry {
-  --rule: var(--color-ink);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +9,7 @@
   padding: var(--space-5) var(--space-4);
   text-align: center;
 }
-.translations__entry[data-ours] { border-left: 3px solid var(--gilt); }
+.translations__entry[data-ours] { border-left: var(--rule-heavy) solid var(--gilt); }
 .translations__who {
   margin: 0;
   font-family: var(--font-display);
@@ -40,10 +39,10 @@
   text-indent: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
-  border-bottom: 2px solid var(--ink);
+  border-bottom: var(--rule-thick) solid var(--ink);
   padding: var(--space-2) var(--space-3) var(--space-2) 0;
 }
-.translations__table td { border-bottom: var(--border-width) solid var(--border); padding: var(--space-2) var(--space-3) var(--space-2) 0; }
+.translations__table td { border-bottom: var(--rule-hair) solid var(--border); padding: var(--space-2) var(--space-3) var(--space-2) 0; }
 .translations__sources ul { margin: 0; padding-left: var(--space-4); display: grid; gap: var(--space-2); font-size: var(--text-sm); }
 @media (max-width: 760px) {
   .translations__notes > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }

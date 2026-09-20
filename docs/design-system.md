@@ -119,6 +119,17 @@ White is the canvas, not a new category or accent colour.
 
 - **Rules, not borders.** Divide with a paired thick/thin rule, or a hairline.
   A box around content is a UI habit, not a print one.
+- **A rule's colour and weight are tokens**, because a rule is a design decision
+  and not an incidental border. `--rule` is what a rule is printed in;
+  `--rule-hair` (1px) is a hairline — separators, table rules, leader dots, the
+  thin half of a paired rule; `--rule-thick` (2px) is the thick half of that
+  pair and the gilt underscore; `--rule-heavy` (3px) is a `double` section
+  divider — 3px being the least that renders as two lines — and the mark set in
+  the margin beside a cited block. There is no fourth weight, and no px literal
+  in a border width. `--rule-hair` replaced `--border-width` in atlas-3w18: one
+  name for one decision.
+- **There is no tracking token.** Letterspacing is written per role beside the
+  `text-indent` that mirrors it, because the two are a single decision.
 - **Six spacing steps**, `--space-1` … `--space-6`; gaps set by the parent.
 - **One radius**, 2px, used sparingly. Print has no rounded corners.
 - **Figures**: `lining-nums` where they align in columns, oldstyle in prose.
