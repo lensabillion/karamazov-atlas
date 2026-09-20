@@ -14,8 +14,6 @@ Why a database at all, when the pipeline already produces clean JSON:
 One file on disk, rebuilt by one command, so nothing about deployment is harder.
 """
 
-from __future__ import annotations
-
 import os
 import sqlite3
 from pathlib import Path

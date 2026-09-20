@@ -6,14 +6,31 @@ the client types — so the shapes are defined once, here, and the front end can
 never drift from the API without the compiler noticing.
 """
 
-from __future__ import annotations
-
+import warnings
 from typing import Literal
 
 from pydantic import BaseModel, Field
 
 Register = Literal["formal", "distanced", "neutral", "familiar", "tender"]
 Group = Literal["family", "women", "monastery", "boys", "town", "court"]
+
+# `register` is the wire name the front end reads, so the two models below keep
+# it — but it collides with `BaseModel.register`, the classmethod `abc.ABCMeta`
+# hangs on every pydantic model, and pydantic reacts to that collision twice.
+#
+# It takes the inherited classmethod as the field's DEFAULT. That is not
+# cosmetic: it made `register` optional in the OpenAPI document (absent from
+# `required`, so the generated client typed it as possibly missing) and let a
+# model be built with a bound method sitting where a register belongs. Writing
+# `Field(...)` puts an explicit "required, no default" in the class body, so
+# there is nothing left to inherit.
+#
+# It also warns, on every import and every test run. There is no per-field
+# opt-out for this one anywhere in `ConfigDict`, so the single message is
+# filtered around the two class bodies that raise it and nowhere else.
+_REGISTER_SHADOWS_BASEMODEL = (
+    r'Field name "register" in "\w+" shadows an attribute in parent "BaseModel"'
+)
 
 
 class Chapter(BaseModel):
@@ -51,14 +68,17 @@ class Character(BaseModel):
     chapter_count: int
 
 
-class NameForm(BaseModel):
-    form: str
-    kind: Literal["patronymic-pair", "given", "diminutive", "surname"]
-    register: Register
-    gloss: str
-    count: int
-    chapters: list[str]
-    first_chapter: str | None = None
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", _REGISTER_SHADOWS_BASEMODEL, UserWarning)
+
+    class NameForm(BaseModel):
+        form: str
+        kind: Literal["patronymic-pair", "given", "diminutive", "surname"]
+        register: Register = Field(...)
+        gloss: str
+        count: int
+        chapters: list[str]
+        first_chapter: str | None = None
 
 
 class NamedCharacter(BaseModel):
@@ -85,21 +105,24 @@ class Lineage(BaseModel):
     children: list[str]
 
 
-class Address(BaseModel):
-    """A name used in attributed dialogue: who said which form of whose name.
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", _REGISTER_SHADOWS_BASEMODEL, UserWarning)
 
-    `/addresses` returns direct address only (a vocative: "Listen, Alyosha, …");
-    `/spoken-of` returns third-person mentions. Coverage is partial by
-    construction: only quoted passages whose speaker can be identified are
-    counted, and `/names/coverage` reports the ratio so no caller can mistake
-    this for a census.
-    """
+    class Address(BaseModel):
+        """A name used in attributed dialogue: who said which form of whose name.
 
-    speaker: str
-    target: str
-    form: str
-    register: Register
-    count: int
+        `/addresses` returns direct address only (a vocative: "Listen, Alyosha, …");
+        `/spoken-of` returns third-person mentions. Coverage is partial by
+        construction: only quoted passages whose speaker can be identified are
+        counted, and `/names/coverage` reports the ratio so no caller can mistake
+        this for a census.
+        """
+
+        speaker: str
+        target: str
+        form: str
+        register: Register = Field(...)
+        count: int
 
 
 class Coverage(BaseModel):
@@ -116,10 +139,3 @@ class SearchHit(BaseModel):
     title: str
     score: float
     excerpt: str
-
-
-class Edge(BaseModel):
-    source: str
-    target: str
-    weight: int
-    chapters: list[str]

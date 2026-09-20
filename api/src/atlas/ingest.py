@@ -9,8 +9,6 @@ reversible.
     python -m atlas.ingest
 """
 
-from __future__ import annotations
-
 import json
 import os
 import sqlite3
