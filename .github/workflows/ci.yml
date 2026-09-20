@@ -52,7 +52,7 @@ jobs:
       # api/.python-version says (3.14), and uv installs it if the runner has
       # none to match; naming a version here as well would just be one more
       # place for it to drift, which is the bug this replaced.
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
 
       # --locked fails if uv.lock and pyproject.toml have drifted apart. That
       # failure is the entire return on committing a lockfile: without it CI,
