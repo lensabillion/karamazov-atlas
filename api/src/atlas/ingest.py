@@ -37,9 +37,7 @@ def ingest(conn: sqlite3.Connection) -> dict[str, int]:
     names = _load("names.json")
 
     for key in ("title", "author", "translator", "source"):
-        conn.execute(
-            "INSERT OR REPLACE INTO meta(key, value) VALUES (?, ?)", (key, corpus[key])
-        )
+        conn.execute("INSERT OR REPLACE INTO meta(key, value) VALUES (?, ?)", (key, corpus[key]))
     conn.execute(
         "INSERT OR REPLACE INTO meta(key, value) VALUES ('word_count', ?)",
         (str(corpus["wordCount"]),),
@@ -51,9 +49,20 @@ def ingest(conn: sqlite3.Connection) -> dict[str, int]:
         body = (DATA / "chapters" / f"{ch['id']}.txt").read_text(encoding="utf-8")
         rows.append(
             (
-                ch["id"], ordinal, ch["part"], ch["partNum"], ch["bookNum"],
-                ch["bookTitle"], ch["num"], ch["roman"], ch["title"], ch["cite"],
-                ch["start"], ch["end"], ch["wordCount"], body,
+                ch["id"],
+                ordinal,
+                ch["part"],
+                ch["partNum"],
+                ch["bookNum"],
+                ch["bookTitle"],
+                ch["num"],
+                ch["roman"],
+                ch["title"],
+                ch["cite"],
+                ch["start"],
+                ch["end"],
+                ch["wordCount"],
+                body,
             )
         )
     conn.executemany(
@@ -71,9 +80,15 @@ def ingest(conn: sqlite3.Connection) -> dict[str, int]:
         n = named.get(c["id"], {})
         chars.append(
             (
-                c["id"], c["name"], c["short"], c["group"],
-                n.get("patronymic"), n.get("givenName"), n.get("fatherName"),
-                c["total"], c["chapterCount"],
+                c["id"],
+                c["name"],
+                c["short"],
+                c["group"],
+                n.get("patronymic"),
+                n.get("givenName"),
+                n.get("fatherName"),
+                c["total"],
+                c["chapterCount"],
             )
         )
     conn.executemany(

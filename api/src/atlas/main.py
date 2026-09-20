@@ -13,7 +13,6 @@ from __future__ import annotations
 import os
 import re
 import sqlite3
-from contextlib import asynccontextmanager
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
@@ -92,10 +91,18 @@ def corpus(db: DB) -> models.CorpusMeta:
 
 def _chapter(row: sqlite3.Row) -> models.Chapter:
     return models.Chapter(
-        id=row["id"], part=row["part"], part_num=row["part_num"],
-        book_num=row["book_num"], book_title=row["book_title"], num=row["num"],
-        roman=row["roman"], title=row["title"], cite=row["cite"],
-        start=row["start"], end=row["end"], word_count=row["word_count"],
+        id=row["id"],
+        part=row["part"],
+        part_num=row["part_num"],
+        book_num=row["book_num"],
+        book_title=row["book_title"],
+        num=row["num"],
+        roman=row["roman"],
+        title=row["title"],
+        cite=row["cite"],
+        start=row["start"],
+        end=row["end"],
+        word_count=row["word_count"],
     )
 
 
@@ -142,8 +149,13 @@ def characters(db: DB) -> list[models.Character]:
         ]
         out.append(
             models.Character(
-                id=r["id"], name=r["name"], short=r["short"], group=r["grp"],
-                aliases=aliases, total=r["total"], chapter_count=r["chapter_count"],
+                id=r["id"],
+                name=r["name"],
+                short=r["short"],
+                group=r["grp"],
+                aliases=aliases,
+                total=r["total"],
+                chapter_count=r["chapter_count"],
             )
         )
     return out
@@ -208,8 +220,11 @@ def addresses(db: DB, speaker: str | None = None, target: str | None = None):
     sql += " ORDER BY count DESC"
     return [
         models.Address(
-            speaker=r["speaker_id"], target=r["target_id"], form=r["form"],
-            register=r["register"], count=r["count"],
+            speaker=r["speaker_id"],
+            target=r["target_id"],
+            form=r["form"],
+            register=r["register"],
+            count=r["count"],
         )
         for r in db.execute(sql, args)
     ]
@@ -228,8 +243,11 @@ def spoken_of(db: DB, speaker: str | None = None, target: str | None = None):
     sql += " ORDER BY count DESC"
     return [
         models.Address(
-            speaker=r["speaker_id"], target=r["target_id"], form=r["form"],
-            register=r["register"], count=r["count"],
+            speaker=r["speaker_id"],
+            target=r["target_id"],
+            form=r["form"],
+            register=r["register"],
+            count=r["count"],
         )
         for r in db.execute(sql, args)
     ]
@@ -271,8 +289,11 @@ def search(
         raise HTTPException(400, f"Bad query: {e}") from e
     return [
         models.SearchHit(
-            chapter_id=r["id"], cite=r["cite"], title=r["title"],
-            score=-r["score"], excerpt=r["excerpt"],
+            chapter_id=r["id"],
+            cite=r["cite"],
+            title=r["title"],
+            score=-r["score"],
+            excerpt=r["excerpt"],
         )
         for r in rows
     ]

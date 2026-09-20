@@ -60,6 +60,14 @@ jobs:
       - name: Install
         run: uv sync --locked
 
+      # Two steps rather than one, and both before the database and the tests,
+      # so a failure reads as "this is style" and not as a broken build.
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format
+        run: uv run ruff format --check .
+
       - name: Build the database from committed data
         run: uv run python -m atlas.ingest
         env:
