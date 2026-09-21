@@ -19,11 +19,11 @@ Group = Literal["family", "women", "monastery", "boys", "town", "court"]
 # hangs on every pydantic model, and pydantic reacts to that collision twice.
 #
 # It takes the inherited classmethod as the field's DEFAULT. That is not
-# cosmetic: it made `register` optional in the OpenAPI document (absent from
-# `required`, so the generated client typed it as possibly missing) and let a
-# model be built with a bound method sitting where a register belongs. Writing
-# `Field(...)` puts an explicit "required, no default" in the class body, so
-# there is nothing left to inherit.
+# cosmetic: it made `register` optional in the published OpenAPI document
+# (absent from `required`, telling any client a row might lack a field every
+# row has) and let a model be built with a bound method sitting where a
+# register belongs. Writing `Field(...)` puts an explicit "required, no
+# default" in the class body, so there is nothing left to inherit.
 #
 # It also warns, on every import and every test run. There is no per-field
 # opt-out for this one anywhere in `ConfigDict`, so the single message is
