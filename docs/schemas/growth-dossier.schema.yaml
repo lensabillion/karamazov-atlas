@@ -1,0 +1,152 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: GrowthDossier
+description: >-
+  One research-and-direction dossier for the Karamazov Atlas: what other people have
+  built to represent a book they have read, and what this project should become as a
+  result. The payload is the part a consumer reads — a bead generator, a docs index, a
+  roadmap check. The Markdown body carries the argument.
+type: object
+additionalProperties: false
+required: [date, question, verdict, current_shape, precedent_registry, proposals, consolidation]
+properties:
+
+  date:
+    type: string
+    pattern: '^\d{4}-\d{2}-\d{2}$'
+    description: Day the dossier was written, ISO 8601. A string, not a YAML date.
+
+  bead:
+    type: string
+    pattern: '^atlas-[a-z0-9]+$'
+    description: The tbd bead this dossier answers, when it has one.
+
+  question:
+    type: string
+    minLength: 10
+    description: The question the dossier was written to answer, in one sentence.
+
+  verdict:
+    type: string
+    minLength: 10
+    description: >-
+      The dossier's answer, in one sentence. If it cannot be said in one sentence the
+      dossier has not finished thinking.
+
+  current_shape:
+    type: object
+    additionalProperties: false
+    required: [routes, nav_links, one_line_rule]
+    description: What the project is on the day of writing. Measured, not remembered.
+    properties:
+      routes:
+        type: integer
+        minimum: 0
+        description: page.tsx files under src/app.
+      nav_links:
+        type: integer
+        minimum: 0
+        description: Destinations in the top nav.
+      buried_routes:
+        type: array
+        items: {type: string}
+        description: Built routes reachable only from body copy, not the nav.
+      one_line_rule:
+        type: [string, 'null']
+        description: >-
+          The single sentence that tells a stranger what this is. Null is a finding,
+          not a gap in the record.
+
+  precedent_registry:
+    type: string
+    pattern: '\.ya?ml$'
+    description: >-
+      Relative path to the PrecedentRegistry artifact that holds every precedent a
+      proposal descends from. Kept apart so the registry can be shared by every
+      research pass, and so this file stays readable.
+
+  proposals:
+    type: array
+    minItems: 1
+    description: Where the project could go. Each one must earn its place.
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, name, rule, kind, descends_from, effort, verdict, only_this_novel]
+      properties:
+        id:
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+        name: {type: string, minLength: 1}
+        rule:
+          type: string
+          minLength: 10
+          description: The proposal in one sentence, poster-sized.
+        kind:
+          type: string
+          enum: [spine, ritual, artifact, apparatus, door, cut]
+          description: >-
+            spine — the thing the project is about; ritual — a reason to return;
+            artifact — something a reader takes away; apparatus — supporting furniture;
+            door — a way in for someone who has not started the book; cut — removing
+            something.
+        descends_from:
+          type: array
+          minItems: 1
+          items: {type: string}
+          description: >-
+            Precedent ids from the registry. A proposal with no ancestor is an untested
+            guess.
+        needs:
+          type: array
+          items: {type: string}
+          description: What has to exist first and does not yet.
+        have_already:
+          type: array
+          items: {type: string}
+          description: Repo paths or data this rests on today.
+        effort:
+          type: string
+          enum: [S, M, L]
+        risk: {type: string}
+        verdict:
+          type: string
+          enum: [build-now, build-next, explore, reject]
+        only_this_novel:
+          type: string
+          minLength: 10
+          description: >-
+            Why this cannot be the same product for every book. A proposal that would
+            work just as well for any novel is a generic tool wearing a Russian coat.
+        bead:
+          type: string
+          pattern: '^atlas-[a-z0-9]+$'
+
+  consolidation:
+    type: object
+    additionalProperties: false
+    required: [thesis, keep]
+    description: The answer to "so many pages" — what survives, what merges, what goes.
+    properties:
+      thesis: {type: string, minLength: 10}
+      keep:
+        type: array
+        items: {type: string}
+      merge:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required: [into, from, why]
+          properties:
+            into: {type: string}
+            from:
+              type: array
+              minItems: 1
+              items: {type: string}
+            why: {type: string, minLength: 5}
+      demote:
+        type: array
+        items: {type: string}
+      cut:
+        type: array
+        items: {type: string}

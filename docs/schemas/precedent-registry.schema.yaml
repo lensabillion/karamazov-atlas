@@ -1,0 +1,66 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: PrecedentRegistry
+description: >-
+  Everything the Atlas's research has surveyed: what other people built to represent a
+  book, reduced to the rule that made it work and what this project could take from it.
+  Shared by every research pass. A proposal in a GrowthDossier names its ancestors here
+  by id.
+type: object
+additionalProperties: false
+required: [precedents]
+properties:
+  precedents:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      # Permissive by design: the registry grows by description, and a new descriptive
+      # field should not fail the artifact. The fields below are the ones consumers read.
+      additionalProperties: true
+      required: [id, name, tradition, rule, transferable]
+      properties:
+        id:
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+        name: {type: string, minLength: 1}
+        url: {type: string, format: uri}
+        year: {type: integer, minimum: 1200, maximum: 2100}
+        tradition:
+          type: string
+          enum:
+            - distant-reading
+            - enriched-edition
+            - study-tool
+            - fan-cartography
+            - ai-companion
+            - serial-ritual
+            - deduction-mechanic
+            - commentary-apparatus
+            - social-annotation
+            - personal-record
+            - derived-object
+        rule:
+          type: string
+          minLength: 10
+          description: The mechanic in one sentence — the rule that makes it work.
+        surface:
+          type: string
+          description: How small it is. The ones that spread are usually one screen or none.
+        reach:
+          type: string
+          description: Evidence of scale, as found.
+        verified:
+          type: boolean
+          description: >-
+            False when a reach figure could not be confirmed at a primary source. An
+            unverified number stays out of the prose.
+        gets_right: {type: string}
+        fails_at: {type: string}
+        transferable:
+          type: string
+          minLength: 10
+          description: What this project could actually take from it.
+        found_in:
+          type: array
+          items: {type: string}
+          description: The research documents that surveyed it.

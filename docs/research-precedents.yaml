@@ -1,0 +1,530 @@
+# Everything the Atlas's research has surveyed, reduced to the rule that made it work.
+# Shared by every research pass; a GrowthDossier proposal names its ancestors here by id.
+# `verified: false` marks a reach figure that could not be confirmed at a cited source —
+# such numbers stay out of the prose. Validate with:
+#   uvx softschema@latest validate docs/research-precedents.yaml
+softschema:
+  contract: atlas.research:PrecedentRegistry/v1
+  schema: schemas/precedent-registry.schema.yaml
+  status: permissive
+
+precedents:
+
+  # ── Distant reading: the book as a shape ────────────────────────────────────────
+  - id: fry-favoured-traces
+    name: Ben Fry, On the Origin of Species — The Preservation of Favoured Traces
+    url: https://www.benfry.com/traces/
+    tradition: distant-reading
+    rule: All six editions of Darwin's book drawn at once, each passage coloured by the edition that introduced it.
+    surface: one image
+    transferable: Form that matches subject. The five English translations could be drawn the same way.
+    found_in: [research-book-representation.md]
+
+  - id: harrison-bible-cross-references
+    name: Chris Harrison and Christoph Römhild, Bible cross-references
+    url: https://www.chrisharrison.net/index.php/Visualizations/BibleViz
+    tradition: distant-reading
+    rule: All 63,779 cross-references drawn as arcs over a bar chart of chapter lengths.
+    surface: one image
+    transferable: The novel's echoes — evidence, and each idea's voices — drawn as arcs over its 96 chapters.
+    found_in: [research-book-representation.md]
+
+  - id: posavec-writing-without-words
+    name: Stefanie Posavec, Writing Without Words
+    url: https://www.stefanieposavec.com/archive/writing-without-words
+    tradition: distant-reading
+    rule: One novel hand-decomposed into parts, chapters, paragraphs and sentences, drawn as a branching organism coloured by theme.
+    surface: one print
+    transferable: The whole-book print a reader would hang — and the origin of the genre the verdict plate belongs to.
+    found_in: [research-book-representation.md, research-growth.md]
+
+  - id: reagan-emotional-arcs
+    name: Reagan et al., The emotional arcs of stories
+    url: https://arxiv.org/pdf/1606.07772
+    year: 2016
+    tradition: distant-reading
+    rule: Sentiment measured across 1,700 texts sorts stories into six arc shapes.
+    surface: one chart per book
+    transferable: Cheap and well precedented, but it shows shape, not meaning. The first pass ranked it last.
+    found_in: [research-book-representation.md]
+
+  - id: project-dialogism
+    name: Project Dialogism Novel Corpus
+    url: https://nightingaledvs.com/data-is-plural-dialogism/
+    tradition: distant-reading
+    rule: Quotations in 22 novels attributed to their speakers by hand — 35,000 and more.
+    surface: a dataset
+    transferable: A benchmark for the Atlas's own speaker attribution.
+    found_in: [research-book-representation.md]
+
+  # ── Enriched editions and study tools ───────────────────────────────────────────
+  - id: waste-land-app
+    name: The Waste Land for iPad (Touch Press and Faber)
+    url: https://apps.apple.com/us/app/the-waste-land/id427434046
+    year: 2011
+    tradition: enriched-edition
+    rule: One poem, performed and annotated, with the manuscript and Pound's edits beside it.
+    surface: one app for one work
+    transferable: A hard text made hospitable without being simplified — for one work, not a platform.
+    found_in: [research-book-representation.md, research-growth.md]
+
+  - id: litcharts
+    name: LitCharts
+    url: https://www.litcharts.com/
+    tradition: study-tool
+    rule: Every book reduced to plot, theme and quotation pages for passing a course.
+    surface: a page per aspect, per book
+    transferable: Nothing to take. It is what the Atlas must not become — summary in place of sitting inside the argument.
+    found_in: [research-book-representation.md]
+
+  - id: hackett-grand-inquisitor
+    name: Hackett Classics, The Grand Inquisitor, with related chapters from The Brothers Karamazov
+    url: https://hackettpublishing.com/the-grand-inquisitor
+    year: 1993
+    tradition: study-tool
+    rule: The Grand Inquisitor sold on its own, in Garnett's translation, with Rebellion before it and the elder's reply after it.
+    surface: one short book
+    verified: true
+    transferable: Publishers already cut this door into the novel, in the very translation the Atlas is built on.
+    found_in: [research-growth.md]
+
+  # ── Fan cartography and spoiler conventions ─────────────────────────────────────
+  - id: ulysses-mapped
+    name: Joe Nugent, Ulysses mapped for the web (Boston College)
+    url: https://libraries.mit.edu/news/?p=9133
+    tradition: fan-cartography
+    rule: Ulysses laid over Dublin, so that the city is the interface.
+    surface: one map
+    transferable: Place as index. The novel's town, monastery and Mokroe are too few places to carry it.
+    found_in: [research-book-representation.md]
+
+  - id: infinite-jest-map
+    name: A reader's two-year map of Infinite Jest
+    url: https://www.vice.com/en/article/sub-infinite-jest/
+    tradition: fan-cartography
+    rule: One reader's hand-built diagram of a novel that defeats linear reading.
+    surface: one diagram
+    transferable: Love shows in it, but only a reader who has finished can follow it.
+    found_in: [research-book-representation.md]
+
+  - id: wiki-spoiler-conventions
+    name: Fan-wiki spoiler policies (Memory Alpha, Harry Potter Wiki, Wookieepedia)
+    url: https://memory-alpha.fandom.com/wiki/Memory_Alpha:Spoiler_policy
+    tradition: fan-cartography
+    rule: Spoiler warnings come down a fixed time after release — a month, two months, a year.
+    surface: a banner per page
+    transferable: Useless for an 1880 novel. Protection that expires with the release date protects no first-time reader of a classic; the reading-position lock is the answer the wikis lack.
+    found_in: [research-growth.md]
+
+  - id: position-locked-wikis
+    name: Position-locked reference sites (nospoilers.wiki, Quartermaester, WoT Unspoiled)
+    url: https://nospoilers.wiki/
+    tradition: fan-cartography
+    rule: A chapter slider hides every entry past the reader's place.
+    surface: one slider over a wiki
+    transferable: The mechanic exists, but only for genre series. None serves a classic and none makes anything a reader can share.
+    found_in: [research-growth.md]
+
+  # ── AI companions ───────────────────────────────────────────────────────────────
+  - id: position-scoped-companions
+    name: Spoiler-aware AI companions (Recall Reader, StoryCodex, Previously On, Kindle's Ask this Book)
+    url: https://recallreader.com/
+    year: 2025
+    tradition: ai-companion
+    rule: Every answer is limited to what the reader has reached.
+    surface: a chat box in a reading app
+    fails_at: It is the same product for every book.
+    transferable: Already taken — it is the Atlas's reading-position lock. Their failure is the trap to avoid.
+    found_in: [research-book-representation.md, research-growth.md]
+
+  - id: fable-reader-personas
+    name: Fable's AI-written reading personas
+    url: https://incidentdatabase.ai/cite/882/
+    year: 2024
+    tradition: ai-companion
+    rule: A model wrote each reader a persona from their year of reading.
+    surface: one card per reader
+    fails_at: Some personas were bigoted, and the feature was pulled.
+    transferable: Never write the reader's verdict for them.
+    found_in: [research-growth.md]
+
+  # ── Serial rituals: one book, on a schedule, with everyone else ─────────────────
+  - id: dracula-daily
+    name: Dracula Daily (Matt Kirkland)
+    url: https://en.wikipedia.org/wiki/Dracula_Daily
+    year: 2021
+    tradition: serial-ritual
+    rule: Each part of the novel is emailed on the day of the year it is dated, and on days with no entry nothing comes.
+    surface: one email, only on days the book has something to say
+    reach: 1,600 subscribers in 2021; 200,000 by May 2022; more than 240,000 by October 2023
+    verified: true
+    transferable: Take the schedule from the book itself. The silences are part of the reading.
+    found_in: [research-growth.md]
+
+  - id: whale-weekly
+    name: Whale Weekly
+    url: https://whaleweekly.substack.com/about
+    year: 2022
+    tradition: serial-ritual
+    rule: Moby-Dick sent on a calendar its editor reconstructed from travel times and date clues in the text.
+    surface: one email a week
+    transferable: A book with no dated entries can still have its calendar worked out from its clues — which is this novel's case.
+    found_in: [research-growth.md]
+
+  - id: footnotes-and-tangents
+    name: Footnotes and Tangents (Simon Haisell)
+    url: https://footnotesandtangents.substack.com/p/2026-war-and-peace-invite
+    year: 2023
+    tradition: serial-ritual
+    rule: One chapter of War and Peace a day — 361 chapters, a year, from 1 January.
+    surface: one post a day
+    verified: true
+    transferable: A Russian novel of this size read a chapter a day, in company, already works as a format; 2026 is its fourth run.
+    found_in: [research-growth.md]
+
+  - id: tolstoy-together
+    name: "#TolstoyTogether (Yiyun Li and A Public Space)"
+    url: https://apublicspace.org/aps-together/tolstoy-together-2020
+    year: 2020
+    tradition: serial-ritual
+    rule: A few chapters of War and Peace a day for 85 days, everyone finishing on the same day, with one daily note from a trusted reader.
+    surface: a schedule and one post a day
+    transferable: Keep each day's note to a paragraph, and give everyone the same last day.
+    found_in: [research-growth.md]
+
+  - id: serial-reader
+    name: Serial Reader
+    url: https://www.serialreader.org/
+    tradition: serial-ritual
+    rule: Each classic cut into daily issues of twenty minutes or less; paying buys the right to read ahead.
+    surface: one notification and one short read a day
+    fails_at: Each reader starts on their own day, so nobody shares a now.
+    transferable: This novel's chapters are already that size — a mean of about 3,600 words.
+    found_in: [research-growth.md]
+
+  - id: moby-dick-big-read
+    name: The Moby-Dick Big Read (Plymouth University)
+    url: https://www.openculture.com/2012/09/the_moby_dick_big_read_celebrities_and_everyday_folk_read_a_chapter_a_day_from_the_great_american_novel.html
+    year: 2012
+    tradition: serial-ritual
+    rule: One free audio chapter a day, each read by a different voice.
+    surface: one audio file a day
+    reach: more than 10 million hits, as reported by the university
+    verified: false
+    transferable: A different human voice each day. Garnett's text is in the public domain.
+    found_in: [research-growth.md]
+
+  - id: daf-yomi
+    name: Daf Yomi
+    url: https://en.wikipedia.org/wiki/Daf_Yomi
+    year: 1923
+    tradition: serial-ritual
+    rule: Everyone studies the same page of Talmud on the same day — 2,711 pages, a cycle of about seven and a half years.
+    surface: one page number a day
+    reach: more than 90,000 people at MetLife Stadium for the completion on 1 January 2020
+    verified: true
+    transferable: The schedule is the product, and the finish can fill a stadium. Sefaria shows the companion fits on one page — today's page and its connections.
+    found_in: [research-growth.md]
+
+  - id: bible-in-a-year
+    name: The Bible in a Year (Ascension)
+    url: https://en.wikipedia.org/wiki/The_Bible_in_a_Year
+    year: 2021
+    tradition: serial-ritual
+    rule: One numbered episode a day from 1 January, in the order the story happens.
+    surface: one podcast episode a day
+    reach: number one on US Apple Podcasts in 2021, and a billion downloads, both as reported by the publisher
+    verified: false
+    transferable: Number the days — "Day 23 of 96" — so a late starter is never behind.
+    found_in: [research-growth.md]
+
+  - id: moby-dick-marathon
+    name: The New Bedford Moby-Dick Marathon
+    url: https://www.wbur.org/news/2026/01/01/new-bedford-whaling-museum-moby-dick-marathon
+    year: 1997
+    tradition: serial-ritual
+    rule: About 250 volunteers read the whole book aloud in five-minute turns over about 25 hours, starting on the day Melville sailed.
+    surface: one building, one weekend
+    transferable: A date the book gives you, and a room to share it in.
+    found_in: [research-growth.md]
+
+  - id: russian-messenger-serial
+    name: The Brothers Karamazov in The Russian Messenger
+    url: https://en.wikipedia.org/wiki/The_Brothers_Karamazov
+    year: 1879
+    tradition: serial-ritual
+    rule: The novel first appeared in installments from January 1879 to November 1880, with months skipped.
+    surface: a monthly journal
+    verified: true
+    transferable: A serial is not something imposed on this novel. It is how the novel was first read.
+    found_in: [research-growth.md]
+
+  - id: karamazov-read-alongs
+    name: Karamazov read-alongs on Substack (Dostoevsky Book Club, and at least five others)
+    url: https://dostoevskybookclub.substack.com/
+    tradition: serial-ritual
+    rule: A host posts on an assigned span of chapters each week or day, and readers talk in the comments.
+    surface: one post per span
+    fails_at: Nothing is limited to the reader's place, and nothing is cited to the text.
+    transferable: The demand for this novel exists and is scattered. The Atlas can be every read-along's spoiler-safe companion instead of running its own.
+    found_in: [research-growth.md]
+
+  - id: storygraph-readalongs
+    name: StoryGraph Readalongs
+    url: https://roadmap.thestorygraph.com/changelog/readalongs-
+    year: 2023
+    tradition: serial-ritual
+    rule: Sections and comments stay hidden until each reader reaches them.
+    surface: one thread per section
+    transferable: Position-scoping applied to other readers — the rule a readers' jury would need.
+    found_in: [research-growth.md]
+
+  # ── Deduction mechanics ─────────────────────────────────────────────────────────
+  - id: obra-dinn
+    name: Return of the Obra Dinn (Lucas Pope)
+    url: https://en.wikipedia.org/wiki/Return_of_the_Obra_Dinn
+    year: 2018
+    tradition: deduction-mechanic
+    rule: Name all sixty souls aboard and how each died; the ledger confirms only in batches of three and never says which part is wrong.
+    surface: one ledger, one pocket watch
+    transferable: Withheld, batched confirmation — for anything that has a right answer, such as a name. Never for the verdict.
+    found_in: [research-growth.md]
+
+  - id: golden-idol
+    name: The Case of the Golden Idol (Color Gray Games)
+    url: https://en.wikipedia.org/wiki/The_Case_of_the_Golden_Idol
+    year: 2022
+    tradition: deduction-mechanic
+    rule: Drag words from a frozen scene into the blanks of a sentence about what happened; it says only whether two or fewer blanks are wrong.
+    surface: one scene and one sentence per case
+    transferable: An accusation built out of evidence is an argument, not a click.
+    found_in: [research-growth.md]
+
+  - id: roottrees-are-dead
+    name: The Roottrees are Dead (Jeremy Johnston)
+    url: https://en.wikipedia.org/wiki/The_Roottrees_are_Dead
+    year: 2023
+    tradition: deduction-mechanic
+    rule: Complete a family tree from a fake 1990s web; correct profiles lock in batches.
+    surface: one tree and one search box
+    transferable: The Karamazov family is the puzzle — four sons, three mothers, and one name that says whose son he is.
+    found_in: [research-growth.md]
+
+  - id: her-story
+    name: Her Story (Sam Barlow)
+    url: https://en.wikipedia.org/wiki/Her_Story_(video_game)
+    year: 2015
+    tradition: deduction-mechanic
+    rule: Type a word and see the first five of 271 interview clips that contain it; nothing ever tells you that you are right.
+    surface: one search box
+    transferable: Never confirm the second question. End by asking whom you now understand.
+    found_in: [research-growth.md]
+
+  - id: crimes-and-punishments
+    name: "Sherlock Holmes: Crimes & Punishments (Frogwares)"
+    url: https://en.wikipedia.org/wiki/Sherlock_Holmes:_Crimes_%26_Punishments
+    year: 2014
+    tradition: deduction-mechanic
+    rule: Link clues into a conclusion that may be wrong, then choose whether to condemn or absolve.
+    surface: one deduction board and one moral choice
+    transferable: Who did it and what should follow are two decisions — the Atlas's two questions, in a released game.
+    found_in: [research-growth.md]
+
+  - id: shadows-of-doubt
+    name: Shadows of Doubt (ColePowered Games)
+    url: https://colepowered.com/shadows-of-doubt-devblog-4-case-folders-cork-boards/
+    year: 2023
+    tradition: deduction-mechanic
+    rule: Pin evidence to a board with red string, then name a suspect to the city — and you can be wrong.
+    surface: one corkboard
+    transferable: Expensive, and it adds little when the ending is known. Skip it.
+    found_in: [research-growth.md]
+
+  - id: wordle
+    name: Wordle (Josh Wardle)
+    url: https://en.wikipedia.org/wiki/Wordle
+    year: 2021
+    tradition: deduction-mechanic
+    rule: One word a day, six guesses, and a grid to share that shows how you got there but not the answer.
+    surface: one grid
+    reach: 90 players on 1 November 2021; more than 300,000 on 2 January 2022; 1.2 million results shared on Twitter from 1 to 13 January 2022; bought by The New York Times on 31 January 2022
+    verified: true
+    transferable: Share the shape of a deliberation and never its answer. The grid was invented by players in New Zealand, and the game adopted it.
+    found_in: [research-growth.md]
+
+  - id: you-draw-it
+    name: You Draw It (The Upshot, The New York Times)
+    url: https://driven-by-data.net/2015/05/28/college-chart-game
+    year: 2015
+    tradition: deduction-mechanic
+    rule: Draw the line you expect, then see the real one and every other reader's guess.
+    surface: one chart
+    transferable: Ask for the verdict before the evidence — predicting first improves recall (Kim, Reinecke and Hullman, CHI 2017) — and the novel's first sentence already announces the death.
+    found_in: [research-growth.md]
+
+  - id: the-jury-murder-trial
+    name: "The Jury: Murder Trial (Channel 4)"
+    url: https://en.wikipedia.org/wiki/The_Jury:_Murder_Trial
+    year: 2024
+    tradition: deduction-mechanic
+    rule: Two juries of twelve hear the same re-enacted trial, and their verdicts are set side by side.
+    surface: one trial, two rooms
+    transferable: The reader's verdict beside the novel's twelve — and, one day, beside other readers'.
+    found_in: [research-growth.md]
+
+  # ── Commentary apparatus: one text, many layers ─────────────────────────────────
+  - id: vilna-talmud-page
+    name: The Vilna Talmud page (Romm press)
+    url: https://en.wikipedia.org/wiki/Vilna_Edition_Shas
+    tradition: commentary-apparatus
+    rule: The text in the centre, each layer of commentary in its own fixed margin, and page breaks that never move.
+    surface: one template for every page
+    transferable: Give each kind of help a fixed place, not a page of its own.
+    found_in: [research-growth.md]
+
+  - id: sefaria
+    name: Sefaria
+    url: https://www.sefaria.org
+    tradition: commentary-apparatus
+    rule: One column of text; tap a segment and its commentaries, parallels and translations open in a side panel.
+    surface: one column and one panel
+    transferable: Segment ids with a panel keyed to each — the phone-width form of a glossed page.
+    found_in: [research-growth.md]
+
+  - id: digital-dante
+    name: Digital Dante (Columbia University)
+    url: https://digitaldante.columbia.edu
+    tradition: commentary-apparatus
+    rule: One page per canto, with every layer of apparatus in ruled bands labelled in letterspaced capitals.
+    surface: one page per canto
+    transferable: The existing model closest to letterpress — ruled, labelled bands after the text.
+    found_in: [research-growth.md]
+
+  - id: joyce-project
+    name: The Joyce Project
+    url: https://www.joyceproject.com
+    tradition: commentary-apparatus
+    rule: The novel is the page; every note opens with one paragraph for newcomers, and detail and spoilers come after it.
+    surface: one page per chapter and a notes pane
+    transferable: A spoiler rule written into the shape of each note.
+    found_in: [research-growth.md]
+
+  - id: world-of-dante
+    name: The World of Dante (University of Virginia)
+    url: https://worldofdante.iath.virginia.edu/
+    tradition: commentary-apparatus
+    rule: One encoded text generates maps, a gallery, a database and a timeline, each a separate tool.
+    surface: about seven tools
+    transferable: A warning. This is the Atlas's current shape — one encoding, many destinations. It should fill margins instead.
+    found_in: [research-growth.md]
+
+  - id: norton-critical-karamazov
+    name: The Norton Critical Edition of The Brothers Karamazov (Garnett, revised by Matlaw)
+    url: https://archive.org/details/brotherskaramazo0000dost_p7v4
+    year: 1976
+    tradition: commentary-apparatus
+    rule: Annotated text first, then backgrounds and sources, then criticism, with a key to the names at the front.
+    surface: one volume in three zones
+    transferable: Garnett's own text, already given front matter, text and back matter. The Atlas can take the same architecture.
+    found_in: [research-growth.md]
+
+  - id: oxford-introduction-as-afterword
+    name: Oxford World's Classics introductions
+    url: https://readingzola.wordpress.com/2018/03/15/the-art-of-book-introductions-and-why-you-should-always-buy-the-oxford-worlds-classics-editions-of-zola/
+    tradition: commentary-apparatus
+    rule: Readers who want no plot details are told to read the introduction as an afterword.
+    surface: one sentence of advice
+    transferable: Print had a spoiler rule long before the web. The reading-position fold is its descendant.
+    found_in: [research-growth.md]
+
+  - id: digital-dostoevsky
+    name: Digital Dostoevsky
+    url: https://github.com/Digital-Dostoevsky/tei
+    tradition: commentary-apparatus
+    rule: Seven of Dostoevsky's novels, Karamazov among them, encoded in TEI, in Russian, for network and language research.
+    surface: a research corpus
+    verified: true
+    transferable: Possible ground truth for who speaks where, if Russian can be aligned to Garnett. A research instrument, not a reader's companion.
+    found_in: [research-growth.md]
+
+  # ── Social annotation ───────────────────────────────────────────────────────────
+  - id: kindle-popular-highlights
+    name: Kindle Popular Highlights
+    url: https://www.androidauthority.com/kindle-popular-highlights-3634804/
+    tradition: social-annotation
+    rule: Passages that many readers underlined are underlined for you.
+    surface: underlines in the text
+    fails_at: It steers attention and gives away the turns.
+    transferable: Don't. Highlights pooled from readers who finished spoil the book for readers who have not.
+    found_in: [research-growth.md]
+
+  - id: public-annotation-layers
+    name: Open annotation layers (Third Voice, Google Sidewiki, the Genius web annotator)
+    url: https://en.wikipedia.org/wiki/Third_Voice
+    tradition: social-annotation
+    rule: Anyone may comment over anyone's text.
+    surface: an overlay on every page
+    fails_at: Every one died — dismissed as graffiti, or abandoned after harassment.
+    transferable: A margin should belong to the reader, or to a group they know — never to the public.
+    found_in: [research-growth.md]
+
+  # ── Personal records: what readers keep and show ───────────────────────────────
+  - id: readwise
+    name: Readwise
+    url: https://docs.readwise.io/readwise/docs/faqs/reviewing-highlights
+    tradition: personal-record
+    rule: A few of your old highlights come back each day.
+    surface: one screen a day
+    transferable: After the last chapter, bring back the passage the reader swore a verdict on.
+    found_in: [research-growth.md]
+
+  - id: storygraph
+    name: The StoryGraph
+    url: https://en.wikipedia.org/wiki/The_StoryGraph
+    tradition: personal-record
+    rule: Tag each book with moods and a pace; your statistics are the totals, exported as images to share.
+    surface: a statistics page and share images
+    reach: 5 million sign-ups by January 2026
+    verified: false
+    transferable: Readers share extremes and totals — that they finished, and how big it was.
+    found_in: [research-growth.md]
+
+  - id: dear-data
+    name: Dear Data (Giorgia Lupi and Stefanie Posavec)
+    url: https://en.wikipedia.org/wiki/Dear_Data
+    year: 2015
+    tradition: personal-record
+    rule: One topic a week, drawn by hand on a postcard, with the legend on the back.
+    surface: 52 postcards each
+    transferable: Personal data drawn by hand is admired, not merely read — and one legend line makes it legible to a stranger.
+    found_in: [research-growth.md]
+
+  - id: booktok-tabbing
+    name: BookTok annotation tabs
+    url: https://www.hercampus.com/life/how-to-annotate-novels-booktoker-guide/
+    tradition: personal-record
+    rule: One colour of tab for each kind of reaction, flagged along the page edge.
+    surface: the edge of the book
+    transferable: The flagged edge shows where you reacted, never what happened. It cannot spoil — the right model for a shareable mark.
+    found_in: [research-growth.md]
+
+  # ── Objects made from books ─────────────────────────────────────────────────────
+  - id: litographs
+    name: Litographs
+    url: https://www.litographs.com/products/karamazov
+    tradition: derived-object
+    rule: A book's whole text typeset to form one image.
+    surface: one print, shirt or scarf
+    reach: sells a Karamazov text T-shirt ($42.99 when checked)
+    verified: true
+    transferable: The whole-text object for this novel exists already, and everyone who buys it gets the same one. A reader's own does not exist.
+    found_in: [research-growth.md]
+
+  - id: rougeux-between-the-words
+    name: Nicholas Rougeux, Between the Words
+    url: https://www.fastcompany.com/3055691/8-classic-novels-reduced-to-their-punctuation
+    tradition: derived-object
+    rule: Every letter removed and the punctuation kept, spiralled chapter by chapter.
+    surface: one print
+    transferable: A structural fingerprint of a novel that cannot spoil anything.
+    found_in: [research-growth.md]
