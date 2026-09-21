@@ -26,8 +26,8 @@
    Every token group, what it is for, and what is forbidden. A stylesheet that
    stays inside this list never needs the spec open; a stylesheet that wants
    something not in it needs the spec, and probably needs a different answer.
-   `scripts/test-design-system.ts` fails the build on the six ways out of it
-   that have actually happened here.
+   `scripts/test-design-system.ts` fails `npm test`, and so CI, on each of the
+   eight ways out of it listed at the top of that script.
 
    TOKENS ARE DECLARED HERE AND ONLY HERE. A component stylesheet reads tokens;
    it does not declare them. The one exception is a token that is NOT declared
@@ -44,7 +44,10 @@
      SIZE       --text-xs … --text-xl
                 Six sizes. FORBIDDEN: a seventh, and a px or rem literal for
                 type size. The 760px block redefines --text-xl and --text-lg;
-                that is the whole of the responsive type scale.
+                that is the whole of the responsive type scale. NOTE: two sizes
+                predate this contract and break it — .plate__name's clamp()
+                and an inline 0.6em in CharacterPlate.tsx. Fixing either moves
+                pixels, so they are tracked (atlas-ueak), not waived.
 
      WEIGHT     --weight-normal (400), --weight-bold (600)
                 FORBIDDEN: any other weight. Emphasis comes from tracking, size
@@ -76,10 +79,23 @@
                 hairline, or a `double` rule between sections. FORBIDDEN: a px
                 literal in any border width, a shadow, a gradient used as a
                 divider, and a 1px box drawn around content to group it.
+                NOTE: .card, .chart, .notice and .name-panel are such boxes and
+                predate this contract; tracked in atlas-ueak.
 
      SPACE      --space-1 … --space-6
-                Six steps; the parent sets the gap. FORBIDDEN: a seventh, and a
-                px literal for padding, margin or gap.
+                Six steps; the parent sets the gap. FORBIDDEN: a seventh — any
+                padding, margin or gap literal at or above the first step (4px,
+                0.25rem, 0.25em) — with ONE exception: a value that mirrors a
+                coordinate drawn in px elsewhere, marked on its own line by a
+                comment reading `geometry:` and naming what it mirrors. (Not
+                written out here: a comment cannot contain one.) A rem token
+                there would scale with the reader's font while its px twin
+                stayed put; the timeline heads, which mirror SVG labels, are
+                the two cases.
+                ALLOWED: literals below the first step. The 1px between stacked
+                rows or the 2px between a number and its label is an optical
+                adjustment the scale is too coarse to express, and a token for
+                it would be a seventh step in disguise.
 
      RADIUS     --radius (via --radius-sm)
                 One radius, used sparingly, because print has none.
@@ -208,8 +224,9 @@
      paired thick/thin rule IS the divider, and a box around content is a UI
      habit the spec forbids. Colour and weight are therefore both tokens, so a
      rule cannot be drawn, or quietly re-weighted, by accident. -------------- */
-  /* What a rule is printed in. Declared once: before atlas-3w18 this same line
-     appeared in five stylesheets, so the decision lived in six places. */
+  /* What a rule is printed in. Declared once: before atlas-3w18 --rule was
+     declared six times across five stylesheets, so the decision lived in six
+     places. */
   --rule: var(--color-ink);
   /* A hairline: separators, table rules, leader dots, the thin half of a paired
      rule, and the border of the few objects that still carry one. */
@@ -1100,7 +1117,7 @@ p.ahead-note {
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  padding-left: 10px;
+  padding-left: 10px; /* geometry: mirrors the `x + 10` label inset in Timeline.tsx */
   overflow: hidden;
   white-space: nowrap;
   font-size: var(--text-xs);
@@ -1111,7 +1128,7 @@ p.ahead-note {
 }
 .chart .timeline__head svg { display: inline-block; width: 12px; min-width: 0; flex: none; }
 .timeline__heads-key {
-  padding-right: 16px;
+  padding-right: 16px; /* geometry: mirrors the `GUTTER - 16` era labels in Timeline.tsx */
   text-align: right;
   font-size: var(--text-xs);
   font-style: italic;

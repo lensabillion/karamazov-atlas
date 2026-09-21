@@ -130,7 +130,15 @@ White is the canvas, not a new category or accent colour.
   name for one decision.
 - **There is no tracking token.** Letterspacing is written per role beside the
   `text-indent` that mirrors it, because the two are a single decision.
-- **Six spacing steps**, `--space-1` … `--space-6`; gaps set by the parent.
+- **Six spacing steps**, `--space-1` … `--space-6`; gaps set by the parent. A
+  padding, margin or gap literal at or above the first step (4px, 0.25rem,
+  0.25em) is a seventh step and is not allowed. Below it, a literal is an
+  optical adjustment — the 1px between stacked rows, the 2px between a number
+  and its label — that the scale is too coarse to express. The one exception
+  above it is a value mirroring a coordinate drawn in px elsewhere, marked
+  `/* geometry: <what it mirrors> */` on its line, because a rem token would
+  scale with the reader's font while its px twin stayed put. Enforced by
+  check 7 of `scripts/test-design-system.ts`.
 - **One radius**, 2px, used sparingly. Print has no rounded corners.
 - **Figures**: `lining-nums` where they align in columns, oldstyle in prose.
 - **The running head stays on one line.** It scrolls rather than stacking.
