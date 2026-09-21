@@ -8,12 +8,10 @@ would buy nothing. That route's `searchNovel` tool calls `/search` below.
 Python owns the data. Next owns the streaming.
 """
 
-from __future__ import annotations
-
 import os
 import re
 import sqlite3
-from contextlib import asynccontextmanager
+from collections.abc import Iterator
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
@@ -47,7 +45,7 @@ app.add_middleware(
 )
 
 
-def get_db():
+def get_db() -> Iterator[sqlite3.Connection]:
     conn = connect()
     try:
         yield conn
@@ -59,7 +57,7 @@ DB = Annotated[sqlite3.Connection, Depends(get_db)]
 
 
 @app.get("/health")
-def health(db: DB) -> dict:
+def health(db: DB) -> dict[str, bool | int | str]:
     """Readiness, not just liveness.
 
     The container builds its own database at image-build time, so a process that
@@ -92,17 +90,25 @@ def corpus(db: DB) -> models.CorpusMeta:
 
 def _chapter(row: sqlite3.Row) -> models.Chapter:
     return models.Chapter(
-        id=row["id"], part=row["part"], part_num=row["part_num"],
-        book_num=row["book_num"], book_title=row["book_title"], num=row["num"],
-        roman=row["roman"], title=row["title"], cite=row["cite"],
-        start=row["start"], end=row["end"], word_count=row["word_count"],
+        id=row["id"],
+        part=row["part"],
+        part_num=row["part_num"],
+        book_num=row["book_num"],
+        book_title=row["book_title"],
+        num=row["num"],
+        roman=row["roman"],
+        title=row["title"],
+        cite=row["cite"],
+        start=row["start"],
+        end=row["end"],
+        word_count=row["word_count"],
     )
 
 
 @app.get("/chapters", response_model=list[models.Chapter])
 def chapters(db: DB, book: int | None = None) -> list[models.Chapter]:
     sql = "SELECT * FROM chapters"
-    args: tuple = ()
+    args: tuple[int, ...] = ()
     if book is not None:
         sql += " WHERE book_num = ?"
         args = (book,)
@@ -119,7 +125,7 @@ def chapter(chapter_id: str, db: DB) -> models.Chapter:
 
 
 @app.get("/chapters/{chapter_id}/text")
-def chapter_text(chapter_id: str, db: DB) -> dict:
+def chapter_text(chapter_id: str, db: DB) -> dict[str, str]:
     row = db.execute(
         "SELECT cite, title, body FROM chapters WHERE id = ?", (chapter_id,)
     ).fetchone()
@@ -142,8 +148,13 @@ def characters(db: DB) -> list[models.Character]:
         ]
         out.append(
             models.Character(
-                id=r["id"], name=r["name"], short=r["short"], group=r["grp"],
-                aliases=aliases, total=r["total"], chapter_count=r["chapter_count"],
+                id=r["id"],
+                name=r["name"],
+                short=r["short"],
+                group=r["grp"],
+                aliases=aliases,
+                total=r["total"],
+                chapter_count=r["chapter_count"],
             )
         )
     return out
@@ -195,10 +206,17 @@ def coverage(db: DB) -> models.Coverage:
     )
 
 
-@app.get("/addresses", response_model=list[models.Address])
-def addresses(db: DB, speaker: str | None = None, target: str | None = None):
-    sql = "SELECT * FROM addresses WHERE 1=1"
-    args: list = []
+def _named_in_speech(
+    db: sqlite3.Connection, table: str, speaker: str | None, target: str | None
+) -> list[models.Address]:
+    """`addresses` and `spoken_of` hold the same shape; only the table differs.
+
+    `table` is interpolated because a table name cannot be a bound parameter. It
+    is a literal from the two endpoints below and never reaches here from a
+    request — the filters that do are still bound.
+    """
+    sql = f"SELECT * FROM {table} WHERE 1=1"
+    args: list[str] = []
     if speaker:
         sql += " AND speaker_id = ?"
         args.append(speaker)
@@ -208,31 +226,28 @@ def addresses(db: DB, speaker: str | None = None, target: str | None = None):
     sql += " ORDER BY count DESC"
     return [
         models.Address(
-            speaker=r["speaker_id"], target=r["target_id"], form=r["form"],
-            register=r["register"], count=r["count"],
+            speaker=r["speaker_id"],
+            target=r["target_id"],
+            form=r["form"],
+            register=r["register"],
+            count=r["count"],
         )
         for r in db.execute(sql, args)
     ]
+
+
+@app.get("/addresses", response_model=list[models.Address])
+def addresses(
+    db: DB, speaker: str | None = None, target: str | None = None
+) -> list[models.Address]:
+    return _named_in_speech(db, "addresses", speaker, target)
 
 
 @app.get("/spoken-of", response_model=list[models.Address])
-def spoken_of(db: DB, speaker: str | None = None, target: str | None = None):
-    sql = "SELECT * FROM spoken_of WHERE 1=1"
-    args: list = []
-    if speaker:
-        sql += " AND speaker_id = ?"
-        args.append(speaker)
-    if target:
-        sql += " AND target_id = ?"
-        args.append(target)
-    sql += " ORDER BY count DESC"
-    return [
-        models.Address(
-            speaker=r["speaker_id"], target=r["target_id"], form=r["form"],
-            register=r["register"], count=r["count"],
-        )
-        for r in db.execute(sql, args)
-    ]
+def spoken_of(
+    db: DB, speaker: str | None = None, target: str | None = None
+) -> list[models.Address]:
+    return _named_in_speech(db, "spoken_of", speaker, target)
 
 
 @app.get("/search", response_model=list[models.SearchHit])
@@ -259,7 +274,7 @@ def search(
         JOIN chapters c ON c.ordinal = chapters_fts.rowid
         WHERE chapters_fts MATCH ?
     """
-    args: list = [q]
+    args: list[str | int] = [q]
     if before is not None:
         sql += " AND c.ordinal <= ?"
         args.append(before)
@@ -271,8 +286,11 @@ def search(
         raise HTTPException(400, f"Bad query: {e}") from e
     return [
         models.SearchHit(
-            chapter_id=r["id"], cite=r["cite"], title=r["title"],
-            score=-r["score"], excerpt=r["excerpt"],
+            chapter_id=r["id"],
+            cite=r["cite"],
+            title=r["title"],
+            score=-r["score"],
+            excerpt=r["excerpt"],
         )
         for r in rows
     ]

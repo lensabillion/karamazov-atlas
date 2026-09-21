@@ -52,7 +52,7 @@ def test_alias_resolution_beats_naive_grep():
 
 def test_patronymic_recovers_the_family():
     lineages = client.get("/names/lineages").json()
-    fyodorovitch = next(l for l in lineages if l["patronymic"] == "Fyodorovitch")
+    fyodorovitch = next(ln for ln in lineages if ln["patronymic"] == "Fyodorovitch")
     assert fyodorovitch["father"] == "Fyodor"
     assert set(fyodorovitch["children"]) == {"dmitri", "ivan", "alyosha", "smerdyakov"}
 

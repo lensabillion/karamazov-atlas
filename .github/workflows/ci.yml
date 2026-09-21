@@ -47,18 +47,34 @@ jobs:
         working-directory: api
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - run: pip install -e ".[dev]"
+
+      # No setup-python step on purpose. The interpreter is whatever
+      # api/.python-version says (3.14), and uv installs it if the runner has
+      # none to match; naming a version here as well would just be one more
+      # place for it to drift, which is the bug this replaced.
+      - uses: astral-sh/setup-uv@v7
+
+      # --locked fails if uv.lock and pyproject.toml have drifted apart. That
+      # failure is the entire return on committing a lockfile: without it CI,
+      # the image and the developer can each resolve a different FastAPI.
+      - name: Install
+        run: uv sync --locked
+
+      # Two steps rather than one, and both before the database and the tests,
+      # so a failure reads as "this is style" and not as a broken build.
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format
+        run: uv run ruff format --check .
 
       - name: Build the database from committed data
-        run: python -m atlas.ingest
+        run: uv run python -m atlas.ingest
         env:
           ATLAS_DATA_DIR: ${{ github.workspace }}/data
           ATLAS_DB_PATH: ${{ github.workspace }}/data/atlas.db
 
       - name: Tests
-        run: python -m pytest -q
+        run: uv run pytest -q
         env:
           ATLAS_DB_PATH: ${{ github.workspace }}/data/atlas.db

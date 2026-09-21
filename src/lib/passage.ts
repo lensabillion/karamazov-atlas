@@ -14,7 +14,7 @@
  * reader splits it (toParagraphs below).
  */
 
-export const PASSAGE_KEY = 'passage';
+const PASSAGE_KEY = 'passage';
 
 export function passageHref(chapter: string, quote?: string): string {
   return quote
@@ -31,7 +31,7 @@ export function toParagraphs(text: string): string[] {
 }
 
 /** Compare prose ignoring Gutenberg's italic underscores and line wrapping. */
-export function forMatch(s: string): string {
+function forMatch(s: string): string {
   return s.replace(/_/g, '').replace(/\s+/g, ' ').trim();
 }
 

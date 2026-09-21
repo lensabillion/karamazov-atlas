@@ -40,7 +40,7 @@ export interface CollageStudy {
   madeFrom: 'extract' | 'reproduction';
 }
 
-export const COLLAGE_STUDIES: CollageStudy[] = [
+const COLLAGE_STUDIES: CollageStudy[] = [
   // The bow (III.4). Once Katerina's portrait slot, now shown with the scene it depicts.
   { plateId: 6, image: plate06, madeFrom: 'reproduction',
     invented: 'Redrawn in coloured pencil from the museum’s reproduction, keeping the two figures, their poses, the mirror and the window; the hatching and the warm paper are the generator’s.' },
@@ -59,11 +59,5 @@ export const COLLAGE_STUDIES: CollageStudy[] = [
   { plateId: 32, image: plate32, madeFrom: 'extract',
     invented: 'The legible shop signs, the lamp post, the church skyline and a realistic face — in place of Grigoriev’s mask-like one — are all generated.' },
 ];
-
-/** Plates whose supplied study was excluded, and why. Kept so the omission is visible, not silent. */
-export const EXCLUDED_STUDIES: Record<number, string> = {
-  21: 'The study turns the prone figure into a woman in a dress and adds a man sitting on a stump.',
-  31: 'The study turns the arched shapes — plausibly mirrors — into empty alcoves and a reflected figure into a man in the room.',
-};
 
 export const studyFor = (plateId: number) => COLLAGE_STUDIES.find((s) => s.plateId === plateId);

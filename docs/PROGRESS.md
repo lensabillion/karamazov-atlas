@@ -4,7 +4,7 @@ description: Running record of what has been built, what the reviews changed, wh
 ---
 # Progress Log
 
-**Living document. Append, do not rewrite.** Last updated 2026-09-18.
+**Living document. Append, do not rewrite.** Last updated 2026-09-21.
 
 Ground truth for work items is tbd (`tbd list`). This file explains the *why* and
 the *state*; the beads carry the detail.
@@ -259,10 +259,82 @@ closing note in tbd says what changed and how it was verified. Branch
 
 ---
 
+## 9. The cleanup pass (20–21 September 2026)
+
+Asked to put the Python API on modern tooling with uv, remove unnecessary code, and
+make the design system consistent, documented in the CSS itself, with variables
+wherever they are needed. One epic (`atlas-ipai`) and seven child beads, worked by
+three subagents in parallel and verified centrally. Branch
+`chore/cleanup-uv-design-system`.
+
+### What changed
+
+- **The API is a uv project on Python 3.14.** `uv.lock` is committed, and
+  `api/.python-version` pins 3.14, the latest stable release (3.15 is only a release
+  candidate). CI and the Docker image both install from the lock with `--locked`.
+  Before this, `pyproject.toml` said 3.12 or later, CI ran 3.12 and the local venv
+  was 3.14, so the tested and shipped interpreters differed and nothing recorded it.
+  The Dockerfile's hand-copied dependency list is gone. ruff now lints and formats
+  the API in CI.
+- **A real API bug.** The field `register` shadowed `BaseModel.register`, and
+  pydantic took that inherited classmethod as the field's default, so the published
+  OpenAPI document listed `register` as optional. It is now required.
+- **Dead code removed.** The unused model `Edge`, the constants `EXCLUDED_STUDIES`
+  and `REGISTER_ORDER`, the token `--tracking-wide`, `from __future__ import
+  annotations` in four modules, and a gitignore line that matched nothing. Three
+  exports were narrowed to module scope.
+- **The design system has one source.** `globals.css` holds every token and opens
+  with the contract: each token group, what it is for, what it forbids. `--rule` is
+  declared once instead of six times. Rule weights are tokens. The one off-palette
+  ink is now `--border-strong`, the only deliberate visual change.
+- **And a guard.** `scripts/test-design-system.ts` runs in `npm test` and enforces
+  eight rules: no undefined or dead token, no colour outside the palette, one
+  typeface, no redeclared token, no literal rule weight or spacing step, and no
+  comment that closes early.
+
+### What went wrong, and what it taught
+
+- **One comment switched off the whole design system.** A sentence in the
+  `globals.css` header quoted the `geometry:` marker with its comment delimiters.
+  That closed the header 25 lines early, the stray prose ran into `@theme`, and every
+  token on the live page went empty, with body text falling back to Times. All seven
+  checks passed throughout, because they strip comments exactly as the browser does.
+  A guard that parses the way the product does shares the product's blind spots.
+  Check 8 now reads the raw text.
+- **A test harness counted a crash as a catch.** A syntax error in the guard exited
+  1 with no failure lines, and a harness that checked only exit codes scored nine
+  mutations as caught. It now requires the named check to be the one that fails.
+- **Hoisting a custom property is not free.** A `var()` inside a custom property
+  resolves where the property is declared. Moving `--rule` to `:root` was equivalent
+  only because nothing between `:root` and the rules overrides `--color-ink`, which
+  was checked before calling it equivalent.
+- **Two spacing literals looked like leaks and were geometry.** The timeline's
+  `10px` and `16px` mirror SVG coordinates. A rem token there would have matched at
+  the default font size and broken the alignment at any other.
+- **The shared dev server was stopped by a resumed subagent.** Navigation then
+  failed in a way that looked like a refused site; `preview_logs` gave the real
+  cause. A rate limit had stopped the same agent after it committed but before it
+  reported, and resuming it with its context was cheaper than rerunning it.
+
+### Still open
+
+| Bead | What is needed | Whose |
+| --- | --- | --- |
+| `atlas-w8zq` | `--radius` is 3px where the spec says 2px; fixing it moves pixels | A design decision |
+| `atlas-ueak` | The 1px boxes, two off-scale type sizes, then a type-size check | A design decision |
+| `atlas-sqda` | The `models.py` docstring describes a generated client that does not exist | One edit |
+
+The four owner beads from §8 are unchanged. `NamedCharacter` and `NameForm` were found
+dead in a separate session (`atlas-ljh6`). They are deleted on
+`atlas-ljh6/drop-unused-name-models`, stacked on this branch, and it merges cleanly.
+
+---
+
 ## Changelog
 
 | Date | Change |
 | --- | --- |
+| 2026-09-21 | Cleanup pass: the API on uv and Python 3.14 with a committed lockfile and ruff in CI; OpenAPI `register` made required; dead code removed; `globals.css` made the documented single source of the design system, enforced by an eight-check guard in `npm test`. |
 | 2026-09-18 | Open-beads pass: evidence links to paragraphs, reading position, spoiler-scoped `/ask` verified live, BM25 search, attribution precision, chapter notes, translation brief, title leaf, labelled Desktop studies, Katerina's portrait, the case file with verdicts and arc, who says this. 24 beads closed, 4 left for the owner. |
 | 2026-09-17 | Reframed 21 confirmed illustrations as five story movements, with visual cues and memory notes; kept 15 uncertain works separate. White general background now surrounds unchanged first-edition cream descriptions. Two matched scenes use larger supplied originals; small extracts are no longer stretched or recompressed. |
 | 2026-09-17 | Extracted 36 historical compositions from the supplied collage: 21 source-matched, 7 provisional, 8 unidentified. Added an expandable homepage catalogue, individual image links and ZIP; opened scene contents so the guitar scene is visible by name. |

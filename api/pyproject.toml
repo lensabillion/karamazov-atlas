@@ -2,15 +2,18 @@
 name = "karamazov-atlas-api"
 version = "0.1.0"
 description = "Corpus, name morphology and retrieval for the Karamazov Atlas"
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.115",
     "uvicorn[standard]>=0.32",
     "pydantic>=2.9",
 ]
 
-[project.optional-dependencies]
-dev = ["pytest>=8.3", "httpx>=0.27"]
+# PEP 735. Dev tooling is not an extra a consumer of the wheel could want to
+# install; uv installs groups by default and leaves them out of the built
+# distribution, which an optional-dependency extra does not.
+[dependency-groups]
+dev = ["pytest>=8.3", "httpx>=0.27", "ruff>=0.14"]
 
 [build-system]
 requires = ["hatchling"]
@@ -18,6 +21,18 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/atlas"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+# Rules that catch defects rather than taste: pycodestyle and pyflakes for dead
+# names and unreachable syntax, I for a stable import order, UP for syntax the
+# 3.14 floor makes obsolete, B and SIM for the bug-shaped patterns, RUF for
+# ruff's own. Anything narrower than a rule — one line, one reason — belongs in
+# a `# noqa: RULE` on that line, never in a per-file ignore.
+select = ["E", "W", "F", "I", "UP", "B", "SIM", "RUF"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

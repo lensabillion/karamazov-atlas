@@ -20,6 +20,98 @@
    and collectively inconsistent, which is the opposite of what this system is
    for. Utilities are for layout and one-off adjustments; a recurring object
    (.card, .bar-row, .list-item) stays a named thing defined once.
+
+   ----------------------------------------------------------------------------
+   THE CONTRACT
+   Every token group, what it is for, and what is forbidden. A stylesheet that
+   stays inside this list never needs the spec open; a stylesheet that wants
+   something not in it needs the spec, and probably needs a different answer.
+   `scripts/test-design-system.ts` fails `npm test`, and so CI, on each of the
+   eight ways out of it listed at the top of that script.
+
+   TOKENS ARE DECLARED HERE AND ONLY HERE. A component stylesheet reads tokens;
+   it does not declare them. The one exception is a token that is NOT declared
+   below and exists to be switched per surface — `--ink-soft` is the only one —
+   and it must say in a comment what it switches.
+
+     TYPEFACE   --font-display, --font-serif, --font-sans
+                All three are Old Standard TT. --font-display is separate only
+                so display sizes can be tuned apart from text sizes.
+                FORBIDDEN: a sans, a second serif, or a literal family name
+                anywhere but the three declarations below. A label is
+                letterspaced capitals of the text face, not another family.
+
+     SIZE       --text-xs … --text-xl
+                Six sizes. FORBIDDEN: a seventh, and a px or rem literal for
+                type size. The 760px block redefines --text-xl and --text-lg;
+                that is the whole of the responsive type scale. NOTE: two sizes
+                predate this contract and break it — .plate__name's clamp()
+                and an inline 0.6em in CharacterPlate.tsx. Fixing either moves
+                pixels, so they are tracked (atlas-ueak), not waived.
+
+     WEIGHT     --weight-normal (400), --weight-bold (600)
+                FORBIDDEN: any other weight. Emphasis comes from tracking, size
+                and rules first, as it did for a compositor with no variable
+                axes to reach for.
+
+     TRACKING   No token, deliberately — see the note in :root. Letterspacing is
+                written per role, and EVERY letterspaced run carries a
+                `text-indent` of the same value, or the block sits optically
+                off-centre because the trailing letter keeps its space.
+
+     COLOUR     --cloth/-deep/-soft, --gilt/-soft, --ink/-2/-3, --stock,
+                --surface, --bg, --border, --border-strong, --on-cloth,
+                --accent, --active, --paper-texture
+                Cloth is the binding: active, interactive, data marks. Gilt is
+                the stamping: selection and emphasis only. Ink is letterpress in
+                three strengths. Stock and surface are the cream a description
+                is printed on; --bg is the white canvas around it.
+                FORBIDDEN: a hex, rgb() or rgba() literal anywhere but the
+                declarations in this file — a colour outside the palette is a
+                colour nobody can restyle. Also forbidden: the retired v3 names
+                --blue, --teal, --purple, --pink, which named a hue and rendered
+                another. --paper-texture belongs on .plate and .book-description,
+                never on the body.
+
+     RULE       --rule (colour), --rule-hair (1px), --rule-thick (2px),
+                --rule-heavy (3px)
+                Divide with a rule, not a box: a paired thick/thin rule, a
+                hairline, or a `double` rule between sections. FORBIDDEN: a px
+                literal in any border width, a shadow, a gradient used as a
+                divider, and a 1px box drawn around content to group it.
+                NOTE: .card, .chart, .notice and .name-panel are such boxes and
+                predate this contract; tracked in atlas-ueak.
+
+     SPACE      --space-1 … --space-6
+                Six steps; the parent sets the gap. FORBIDDEN: a seventh — any
+                padding, margin or gap literal at or above the first step (4px,
+                0.25rem, 0.25em) — with ONE exception: a value that mirrors a
+                coordinate drawn in px elsewhere, marked on its own line by a
+                comment reading `geometry:` and naming what it mirrors. (Not
+                written out here: a comment cannot contain one.) A rem token
+                there would scale with the reader's font while its px twin
+                stayed put; the timeline heads, which mirror SVG labels, are
+                the two cases.
+                ALLOWED: literals below the first step. The 1px between stacked
+                rows or the 2px between a number and its label is an optical
+                adjustment the scale is too coarse to express, and a token for
+                it would be a seventh step in disguise.
+
+     RADIUS     --radius (via --radius-sm)
+                One radius, used sparingly, because print has none.
+                FORBIDDEN: a second radius. NOTE: this resolves to 3px while
+                docs/design-system.md §4 says 2px, and .plate hardcodes 2px.
+                The spec is authoritative and the CSS is the bug; correcting it
+                moves pixels, so it is tracked as its own bead rather than
+                smuggled into a consolidation.
+
+     MEASURE    --measure, --page-width, --page-width-wide, --page-width-narrow,
+                --nav-h, --chart-min (set inline by Divergence.tsx, and so read
+                only as `var(--chart-min, 900px)` — a token set from a component
+                must always be read with its fallback).
+
+   docs/design-system.md remains authoritative. Where it and this file disagree,
+   this file is the bug.
    ============================================================================ */
 
 @theme {
@@ -114,7 +206,12 @@
 
   --weight-normal: 400;
   --weight-bold: 600;
-  --tracking-wide: 0.1em;
+  /* There is no tracking token. Letterspacing is set per role next to the
+     `text-indent` that mirrors it, because the two are one decision and a
+     distant token makes it easy to write the first and forget the second.
+     `--tracking-wide: 0.1em` named one of the thirteen tracking values this
+     system uses, was read by nothing, and implied a scale that does not
+     exist; it was removed in atlas-3w18 rather than half-applied. */
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -123,7 +220,24 @@
   --space-5: 2.5rem;
   --space-6: 4rem;
 
-  --border-width: 1px;
+  /* --- Rules. A rule is a design decision here, not an incidental border: the
+     paired thick/thin rule IS the divider, and a box around content is a UI
+     habit the spec forbids. Colour and weight are therefore both tokens, so a
+     rule cannot be drawn, or quietly re-weighted, by accident. -------------- */
+  /* What a rule is printed in. Declared once: before atlas-3w18 --rule was
+     declared six times across five stylesheets, so the decision lived in six
+     places. */
+  --rule: var(--color-ink);
+  /* A hairline: separators, table rules, leader dots, the thin half of a paired
+     rule, and the border of the few objects that still carry one. */
+  --rule-hair: 1px;
+  /* The thick half of a paired rule, and the gilt underscore under a docked
+     panel or the current tab. */
+  --rule-thick: 2px;
+  /* A section divider set `double` — 3px is the least a `double` border renders
+     as two lines — and the mark printed in the margin beside a cited block. */
+  --rule-heavy: 3px;
+
   --radius: var(--radius-sm);
 
   --measure: 34em;
@@ -244,7 +358,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 .link {
   color: var(--cloth);
-  border-bottom: var(--border-width) solid transparent;
+  border-bottom: var(--rule-hair) solid transparent;
 }
 .link:hover { border-bottom-color: var(--cloth); }
 
@@ -318,7 +432,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   scrollbar-width: none;
   padding: var(--space-3) var(--space-4);
   background: var(--bg);
-  border-bottom: var(--border-width) solid var(--border);
+  border-bottom: var(--rule-hair) solid var(--border);
 }
 .nav-brand {
   font-family: var(--font-display);
@@ -340,7 +454,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   white-space: nowrap;
   color: var(--ink-3);
   padding-bottom: var(--space-1);
-  border-bottom: 2px solid transparent;
+  border-bottom: var(--rule-thick) solid transparent;
 }
 .nav-link:hover { color: var(--ink); }
 .nav-link[aria-current="page"] {
@@ -373,7 +487,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   color: var(--ink-2);
   background: transparent;
   border: 0;
-  border-bottom: var(--border-width) solid var(--border-strong);
+  border-bottom: var(--rule-hair) solid var(--border-strong);
   border-radius: 0;
   padding: 0 0 var(--space-1);
   cursor: pointer;
@@ -418,14 +532,14 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .spoiler + p.spoiler-note {
   margin: 0;
   padding-block: var(--space-2);
-  border-block: var(--border-width) dashed var(--border-strong);
+  border-block: var(--rule-hair) dashed var(--border-strong);
   font-style: italic;
 }
 /* The scope of an answer, stated above every conversation (atlas-zbt8). */
 .ask-scope {
   margin: 0;
   padding-block: var(--space-2);
-  border-block: var(--border-width) solid var(--border);
+  border-block: var(--rule-hair) solid var(--border);
   font-size: var(--text-sm);
   color: var(--ink-3);
 }
@@ -435,7 +549,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 p.ahead-note {
   margin: 0;
   padding: var(--space-2) var(--space-3);
-  border-left: 3px solid var(--gilt);
+  border-left: var(--rule-heavy) solid var(--gilt);
   background: var(--gilt-soft);
   color: var(--ink-2);
   font-size: var(--text-sm);
@@ -453,7 +567,7 @@ p.ahead-note {
 
 .card {
   background-color: var(--surface);
-  border: var(--border-width) solid var(--border);
+  border: var(--rule-hair) solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-3);
   display: flex;
@@ -468,7 +582,7 @@ p.ahead-note {
   gap: var(--space-3);
   padding: var(--space-2) 0;
   border: none;
-  border-bottom: var(--border-width) solid var(--border);
+  border-bottom: var(--rule-hair) solid var(--border);
   font-size: var(--text-sm);
   color: var(--ink-2);
   width: 100%;
@@ -486,7 +600,7 @@ p.ahead-note {
   gap: var(--space-3);
   align-items: center;
   padding: var(--space-1) 0;
-  border-bottom: var(--border-width) solid var(--border);
+  border-bottom: var(--rule-hair) solid var(--border);
   font-size: var(--text-sm);
 }
 .bar-row > :last-child { text-align: right; }
@@ -521,7 +635,7 @@ p.ahead-note {
   flex: 1;
   padding: var(--space-2) var(--space-3);
   background: var(--bg);
-  border: var(--border-width) solid var(--border-strong);
+  border: var(--rule-hair) solid var(--border-strong);
   border-radius: var(--radius);
   font-size: var(--text-sm);
 }
@@ -532,7 +646,7 @@ p.ahead-note {
   padding: var(--space-2) var(--space-4);
   background: var(--bg);
   color: var(--cloth);
-  border: var(--border-width) solid var(--border-strong);
+  border: var(--rule-hair) solid var(--border-strong);
   border-radius: var(--radius);
   font-size: var(--text-sm);
   cursor: pointer;
@@ -558,8 +672,8 @@ p.ahead-note {
 
 .notice {
   background: var(--cloth-soft);
-  border: var(--border-width) solid var(--border);
-  border-left: 3px solid var(--cloth);
+  border: var(--rule-hair) solid var(--border);
+  border-left: var(--rule-heavy) solid var(--cloth);
   border-radius: var(--radius);
   padding: var(--space-3);
   font-size: var(--text-sm);
@@ -569,7 +683,7 @@ p.ahead-note {
 
 .name-panel {
   background: var(--surface);
-  border: var(--border-width) solid var(--border);
+  border: var(--rule-hair) solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-3);
   display: flex;
@@ -583,7 +697,7 @@ p.ahead-note {
   gap: var(--space-2) var(--space-3);
   align-items: baseline;
   padding: var(--space-2) 0;
-  border-bottom: var(--border-width) solid var(--border);
+  border-bottom: var(--rule-hair) solid var(--border);
 }
 .form-row:last-child { border-bottom: none; }
 .form-row > :last-child { text-align: right; }
@@ -600,7 +714,7 @@ p.ahead-note {
   font: inherit;
   color: inherit;
   cursor: pointer;
-  border-bottom: var(--border-width) dotted var(--border-strong);
+  border-bottom: var(--rule-hair) dotted var(--border-strong);
 }
 .name-hit:hover, .name-hit[aria-expanded="true"] {
   background: var(--gilt-soft);
@@ -609,7 +723,7 @@ p.ahead-note {
 
 .lineage { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .lineage__child {
-  border: var(--border-width) solid var(--border-strong);
+  border: var(--rule-hair) solid var(--border-strong);
   border-radius: var(--radius);
   padding: var(--space-1) var(--space-2);
   font-size: var(--text-sm);
@@ -634,7 +748,7 @@ p.ahead-note {
   bottom: 0;
   z-index: 20;
   background: var(--bg);
-  border-top: 2px solid var(--gilt);
+  border-top: var(--rule-thick) solid var(--gilt);
   max-height: 55vh;
   overflow-y: auto;
 }
@@ -666,12 +780,12 @@ p.ahead-note {
   overflow: hidden;
   max-width: calc(100% - var(--space-4));
   background: var(--bg);
-  border: var(--border-width) solid var(--border-strong);
-  border-left: 3px solid var(--accent);
+  border: var(--rule-hair) solid var(--border-strong);
+  border-left: var(--rule-heavy) solid var(--accent);
   border-radius: var(--radius);
   /* No shadow: print has none, and the system forbids it. A card is separated
      from the page by its rule, not by floating above it. */
-  border-left-width: 3px;
+  border-left-width: var(--rule-heavy);
   padding: var(--space-3);
   display: flex;
   flex-direction: column;
@@ -709,7 +823,7 @@ p.ahead-note {
   grid-template-columns: minmax(0, 1fr) auto;
   column-gap: var(--space-2);
   align-items: baseline;
-  border-top: var(--border-width) solid var(--border);
+  border-top: var(--rule-hair) solid var(--border);
   padding: var(--space-1) 0;
   font-size: var(--text-xs);
   color: var(--ink-2);
@@ -729,7 +843,7 @@ p.ahead-note {
   color: var(--cloth);
   white-space: nowrap;
   font-variant-numeric: lining-nums;
-  border-bottom: var(--border-width) solid var(--cloth-soft);
+  border-bottom: var(--rule-hair) solid var(--cloth-soft);
 }
 .anchored__cite:hover, .anchored__cite:focus-visible { border-bottom-color: var(--cloth); }
 .anchored__basis {
@@ -821,7 +935,7 @@ p.ahead-note {
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-3);
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--rule-hair) solid var(--border);
   padding-bottom: var(--space-2);
   font-size: var(--text-xs);
   letter-spacing: 0.16em;
@@ -899,7 +1013,7 @@ p.ahead-note {
 
 .chart {
   background-color: var(--bg);
-  border: var(--border-width) solid var(--border);
+  border: var(--rule-hair) solid var(--border);
   border-radius: var(--radius);
 }
 /* A diagram must not be scaled below legibility. `min-width` keeps the drawing
@@ -921,7 +1035,7 @@ p.ahead-note {
   padding: var(--space-2) var(--space-3);
   font-size: var(--text-xs);
   color: var(--ink-3);
-  border-top: var(--border-width) solid var(--border);
+  border-top: var(--rule-hair) solid var(--border);
 }
 
 .chart-label { font-family: var(--font-sans); font-size: var(--text-xs); fill: var(--ink); }
@@ -952,7 +1066,7 @@ p.ahead-note {
   max-width: var(--measure);
   margin-inline: auto;
   padding-block: var(--space-3);
-  border-block: var(--border-width) solid var(--border);
+  border-block: var(--rule-hair) solid var(--border);
   display: grid;
   gap: var(--space-2);
   text-align: center;
@@ -976,8 +1090,10 @@ p.ahead-note {
    beside the paragraph and the faintest wash, the text itself left alone. */
 .prose p[data-cited] {
   margin-left: calc(-1 * var(--space-3));
-  padding-left: calc(var(--space-3) - 3px);
-  border-left: 3px solid var(--gilt);
+  /* The padding absorbs the rule's own width, so the text sits where it did
+     before the mark was drawn. It has to be the same token as the border. */
+  padding-left: calc(var(--space-3) - var(--rule-heavy));
+  border-left: var(--rule-heavy) solid var(--gilt);
   background: var(--gilt-soft);
   scroll-margin-top: calc(var(--nav-h) + var(--space-4));
 }
@@ -994,14 +1110,14 @@ p.ahead-note {
   display: grid;
   align-items: baseline;
   background: var(--bg);
-  border-bottom: var(--border-width) solid var(--border);
+  border-bottom: var(--rule-hair) solid var(--border);
   padding-block: var(--space-2);
 }
 .timeline__head {
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  padding-left: 10px;
+  padding-left: 10px; /* geometry: mirrors the `x + 10` label inset in Timeline.tsx */
   overflow: hidden;
   white-space: nowrap;
   font-size: var(--text-xs);
@@ -1012,7 +1128,7 @@ p.ahead-note {
 }
 .chart .timeline__head svg { display: inline-block; width: 12px; min-width: 0; flex: none; }
 .timeline__heads-key {
-  padding-right: 16px;
+  padding-right: 16px; /* geometry: mirrors the `GUTTER - 16` era labels in Timeline.tsx */
   text-align: right;
   font-size: var(--text-xs);
   font-style: italic;
@@ -1035,7 +1151,7 @@ p.ahead-note {
   .timeline__aside {
     position: sticky;
     top: calc(var(--nav-h) + var(--space-3));
-    border-top: 3px double var(--ink);
+    border-top: var(--rule-heavy) double var(--ink);
     padding-top: var(--space-3);
   }
   .timeline__close { display: none; }
@@ -1055,7 +1171,7 @@ p.ahead-note {
     overflow-y: auto;
     padding: var(--space-3) var(--space-4);
     background: var(--bg);
-    border-top: 2px solid var(--gilt);
+    border-top: var(--rule-thick) solid var(--gilt);
   }
 }
 

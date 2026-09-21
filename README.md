@@ -14,7 +14,7 @@ the chapter, and usually the paragraph, that supports it.
 ```bash
 npm install
 npm run corpus   # parse karamazov.txt -> data/ (deterministic, no API key)
-npm test         # six suites: corpus, rate limit, curated data, names, API client, reading position
+npm test         # seven suites: corpus, rate limit, curated data, names, API client, reading position, design system
 npm run dev
 ```
 
@@ -23,6 +23,17 @@ For those, add `.env.local`:
 
 ```
 ANTHROPIC_API_KEY=sk-ant-...
+```
+
+The optional API in `api/` is a [uv](https://docs.astral.sh/uv/) project on Python 3.14,
+pinned by `api/.python-version` and locked by `api/uv.lock`:
+
+```bash
+cd api
+uv sync                          # installs 3.14 if missing, then the locked dependencies
+uv run python -m atlas.ingest    # builds data/atlas.db from the committed JSON
+uv run pytest -q
+uv run uvicorn atlas.main:app --reload
 ```
 
 ## What's here
@@ -80,7 +91,7 @@ so overlapping names can't double-count.
 
 Next.js 16 · React 19 · AI SDK 7 (`@ai-sdk/anthropic`, model `claude-opus-5`) · Zod 4 ·
 TypeScript · Tailwind v4, configured from the design tokens. FastAPI + SQLite/FTS5 for
-the optional API.
+the optional API, on Python 3.14 with uv and ruff.
 
 The app is set as the 1912 Heinemann edition the text comes from: one family (Old
 Standard TT), four colours taken from the book, letterspaced capitals, paired rules.
@@ -138,7 +149,13 @@ The Docker image builds the database into itself and fails unless it contains ex
 ## CI
 
 `.github/workflows/ci.yml` runs on every push and pull request: typecheck, the test
-suites, a build, and the Python tests.
+suites, a build, and for the API `uv sync --locked`, ruff lint and format checks, and
+the Python tests. `--locked` fails if `uv.lock` has drifted from `pyproject.toml`.
+
+One of the suites, `scripts/test-design-system.ts`, holds the stylesheets to the design
+contract written at the top of `src/app/globals.css`: no undefined or dead token, no
+colour outside the palette, one typeface, no literal rule weight or spacing step, and
+no comment that closes early.
 
 It also regenerates the derived data and fails if it differs from what is committed.
 That check exists for a specific reason — `npm run corpus` once silently rebuilt
