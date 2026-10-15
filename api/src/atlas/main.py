@@ -46,7 +46,13 @@ app.add_middleware(
 
 
 def get_db() -> Iterator[sqlite3.Connection]:
-    conn = connect()
+    try:
+        conn = connect()
+    except sqlite3.OperationalError as e:
+        # The read-only open refuses to create a file, so a wrong ATLAS_DB_PATH
+        # is "unable to open database file" here, and that is a readiness
+        # failure the platform should see as one, not a 500.
+        raise HTTPException(503, f"database unavailable: {e}") from e
     try:
         yield conn
     finally:
@@ -65,7 +71,11 @@ def health(db: DB) -> dict[str, bool | int | str]:
     count and fail the check if it is zero, so a bad build is caught by the
     platform rather than by a reader.
     """
-    n = db.execute("SELECT count(*) FROM chapters").fetchone()[0]
+    try:
+        n = db.execute("SELECT count(*) FROM chapters").fetchone()[0]
+    except sqlite3.OperationalError as e:
+        # "no such table": the file exists but holds no schema.
+        raise HTTPException(503, f"database is not ready: {e}") from e
     if n == 0:
         raise HTTPException(503, "database is empty — ingest did not run")
     return {"ok": True, "chapters": n, "version": app.version}
@@ -106,7 +116,9 @@ def _chapter(row: sqlite3.Row) -> models.Chapter:
 
 
 @app.get("/chapters", response_model=list[models.Chapter])
-def chapters(db: DB, book: int | None = None) -> list[models.Chapter]:
+def chapters(
+    db: DB, book: Annotated[int | None, Query(ge=1, le=13)] = None
+) -> list[models.Chapter]:
     sql = "SELECT * FROM chapters"
     args: tuple[int, ...] = ()
     if book is not None:
@@ -250,14 +262,37 @@ def spoken_of(
     return _named_in_speech(db, "spoken_of", speaker, target)
 
 
+def fts_match(q: str) -> str:
+    """Turn a reader's words into a MATCH expression that cannot fail to parse.
+
+    The raw string is FTS5 query syntax, not text: an apostrophe opens a string,
+    a hyphen and a colon are column operators, `?` is a syntax error, and a bare
+    `AND`, `OR` or `NOT` is an operator. "Grushenka's letter" and "who killed
+    Fyodor?" were both 400s from the live service (deep review M2). Inside
+    double quotes nothing is special except a double quote, written as two, so
+    each whitespace-separated term is quoted and the tokenizer sees the same
+    characters the chapters were indexed with. Terms are still implicitly ANDed,
+    as they were before.
+    """
+    return " ".join('"' + term.replace('"', '""') + '"' for term in q.split())
+
+
+# The bounds are the corpus's shape — 96 chapters in 13 books — and the largest
+# page a caller has a use for. Without them SQLite raised OverflowError on a
+# huge integer, uncaught, so `limit=99999999999999999999` was a 500 (deep
+# review M9); with them it is a 422 from validation before any query runs.
 @app.get("/search", response_model=list[models.SearchHit])
 def search(
     db: DB,
     q: Annotated[str, Query(min_length=2)],
-    limit: int = 6,
+    limit: Annotated[int, Query(ge=1, le=50)] = 6,
     before: Annotated[
         int | None,
-        Query(description="Spoiler scope: only chapters at or before this reading position."),
+        Query(
+            ge=0,
+            le=96,
+            description="Spoiler scope: only chapters at or before this reading position.",
+        ),
     ] = None,
 ) -> list[models.SearchHit]:
     """Ranked full-text search.
@@ -266,6 +301,9 @@ def search(
     scoping an answer to what the reader has already read is one clause rather
     than a bespoke pass over the text.
     """
+    match = fts_match(q)
+    if not match:
+        return []
     sql = """
         SELECT c.id, c.cite, c.title,
                bm25(chapters_fts) AS score,
@@ -274,7 +312,7 @@ def search(
         JOIN chapters c ON c.ordinal = chapters_fts.rowid
         WHERE chapters_fts MATCH ?
     """
-    args: list[str | int] = [q]
+    args: list[str | int] = [match]
     if before is not None:
         sql += " AND c.ordinal <= ?"
         args.append(before)
@@ -283,6 +321,8 @@ def search(
     try:
         rows = db.execute(sql, args).fetchall()
     except sqlite3.OperationalError as e:
+        # Quoting makes a parse error unreachable as far as anyone has found;
+        # if FTS5 still objects to something, say so rather than crash.
         raise HTTPException(400, f"Bad query: {e}") from e
     return [
         models.SearchHit(

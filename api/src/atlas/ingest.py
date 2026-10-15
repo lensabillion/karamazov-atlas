@@ -14,7 +14,7 @@ import os
 import sqlite3
 from pathlib import Path
 
-from atlas.db import connect, create_schema, rebuild_fts
+from atlas.db import DB_PATH, connect_for_write, create_schema, rebuild_fts
 
 # ATLAS_DATA_DIR lets the container point at the corpus wherever it copied it,
 # instead of depending on the source tree's shape surviving the image build.
@@ -177,15 +177,34 @@ def ingest(conn: sqlite3.Connection) -> dict[str, int]:
 
 
 def main() -> None:
-    DATA.mkdir(exist_ok=True)
-    conn = connect()
-    counts = ingest(conn)
-    width = max(len(k) for k in counts)
-    for k, v in counts.items():
-        print(f"  {k.ljust(width)}  {v:>6,}")
-    total = conn.execute("SELECT count(*) FROM chapters_fts").fetchone()[0]
-    print(f"  {'fts rows'.ljust(width)}  {total:>6,}")
-    conn.close()
+    """Build a fresh database beside the target and rename it into place.
+
+    A rebuild, not an upsert: `INSERT OR REPLACE` into an existing file kept
+    every row whose id had since left the JSON (deep review L7). Building a new
+    file and renaming over the old one is atomic on POSIX, and it is what the
+    serving connection's `immutable=1` requires — a process already reading the
+    old file keeps its inode, and nothing is ever handed a half-written one.
+    """
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    building = DB_PATH.with_name(DB_PATH.name + ".building")
+    building.unlink(missing_ok=True)
+    conn = connect_for_write(building)
+    try:
+        counts = ingest(conn)
+        width = max(len(k) for k in counts)
+        for k, v in counts.items():
+            print(f"  {k.ljust(width)}  {v:>6,}")
+        indexed = conn.execute("SELECT count(*) FROM chapters_fts").fetchone()[0]
+        print(f"  {'fts rows'.ljust(width)}  {indexed:>6,}")
+    finally:
+        conn.close()
+    if counts["chapters"] == 0 or indexed != counts["chapters"]:
+        building.unlink(missing_ok=True)
+        raise SystemExit(
+            f"ingest produced {counts['chapters']} chapters and {indexed} index rows; "
+            f"{DB_PATH} was left as it was"
+        )
+    os.replace(building, DB_PATH)
 
 
 if __name__ == "__main__":

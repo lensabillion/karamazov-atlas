@@ -17,6 +17,7 @@ One file on disk, rebuilt by one command, so nothing about deployment is harder.
 import os
 import sqlite3
 from pathlib import Path
+from urllib.parse import quote
 
 # Where the database lives.
 #
@@ -157,6 +158,36 @@ CREATE TABLE IF NOT EXISTS ties (
 
 
 def connect(path: Path | None = None) -> sqlite3.Connection:
+    """Open the database for serving: read-only, immutable, usable from any thread.
+
+    The service never writes, so the file is opened `mode=ro`. A mispathed
+    ATLAS_DB_PATH then fails here, loudly, instead of creating an empty database
+    that /health reports as "no such table" (deep review M9). `immutable=1` goes
+    one further: it promises SQLite that no other process will change the file
+    while it is open, so it takes no locks and never re-reads the header. Ingest
+    keeps that promise by building a new file and renaming it into place rather
+    than editing this one.
+
+    `check_same_thread=False` is what the threadpool needs (deep review H3).
+    FastAPI runs a sync dependency's setup, the endpoint and the teardown as
+    three separate dispatches to anyio's worker threads, and under overlapping
+    requests they land on different threads; the default flag made that a
+    ProgrammingError on 112 of 120 concurrent requests. Each request still has
+    its own connection and uses it from one thread at a time, which is the case
+    the flag is safe for.
+    """
+    target = Path(path or DB_PATH)
+    # The path is percent-encoded because this is a URI: a space, a `?` or a `#`
+    # in the directory name would otherwise be read as URI syntax.
+    conn = sqlite3.connect(
+        f"file:{quote(str(target))}?mode=ro&immutable=1", uri=True, check_same_thread=False
+    )
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def connect_for_write(path: Path | None = None) -> sqlite3.Connection:
+    """Create or open the database for ingest: the one writer. See `ingest.main`."""
     conn = sqlite3.connect(path or DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
