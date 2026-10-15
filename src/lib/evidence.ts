@@ -5,9 +5,7 @@
  * Why curated rather than extracted: the verdict asks readers to take a
  * position, and "it is gimmick-shaped if the evidence under it is thin". Every
  * record here quotes the text verbatim, and scripts/test-curated.ts fails if a
- * quotation is not inside one paragraph of its chapter. The machine extraction
- * (data/entities.json, atlas-94i4) covers half the book so far and is not used
- * for anything a reader is asked to judge.
+ * quotation is not inside one paragraph of its chapter.
  *
  * The field that carries the novel's argument is `court`: the jury believed
  * true evidence and reached a false conclusion, because what would have cleared

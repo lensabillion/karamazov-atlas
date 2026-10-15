@@ -211,7 +211,6 @@ export default function CollageCatalogue() {
           reproduction exists, it replaces the small collage image. Small extracts are shown at their
           native size or smaller; opening one cannot recover detail missing from the source.
         </p>
-        <a className="link" href="/artwork/grigoriev-collage.zip" download>Download all {COLLAGE_PLATES.length} extracts &amp; the identification guide ↓</a>
         <a className="meta collage-catalogue__back" href="#contents">Back to contents ↑</a>
       </footer>
     </section>

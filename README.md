@@ -14,26 +14,15 @@ the chapter, and usually the paragraph, that supports it.
 ```bash
 npm install
 npm run corpus   # parse karamazov.txt -> data/ (deterministic, no API key)
-npm test         # seven suites: corpus, rate limit, curated data, names, API client, reading position, design system
+npm test         # six suites: corpus, rate limit, curated data, names, reading position, design system
 npm run dev
 ```
 
-The app runs fully without credentials. Only `/ask` and `npm run extract` call a model.
-For those, add `.env.local`:
+The app runs fully without credentials. Only `/ask` calls a model. For it, add
+`.env.local`:
 
 ```
 ANTHROPIC_API_KEY=sk-ant-...
-```
-
-The optional API in `api/` is a [uv](https://docs.astral.sh/uv/) project on Python 3.14,
-pinned by `api/.python-version` and locked by `api/uv.lock`:
-
-```bash
-cd api
-uv sync                          # installs 3.14 if missing, then the locked dependencies
-uv run python -m atlas.ingest    # builds data/atlas.db from the committed JSON
-uv run pytest -q
-uv run uvicorn atlas.main:app --reload
 ```
 
 ## What's here
@@ -51,26 +40,13 @@ uv run uvicorn atlas.main:app --reload
 
 ## Architecture
 
-> **Implemented vs proposed.** Everything below under "three layers" is built and
-> running. The Python service in `api/` ingests the JSON the TypeScript pipeline
-> produces and serves it over FastAPI with SQLite/FTS5 (12 tests). One thing reads
-> from it: when `ATLAS_API_URL` is set, `/api/chat`'s search tool uses its FTS5 index,
-> falling back to the local BM25 search when it is unset or unreachable. The pages do
-> not read from it; they are prerendered from the committed JSON. The pipeline itself
-> stays in TypeScript — see `docs/design-document.md` §6 and atlas-gc9d for why.
-
-
-Three layers, deliberately separated:
+Two layers, deliberately separated. There is no backend: every page is prerendered
+from the committed data, and the one server route searches that data in process.
 
 1. **Corpus (deterministic).** `scripts/parse-corpus.ts` splits the source into chapters
    with character offsets; `scripts/build-mentions.ts` builds an alias-aware mention
    index and co-occurrence edges. No LLM, fully reproducible, committed to `data/`.
-2. **Enrichment (batch, LLM).** `scripts/extract.ts` uses `generateText` + `Output.object`
-   with a Zod schema to pull events, typed relations and themes per chapter. Resumable,
-   writes as it goes, logs token usage, and drops any "verbatim" quote that is not in
-   the chapter. Output is committed to `data/entities.json` — the app never runs this
-   at request time.
-3. **App (runtime).** Next.js App Router, prerendered. `/api/chat` is the only path that
+2. **App (runtime).** Next.js App Router, prerendered. `/api/chat` is the only path that
    calls a model; it gives Claude three tools over the corpus (`searchNovel`,
    `readChapter`, `listChapters`), requires book/chapter citations, and limits all
    three to the reader's place when one is set.
@@ -90,8 +66,7 @@ so overlapping names can't double-count.
 ## Stack
 
 Next.js 16 · React 19 · AI SDK 7 (`@ai-sdk/anthropic`, model `claude-opus-5`) · Zod 4 ·
-TypeScript · Tailwind v4, configured from the design tokens. FastAPI + SQLite/FTS5 for
-the optional API, on Python 3.14 with uv and ruff.
+TypeScript · Tailwind v4, configured from the design tokens.
 
 The app is set as the 1912 Heinemann edition the text comes from: one family (Old
 Standard TT), four colours taken from the book, letterspaced capitals, paired rules.
@@ -106,12 +81,8 @@ data and needs none of them.
 | Variable | Absent | Present |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | `/ask` shows a notice; nothing else changes | `/ask` is live |
-| `ATLAS_API_URL` | Retrieval uses the local corpus scan | Retrieval uses the API's FTS5 index |
 | `CHAT_RATE_LIMIT` | 10 | Requests per window, per caller |
 | `CHAT_RATE_WINDOW_MS` | 60000 | Window length |
-
-Backend variables (`ALLOWED_ORIGINS`, `ATLAS_DB_PATH`, `ATLAS_DATA_DIR`) are set in
-Render; `render.yaml` supplies the last two.
 
 There is no `.env.example` — it is gitignored deliberately. `docs/deployment-plan.md`
 §11 is the reference.
@@ -134,23 +105,14 @@ hard cap on spend. `src/lib/rate-limit.ts` says so in its own header.
 
 ## Deployment
 
-Backend on Render, frontend on Vercel. Full runbook in `docs/deployment-plan.md`.
-
-**Order matters.** Each platform needs the other's URL, and you break the cycle on
-the frontend, because the frontend works with no backend at all:
-
-1. Deploy to **Vercel** with no environment variables. You get a working site.
-2. Deploy to **Render** from `render.yaml`; set `ALLOWED_ORIGINS` to the Vercel origin.
-3. Return to Vercel and set `ATLAS_API_URL` to the Render URL.
-
-The Docker image builds the database into itself and fails unless it contains exactly
-96 chapters, so a bad corpus never reaches a reader.
+Vercel, and nothing else. Runbook in `docs/deployment-plan.md`. Deploy with no
+environment variables and you get a working site; set `ANTHROPIC_API_KEY` only when
+`/ask` should be live, after reading the cost controls above.
 
 ## CI
 
 `.github/workflows/ci.yml` runs on every push and pull request: typecheck, the test
-suites, a build, and for the API `uv sync --locked`, ruff lint and format checks, and
-the Python tests. `--locked` fails if `uv.lock` has drifted from `pyproject.toml`.
+suites, the drift check and a build.
 
 One of the suites, `scripts/test-design-system.ts`, holds the stylesheets to the design
 contract written at the top of `src/app/globals.css`: no undefined or dead token, no
