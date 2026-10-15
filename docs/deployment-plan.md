@@ -1,10 +1,10 @@
 ---
 title: Deployment Plan
-description: How the frontend and backend get shipped, in what order, and why the backend waits
+description: How the frontend ships to Vercel, and why there is no backend
 ---
 # Deployment Plan
 
-**Date:** 2026-09-09 · **Status:** Decided — Render (backend) + Vercel (frontend). Configuration committed; see §11.
+**Date:** 2026-09-09 · **Status:** Decided — Vercel only. The backend was removed on 15 October 2026 (atlas-ub16); see §2.
 
 ---
 
@@ -18,7 +18,6 @@ Measured from `next build`, not assumed:
 | Routes needing a server | **1** — `ƒ /api/chat` |
 | Data | 99 files committed in `data/` (~2.3 MB) plus `karamazov.txt` (1.9 MB) |
 | Secrets | **1** — `ANTHROPIC_API_KEY` |
-| Backend | FastAPI + SQLite/FTS5 in `api/` — **not consumed by the app** |
 
 Two facts drive everything below.
 
@@ -32,36 +31,19 @@ deployment is simple.
 
 ---
 
-## 2. Decision taken: both, and the backend now has a job
+## 2. Decision: frontend only
 
-The original recommendation here was to defer the backend because nothing called
-it. **The decision is to deploy both**, so the recommendation is superseded — and
-rather than ship an idle service, the chat route's retrieval now uses it.
+A FastAPI + SQLite/FTS5 service lived in `api/` from 8 September to 15 October 2026,
+with a Dockerfile, a Render blueprint and a typed client. Its one consumer was
+`/api/chat`'s search tool, behind `ATLAS_API_URL`, with a fallback to the in-process
+scan of the committed JSON. The 15 October deep review found the live service
+answering 500 under load and 400 to ordinary questions, and the fallback hiding both:
+the service was paid for and bypassed.
 
-`/api/chat`'s `searchNovel` tool calls the API's FTS5 endpoint when `ATLAS_API_URL`
-is set, and falls back to the local corpus scan when it is not. That gives the
-backend a real consumer, and keeps local development, preview builds and a Render
-outage all working — an outage degrades one feature instead of taking the site down.
-
-The reasoning that produced the original recommendation is kept below, because it
-still governs *what the backend must earn*: if the FTS5 path never measurably beats
-the local scan, the service is not paying for itself.
-
-### Original reasoning (superseded)
-
-The Python service works and its 11 tests pass. It is also **dead weight in production
-today**: the Next.js app does not call it, and `/api/chat` does not call it either.
-
-Deploying it now would mean paying for a service, securing it, monitoring it, and
-keeping it available — for zero traffic and zero dependents. It would also create a
-false impression that the app depends on it, which the next person to touch this repo
-would have to disprove.
-
-**Deploy the frontend now. Deploy the backend when something calls it.** That is
-`atlas-gc9d` step 5, and it is not done.
-
-If the goal is simply to *see it running somewhere*, the frontend alone achieves that
-completely.
+The owner removed it rather than fix it (atlas-ub16). The reasoning that first argued
+for deferring it still holds and now governs any future backend: 349,367 words fit in
+memory, every page is prerendered, and the one server route already answers from the
+committed data. **Deploy a backend when something needs it**, not before.
 
 ---
 
@@ -107,43 +89,11 @@ first deploy, and the one I would do first.
 
 ---
 
-## 4. Phase 2 — Backend, when it is needed
+## 4. Phase 2 — Backend
 
-Trigger: the Next app or `/api/chat` actually reads from it (`atlas-gc9d` step 5).
-
-### Target: a container platform, not a serverless function
-
-SQLite with FTS5 wants a real filesystem and a warm process. Serverless would rebuild or
-re-download the database per cold start.
-
-| Option | Notes |
-| --- | --- |
-| **Fly.io** | Recommended. Small always-on VM, real disk, cheap, scales to zero optionally |
-| Railway / Render | Equivalent; pick on pricing and familiarity |
-| AWS App Runner / ECS | Fine, more setup than this justifies |
-| Vercel Functions | **Not suitable.** SQLite/FTS5 on ephemeral storage per invocation |
-
-### The database question
-
-`data/atlas.db` is **gitignored**. It is derived, so it must be produced during the image
-build, not committed:
-
-```dockerfile
-# after copying data/ and src/
-RUN python -m atlas.ingest        # builds data/atlas.db from the committed JSON
-```
-
-That keeps the container immutable and reproducible: same commit in, same database out,
-no volume, no migration on boot. Revisit only if the API ever gains writes.
-
-### Networking
-
-The API is read-only and has no auth. It must not be public. Either:
-
-- Keep it on a private network and let only the Next deployment reach it, or
-- Put a shared secret header between the two.
-
-Decide before it is exposed, not after.
+Removed; see §2. If one is ever needed again: a container platform with a real
+filesystem, the database built into the image from the committed JSON, and never
+public without auth.
 
 ---
 
@@ -160,7 +110,6 @@ on: pull_request, push to main
   4. npx tsc --noEmit
   5. npm run test         # 15 golden checks
   6. npm run build
-  7. (api) uv sync && pytest    # 11 tests
 ```
 
 Step 3 is the important one and is not obvious. The review found that `npm run corpus`
@@ -201,9 +150,9 @@ If none of that is wanted yet, deploy without the key. Ask degrades gracefully b
 
 | # | Decision | Outcome |
 | --- | --- | --- |
-| 1 | Frontend only, or both? | **Both.** Backend on Render, frontend on Vercel |
+| 1 | Frontend only, or both? | **Frontend only.** A backend ran on Render from September and was removed on 15 October 2026 |
 | 2 | Enable `/ask` publicly? | **Open.** Recommend no until `atlas-gx3e` (rate limiting) lands |
-| 3 | Platform | **Vercel + Render**, decided |
+| 3 | Platform | **Vercel**, decided |
 | 4 | Public or private first? | **Open.** Private is one toggle and costs nothing |
 | 5 | Custom domain? | Not needed for a first deploy |
 
@@ -217,7 +166,6 @@ If none of that is wanted yet, deploy without the key. Ask degrades gracefully b
 | `/ask` abused as a free LLM proxy | **High** if enabled | Rate limit, or ship without the key |
 | No CI, so a broken build reaches production | Medium | `atlas-83bt` before automated deploy |
 | Committed data drifts from the pipeline | Medium | CI step 3 above |
-| Backend deployed but unused | Low | Phase 2 gate — do not deploy it yet |
 | Node version drift | Low | Pin `engines` |
 
 ---
@@ -230,9 +178,8 @@ If none of that is wanted yet, deploy without the key. Ask degrades gracefully b
 4. Deploy frontend to Vercel, **private, without the key**. Verify all 131 pages.
 5. Decide on Ask. If yes: rate limit, then add the key.
 6. Make public if wanted.
-7. Backend only when `atlas-gc9d` step 5 gives it a consumer.
 
-Steps 1–4 are a short path to a working public URL and need no backend at all.
+Steps 1–4 are a short path to a working public URL.
 
 ---
 
@@ -244,10 +191,7 @@ Configuration is in the repo. These are the manual steps that remain.
 
 | File | Purpose |
 | --- | --- |
-| `api/Dockerfile` | Builds the API image and the SQLite/FTS5 database into it |
-| `render.yaml` | Render blueprint for the web service |
 | `vercel.json` | Framework preset, region, and a 60s cap on the chat function |
-| `src/lib/atlas-api.ts` | Typed client; falls back to local search when unconfigured |
 
 ### Environment variables
 
@@ -255,72 +199,18 @@ Configuration is in the repo. These are the manual steps that remain.
 configuration is documented here instead. Set these in each platform's own
 environment store; none of them belong in the repository.
 
-**Vercel (frontend)** — both optional. 131 of 132 pages are prerendered from
-committed data and need neither.
+**Vercel** — all optional. Every page but `/api/chat` is prerendered from committed
+data and needs none of them.
 
 | Variable | Absent | Present |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | `/ask` renders a clear notice; everything else is unaffected | `/ask` is live — read §6 before setting this |
-| `ATLAS_API_URL` | Retrieval falls back to the local corpus scan | Retrieval uses the Render API's FTS5 index |
 | `CHAT_RATE_LIMIT` | Defaults to 10 | Requests per window, per caller |
 | `CHAT_RATE_WINDOW_MS` | Defaults to 60000 | Window length in milliseconds |
 
-**Render (backend)**
-
-| Variable | Notes |
-| --- | --- |
-| `ALLOWED_ORIGINS` | Comma-separated. Set to the Vercel origin. Never `*`, or the API can be used as anyone's backend |
-| `ATLAS_DB_PATH` | Set by `render.yaml` to `/app/data/atlas.db` |
-| `ATLAS_DATA_DIR` | Set by `render.yaml` to `/app/data` |
-
-### A. Backend on Render
-
-1. Render → **Blueprints** → New Blueprint Instance → point at this repo. It reads
-   `render.yaml`.
-2. Set `ALLOWED_ORIGINS` when prompted. It is `sync: false`, so it is never
-   committed. Leave it as the localhost default until the Vercel URL exists, then
-   set it to that origin.
-3. Deploy. The build runs `python -m atlas.ingest` and **fails the build** if the
-   image does not contain exactly 96 chapters — a bad corpus never reaches a reader.
-4. Verify: `curl https://<service>.onrender.com/health` → `{"ok":true,"chapters":96}`.
-
-Notes:
-- `plan: starter`, not free. SQLite wants a warm process and a real filesystem;
-  a sleeping instance would cold-start on every query.
-- `autoDeploy: false`. The backend deploys on a deliberate promote, not on every
-  push to the branch.
-- No disk is attached, on purpose. The database is part of the image, so a
-  redeploy is the migration.
-
-### B. Frontend on Vercel
+### Frontend on Vercel
 
 1. Import the repo. The framework preset is detected; `vercel.json` pins the rest.
 2. Environment variables:
-   - `ATLAS_API_URL` → the Render URL. **Omit it and the site still works**, using
-     the local corpus scan.
    - `ANTHROPIC_API_KEY` → only when `/ask` should be live. See §6 first.
 3. Deploy. 131 pages prerender at build time from committed data; no network needed.
-4. Return to Render and set `ALLOWED_ORIGINS` to the Vercel origin.
-
-### C. Verify the seam
-
-```bash
-curl "https://<render-url>/health"
-curl "https://<render-url>/search?q=Inquisitor&limit=2"
-curl -H "Origin: https://<vercel-url>" -D - -o /dev/null "https://<render-url>/health" | grep -i access-control
-```
-
-The last one must echo the Vercel origin. If it does not, `ALLOWED_ORIGINS` is unset
-and the browser will block the call.
-
-### What was verified locally, and what was not
-
-**Verified:** ingest against relocated container paths produces 96 chapters; the
-build-time assertion passes; `/health`, `/search` and spoiler-scoped search all
-return correct results; CORS echoes the configured origin; the chat route falls
-back cleanly with `ATLAS_API_URL` unset.
-
-**Not verified:** the Docker image build itself. The local Docker daemon was not
-running, so `api/Dockerfile` is unbuilt. The path logic it depends on was validated
-by simulating the container layout, but the first real build will happen on Render.
-Expect to iterate once on it.

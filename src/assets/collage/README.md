@@ -1,8 +1,9 @@
 # Collage Source and Crop Coordinates
 
-`source.webp` is an unchanged copy of the user's `download.webp`, supplied on
-17 September 2026. It is 2880 × 2880 pixels. The illustrated band contains 36
-compositions, including two adjacent works with no white gutter at the lower left.
+The source was the user's `download.webp`, supplied on 17 September 2026: 2880 × 2880
+pixels, an illustrated band of 36 compositions, including two adjacent works with no
+white gutter at the lower left. It is no longer committed; the extracted plates are, and
+`crop-bounds.json` records where each came from.
 
 `crop-bounds.json` records `[left, top, right, bottom]` in the 1600-pixel inspection
 coordinate system. Multiply each coordinate by `2880 / 1600` and round independently
