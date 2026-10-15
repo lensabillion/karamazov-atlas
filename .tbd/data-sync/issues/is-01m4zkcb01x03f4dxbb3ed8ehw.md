@@ -3,9 +3,9 @@ type: is
 id: is-01m4zkcb01x03f4dxbb3ed8ehw
 title: Harden the public chat endpoint (deep review H1, H2, M3, M7, L1)
 kind: epic
-status: in_progress
+status: closed
 priority: 1
-version: 9
+version: 10
 labels:
   - security
 dependencies: []
@@ -18,6 +18,10 @@ child_order_hints:
   - is-01m4zkcc2875qmajjqcr86cb4c
   - is-01m4zkcc7sy7gkfav9t0wxjqvv
 created_at: 2026-10-15T10:57:57.249Z
-updated_at: 2026-10-15T10:58:07.673Z
+updated_at: 2026-10-15T11:10:03.069Z
+closed_at: 2026-10-15T11:10:03.068Z
+close_reason: "All seven children closed in PR https://github.com/lensabillion/karamazov-atlas/pull/21 (branch claude/strange-mendel-3946ef, commit b2dae36). Typecheck clean; 8 suites pass in 1.85 s (75 new checks); build 136 pages. Not tested: a live model call (key may be out of credit), the remote-search branch of the budget, and answer quality when a second chapter read is cut. First live question after merge: check that MAX_STEPS=4 suits the model's search-read-answer pattern."
+resolution: null
+duplicate_of: null
 ---
 With ANTHROPIC_API_KEY set on Vercel, /api/chat is a public, unauthenticated LLM route. The deep review of 15 October 2026 (docs/reviews/2026-10-15-deep-review.md) found that it trusts its request body (H1: a caller can append a system message or forge tool results, and malformed parts become a 500), that its cost bounds are per step rather than per request (H2: 2,000 output tokens x 6 steps, 24,000 chars of chapter text per readChapter call with no total), that a non-numeric CHAT_RATE_LIMIT silently disables the limiter (M3), that the Ask page states the wrong scope on first paint for a reader with a place set (M7), and that a citation like Bk I, ch. 9 links to a 404 (L1). One PR: schema-validate the body, bound tool output per request, validate the env, gate the scope sentence in CSS, validate citations against the real chapter list, add a request-level test suite for the route, and correct the README cost table.
