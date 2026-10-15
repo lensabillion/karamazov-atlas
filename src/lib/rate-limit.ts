@@ -94,6 +94,24 @@ export function callerKey(req: Request): string {
   return req.headers.get('x-real-ip') ?? 'unknown';
 }
 
+/**
+ * A positive integer from the environment, or the fallback.
+ *
+ * The route used to read `Number(process.env.X ?? 10)`. A value that is not a
+ * number gives NaN, `hits.length >= NaN` is always false, and the limiter then
+ * allows everything while advertising `RateLimit-Remaining: NaN` (deep review
+ * of 15 October 2026, M3). A typo in a dashboard must not switch the limiter
+ * off, so anything but a positive integer falls back, and says so once.
+ */
+export function envInt(name: string, fallback: number): number {
+  const raw = process.env[name];
+  if (raw === undefined || raw.trim() === '') return fallback;
+  const n = Number(raw);
+  if (Number.isInteger(n) && n > 0) return n;
+  console.warn(`${name}=${JSON.stringify(raw)} is not a positive integer; using ${fallback}.`);
+  return fallback;
+}
+
 /** Reset state between tests. */
 export function __reset() {
   buckets.clear();

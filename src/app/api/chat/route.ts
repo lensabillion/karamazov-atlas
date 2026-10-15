@@ -4,13 +4,12 @@ import {
   createUIMessageStreamResponse,
   stepCountIs,
   streamText,
-  tool,
   toUIMessageStream,
-  type UIMessage,
 } from 'ai';
-import { z } from 'zod';
-import { callerKey, check } from '@/lib/rate-limit';
-import { getChapter, getChapterText, getCorpus, ordinalOf, searchCorpus } from '@/lib/corpus';
+import { MAX_INPUT_CHARS, MAX_MESSAGES, parseChatMessages } from '@/lib/chat-messages';
+import { chatTools } from '@/lib/chat-tools';
+import { getCorpus } from '@/lib/corpus';
+import { callerKey, check, envInt } from '@/lib/rate-limit';
 import { parsePosition } from '@/lib/reading-position';
 
 export const maxDuration = 60;
@@ -19,22 +18,29 @@ export const maxDuration = 60;
  * Cost controls for a public, unauthenticated endpoint.
  *
  * With ANTHROPIC_API_KEY set, anyone who can reach this route can spend money
- * on this account. Four bounds, in order of how much they actually guarantee:
+ * on this account. The body is parsed against a schema before anything else
+ * reads it (lib/chat-messages.ts): roles user and assistant, text parts only,
+ * so a caller can neither append a system prompt of their own nor hand the
+ * model a forged tool result. Then five bounds, in order of how much they
+ * actually guarantee:
  *
- *   1. MAX_OUTPUT_TOKENS  hard ceiling on what one request can generate
- *   2. MAX_INPUT_CHARS    hard ceiling on what one request can send
- *   3. stopWhen           hard ceiling on tool round-trips
- *   4. rate limit         per-instance, so a deterrent rather than a guarantee
+ *   1. MAX_OUTPUT_TOKENS x MAX_STEPS   what one request can generate: 2,000 x 4
+ *   2. MAX_INPUT_CHARS                 what one request can send
+ *   3. TOOL_OUTPUT_CHARS               what the tools can hand back, all steps combined
+ *   4. MAX_MESSAGES                    how long the history can be
+ *   5. rate limit                      per-instance, so a deterrent rather than a guarantee
  *
- * The first three bound the cost of any single request no matter how many get
- * through, which is why they matter more than the fourth. See lib/rate-limit.ts
- * for why the fourth is weaker than it looks on serverless.
+ * The first four hold PER REQUEST, not per step. Before the deep review of
+ * 15 October 2026 (H2) the output cap was per model call with six calls
+ * allowed, and readChapter could return 24,000 characters as often as it was
+ * asked, so the real ceilings were the context window and maxDuration. See
+ * lib/chat-tools.ts for the budget and lib/rate-limit.ts for why the fifth is
+ * weaker than it looks on serverless.
  */
-const RATE_LIMIT = Number(process.env.CHAT_RATE_LIMIT ?? 10);
-const RATE_WINDOW_MS = Number(process.env.CHAT_RATE_WINDOW_MS ?? 60_000);
-const MAX_MESSAGES = 40;
-const MAX_INPUT_CHARS = 24_000;
+const RATE_LIMIT = envInt('CHAT_RATE_LIMIT', 10);
+const RATE_WINDOW_MS = envInt('CHAT_RATE_WINDOW_MS', 60_000);
 const MAX_OUTPUT_TOKENS = 2_000;
+const MAX_STEPS = 4;
 
 const SYSTEM = `You answer questions about Dostoyevsky's The Brothers Karamazov using ONLY the
 text of the novel, retrieved through your tools.
@@ -70,118 +76,67 @@ The reader has read up to and including ${ch.cite} ("${ch.title}") and no furthe
 }
 
 export async function POST(req: Request) {
+  // The limiter is judged first, before the key and before the body is read,
+  // so a flood of bad requests costs the same as a flood of good ones: nothing.
   const limit = check(callerKey(req), { limit: RATE_LIMIT, windowMs: RATE_WINDOW_MS });
   const limitHeaders = {
     'RateLimit-Limit': String(RATE_LIMIT),
     'RateLimit-Remaining': String(limit.remaining),
     'RateLimit-Reset': String(Math.ceil((limit.resetAt - Date.now()) / 1000)),
   };
+  const refuse = (status: number, error: string, headers: Record<string, string> = {}) =>
+    Response.json({ error }, { status, headers: { ...limitHeaders, ...headers } });
 
   if (!limit.ok) {
-    return Response.json(
-      { error: `Too many requests. Try again in ${limit.retryAfter}s.` },
-      { status: 429, headers: { ...limitHeaders, 'Retry-After': String(limit.retryAfter) } },
-    );
+    return refuse(429, `Too many requests. Try again in ${limit.retryAfter}s.`, {
+      'Retry-After': String(limit.retryAfter),
+    });
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    return Response.json(
-      { error: 'ANTHROPIC_API_KEY is not set. Add it to .env.local and restart the dev server.' },
-      { status: 503, headers: limitHeaders },
-    );
+    return refuse(503, 'ANTHROPIC_API_KEY is not set. Add it to .env.local and restart the dev server.');
   }
 
-  let body: { messages?: UIMessage[]; position?: unknown };
+  let body: unknown;
   try {
     body = await req.json();
   } catch {
-    return Response.json({ error: 'Malformed request body.' }, { status: 400, headers: limitHeaders });
+    return refuse(400, 'Malformed request body.');
+  }
+  if (body === null || typeof body !== 'object') return refuse(400, 'Malformed request body.');
+  const { messages: raw, position } = body as { messages?: unknown; position?: unknown };
+
+  if (!Array.isArray(raw) || raw.length === 0) return refuse(400, 'No messages supplied.');
+  if (raw.length > MAX_MESSAGES) {
+    return refuse(413, `Conversation too long (max ${MAX_MESSAGES} messages).`);
   }
 
-  const messages = body.messages;
-  if (!Array.isArray(messages) || messages.length === 0) {
-    return Response.json({ error: 'No messages supplied.' }, { status: 400, headers: limitHeaders });
-  }
-  if (messages.length > MAX_MESSAGES) {
-    return Response.json(
-      { error: `Conversation too long (max ${MAX_MESSAGES} messages).` },
-      { status: 413, headers: limitHeaders },
-    );
-  }
-
-  // Bound what one request can send. Without this a single caller could pay to
-  // push an arbitrarily large history through an expensive model.
-  const size = JSON.stringify(messages).length;
+  // Bound what one request can send, before the schema does any work on it.
+  // Without this a single caller could pay to push an arbitrarily large history
+  // through an expensive model.
+  const size = JSON.stringify(raw).length;
   if (size > MAX_INPUT_CHARS) {
-    return Response.json(
-      { error: `Request too large (${size} chars, max ${MAX_INPUT_CHARS}).` },
-      { status: 413, headers: limitHeaders },
-    );
+    return refuse(413, `Request too large (${size} chars, max ${MAX_INPUT_CHARS}).`);
   }
+
+  const parsed = parseChatMessages(raw);
+  if (!parsed.ok) return refuse(400, parsed.error);
 
   // Null means the whole book. Anything malformed is treated as the whole book
   // rather than rejected: the scope is a courtesy to the reader, not a security
   // boundary, and the answer header on the page states which scope applied.
-  const through = parsePosition(body.position == null ? null : String(body.position)) ?? undefined;
+  const through = parsePosition(position == null ? null : String(position)) ?? undefined;
 
   const result = streamText({
     model: anthropic('claude-opus-5'),
     system: through === undefined ? SYSTEM : SYSTEM + scopeRule(through),
-    messages: await convertToModelMessages(messages),
-    stopWhen: stepCountIs(6),
+    messages: await convertToModelMessages(parsed.messages),
+    stopWhen: stepCountIs(MAX_STEPS),
     maxOutputTokens: MAX_OUTPUT_TOKENS,
     providerOptions: {
       anthropic: { thinking: { type: 'adaptive' }, effort: 'high' },
     },
-    tools: {
-      searchNovel: tool({
-        description:
-          'Search the full text of the novel. Returns the best-matching chapters with an ' +
-          'excerpt around the match and a citation string.',
-        inputSchema: z.object({
-          query: z.string().describe('Words or a phrase to look for in the novel'),
-        }),
-        execute: async ({ query }) => {
-          const hits = searchCorpus(query, 5, through);
-          return hits.map((h) => ({
-            cite: h.chapter.cite,
-            title: h.chapter.title,
-            book: h.chapter.bookTitle,
-            id: h.chapter.id,
-            excerpt: h.excerpt.slice(0, 1400),
-          }));
-        },
-      }),
-      readChapter: tool({
-        description:
-          'Read a full chapter by its id (for example "b05-c05" for Book V chapter 5). ' +
-          'Use after searchNovel when you need more than the excerpt.',
-        inputSchema: z.object({
-          id: z.string().describe('Chapter id such as b05-c05'),
-        }),
-        execute: async ({ id }) => {
-          const chapter = getChapter(id);
-          if (!chapter) return { error: `No chapter ${id}` };
-          if (through !== undefined && ordinalOf(id) > through) {
-            return { error: `${chapter.cite} is past the reader's place. Do not describe it.` };
-          }
-          return {
-            cite: chapter.cite,
-            title: chapter.title,
-            // Cap the payload; full chapters run to 9k words.
-            text: getChapterText(id).slice(0, 24000),
-          };
-        },
-      }),
-      listChapters: tool({
-        description: 'List every chapter with its id, title and citation. Use to orient yourself.',
-        inputSchema: z.object({}),
-        execute: async () =>
-          getCorpus().chapters
-            .slice(0, through ?? undefined)
-            .map((c) => ({ id: c.id, cite: c.cite, title: c.title })),
-      }),
-    },
+    tools: chatTools(through).tools,
   });
 
   return createUIMessageStreamResponse({

@@ -543,7 +543,15 @@ button, input, textarea, select { font: inherit; color: inherit; }
   font-size: var(--text-sm);
   color: var(--ink-3);
 }
-.ask-scope[data-scoped] { color: var(--ink-2); border-color: var(--gilt); }
+/* Which sentence shows is decided by the pre-paint gate script, which marks
+   <html> with data-position when the reader has a place (lib/reading-position.ts),
+   so the right scope is painted before React knows it. After hydration the
+   panel renders the one sentence that applies and these rules have nothing
+   left to choose between. */
+.ask-scope__place { display: none; }
+html[data-position] .ask-scope__whole { display: none; }
+html[data-position] .ask-scope__place { display: inline; }
+html[data-position] .ask-scope { color: var(--ink-2); border-color: var(--gilt); }
 
 /* A standing notice that the reader is past, or short of, their place. */
 p.ahead-note {
