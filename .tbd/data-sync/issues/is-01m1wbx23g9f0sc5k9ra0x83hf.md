@@ -3,9 +3,9 @@ type: is
 id: is-01m1wbx23g9f0sc5k9ra0x83hf
 title: Run the chapter extraction pipeline
 kind: task
-status: open
+status: closed
 priority: 2
-version: 5
+version: 6
 spec_path: docs/plan-spec.md
 labels:
   - ai
@@ -15,7 +15,11 @@ dependencies:
   - type: blocks
     target: is-01m1xtzhjd9p5gh2eda5nadq4d
 created_at: 2026-09-06T22:02:27.823Z
-updated_at: 2026-09-18T15:31:23.079Z
+updated_at: 2026-10-15T12:33:03.672Z
+closed_at: 2026-10-15T12:33:03.672Z
+close_reason: "The extraction pipeline (scripts/extract.ts, data/entities.json) is removed in the prune PR: nothing rendered its output, and the owner chose to delete rather than extend. Curated evidence in src/lib stays."
+resolution: canceled
+duplicate_of: null
 ---
 scripts/extract.ts has never been run; data/entities.json does not exist.
 
