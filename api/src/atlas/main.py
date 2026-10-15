@@ -263,7 +263,7 @@ def spoken_of(
 
 
 def fts_match(q: str) -> str:
-    """Turn a reader's words into a MATCH expression that cannot fail to parse.
+    """Turn a reader's words into a MATCH expression that ranks instead of filtering.
 
     The raw string is FTS5 query syntax, not text: an apostrophe opens a string,
     a hyphen and a colon are column operators, `?` is a syntax error, and a bare
@@ -271,10 +271,22 @@ def fts_match(q: str) -> str:
     Fyodor?" were both 400s from the live service (deep review M2). Inside
     double quotes nothing is special except a double quote, written as two, so
     each whitespace-separated term is quoted and the tokenizer sees the same
-    characters the chapters were indexed with. Terms are still implicitly ANDed,
-    as they were before.
+    characters the chapters were indexed with.
+
+    The quoted terms are joined with OR rather than left to FTS5's implicit AND
+    (atlas-h7pn). The chat model sends whole questions, and under AND a question
+    with one word that no chapter contains matched nothing: four of ten real
+    queries came back [] where the front end's local BM25 scan had the right
+    chapter first, and the chat route takes [] as the answer rather than falling
+    back. Under OR every chapter holding any term is a candidate and bm25() does
+    the discriminating. FTS5 gives a term found in more than half the chapters an
+    idf of effectively zero, so "what does the ... say about" decides nothing and
+    "Inquisitor" and "freedom" decide everything. On the same ten queries OR
+    agreed with the local scan on 41 of 50 top-five slots, against 32 for AND
+    with a local fallback and 28 for AND with an OR retry, returned no empty
+    list, and chose the same top excerpt as AND wherever AND had one.
     """
-    return " ".join('"' + term.replace('"', '""') + '"' for term in q.split())
+    return " OR ".join('"' + term.replace('"', '""') + '"' for term in q.split())
 
 
 # The bounds are the corpus's shape — 96 chapters in 13 books — and the largest
@@ -297,6 +309,7 @@ def search(
 ) -> list[models.SearchHit]:
     """Ranked full-text search.
 
+    The query's words are ORed and ranked, not ANDed and filtered: see `fts_match`.
     `before` is the spoiler axis: chapters carry an ordinal in reading order, so
     scoping an answer to what the reader has already read is one clause rather
     than a bespoke pass over the text.

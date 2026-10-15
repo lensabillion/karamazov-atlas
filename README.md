@@ -53,7 +53,7 @@ uv run uvicorn atlas.main:app --reload
 
 > **Implemented vs proposed.** Everything below under "three layers" is built and
 > running. The Python service in `api/` ingests the JSON the TypeScript pipeline
-> produces and serves it over FastAPI with SQLite/FTS5 (28 tests). One thing reads
+> produces and serves it over FastAPI with SQLite/FTS5 (35 tests). One thing reads
 > from it: when `ATLAS_API_URL` is set, `/api/chat`'s search tool uses its FTS5 index,
 > falling back to the local BM25 search when it is unset or unreachable. The pages do
 > not read from it; they are prerendered from the committed JSON. The pipeline itself

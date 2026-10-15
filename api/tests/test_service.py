@@ -91,8 +91,56 @@ def test_a_query_with_no_words_finds_nothing() -> None:
 
 
 def test_fts_match_quotes_every_term_and_doubles_embedded_quotes() -> None:
-    assert fts_match('Grushenka\'s "letter"') == '"Grushenka\'s" """letter"""'
+    assert fts_match('Grushenka\'s "letter"') == '"Grushenka\'s" OR """letter"""'
     assert fts_match("   ") == ""
+
+
+def test_fts_match_ors_the_terms() -> None:
+    """atlas-h7pn: a question is ranked by bm25 over any of its words, not filtered by all."""
+    assert fts_match("who killed Fyodor?") == '"who" OR "killed" OR "Fyodor?"'
+    assert fts_match("Inquisitor") == '"Inquisitor"'
+
+
+def ids(q: str, **params: int) -> list[str]:
+    r = client.get("/search", params={"q": q, "limit": 5, **params})
+    assert r.status_code == 200, r.text
+    return [h["chapter_id"] for h in r.json()]
+
+
+@pytest.mark.parametrize(
+    ("q", "chapter"),
+    [
+        ("Alyosha's dream of Cana of Galilee", "b07-c04"),
+        ("Smerdyakov confesses the murder to Ivan", "b11-c08"),
+        ("Dmitri strikes Grigory with the brass pestle", "b08-c04"),
+        ("the parable of the onion that Grushenka tells", "b07-c03"),
+    ],
+)
+def test_a_question_with_a_word_no_chapter_has_still_finds_its_chapter(
+    q: str, chapter: str
+) -> None:
+    """atlas-h7pn: under implicit AND each of these was [], and the chat route took
+    [] as the answer. The front end's local BM25 scan has each chapter in its top five."""
+    assert chapter in ids(q)
+
+
+def test_common_words_do_not_outrank_the_rare_ones() -> None:
+    """A term in most chapters has an idf of effectively zero in FTS5's bm25, so the
+    question words cannot bury the two that matter. Under AND this found two chapters."""
+    q = "what does the Grand Inquisitor say about freedom"
+    hits = ids(q)
+    assert hits[0] == "b05-c05"
+    assert len(hits) == 5
+    # The spoiler scope is a WHERE clause outside the MATCH, so OR does not loosen it.
+    assert "b05-c05" not in ids(q, before=35)
+
+
+def test_or_fills_the_page_where_and_found_one_chapter() -> None:
+    """Under AND this returned one chapter, and the system prompt tells the model to
+    search again when a result is thin: a round trip the route's step cap now counts."""
+    hits = ids("why did Father Zossima's body smell of corruption")
+    assert hits[0] == "b07-c01"
+    assert len(hits) == 5
 
 
 @pytest.mark.parametrize(
