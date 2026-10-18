@@ -334,6 +334,7 @@ dead in a separate session (`atlas-ljh6`). They are deleted on
 
 | Date | Change |
 | --- | --- |
+| 2026-10-15 | `/api/chat` hardened against the deep review (H1, H2, M3, M7, L1): the body is schema-validated, the cost bounds hold per request (8,000 output tokens, 48,000 characters of retrieved text), a bad `CHAT_RATE_LIMIT` falls back instead of disabling the limiter, the Ask page paints the right scope first, and only real chapters are linked. Eighth test suite, 75 checks, no model call. |
 | 2026-09-21 | Cleanup pass: the API on uv and Python 3.14 with a committed lockfile and ruff in CI; OpenAPI `register` made required; dead code removed; `globals.css` made the documented single source of the design system, enforced by an eight-check guard in `npm test`. |
 | 2026-09-18 | Open-beads pass: evidence links to paragraphs, reading position, spoiler-scoped `/ask` verified live, BM25 search, attribution precision, chapter notes, translation brief, title leaf, labelled Desktop studies, Katerina's portrait, the case file with verdicts and arc, who says this. 24 beads closed, 4 left for the owner. |
 | 2026-09-17 | Reframed 21 confirmed illustrations as five story movements, with visual cues and memory notes; kept 15 uncertain works separate. White general background now surrounds unchanged first-edition cream descriptions. Two matched scenes use larger supplied originals; small extracts are no longer stretched or recompressed. |

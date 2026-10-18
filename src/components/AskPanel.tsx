@@ -1,7 +1,7 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import AnswerText from './AnswerText';
 import type { PlaceChapter } from '@/lib/reading-position';
 import { setReadingPosition, useReadingPosition } from '@/lib/use-reading-position';
@@ -21,6 +21,8 @@ export default function AskPanel({ hasKey, places }: { hasKey: boolean; places: 
   // question, so moving the place mid-conversation takes effect at once.
   const position = useReadingPosition();
   const place = position === null ? null : places[position - 1];
+  // Citations are linked only to chapters that exist (L1).
+  const chapters = useMemo(() => new Set(places.map((p) => p.id)), [places]);
 
   const ask = (text: string) => {
     if (!text.trim() || busy) return;
@@ -39,8 +41,14 @@ export default function AskPanel({ hasKey, places }: { hasKey: boolean; places: 
       )}
 
       {/* The scope is always stated: silently withholding half the book from
-          someone who has finished it would be its own failure. */}
-      <p className="ask-scope" data-scoped={place ? true : undefined}>
+          someone who has finished it would be its own failure.
+
+          Until hydration the position is null, so a reader with a place set
+          would see the whole-book sentence for a frame (M7). Both sentences
+          are rendered and the gate stylesheet picks one by html[data-position],
+          exactly as the spoiler notes are picked, so the first paint is right.
+          Once hydrated the place is known and the sentence names it. */}
+      <p className="ask-scope">
         {place ? (
           <>
             Answers draw only on chapters up to <strong>{place.cite}</strong> ({place.title}),
@@ -50,7 +58,12 @@ export default function AskPanel({ hasKey, places }: { hasKey: boolean; places: 
             </button>
           </>
         ) : (
-          <>Answers draw on the whole book, ending included. Set your place in the running head to keep them spoiler-free.</>
+          <>
+            <span className="ask-scope__whole">
+              Answers draw on the whole book, ending included. Set your place in the running head to keep them spoiler-free.
+            </span>
+            <span className="ask-scope__place">Answers draw only on chapters up to your place in the book.</span>
+          </>
         )}
       </p>
 
@@ -75,7 +88,7 @@ export default function AskPanel({ hasKey, places }: { hasKey: boolean; places: 
                     {part.text}
                   </p>
                 ) : (
-                  <AnswerText text={part.text} key={i} />
+                  <AnswerText text={part.text} chapters={chapters} key={i} />
                 );
               }
               if (part.type.startsWith('tool-')) {

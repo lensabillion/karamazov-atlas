@@ -14,7 +14,7 @@ the chapter, and usually the paragraph, that supports it.
 ```bash
 npm install
 npm run corpus   # parse karamazov.txt -> data/ (deterministic, no API key)
-npm test         # six suites: corpus, rate limit, curated data, names, reading position, design system
+npm test         # seven suites: corpus, rate limit, curated data, names, reading position, chat route, design system
 npm run dev
 ```
 
@@ -81,27 +81,40 @@ data and needs none of them.
 | Variable | Absent | Present |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | `/ask` shows a notice; nothing else changes | `/ask` is live |
-| `CHAT_RATE_LIMIT` | 10 | Requests per window, per caller |
-| `CHAT_RATE_WINDOW_MS` | 60000 | Window length |
+| `CHAT_RATE_LIMIT` | 10 | Requests per window, per caller. Must be a positive integer; anything else is logged and the default is used |
+| `CHAT_RATE_WINDOW_MS` | 60000 | Window length in milliseconds. Same rule |
 
 There is no `.env.example` — it is gitignored deliberately. `docs/deployment-plan.md`
 §11 is the reference.
 
 ## Cost controls on `/ask`
 
-With a key set, `/api/chat` is a public unauthenticated LLM endpoint. Four bounds
-apply, in order of what they actually guarantee:
+With a key set, `/api/chat` is a public unauthenticated LLM endpoint. The body is
+validated before anything else reads it (`src/lib/chat-messages.ts`): roles `user` and
+`assistant` only, text parts only, the reader's message first and last. A
+client-supplied `system` message is a 400, not a second system prompt, and a
+client-supplied tool result is dropped, not cited. Then five bounds apply. The first
+four hold **per request**, across every step the model takes:
 
-| Bound | Value |
-| --- | --- |
-| Output tokens | 2,000 |
-| Input characters | 24,000 |
-| History length | 40 messages |
-| Rate limit | 10 per minute, per caller |
+| Bound | Per request | How |
+| --- | --- | --- |
+| Output tokens | 8,000 | 2,000 per step, at most 4 steps |
+| Input characters | 24,000 | the client's messages, measured before they are parsed |
+| Retrieved text | 48,000 characters | one budget shared by `searchNovel`, `readChapter` and `listChapters`; a chapter read returns at most 24,000, so two full reads, or one and several searches |
+| History length | 40 messages | |
+| Rate limit | 10 per minute, per caller | per instance: a deterrent, not a cap |
 
-The first three cap the cost of any single request. The fourth keeps per-instance
-state, so on serverless the real ceiling is instances × limit — a deterrent, not a
-hard cap on spend. `src/lib/rate-limit.ts` says so in its own header.
+The first four cap the cost of a single request no matter how many get through: what
+the model sees on its last step is the system prompt, at most 24,000 characters of
+history, at most 48,000 characters of retrieved text, and its own earlier steps. Once
+the retrieval budget is spent, every tool returns an error telling the model to answer
+from what it already has.
+
+The rate limit keeps per-instance state, so on serverless the real ceiling is
+instances × limit — a deterrent, not a hard cap on spend — and it tells callers apart
+by `x-forwarded-for`, so behind no proxy (plain `next start`) every caller shares one
+bucket. `src/lib/rate-limit.ts` says so in its own header. `scripts/test-chat-route.ts`
+holds all of the above at the request level, without a model call.
 
 ## Deployment
 
